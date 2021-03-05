@@ -1,19 +1,18 @@
+/* eslint-disable global-require */
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
 
-const App: React.FC = () => (
-  <View style={styles.container}>
-    <Text>Open up App.tsx to start working on your app!</Text>
-  </View>
-);
+import Login from './screens/login';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const App: React.FC = () => {
+  const [fontsLoaded] = useFonts({
+    matrix: require('./assets/fonts/Matrix.ttf'),
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+  return <Login />;
+};
 
 export default App;
