@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { TouchableNativeFeedback } from 'react-native';
+import Colors from '../../../constants/colors';
 
 interface ButtonContainerProps {
   backgroundColor: string;
@@ -32,13 +33,13 @@ export const ButtonsContainer = styled.View`
 export const StyledTitle = styled.Text`
   font-size: 48px;
   font-family: matrix;
-  color: #03a062;
+  color: ${Colors.primary};
 `;
 
 export const StyledSubTitle = styled.Text`
   font-size: 18px;
   font-family: matrix;
-  color: #03a062;
+  color: ${Colors.primary};
 `;
 
 // LoginButton
