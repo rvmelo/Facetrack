@@ -14,6 +14,7 @@ interface ButtonProps {
   logoText: 'logo-google' | 'logo-facebook';
   iconColor: string;
   backgroundColor: string;
+  onPress(): void;
 }
 
 const LoginButton: React.FC<ButtonProps> = ({
@@ -22,9 +23,10 @@ const LoginButton: React.FC<ButtonProps> = ({
   logoText,
   iconColor,
   backgroundColor,
+  onPress,
 }) => {
   return (
-    <StyledButton>
+    <StyledButton onPress={onPress}>
       <ButtonContainer backgroundColor={backgroundColor}>
         <LogoContainer>
           <Ionicons name={logoText} size={25} color={iconColor} />

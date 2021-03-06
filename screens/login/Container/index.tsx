@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { memo } from 'react';
 import LoginButton from './loginButton';
+import useLoginButton from '../useLoginButton';
 
 import {
   Container,
@@ -10,6 +11,8 @@ import {
 } from './styles';
 
 const LoginScreen: React.FC = () => {
+  const { handleAuthentication } = useLoginButton();
+
   return (
     <Container>
       <TitleContainer>
@@ -22,6 +25,7 @@ const LoginScreen: React.FC = () => {
           buttonText="Continue with Facebook"
           iconColor="white"
           backgroundColor="#3B5998"
+          onPress={handleAuthentication}
         />
         <LoginButton
           logoText="logo-google"
@@ -29,10 +33,11 @@ const LoginScreen: React.FC = () => {
           buttonTextColor="#696969"
           iconColor="red"
           backgroundColor="white"
+          onPress={handleAuthentication}
         />
       </ButtonsContainer>
     </Container>
   );
 };
 
-export default LoginScreen;
+export default memo(LoginScreen);
