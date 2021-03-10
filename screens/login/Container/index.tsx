@@ -11,7 +11,7 @@ import {
 } from './styles';
 
 const LoginScreen: React.FC = () => {
-  const { handleAuthentication } = useLoginButton();
+  const { handleFacebookLogin, handleGoogleLogin } = useLoginButton();
 
   return (
     <Container>
@@ -25,7 +25,7 @@ const LoginScreen: React.FC = () => {
           buttonText="Continue with Facebook"
           iconColor="white"
           backgroundColor="#3B5998"
-          onPress={handleAuthentication}
+          onPress={handleFacebookLogin}
         />
         <LoginButton
           logoText="logo-google"
@@ -33,7 +33,7 @@ const LoginScreen: React.FC = () => {
           buttonTextColor="#696969"
           iconColor="red"
           backgroundColor="white"
-          onPress={handleAuthentication}
+          onPress={handleGoogleLogin}
         />
       </ButtonsContainer>
     </Container>
