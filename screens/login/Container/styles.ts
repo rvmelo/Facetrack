@@ -14,7 +14,7 @@ interface ButtonTextProps {
 
 export const Container = styled.View`
   flex: 1;
-  background-color: black;
+  background-color: ${Colors.background};
   justify-content: center;
 `;
 
