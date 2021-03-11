@@ -3,9 +3,11 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
+import { NavigationContainer } from '@react-navigation/native';
 import store from './store';
 
-import Login from './screens/login';
+// import Login from './screens/login';
+import Routes from './routes';
 
 const App: React.FC = () => {
   const [fontsLoaded] = useFonts({
@@ -15,9 +17,11 @@ const App: React.FC = () => {
     return <AppLoading />;
   }
   return (
-    <Provider store={store}>
-      <Login />
-    </Provider>
+    <NavigationContainer>
+      <Provider store={store}>
+        <Routes />
+      </Provider>
+    </NavigationContainer>
   );
 };
 

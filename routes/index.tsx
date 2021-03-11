@@ -1,8 +1,9 @@
 import React from 'react';
-import LoginScreen from '../screens/login';
+// import LoginScreen from '../screens/login';
+import AuthRoutes from './auth.routes';
 
 const Routes: React.FC = () => {
-  return <LoginScreen />;
+  return <AuthRoutes />;
 };
 
 export default Routes;
