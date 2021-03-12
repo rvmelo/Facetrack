@@ -7,6 +7,7 @@ const INITIAL_STATE: IUser = {
   name: 'null',
   age: 0,
   sex: 'null',
+  relationshipStatus: 'null',
   sexualOrientation: 'null',
 };
 
@@ -19,9 +20,14 @@ const user: Reducer<IUser> = (state = INITIAL_STATE, action) => {
           name: 'Roberto',
           age: 32,
           sex: 'male',
+          relationshipStatus: 'serious relationship',
           sexualOrientation: 'heterossexual',
         });
 
+        return draft;
+      }
+      case ActionTypes.updateUser: {
+        Object.assign(draft, { ...action.payload });
         return draft;
       }
       default: {

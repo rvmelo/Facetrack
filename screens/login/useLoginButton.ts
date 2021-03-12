@@ -37,10 +37,13 @@ function useLoginButton(): ReturnValue {
       const { userData } = Linking.parse(url).queryParams || {};
 
       if (userData) {
-        const { user, token } = JSON.parse(userData);
+        const { notRegisteredUser, token } = JSON.parse(userData);
 
-        if (!user && token) {
-          navigation.navigate('RegisterStack');
+        if (notRegisteredUser && token) {
+          navigation.navigate('RegisterStack', {
+            user: notRegisteredUser,
+            token,
+          });
         }
       }
     });

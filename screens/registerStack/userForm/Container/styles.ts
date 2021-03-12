@@ -6,6 +6,9 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../../../constants/dimensions';
 interface StyledTextProps {
   fontSize?: number;
 }
+interface ButtonLayoutProps {
+  disabled: boolean;
+}
 
 export const StyledScroll = styled.ScrollView.attrs({
   contentContainerStyle: {
@@ -59,8 +62,8 @@ export const StyledButton = styled.TouchableNativeFeedback.attrs({
   useForeground: true,
 })``;
 
-export const ButtonLayout = styled.View`
-  background: ${Colors.primary};
+export const ButtonLayout = styled.View<ButtonLayoutProps>`
+  background: ${props => (props.disabled ? Colors.disabled : Colors.primary)};
   width: ${0.4 * SCREEN_WIDTH}px;
   height: ${0.1 * SCREEN_WIDTH}px;
   margin: 10px;

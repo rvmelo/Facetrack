@@ -1,18 +1,32 @@
+/* eslint-disable no-unused-vars */
 import React, { memo } from 'react';
 import { Picker } from '@react-native-community/picker';
 
 import { StyledText, PickerContainer } from './styles';
 
-const PickerSection: React.FC = () => {
+interface PickerProps {
+  handleSexualOrientation: (itemValue: number | string) => void;
+  handleRelationshipStatus: (itemValue: number | string) => void;
+  relationshipStatus: number | string;
+  sexualOrientation: number | string;
+}
+
+const PickerSection: React.FC<PickerProps> = ({
+  sexualOrientation,
+  relationshipStatus,
+  handleSexualOrientation,
+  handleRelationshipStatus,
+}) => {
   return (
     <PickerContainer>
       <StyledText>Sexual Orientation</StyledText>
       <Picker
-        selectedValue="heterossexual"
+        selectedValue={sexualOrientation}
         style={{
           height: 30,
           width: 200,
         }}
+        onValueChange={handleSexualOrientation}
       >
         <Picker.Item label="heterosexual" value="heterosexual" />
         <Picker.Item label="homosexual" value="homosexual" />
@@ -22,11 +36,12 @@ const PickerSection: React.FC = () => {
 
       <StyledText>Relationship status</StyledText>
       <Picker
-        selectedValue="single"
+        selectedValue={relationshipStatus}
         style={{
           height: 30,
           width: 200,
         }}
+        onValueChange={handleRelationshipStatus}
       >
         <Picker.Item label="single" value="single" />
         <Picker.Item
