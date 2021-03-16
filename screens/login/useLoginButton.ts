@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from 'react';
 
+// redux
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
@@ -7,7 +8,7 @@ import * as Linking from 'expo-linking';
 
 import { base_url } from '../../constants/backend';
 
-import { authenticateUser } from '../../store/modules/user/actions';
+import { authenticateUser, updateUser } from '../../store/modules/user/actions';
 
 interface ReturnValue {
   handleAuthentication(): void;
@@ -40,14 +41,17 @@ function useLoginButton(): ReturnValue {
         const { notRegisteredUser, token } = JSON.parse(userData);
 
         if (notRegisteredUser && token) {
-          navigation.navigate('RegisterStack', {
-            user: notRegisteredUser,
-            token,
-          });
+          navigation.navigate('GenderScreen');
+          dispatch(
+            updateUser({
+              ...notRegisteredUser,
+              name: notRegisteredUser.displayName,
+            }),
+          );
         }
       }
     });
-  }, [navigation]);
+  }, [dispatch, navigation]);
 
   return {
     handleAuthentication,
