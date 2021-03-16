@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { ButtonContainer, StyledText, Container } from '../../styles';
 
@@ -49,4 +49,4 @@ const SexualOrientationScreen: React.FC = () => {
   );
 };
 
-export default SexualOrientationScreen;
+export default memo(SexualOrientationScreen);

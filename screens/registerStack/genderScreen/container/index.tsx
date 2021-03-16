@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 // hooks
 import useGenderScreen from '../useGenderScreen';
@@ -34,4 +34,4 @@ const GenderScreen: React.FC = () => {
   );
 };
 
-export default GenderScreen;
+export default memo(GenderScreen);

@@ -41,14 +41,13 @@ function useRelationshipStatusScreen(): ReturnValue {
   );
 
   const handleContinue = useCallback(() => {
-    // a button should call api and create user
     dispatch(
       updateUser({
         ...user,
         relationshipStatus: userRelationshipStatus?.option,
       }),
     );
-    navigation.navigate('RelationshipStatusScreen');
+    navigation.navigate('InstagramScreen');
   }, [navigation, dispatch, user, userRelationshipStatus]);
 
   return {
