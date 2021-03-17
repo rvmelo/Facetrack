@@ -41,7 +41,7 @@ function useLoginButton(): ReturnValue {
         const { notRegisteredUser, token } = JSON.parse(userData);
 
         if (notRegisteredUser && token) {
-          navigation.navigate('GenderScreen');
+          navigation.navigate('BirthDateScreen');
           dispatch(
             updateUser({
               ...notRegisteredUser,

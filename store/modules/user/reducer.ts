@@ -4,11 +4,11 @@ import { ActionTypes, IUser } from './types';
 
 const INITIAL_STATE: IUser = {
   id: '',
-  name: 'null',
-  age: 0,
-  sex: 'null',
-  relationshipStatus: 'null',
-  sexualOrientation: 'null',
+  name: '',
+  birthDate: '',
+  sex: undefined,
+  relationshipStatus: undefined,
+  sexualOrientation: undefined,
 };
 
 const user: Reducer<IUser> = (state = INITIAL_STATE, action) => {
@@ -18,7 +18,7 @@ const user: Reducer<IUser> = (state = INITIAL_STATE, action) => {
         Object.assign(draft, {
           id: 1,
           name: 'Roberto',
-          age: 32,
+          birthDate: '',
           sex: 'male',
           relationshipStatus: 'serious relationship',
           sexualOrientation: 'heterossexual',

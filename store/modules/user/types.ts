@@ -8,7 +8,7 @@ export enum ActionTypes {
 export interface IUser {
   id: string;
   name: string;
-  age: number | undefined;
+  birthDate: string;
   sex: 'male' | 'female' | undefined;
   relationshipStatus: 'single' | 'serious relationship' | 'married' | undefined;
   sexualOrientation:

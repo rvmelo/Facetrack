@@ -6,6 +6,7 @@ import GenderScreen from '../screens/registerStack/genderScreen';
 import SexualOrientationScreen from '../screens/registerStack/sexualOrientationScreen';
 import RelationshipStatusScreen from '../screens/registerStack/relationshipStatusScreen';
 import InstagramScreen from '../screens/registerStack/instagramScreen';
+import BirthDateScreen from '../screens/registerStack/birthDateScreen';
 
 const Auth = createStackNavigator();
 
@@ -16,6 +17,7 @@ const AuthRoutes: React.FC = () => (
     }}
   >
     <Auth.Screen name="Login" component={Login} />
+    <Auth.Screen name="BirthDateScreen" component={BirthDateScreen} />
     <Auth.Screen name="GenderScreen" component={GenderScreen} />
     <Auth.Screen
       name="SexualOrientationScreen"

@@ -18,7 +18,7 @@ export function authenticateUser(): AuthenticateUserReturnType {
 export function updateUser({
   id,
   name,
-  age,
+  birthDate,
   sex,
   relationshipStatus,
   sexualOrientation,
@@ -28,7 +28,7 @@ export function updateUser({
     payload: {
       id,
       name,
-      age,
+      birthDate,
       sex,
       relationshipStatus,
       sexualOrientation,
