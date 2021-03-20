@@ -1,17 +1,16 @@
 import { useCallback, useEffect } from 'react';
 
-// redux
-import { useDispatch } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
-
 import * as Linking from 'expo-linking';
 
+//  redux
+import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { updateUser } from '../../store/modules/user/actions';
+
+//  constants
 import { base_url } from '../../constants/backend';
 
-import { authenticateUser, updateUser } from '../../store/modules/user/actions';
-
 interface ReturnValue {
-  handleAuthentication(): void;
   handleFacebookLogin(): void;
   handleGoogleLogin(): void;
 }
@@ -21,31 +20,26 @@ function useLoginButton(): ReturnValue {
 
   const navigation = useNavigation();
 
-  const handleAuthentication = useCallback(() => {
-    dispatch(authenticateUser());
-  }, [dispatch]);
-
   const handleFacebookLogin = useCallback(() => {
-    Linking.openURL(`${base_url}/users/auth/facebook`);
+    Linking.openURL(`${base_url}/sessions/auth/facebook`);
   }, []);
 
   const handleGoogleLogin = useCallback(() => {
-    Linking.openURL(`${base_url}/users/auth/google`);
+    Linking.openURL(`${base_url}/sessions/auth/google`);
   }, []);
 
   useEffect(() => {
     Linking.addEventListener('url', ({ url }) => {
-      const { userData } = Linking.parse(url).queryParams || {};
+      const { authData } = Linking.parse(url).queryParams || {};
 
-      if (userData) {
-        const { notRegisteredUser, token } = JSON.parse(userData);
+      if (authData) {
+        const { notRegisteredUser, token } = JSON.parse(authData);
 
         if (notRegisteredUser && token) {
           navigation.navigate('BirthDateScreen');
           dispatch(
             updateUser({
               ...notRegisteredUser,
-              name: notRegisteredUser.displayName,
             }),
           );
         }
@@ -54,7 +48,6 @@ function useLoginButton(): ReturnValue {
   }, [dispatch, navigation]);
 
   return {
-    handleAuthentication,
     handleFacebookLogin,
     handleGoogleLogin,
   };

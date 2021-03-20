@@ -1,12 +1,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
 export enum ActionTypes {
-  authenticateUser = 'AUTHENTICATE_USER',
   updateUser = 'UPDATE_USER',
 }
 
-export interface IUser {
+export interface UserMedia {
   id: string;
+  caption: string;
+  media_url: string;
+}
+
+export interface IUser {
+  userProviderId: string;
   name: string;
   birthDate: string;
   sex: 'male' | 'female' | undefined;
@@ -16,5 +21,11 @@ export interface IUser {
     | 'homosexual'
     | 'bisexual'
     | 'asexual'
+    | undefined;
+  instagram:
+    | {
+        userName: string;
+        userMedia: UserMedia[];
+      }
     | undefined;
 }

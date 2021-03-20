@@ -1,16 +1,23 @@
-import { all, takeLatest } from 'redux-saga/effects';
-import { ActionTypes } from './types';
+import { all, call, takeLatest } from 'redux-saga/effects';
+import { AxiosResponse } from 'axios';
+import { ActionTypes, IUser } from './types';
+import { updateUser } from './actions';
 
-function checkUserAuthentication() {
-  console.log('authenticating user...');
-}
+import api from '../../../services/api';
 
-function checkUserUpdate() {
+type UpdatedUserRequest = ReturnType<typeof updateUser>;
+
+function* handleUserUpdate({ payload }: UpdatedUserRequest) {
   // if user is not registered do not send updated user to db
-  console.log('updating user');
+
+  const foundUser: AxiosResponse<IUser | undefined> = yield call(
+    api.get,
+    `/users/${payload.userProviderId}`,
+  );
+
+  if (!foundUser.data) return;
+
+  yield call(api.post, '/users', payload);
 }
 
-export default all([
-  takeLatest(ActionTypes.authenticateUser, checkUserAuthentication),
-  takeLatest(ActionTypes.updateUser, checkUserUpdate),
-]);
+export default all([takeLatest(ActionTypes.updateUser, handleUserUpdate)]);
