@@ -7,8 +7,8 @@ import Colors from '../../../../constants/colors';
 import Button from '../../components/button';
 
 // styles
-import { BirthDateInput } from './styles';
-import { StyledText, Container } from '../../styles';
+import { BirthDateInput, StyledText } from './styles';
+import { Container } from '../../styles';
 
 // hooks
 import useBirthDateScreen from '../useBirthDateScreen';
@@ -31,6 +31,7 @@ const BirthDateScreen: React.FC = () => {
       />
       <Button
         disabled={!birthDate}
+        disabledLayout={!birthDate}
         buttonText="Continue"
         onPress={handleContinue}
       />

@@ -2,6 +2,7 @@ import React, { useEffect, memo } from 'react';
 import { Alert } from 'react-native';
 
 import * as Linking from 'expo-linking';
+import * as WebBrowser from 'expo-web-browser';
 
 //  redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -26,15 +27,15 @@ const InstagramScreen: React.FC = () => {
 
   useEffect(() => {
     Linking.addEventListener('url', async ({ url }) => {
-      const { code } = Linking.parse(url).queryParams || {};
-
-      const response = await api.get(
-        `/sessions/auth/instagram/profile?code=${code}`,
-      );
-
-      const { userName, userMedia } = response.data;
-
       try {
+        const { code } = Linking.parse(url).queryParams || {};
+
+        const response = await api.get(
+          `/sessions/auth/instagram/profile?code=${code}`,
+        );
+
+        const { userName, userMedia } = response.data;
+
         await api.post('/users', {
           ...user,
           instagram: {
@@ -52,10 +53,9 @@ const InstagramScreen: React.FC = () => {
     <Container>
       <InstagramButton
         onPress={() => {
-          Linking.openURL(
+          WebBrowser.openBrowserAsync(
             `https://api.instagram.com/oauth/authorize?client_id=${instagram_client_id}&redirect_uri=${`${base_url}/sessions/auth/instagram/callback`}&scope=user_profile,user_media&response_type=code`,
           );
-          console.log('should call api and create user on database');
         }}
       />
     </Container>

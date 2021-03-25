@@ -1,18 +1,24 @@
-import { useCallback, useEffect } from 'react';
+import { Alert } from 'react-native';
+import { useCallback, useEffect, useState } from 'react';
 
 import * as Linking from 'expo-linking';
+import * as WebBrowser from 'expo-web-browser';
+
+// navigation
+import { useNavigation } from '@react-navigation/native';
 
 //  redux
 import { useDispatch } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
 import { updateUser } from '../../store/modules/user/actions';
 
 //  constants
 import { base_url } from '../../constants/backend';
+import api from '../../services/api';
 
 interface ReturnValue {
   handleFacebookLogin(): void;
   handleGoogleLogin(): void;
+  isLoading: boolean;
 }
 
 function useLoginButton(): ReturnValue {
@@ -20,29 +26,41 @@ function useLoginButton(): ReturnValue {
 
   const navigation = useNavigation();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleFacebookLogin = useCallback(() => {
-    Linking.openURL(`${base_url}/sessions/auth/facebook`);
+    WebBrowser.openBrowserAsync(`${base_url}/sessions/auth/facebook`);
   }, []);
 
   const handleGoogleLogin = useCallback(() => {
-    Linking.openURL(`${base_url}/sessions/auth/google`);
+    WebBrowser.openBrowserAsync(`${base_url}/sessions/auth/google`);
   }, []);
 
   useEffect(() => {
-    Linking.addEventListener('url', ({ url }) => {
-      const { authData } = Linking.parse(url).queryParams || {};
+    Linking.addEventListener('url', async () => {
+      try {
+        if (!navigation.isFocused()) return;
 
-      if (authData) {
-        const { notRegisteredUser, token } = JSON.parse(authData);
+        setIsLoading(true);
+
+        const response = await api.get('sessions/auth/success');
+
+        if (!response.data) return;
+
+        const { notRegisteredUser, token } = response.data;
 
         if (notRegisteredUser && token) {
           navigation.navigate('BirthDateScreen');
+          setIsLoading(false);
+
           dispatch(
             updateUser({
               ...notRegisteredUser,
             }),
           );
         }
+      } catch (err) {
+        Alert.alert('Error', 'Login/Register error: ', err);
       }
     });
   }, [dispatch, navigation]);
@@ -50,6 +68,7 @@ function useLoginButton(): ReturnValue {
   return {
     handleFacebookLogin,
     handleGoogleLogin,
+    isLoading,
   };
 }
 
