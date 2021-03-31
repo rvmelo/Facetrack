@@ -21,6 +21,9 @@ import InstagramButton from './instagramButton';
 //  apis
 import api from '../../../../services/api';
 
+// i18n
+import { translate } from '../../../../i18n/src/locales';
+
 const InstagramScreen: React.FC = () => {
   const user = useSelector<IState, IUser>(state => state.user);
   const dispatch = useDispatch();
@@ -44,7 +47,7 @@ const InstagramScreen: React.FC = () => {
           },
         });
       } catch (err) {
-        Alert.alert('Error', 'Failed to create user');
+        Alert.alert('Error', translate('userCreationError'));
       }
     });
   }, [dispatch, user]);

@@ -25,6 +25,6 @@ export const ButtonLayout = styled.View<ButtonLayoutProps>`
 
 export const ButtonText = styled.Text`
   color: white;
-  font-family: matrix;
+  font-family: tegomin;
   font-size: ${0.06 * SCREEN_WIDTH}px;
 `;

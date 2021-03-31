@@ -2,6 +2,9 @@ import React, { memo } from 'react';
 import LoginButton from './loginButton';
 import useLoginButton from '../useLoginButton';
 
+// i18n
+import { translate } from '../../../i18n/src/locales';
+
 import {
   Container,
   StyledTitle,
@@ -33,14 +36,14 @@ const LoginScreen: React.FC = () => {
           <ButtonsContainer>
             <LoginButton
               logoText="logo-facebook"
-              buttonText="Continue with Facebook"
+              buttonText={translate('facebookLogin')}
               iconColor="white"
               backgroundColor="#3B5998"
               onPress={handleFacebookLogin}
             />
             <LoginButton
               logoText="logo-google"
-              buttonText="Continue with Google"
+              buttonText={translate('googleLogin')}
               buttonTextColor="#696969"
               iconColor="red"
               backgroundColor="white"

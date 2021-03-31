@@ -13,12 +13,15 @@ import { Container } from '../../styles';
 // hooks
 import useBirthDateScreen from '../useBirthDateScreen';
 
+// i18n
+import { translate } from '../../../../i18n/src/locales';
+
 const BirthDateScreen: React.FC = () => {
   const { birthDate, setBirthDate, handleContinue } = useBirthDateScreen();
 
   return (
     <Container>
-      <StyledText>BirthDate</StyledText>
+      <StyledText>{translate('birthDate')}</StyledText>
       <BirthDateInput
         type="datetime"
         options={{
@@ -32,7 +35,7 @@ const BirthDateScreen: React.FC = () => {
       <Button
         disabled={!birthDate}
         disabledLayout={!birthDate}
-        buttonText="Continue"
+        buttonText={translate('continueButton')}
         onPress={handleContinue}
       />
     </Container>

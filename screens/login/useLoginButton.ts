@@ -13,7 +13,12 @@ import { updateUser } from '../../store/modules/user/actions';
 
 //  constants
 import { base_url } from '../../constants/backend';
+
+//  services
 import api from '../../services/api';
+
+// i18n
+import { translate } from '../../i18n/src/locales';
 
 interface ReturnValue {
   handleFacebookLogin(): void;
@@ -60,7 +65,7 @@ function useLoginButton(): ReturnValue {
           );
         }
       } catch (err) {
-        Alert.alert('Error', 'Login/Register error: ', err);
+        Alert.alert('Error', `${translate('loginRegisterError')}: `, err);
       }
     });
   }, [dispatch, navigation]);

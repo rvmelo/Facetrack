@@ -20,6 +20,9 @@ import Button from '../../components/button';
 //  hooks
 import useRelationshipStatusScreen from '../useRelationshipStatusScreen';
 
+// i18n
+import { translate } from '../../../../i18n/src/locales';
+
 const RelationshipStatusScreen: React.FC = () => {
   const {
     handleContinue,
@@ -39,15 +42,15 @@ const RelationshipStatusScreen: React.FC = () => {
           onPress={() => navigation.goBack()}
         />
       </IconContainer>
-      <StyledText>Relationship Status</StyledText>
+      <StyledText>{translate('relationshipStatus')}</StyledText>
       <ButtonContainer>
         <Button
-          buttonText="single"
+          buttonText={translate('single')}
           disabledLayout={userRelationshipStatus.option !== 'single'}
           onPress={() => handleUserRelationshipStatus({ option: 'single' })}
         />
         <Button
-          buttonText="serious relationship"
+          buttonText={translate('seriousRelationship')}
           disabledLayout={
             userRelationshipStatus.option !== 'serious relationship'
           }
@@ -56,13 +59,13 @@ const RelationshipStatusScreen: React.FC = () => {
           }
         />
         <Button
-          buttonText="married"
+          buttonText={translate('married')}
           disabledLayout={userRelationshipStatus.option !== 'married'}
           onPress={() => handleUserRelationshipStatus({ option: 'married' })}
         />
       </ButtonContainer>
       <Button
-        buttonText="Continue"
+        buttonText={translate('continueButton')}
         disabled={!userRelationshipStatus.option}
         disabledLayout={!userRelationshipStatus.option}
         onPress={handleContinue}

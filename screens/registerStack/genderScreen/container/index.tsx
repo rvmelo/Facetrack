@@ -10,6 +10,10 @@ import useGenderScreen from '../useGenderScreen';
 //  constants
 import Colors from '../../../../constants/colors';
 
+// i18n
+import { translate } from '../../../../i18n/src/locales';
+
+//  styles
 import {
   ButtonContainer,
   StyledText,
@@ -17,6 +21,7 @@ import {
   IconContainer,
 } from '../../styles';
 
+//  components
 import Button from '../../components/button';
 
 const GenderScreen: React.FC = () => {
@@ -35,21 +40,21 @@ const GenderScreen: React.FC = () => {
         />
       </IconContainer>
 
-      <StyledText>Select Select Your Sex</StyledText>
+      <StyledText>{translate('sexSelection')}</StyledText>
       <ButtonContainer>
         <Button
-          buttonText="male"
+          buttonText={translate('male')}
           disabledLayout={userSex !== 'male'}
           onPress={() => handleUserSex('male')}
         />
         <Button
-          buttonText="female"
+          buttonText={translate('female')}
           disabledLayout={userSex !== 'female'}
           onPress={() => handleUserSex('female')}
         />
       </ButtonContainer>
       <Button
-        buttonText="Continue"
+        buttonText={translate('continueButton')}
         disabled={!userSex}
         disabledLayout={!userSex}
         onPress={handleContinue}

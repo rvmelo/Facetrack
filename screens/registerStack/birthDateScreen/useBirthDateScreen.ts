@@ -12,6 +12,9 @@ import { updateUser } from '../../../store/modules/user/actions';
 import { IState } from '../../../store';
 import { IUser } from '../../../store/modules/user/types';
 
+// i18n
+import { translate } from '../../../i18n/src/locales';
+
 interface ReturnValue {
   birthDate: string;
   setBirthDate(date: string): void;
@@ -33,12 +36,12 @@ function useBirthDateScreen(): ReturnValue {
     const formattedDate = birthDate.split('/').reverse().join('-');
 
     if (!isValid(new Date(formattedDate)) || formattedDate.length < 10) {
-      Alert.alert('Error', 'Invalid Date');
+      Alert.alert('Error', translate('invalidDateError'));
       return;
     }
 
     if (differenceInYears(currentDate, new Date(formattedDate)) < 18) {
-      Alert.alert('Error', 'You are under age');
+      Alert.alert('Error', translate('underAgeError'));
       return;
     }
 

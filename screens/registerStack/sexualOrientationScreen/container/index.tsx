@@ -20,6 +20,9 @@ import Button from '../../components/button';
 //   hooks
 import useSexualOrientationScreen from '../useSexualOrientationScreen';
 
+// i18n
+import { translate } from '../../../../i18n/src/locales';
+
 const SexualOrientationScreen: React.FC = () => {
   const {
     handleContinue,
@@ -39,33 +42,33 @@ const SexualOrientationScreen: React.FC = () => {
           onPress={() => navigation.goBack()}
         />
       </IconContainer>
-      <StyledText>Sexual Orientation</StyledText>
+      <StyledText>{translate('sexualOrientation')}</StyledText>
       <ButtonContainer>
         <Button
-          buttonText="heterosexual"
+          buttonText={translate('heterosexual')}
           disabledLayout={userSexualOrientation.option !== 'heterosexual'}
           onPress={() =>
             handleUserSexualOrientation({ option: 'heterosexual' })
           }
         />
         <Button
-          buttonText="homosexual"
+          buttonText={translate('homosexual')}
           disabledLayout={userSexualOrientation.option !== 'homosexual'}
           onPress={() => handleUserSexualOrientation({ option: 'homosexual' })}
         />
         <Button
-          buttonText="bisexual"
+          buttonText={translate('bisexual')}
           disabledLayout={userSexualOrientation.option !== 'bisexual'}
           onPress={() => handleUserSexualOrientation({ option: 'bisexual' })}
         />
         <Button
-          buttonText="asexual"
+          buttonText={translate('asexual')}
           disabledLayout={userSexualOrientation.option !== 'asexual'}
           onPress={() => handleUserSexualOrientation({ option: 'asexual' })}
         />
       </ButtonContainer>
       <Button
-        buttonText="Continue"
+        buttonText={translate('continueButton')}
         disabled={!userSexualOrientation.option}
         disabledLayout={!userSexualOrientation.option}
         onPress={handleContinue}

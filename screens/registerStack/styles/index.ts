@@ -7,14 +7,15 @@ export const Container = styled.View`
   background-color: ${Colors.background};
   justify-content: space-around;
   align-items: center;
+  padding: 0 20px;
 `;
 
 export const StyledText = styled.Text`
-  font-family: matrix;
+  font-family: tegomin;
   color: white;
   font-size: ${SCREEN_WIDTH * 0.1}px;
   margin-top: ${SCREEN_HEIGHT * 0.1}px;
-  margin-left: ${SCREEN_WIDTH * 0.2}px;
+  text-align: center;
 `;
 
 export const IconContainer = styled.View`

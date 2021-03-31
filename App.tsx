@@ -12,6 +12,7 @@ import Routes from './routes';
 const App: React.FC = () => {
   const [fontsLoaded] = useFonts({
     matrix: require('./assets/fonts/Matrix.ttf'),
+    tegomin: require('./assets/fonts/NewTegomin-Regular.ttf'),
   });
   if (!fontsLoaded) {
     return <AppLoading />;
