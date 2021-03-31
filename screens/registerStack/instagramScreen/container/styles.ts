@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 import { TouchableNativeFeedback } from 'react-native';
 import Colors from '../../../../constants/colors';
-import { SCREEN_WIDTH } from '../../../../constants/dimensions';
 
 export const Container = styled.View`
   flex: 1;
@@ -21,8 +20,9 @@ export const ButtonContainer = styled.View`
   background: #c13584;
   flex-direction: row;
   justify-content: space-evenly;
-  width: 60%;
-  padding: 15px 0;
+  align-items: center;
+  width: 250px;
+  height: 60px;
   border-radius: 5px;
   overflow: hidden;
   margin-top: 10px;
@@ -30,5 +30,5 @@ export const ButtonContainer = styled.View`
 
 export const ButtonText = styled.Text`
   color: white;
-  font-size: ${SCREEN_WIDTH * 0.043}px;
+  font-size: 18px;
 `;

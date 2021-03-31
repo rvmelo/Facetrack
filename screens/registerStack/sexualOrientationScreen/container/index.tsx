@@ -9,6 +9,7 @@ import {
   StyledText,
   Container,
   IconContainer,
+  TopContainer,
 } from '../../styles';
 
 //  constants
@@ -34,15 +35,18 @@ const SexualOrientationScreen: React.FC = () => {
 
   return (
     <Container>
-      <IconContainer>
-        <Ionicons
-          name="chevron-back"
-          size={50}
-          color={Colors.disabled}
-          onPress={() => navigation.goBack()}
-        />
-      </IconContainer>
-      <StyledText>{translate('sexualOrientation')}</StyledText>
+      <TopContainer>
+        <IconContainer>
+          <Ionicons
+            name="chevron-back"
+            size={50}
+            color={Colors.disabled}
+            onPress={() => navigation.goBack()}
+          />
+        </IconContainer>
+        <StyledText>{translate('sexualOrientation')}:</StyledText>
+      </TopContainer>
+
       <ButtonContainer>
         <Button
           buttonText={translate('heterosexual')}

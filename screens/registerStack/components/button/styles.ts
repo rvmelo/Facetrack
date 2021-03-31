@@ -15,7 +15,7 @@ export const StyledButton = styled.TouchableNativeFeedback.attrs({
 export const ButtonLayout = styled.View<ButtonLayoutProps>`
   background: ${props => (props.disabled ? Colors.disabled : Colors.primary)};
   width: ${0.8 * SCREEN_WIDTH}px;
-  height: ${0.12 * SCREEN_WIDTH}px;
+  height: ${0.15 * SCREEN_WIDTH}px;
   margin: 10px 0;
   border-radius: 5px;
   overflow: hidden;
@@ -26,5 +26,5 @@ export const ButtonLayout = styled.View<ButtonLayoutProps>`
 export const ButtonText = styled.Text`
   color: white;
   font-family: tegomin;
-  font-size: ${0.06 * SCREEN_WIDTH}px;
+  font-size: 24px;
 `;

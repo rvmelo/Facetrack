@@ -19,6 +19,7 @@ import {
   StyledText,
   Container,
   IconContainer,
+  TopContainer,
 } from '../../styles';
 
 //  components
@@ -31,16 +32,19 @@ const GenderScreen: React.FC = () => {
 
   return (
     <Container>
-      <IconContainer>
-        <Ionicons
-          name="chevron-back"
-          size={50}
-          color={Colors.disabled}
-          onPress={() => navigation.goBack()}
-        />
-      </IconContainer>
+      <TopContainer>
+        <IconContainer>
+          <Ionicons
+            name="chevron-back"
+            size={50}
+            color={Colors.disabled}
+            onPress={() => navigation.goBack()}
+          />
+        </IconContainer>
 
-      <StyledText>{translate('sexSelection')}</StyledText>
+        <StyledText>{translate('sexSelection')}:</StyledText>
+      </TopContainer>
+
       <ButtonContainer>
         <Button
           buttonText={translate('male')}

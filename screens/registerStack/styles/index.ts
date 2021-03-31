@@ -15,13 +15,15 @@ export const StyledText = styled.Text`
   color: white;
   font-size: ${SCREEN_WIDTH * 0.1}px;
   margin-top: ${SCREEN_HEIGHT * 0.1}px;
-  text-align: center;
+  text-align: left;
+`;
+
+export const TopContainer = styled.View`
+  flex-direction: row;
 `;
 
 export const IconContainer = styled.View`
-  position: absolute;
-  left: ${SCREEN_WIDTH * 0.05}px;
-  top: ${SCREEN_WIDTH * 0.1}px;
+  margin-left: 20px;
 `;
 
 export const ButtonContainer = styled.View``;
