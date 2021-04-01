@@ -10,6 +10,7 @@ export default {
   birthDate: 'Fecha de Nacimiento',
   invalidDateError: 'Fecha Invalida',
   underAgeError: 'Eres menor de edad',
+  timeTravelerError: 'Lo más probable es que no seas un viajero en el tiempo',
 
   //  Gender Screen
   sexSelection: 'Selecciona tu Género',

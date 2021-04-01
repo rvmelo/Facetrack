@@ -18,4 +18,5 @@ I18n.locale = Localization.locale;
 // When a value is missing from a language it'll fallback to another language with the key present.
 I18n.fallbacks = true;
 
+export const location = I18n.locale;
 export const translate = (key: string): string => I18n.t(key);

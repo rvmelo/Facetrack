@@ -5,7 +5,7 @@ import { ActionTypes, IUser } from './types';
 const INITIAL_STATE: IUser = {
   userProviderId: '',
   name: '',
-  birthDate: '',
+  birthDate: undefined,
   sex: undefined,
   relationshipStatus: undefined,
   sexualOrientation: undefined,

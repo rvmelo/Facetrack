@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState, useCallback } from 'react';
-import { isValid, differenceInYears, endOfDay } from 'date-fns';
+import { isValid, differenceInYears, endOfDay, getYear } from 'date-fns';
 import { Alert } from 'react-native';
 
 //  navigation
@@ -13,7 +13,7 @@ import { IState } from '../../../store';
 import { IUser } from '../../../store/modules/user/types';
 
 // i18n
-import { translate } from '../../../i18n/src/locales';
+import { translate, location } from '../../../i18n/src/locales';
 
 interface ReturnValue {
   birthDate: string;
@@ -33,10 +33,27 @@ function useBirthDateScreen(): ReturnValue {
   const handleContinue = useCallback(() => {
     const currentDate = endOfDay(new Date());
 
-    const formattedDate = birthDate.split('/').reverse().join('-');
+    let formattedDate;
+
+    formattedDate = birthDate.split('/').reverse().join('-');
+
+    if (location === 'en-US') {
+      const dateArray = birthDate.split('/');
+
+      const month = dateArray[0];
+      const day = dateArray[1];
+      const year = dateArray[2];
+
+      formattedDate = [year, month, day].join('-');
+    }
 
     if (!isValid(new Date(formattedDate)) || formattedDate.length < 10) {
       Alert.alert('Error', translate('invalidDateError'));
+      return;
+    }
+
+    if (getYear(new Date(formattedDate)) > getYear(currentDate)) {
+      Alert.alert('Error', translate('timeTravelerError'));
       return;
     }
 
@@ -45,7 +62,7 @@ function useBirthDateScreen(): ReturnValue {
       return;
     }
 
-    dispatch(updateUser({ ...user, birthDate }));
+    dispatch(updateUser({ ...user, birthDate: new Date(formattedDate) }));
 
     navigation.navigate('GenderScreen');
   }, [birthDate, navigation, dispatch, user]);

@@ -10,6 +10,7 @@ export default {
   birthDate: 'BirthDate',
   invalidDateError: 'Invalid Date',
   underAgeError: 'You are under age',
+  timeTravelerError: 'Most likely you are not a time traveler',
 
   //  Gender Screen
   sexSelection: 'Select Your Sex',

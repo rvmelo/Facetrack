@@ -14,7 +14,7 @@ import { Container } from '../../styles';
 import useBirthDateScreen from '../useBirthDateScreen';
 
 // i18n
-import { translate } from '../../../../i18n/src/locales';
+import { translate, location } from '../../../../i18n/src/locales';
 
 const BirthDateScreen: React.FC = () => {
   const { birthDate, setBirthDate, handleContinue } = useBirthDateScreen();
@@ -25,11 +25,11 @@ const BirthDateScreen: React.FC = () => {
       <BirthDateInput
         type="datetime"
         options={{
-          format: 'DD/MM/YYYY',
+          format: location === 'en-US' ? 'MM/DD/YYYY' : 'DD/MM/YYYY',
         }}
         value={birthDate}
         onChangeText={date => setBirthDate(date)}
-        placeholder="DD/MM/YYYY"
+        placeholder={location === 'en-US' ? 'MM/DD/YYYY' : 'DD/MM/YYYY'}
         placeholderTextColor={Colors.text}
       />
       <Button

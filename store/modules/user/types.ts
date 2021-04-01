@@ -13,7 +13,7 @@ export interface UserMedia {
 export interface IUser {
   userProviderId: string;
   name: string;
-  birthDate: string;
+  birthDate: Date | undefined;
   sex: 'male' | 'female' | undefined;
   relationshipStatus: 'single' | 'serious relationship' | 'married' | undefined;
   sexualOrientation:
