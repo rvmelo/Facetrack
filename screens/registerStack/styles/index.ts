@@ -13,17 +13,15 @@ export const Container = styled.View`
 export const StyledText = styled.Text`
   font-family: tegomin;
   color: white;
-  font-size: ${SCREEN_WIDTH * 0.1}px;
+  font-size: ${SCREEN_WIDTH * 0.09}px;
   margin-top: ${SCREEN_HEIGHT * 0.1}px;
   text-align: left;
+  margin-right: 10px;
 `;
 
 export const TopContainer = styled.View`
   flex-direction: row;
-`;
-
-export const IconContainer = styled.View`
-  margin-left: 20px;
+  align-self: flex-start;
 `;
 
 export const ButtonContainer = styled.View``;

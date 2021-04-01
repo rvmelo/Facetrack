@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { isValid, differenceInYears, endOfDay, getYear } from 'date-fns';
 import { Alert } from 'react-native';
 
@@ -29,6 +29,10 @@ function useBirthDateScreen(): ReturnValue {
   const user = useSelector<IState, IUser>(state => state.user);
 
   const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', e => e.preventDefault());
+  }, [navigation]);
 
   const handleContinue = useCallback(() => {
     const currentDate = endOfDay(new Date());

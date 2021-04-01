@@ -8,7 +8,6 @@ import {
   ButtonContainer,
   StyledText,
   Container,
-  IconContainer,
   TopContainer,
 } from '../../styles';
 
@@ -36,14 +35,12 @@ const RelationshipStatusScreen: React.FC = () => {
   return (
     <Container>
       <TopContainer>
-        <IconContainer>
-          <Ionicons
-            name="chevron-back"
-            size={50}
-            color={Colors.disabled}
-            onPress={() => navigation.goBack()}
-          />
-        </IconContainer>
+        <Ionicons
+          name="chevron-back"
+          size={50}
+          color={Colors.disabled}
+          onPress={() => navigation.goBack()}
+        />
         <StyledText>{translate('relationshipStatus')}:</StyledText>
       </TopContainer>
 

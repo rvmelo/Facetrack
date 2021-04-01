@@ -4,6 +4,9 @@ import { Alert } from 'react-native';
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
 
+// navigation
+import { useNavigation } from '@react-navigation/native';
+
 //  redux
 import { useSelector, useDispatch } from 'react-redux';
 import { IState } from '../../../../store';
@@ -28,9 +31,13 @@ const InstagramScreen: React.FC = () => {
   const user = useSelector<IState, IUser>(state => state.user);
   const dispatch = useDispatch();
 
+  const navigation = useNavigation();
+
   useEffect(() => {
     Linking.addEventListener('url', async ({ url }) => {
       try {
+        if (!navigation.isFocused()) return;
+
         const { code } = Linking.parse(url).queryParams || {};
 
         const response = await api.get(
@@ -50,7 +57,7 @@ const InstagramScreen: React.FC = () => {
         Alert.alert('Error', translate('userCreationError'));
       }
     });
-  }, [dispatch, user]);
+  }, [dispatch, user, navigation]);
 
   return (
     <Container>

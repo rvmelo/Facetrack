@@ -13,18 +13,18 @@ export default {
   timeTravelerError: 'Most likely you are not a time traveler',
 
   //  Gender Screen
-  sexSelection: 'Select Your Sex',
+  sexSelection: 'Select Your \nSex',
   male: 'Male',
   female: 'Female',
 
   //  Relationship Status Screen
-  relationshipStatus: 'Relationship Status',
+  relationshipStatus: 'Relationship \nStatus',
   single: 'Single',
   seriousRelationship: 'Serious Relationship',
   married: 'Married',
 
   //  Sexual Orientation
-  sexualOrientation: 'Sexual Orientation',
+  sexualOrientation: 'Sexual \nOrientation',
   heterosexual: 'Heterosexual',
   homosexual: 'Homosexual',
   bisexual: 'Bisexual',

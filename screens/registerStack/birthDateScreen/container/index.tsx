@@ -21,7 +21,7 @@ const BirthDateScreen: React.FC = () => {
 
   return (
     <Container>
-      <StyledText>{translate('birthDate')}</StyledText>
+      <StyledText>{translate('birthDate')}:</StyledText>
       <BirthDateInput
         type="datetime"
         options={{
