@@ -54,6 +54,8 @@ function useLoginButton(): ReturnValue {
 
         const { notRegisteredUser, token } = response.data;
 
+        api.defaults.headers.authorization = `Bearer ${token}`;
+
         if (notRegisteredUser && token) {
           navigation.navigate('BirthDateScreen');
           setIsLoading(false);

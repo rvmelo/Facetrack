@@ -9,6 +9,11 @@ export const Container = styled.View`
   background-color: ${Colors.background};
 `;
 
+export const StyledSpinner = styled.ActivityIndicator.attrs({
+  size: 'large',
+  color: Colors.primary,
+})``;
+
 // instagram button
 
 export const StyledButton = styled.TouchableNativeFeedback.attrs({
