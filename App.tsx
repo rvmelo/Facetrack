@@ -1,19 +1,29 @@
+/* eslint-disable global-require */
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'react-redux';
+import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
+import { NavigationContainer } from '@react-navigation/native';
+import store from './store';
 
-const App: React.FC = () => (
-  <View style={styles.container}>
-    <Text>Open up App.tsx to start working on your app!</Text>
-  </View>
-);
+// import Login from './screens/login';
+import Routes from './routes';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const App: React.FC = () => {
+  const [fontsLoaded] = useFonts({
+    matrix: require('./assets/fonts/Matrix.ttf'),
+    tegomin: require('./assets/fonts/NewTegomin-Regular.ttf'),
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+  return (
+    <NavigationContainer>
+      <Provider store={store}>
+        <Routes />
+      </Provider>
+    </NavigationContainer>
+  );
+};
 
 export default App;
