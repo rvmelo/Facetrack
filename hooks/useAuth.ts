@@ -1,0 +1,106 @@
+/* eslint-disable no-unused-vars */
+import { useCallback, useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+
+//  redux
+import { useDispatch } from 'react-redux';
+import { loadUser } from '../store/modules/user/actions';
+import { IUser } from '../store/modules/user/types';
+import { INITIAL_STATE } from '../store/modules/user/reducer';
+
+//  services
+import api from '../services/api';
+
+interface SignInData {
+  token: string;
+  user: IUser;
+}
+
+interface ReturnValue {
+  isLoading: boolean;
+  signIn(data: SignInData): Promise<void>;
+  signOut(): Promise<void>;
+  handleUserUpdate(user: IUser): Promise<void>;
+}
+
+function useAuth(): ReturnValue {
+  const dispatch = useDispatch();
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleAutoSignIn = useCallback(async () => {
+    setIsLoading(true);
+
+    const [token, user] = await AsyncStorage.multiGet([
+      '@Facetrack:token',
+      '@Facetrack:user',
+    ]);
+
+    setIsLoading(false);
+
+    if (!token[1] || !user[1]) return;
+
+    api.defaults.headers.authorization = `Bearer ${token[1]}`;
+
+    const parsedUser = JSON.parse(user[1]);
+
+    dispatch(
+      loadUser({
+        ...parsedUser,
+      }),
+    );
+  }, [dispatch]);
+
+  useEffect(() => {
+    handleAutoSignIn();
+  }, [handleAutoSignIn]);
+
+  const signIn = useCallback(
+    async ({ token, user }) => {
+      api.defaults.headers.authorization = `Bearer ${token}`;
+
+      await AsyncStorage.multiSet([
+        ['@Facetrack:token', token],
+        ['@Facetrack:user', JSON.stringify(user)],
+      ]);
+
+      dispatch(
+        loadUser({
+          ...user,
+        }),
+      );
+    },
+    [dispatch],
+  );
+
+  const signOut = useCallback(async () => {
+    await AsyncStorage.multiRemove(['@Facetrack:token', '@Facetrack:user']);
+
+    dispatch(
+      loadUser({
+        ...INITIAL_STATE,
+      }),
+    );
+  }, [dispatch]);
+
+  const handleUserUpdate = useCallback(async (user: IUser) => {
+    await AsyncStorage.setItem('@Facetrack:user', JSON.stringify(user));
+
+    // new dispatch function to update user locally and on database
+
+    // dispatch(
+    //   updateUser({
+    //     ...INITIAL_STATE,
+    //   }),
+    // );
+  }, []);
+
+  return {
+    isLoading,
+    signIn,
+    signOut,
+    handleUserUpdate,
+  };
+}
+
+export default useAuth;

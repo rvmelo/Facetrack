@@ -1,29 +1,20 @@
 import { ActionTypes, IUser } from './types';
 
-interface UpdateUserReturnType {
+interface CreateUserReturnType {
   type: string;
   payload: IUser;
 }
 
-export function updateUser({
-  userProviderId,
-  name,
-  birthDate,
-  sex,
-  relationshipStatus,
-  sexualOrientation,
-  instagram,
-}: IUser): UpdateUserReturnType {
+export function createUser(payload: IUser): CreateUserReturnType {
   return {
-    type: ActionTypes.updateUser,
-    payload: {
-      userProviderId,
-      name,
-      birthDate,
-      sex,
-      relationshipStatus,
-      sexualOrientation,
-      instagram,
-    },
+    type: ActionTypes.createUser,
+    payload,
+  };
+}
+
+export function loadUser(payload: IUser): CreateUserReturnType {
+  return {
+    type: ActionTypes.loadUser,
+    payload,
   };
 }

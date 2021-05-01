@@ -2,7 +2,7 @@ import { Reducer } from 'redux';
 import produce from 'immer';
 import { ActionTypes, IUser } from './types';
 
-const INITIAL_STATE: IUser = {
+export const INITIAL_STATE: IUser = {
   userProviderId: '',
   name: '',
   birthDate: undefined,
@@ -15,7 +15,11 @@ const INITIAL_STATE: IUser = {
 const user: Reducer<IUser> = (state = INITIAL_STATE, action) => {
   return produce(state, draft => {
     switch (action.type) {
-      case ActionTypes.updateUser: {
+      case ActionTypes.createUser: {
+        Object.assign(draft, { ...action.payload });
+        return draft;
+      }
+      case ActionTypes.loadUser: {
         Object.assign(draft, { ...action.payload });
         return draft;
       }

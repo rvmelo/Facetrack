@@ -1,12 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { useState, useCallback } from 'react';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 // redux
-import { useDispatch, useSelector } from 'react-redux';
-import { updateUser } from '../../../store/modules/user/actions';
-import { IState } from '../../../store';
 import { IUser } from '../../../store/modules/user/types';
 
 interface RelationshipStatusOptions {
@@ -24,9 +21,9 @@ interface ReturnValue {
 function useRelationshipStatusScreen(): ReturnValue {
   const navigation = useNavigation();
 
-  const dispatch = useDispatch();
+  const { params } = useRoute();
 
-  const user = useSelector<IState, IUser>(state => state.user);
+  const user = params as IUser;
 
   const [
     userRelationshipStatus,
@@ -41,14 +38,11 @@ function useRelationshipStatusScreen(): ReturnValue {
   );
 
   const handleContinue = useCallback(() => {
-    dispatch(
-      updateUser({
-        ...user,
-        relationshipStatus: userRelationshipStatus?.option,
-      }),
-    );
-    navigation.navigate('InstagramScreen');
-  }, [navigation, dispatch, user, userRelationshipStatus]);
+    navigation.navigate('InstagramScreen', {
+      ...user,
+      relationshipStatus: userRelationshipStatus?.option,
+    });
+  }, [navigation, user, userRelationshipStatus]);
 
   return {
     userRelationshipStatus,

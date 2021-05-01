@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
 export enum ActionTypes {
-  updateUser = 'UPDATE_USER',
+  createUser = 'CREATE_USER',
+  loadUser = 'LOAD_USER',
 }
 
 export interface UserMedia {
