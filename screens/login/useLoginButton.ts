@@ -71,7 +71,7 @@ function useLoginButton(): ReturnValue {
         signIn({ token, user: registeredUser });
       } catch (err) {
         setIsLoading(false);
-        Alert.alert('Error', `${translate('loginRegisterError')}: ${err}`);
+        Alert.alert('Error', translate('loginRegisterError'));
       }
     });
   }, [dispatch, navigation, signIn]);

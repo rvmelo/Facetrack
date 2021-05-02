@@ -1,18 +1,11 @@
 import { ActionTypes, IUser } from './types';
 
-interface CreateUserReturnType {
+interface LoadUserReturnType {
   type: string;
   payload: IUser;
 }
 
-export function createUser(payload: IUser): CreateUserReturnType {
-  return {
-    type: ActionTypes.createUser,
-    payload,
-  };
-}
-
-export function loadUser(payload: IUser): CreateUserReturnType {
+export function loadUser(payload: IUser): LoadUserReturnType {
   return {
     type: ActionTypes.loadUser,
     payload,

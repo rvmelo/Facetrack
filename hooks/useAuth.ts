@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useRef } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
 //  redux
@@ -16,9 +16,14 @@ interface SignInData {
   user: IUser;
 }
 
+interface SignUpData {
+  user: IUser;
+}
+
 interface ReturnValue {
   isLoading: boolean;
   signIn(data: SignInData): Promise<void>;
+  signUp(data: SignUpData): Promise<void>;
   signOut(): Promise<void>;
   handleUserUpdate(user: IUser): Promise<void>;
 }
@@ -28,6 +33,8 @@ function useAuth(): ReturnValue {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  const isMounted = useRef<boolean | null>(null);
+
   const handleAutoSignIn = useCallback(async () => {
     setIsLoading(true);
 
@@ -36,7 +43,7 @@ function useAuth(): ReturnValue {
       '@Facetrack:user',
     ]);
 
-    setIsLoading(false);
+    isMounted.current && setIsLoading(false);
 
     if (!token[1] || !user[1]) return;
 
@@ -52,12 +59,37 @@ function useAuth(): ReturnValue {
   }, [dispatch]);
 
   useEffect(() => {
+    isMounted.current = true;
     handleAutoSignIn();
+
+    return () => {
+      isMounted.current = false;
+    };
   }, [handleAutoSignIn]);
 
   const signIn = useCallback(
     async ({ token, user }) => {
       api.defaults.headers.authorization = `Bearer ${token}`;
+
+      await AsyncStorage.multiSet([
+        ['@Facetrack:token', token],
+        ['@Facetrack:user', JSON.stringify(user)],
+      ]);
+
+      dispatch(
+        loadUser({
+          ...user,
+        }),
+      );
+    },
+    [dispatch],
+  );
+
+  const signUp = useCallback(
+    async ({ user }) => {
+      const response = await api.post('/users', user);
+
+      const { token } = response.data;
 
       await AsyncStorage.multiSet([
         ['@Facetrack:token', token],
@@ -98,6 +130,7 @@ function useAuth(): ReturnValue {
   return {
     isLoading,
     signIn,
+    signUp,
     signOut,
     handleUserUpdate,
   };

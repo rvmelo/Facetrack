@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
 export enum ActionTypes {
-  createUser = 'CREATE_USER',
   loadUser = 'LOAD_USER',
 }
 

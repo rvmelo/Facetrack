@@ -15,10 +15,6 @@ export const INITIAL_STATE: IUser = {
 const user: Reducer<IUser> = (state = INITIAL_STATE, action) => {
   return produce(state, draft => {
     switch (action.type) {
-      case ActionTypes.createUser: {
-        Object.assign(draft, { ...action.payload });
-        return draft;
-      }
       case ActionTypes.loadUser: {
         Object.assign(draft, { ...action.payload });
         return draft;

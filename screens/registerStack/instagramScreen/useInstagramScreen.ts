@@ -10,7 +10,9 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 //  redux
 import { useDispatch } from 'react-redux';
 import { IUser } from '../../../store/modules/user/types';
-import { createUser } from '../../../store/modules/user/actions';
+
+//  hooks
+import useAuth from '../../../hooks/useAuth';
 
 //  apis
 import api from '../../../services/api';
@@ -24,6 +26,8 @@ interface ReturnValue {
 
 function useInstagramScreen(): ReturnValue {
   const [isLoading, setIsLoading] = useState(false);
+
+  const { signUp } = useAuth();
 
   const { params } = useRoute();
 
@@ -48,22 +52,22 @@ function useInstagramScreen(): ReturnValue {
 
         const { userName, userMedia } = response.data;
 
-        dispatch(
-          createUser({
+        signUp({
+          user: {
             ...user,
             birthDate: user.birthDate ? new Date(user.birthDate) : undefined,
             instagram: {
               userName,
               userMedia,
             },
-          }),
-        );
+          },
+        });
       } catch (err) {
         setIsLoading(false);
         Alert.alert('Error', translate('userCreationError'));
       }
     });
-  }, [dispatch, user, navigation]);
+  }, [dispatch, user, navigation, signUp]);
 
   return {
     isLoading,
