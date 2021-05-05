@@ -1,10 +1,65 @@
+import { TouchableNativeFeedback } from 'react-native';
 import styled from 'styled-components/native';
 
 import Colors from '../../../constants/colors';
+import { fonts } from '../../../constants/fonts';
+import { SCREEN_WIDTH } from '../../../constants/dimensions';
 
 export const Container = styled.View`
   flex: 1;
+  background-color: ${Colors.background};
+`;
+
+export const ProfileDataContainer = styled.View`
+  padding: 20px;
+`;
+
+export const StyledName = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+`;
+
+export const Instagram = styled.Text`
+  font-size: 18px;
+  font-family: ${fonts.family};
+  color: white;
+`;
+
+export const UserAvatar = styled.Image`
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  margin-bottom: 20px;
+`;
+
+export const StyledEditButton = styled.TouchableNativeFeedback.attrs({
+  background: TouchableNativeFeedback.Ripple('#ccc', true),
+  useForeground: true,
+})``;
+
+export const EditButtonLayout = styled.View`
+  background: ${Colors.primary};
+  margin: 10px 0;
+  border-radius: 5px;
+  overflow: hidden;
   justify-content: center;
   align-items: center;
-  background-color: ${Colors.background};
+  height: 40px;
+`;
+
+export const ButtonText = styled.Text`
+  color: ${Colors.accent};
+  font-family: ${fonts.family};
+  font-size: ${fonts.sizes.md}px;
+`;
+
+// photo section
+
+export const UserPhoto = styled.Image.attrs(({ source }) => {
+  source;
+})`
+  width: ${SCREEN_WIDTH / 3}px;
+  height: ${SCREEN_WIDTH / 3}px;
+  margin: 1px;
 `;
