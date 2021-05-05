@@ -24,6 +24,9 @@ import DrawerHeader from './components/drawerHeader';
 //  screens
 import ProfileScreen from '../screens/profileScreen';
 
+// i18n
+import { translate } from '../i18n/src/locales';
+
 const AppDrawer = createDrawerNavigator();
 
 const CustomDrawerContent: React.FC<DrawerContentComponentProps> = props => {
@@ -35,7 +38,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = props => {
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
         <DrawerItem
-          label="Logout"
+          label={translate('Logout')}
           onPress={signOut}
           labelStyle={{
             color: Colors.accent,
@@ -81,7 +84,7 @@ const AppDrawerRoutes: React.FC = () => (
     })}
   >
     <AppDrawer.Screen
-      name="My Profile"
+      name={translate('myProfile')}
       component={ProfileScreen}
       options={{
         drawerIcon: () => (

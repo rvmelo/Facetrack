@@ -38,4 +38,12 @@ export default {
 
   // Continue button
   continueButton: 'Continuar',
+
+  // Drawer
+  myProfile: 'Mi Perfil',
+  Logout: 'Salir',
+
+  // Profile Screen
+  editProfile: 'Editar Perfil',
+  photoDisplayMessage: 'No Hay Fotos Para Mostrar',
 };

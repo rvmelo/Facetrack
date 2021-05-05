@@ -15,15 +15,15 @@ export const ProfileDataContainer = styled.View`
 `;
 
 export const StyledName = styled.Text`
-  font-size: 18px;
+  font-size: ${fonts.sizes.md}px;
   font-weight: bold;
-  color: white;
+  color: ${Colors.accent};
 `;
 
 export const Instagram = styled.Text`
-  font-size: 18px;
+  font-size: ${fonts.sizes.md}px;
   font-family: ${fonts.family};
-  color: white;
+  color: ${Colors.accent};
 `;
 
 export const UserAvatar = styled.Image`
@@ -62,4 +62,18 @@ export const UserPhoto = styled.Image.attrs(({ source }) => {
   width: ${SCREEN_WIDTH / 3}px;
   height: ${SCREEN_WIDTH / 3}px;
   margin: 1px;
+`;
+
+export const EmptyPhotoContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  padding-top: 100px;
+  background-color: ${Colors.background};
+`;
+
+export const PhotoContainerText = styled.Text`
+  font-size: ${fonts.sizes.lg}px;
+  font-family: ${fonts.family};
+  text-align: center;
+  color: ${Colors.accent};
 `;
