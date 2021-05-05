@@ -47,4 +47,7 @@ export default {
   // Profile Screen
   editProfile: 'Editar Perfil',
   photoDisplayMessage: 'Nenhuma Foto Para Mostrar',
+
+  // User Publication Screen
+  userPublications: 'Publicações',
 };

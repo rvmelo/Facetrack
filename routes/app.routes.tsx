@@ -11,6 +11,12 @@ import {
 
 import { Ionicons } from '@expo/vector-icons';
 
+//  navigation
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+
+//  navigators
+import ProfileRoutes from './profile.routes';
+
 //  hooks
 import useAuth from '../hooks/useAuth';
 
@@ -20,9 +26,6 @@ import { fonts } from '../constants/fonts';
 
 //  components
 import DrawerHeader from './components/drawerHeader';
-
-//  screens
-import ProfileScreen from '../screens/profileScreen';
 
 // i18n
 import { translate } from '../i18n/src/locales';
@@ -60,7 +63,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = props => {
 
 const AppDrawerRoutes: React.FC = () => (
   <AppDrawer.Navigator
-    initialRouteName="My Profile"
+    initialRouteName="Profile"
     drawerContent={(props: DrawerContentComponentProps) => (
       <CustomDrawerContent {...props} />
     )}
@@ -84,13 +87,16 @@ const AppDrawerRoutes: React.FC = () => (
     })}
   >
     <AppDrawer.Screen
-      name={translate('myProfile')}
-      component={ProfileScreen}
-      options={{
+      name=" Profile"
+      component={ProfileRoutes}
+      options={({ route }) => ({
         drawerIcon: () => (
           <Ionicons name="md-person-outline" size={25} color={Colors.accent} />
         ),
-      }}
+        headerShown: getFocusedRouteNameFromRoute(route) !== 'UserPublications',
+        headerTitle: translate('myProfile'),
+        drawerLabel: translate('myProfile'),
+      })}
     />
   </AppDrawer.Navigator>
 );

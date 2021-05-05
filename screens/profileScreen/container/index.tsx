@@ -1,6 +1,9 @@
 import React from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 
+//  navigation
+import { useNavigation } from '@react-navigation/native';
+
 import { Ionicons } from '@expo/vector-icons';
 
 //  redux
@@ -8,6 +11,7 @@ import { useSelector } from 'react-redux';
 import { IState } from '../../../store';
 import { IUser, UserMedia } from '../../../store/modules/user/types';
 
+// constants
 import Colors from '../../../constants/colors';
 
 import {
@@ -22,6 +26,7 @@ import {
   UserPhoto,
   PhotoContainerText,
   EmptyPhotoContainer,
+  TouchableInterface,
 } from './styles';
 
 // i18n
@@ -30,10 +35,14 @@ import { translate } from '../../../i18n/src/locales';
 const ProfileScreen: React.FC = () => {
   const user = useSelector<IState, IUser>(state => state.user);
 
+  const navigation = useNavigation();
+
   const photos = user?.instagram?.userMedia;
 
   const renderItem: ListRenderItem<UserMedia> = ({ item }) => (
-    <UserPhoto source={{ uri: item.media_url }} />
+    <TouchableInterface onPress={() => navigation.navigate('UserPublications')}>
+      <UserPhoto source={{ uri: item.media_url }} />
+    </TouchableInterface>
   );
 
   return (

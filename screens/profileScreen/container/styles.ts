@@ -33,6 +33,8 @@ export const UserAvatar = styled.Image`
   margin-bottom: 20px;
 `;
 
+export const TouchableInterface = styled.TouchableWithoutFeedback``;
+
 export const StyledEditButton = styled.TouchableNativeFeedback.attrs({
   background: TouchableNativeFeedback.Ripple('#ccc', true),
   useForeground: true,
