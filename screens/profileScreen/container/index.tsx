@@ -1,8 +1,5 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
-
-//  navigation
-import { useNavigation } from '@react-navigation/native';
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -10,6 +7,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
 import { IState } from '../../../store';
 import { IUser, UserMedia } from '../../../store/modules/user/types';
+
+// components
+import { VideoItem, PhotoItem } from './items';
 
 // constants
 import Colors from '../../../constants/colors';
@@ -23,10 +23,8 @@ import {
   EditButtonLayout,
   ButtonText,
   UserAvatar,
-  UserPhoto,
   PhotoContainerText,
   EmptyPhotoContainer,
-  TouchableInterface,
 } from './styles';
 
 // i18n
@@ -35,14 +33,17 @@ import { translate } from '../../../i18n/src/locales';
 const ProfileScreen: React.FC = () => {
   const user = useSelector<IState, IUser>(state => state.user);
 
-  const navigation = useNavigation();
+  const userMedia = user?.instagram?.userMedia;
 
-  const photos = user?.instagram?.userMedia;
-
-  const renderItem: ListRenderItem<UserMedia> = ({ item }) => (
-    <TouchableInterface onPress={() => navigation.navigate('UserPublications')}>
-      <UserPhoto source={{ uri: item.media_url }} />
-    </TouchableInterface>
+  const renderItem: ListRenderItem<UserMedia> = useCallback(
+    ({ item }) => {
+      return item.media_url.includes('video.cdninstagram.com') ? (
+        <VideoItem userMedia={userMedia} media_url={item.media_url} />
+      ) : (
+        <PhotoItem userMedia={userMedia} media_url={item.media_url} />
+      );
+    },
+    [userMedia],
   );
 
   return (
@@ -63,9 +64,9 @@ const ProfileScreen: React.FC = () => {
         </StyledEditButton>
       </ProfileDataContainer>
 
-      {Array.isArray(photos) && photos.length !== 0 ? (
+      {Array.isArray(userMedia) && userMedia.length !== 0 ? (
         <FlatList
-          data={Array.isArray(photos) ? photos : []}
+          data={Array.isArray(userMedia) ? userMedia : []}
           renderItem={renderItem}
           keyExtractor={photo => photo.id}
           numColumns={3}
@@ -83,4 +84,4 @@ const ProfileScreen: React.FC = () => {
   );
 };
 
-export default ProfileScreen;
+export default memo(ProfileScreen);

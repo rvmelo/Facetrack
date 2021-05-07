@@ -66,6 +66,12 @@ export const UserPhoto = styled.Image.attrs(({ source }) => {
   margin: 1px;
 `;
 
+export const VideoContainer = styled.View`
+  width: ${SCREEN_WIDTH / 3}px;
+  height: ${SCREEN_WIDTH / 3}px;
+  margin: 1px;
+`;
+
 export const EmptyPhotoContainer = styled.View`
   flex: 1;
   align-items: center;
