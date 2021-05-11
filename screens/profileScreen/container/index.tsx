@@ -35,13 +35,24 @@ const ProfileScreen: React.FC = () => {
 
   const userMedia = user?.instagram?.userMedia;
 
-  const renderItem: ListRenderItem<UserMedia> = useCallback(({ item }) => {
-    return item.media_url.includes('video.cdninstagram.com') ? (
-      <VideoItem media_url={item.media_url} />
-    ) : (
-      <PhotoItem media_url={item.media_url} />
-    );
-  }, []);
+  const renderItem: ListRenderItem<UserMedia> = useCallback(
+    ({ item }) => {
+      return item.media_url.includes('video.cdninstagram.com') ? (
+        <VideoItem
+          media_url={item.media_url}
+          caption={item.caption}
+          instagram={user?.instagram?.userName || 'undefined'}
+        />
+      ) : (
+        <PhotoItem
+          media_url={item.media_url}
+          caption={item.caption}
+          instagram={user?.instagram?.userName || 'undefined'}
+        />
+      );
+    },
+    [user?.instagram?.userName],
+  );
 
   return (
     <Container>

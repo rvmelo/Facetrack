@@ -47,4 +47,5 @@ export default {
 
   // User Publication Screen
   userPublications: 'Publications',
+  userPublication: 'Publication',
 };
