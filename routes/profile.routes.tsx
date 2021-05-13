@@ -2,7 +2,6 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import ProfileScreen from '../screens/profileScreen';
-import UserPhotoScroll from '../screens/userPublications';
 import PublicationScreen from '../screens/publicationScreen';
 
 // i18n
@@ -28,14 +27,6 @@ const ProfileRoutes: React.FC = () => (
       component={ProfileScreen}
       options={{
         headerShown: false,
-      }}
-    />
-    <Profile.Screen
-      name="UserPublications"
-      component={UserPhotoScroll}
-      options={{
-        headerShown: true,
-        headerTitle: translate('userPublications'),
       }}
     />
     <Profile.Screen

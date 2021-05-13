@@ -4,6 +4,14 @@ import { Video } from 'expo-av';
 //  navigation
 import { useRoute } from '@react-navigation/native';
 
+//  redux
+import { useSelector } from 'react-redux';
+import {
+  IUser,
+  MEDIA_TYPES,
+  media_types,
+} from '../../../store/modules/user/types';
+
 import {
   PublicationContainer,
   Header,
@@ -13,24 +21,29 @@ import {
   Instagram,
   UserPhoto,
   Description,
+  StyledDate,
 } from './styles';
 
 //   hooks
 import usePublication from '../usePublication';
 import { SCREEN_WIDTH } from '../../../constants/dimensions';
+import { IState } from '../../../store';
 
 interface RouteParams {
   caption: string;
   media_url: string;
-  instagram: string;
+  media_type: media_types;
+  date: string;
 }
 
 const PublicationScreen: React.FC = () => {
   const { params } = useRoute();
 
-  const { caption, media_url, instagram } = params as RouteParams;
+  const { caption, media_url, media_type, date } = params as RouteParams;
 
-  const { imgHeight } = usePublication({ media_url });
+  const { imgHeight, formatDate } = usePublication({ media_type, media_url });
+
+  const user = useSelector<IState, IUser>(state => state.user);
 
   return (
     <PublicationContainer>
@@ -42,11 +55,12 @@ const PublicationScreen: React.FC = () => {
           }}
         />
         <HeaderTextContainer>
-          <StyledName>Roberto Melo</StyledName>
-          <Instagram>@{instagram}</Instagram>
+          <StyledName>{user?.name}</StyledName>
+          <Instagram>@{user?.instagram?.userName}</Instagram>
         </HeaderTextContainer>
       </Header>
-      {media_url.includes('video.cdninstagram.com') ? (
+
+      {media_type === MEDIA_TYPES.video ? (
         <Video
           style={{ width: SCREEN_WIDTH, height: SCREEN_WIDTH }}
           source={{
@@ -59,7 +73,7 @@ const PublicationScreen: React.FC = () => {
       ) : (
         <UserPhoto source={{ uri: media_url }} height={imgHeight} />
       )}
-
+      <StyledDate>{formatDate(date)}</StyledDate>
       <Description>{caption}</Description>
     </PublicationContainer>
   );

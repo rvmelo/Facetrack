@@ -6,24 +6,30 @@ import { Video } from 'expo-av';
 import { useNavigation } from '@react-navigation/native';
 
 import { TouchableInterface, UserPhoto, VideoContainer } from './styles';
+import { MEDIA_TYPES } from '../../../store/modules/user/types';
 
 interface ItemProps {
   media_url: string;
   caption: string;
-  instagram: string;
+  date: string;
 }
 
 export const PhotoItem: React.FC<ItemProps> = ({
   media_url,
   caption,
-  instagram,
+  date,
 }) => {
   const navigation = useNavigation();
 
   return (
     <TouchableInterface
       onPress={() =>
-        navigation.navigate('Publication', { media_url, caption, instagram })
+        navigation.navigate('Publication', {
+          media_url,
+          media_type: MEDIA_TYPES.image,
+          caption,
+          date,
+        })
       }
     >
       <UserPhoto source={{ uri: media_url }} />
@@ -34,7 +40,7 @@ export const PhotoItem: React.FC<ItemProps> = ({
 export const VideoItem: React.FC<ItemProps> = ({
   media_url,
   caption,
-  instagram,
+  date,
 }) => {
   const navigation = useNavigation();
 
@@ -43,7 +49,12 @@ export const VideoItem: React.FC<ItemProps> = ({
   return (
     <TouchableInterface
       onPress={() =>
-        navigation.navigate('Publication', { media_url, caption, instagram })
+        navigation.navigate('Publication', {
+          media_url,
+          media_type: MEDIA_TYPES.video,
+          caption,
+          date,
+        })
       }
     >
       <VideoContainer>

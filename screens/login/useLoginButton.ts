@@ -1,5 +1,5 @@
 import { Alert } from 'react-native';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
@@ -37,6 +37,8 @@ function useLoginButton(): ReturnValue {
 
   const { signIn } = useAuth();
 
+  const isMounted = useRef<boolean | null>(null);
+
   const handleFacebookLogin = useCallback(() => {
     WebBrowser.openBrowserAsync(`${base_url}/sessions/auth/facebook`);
   }, []);
@@ -46,9 +48,17 @@ function useLoginButton(): ReturnValue {
   }, []);
 
   useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
     Linking.addEventListener('url', async () => {
       try {
-        if (!navigation.isFocused()) return;
+        if (!navigation.isFocused() || !isMounted.current) return;
 
         setIsLoading(true);
 
@@ -68,7 +78,7 @@ function useLoginButton(): ReturnValue {
         }
 
         //  signIn from my app
-        signIn({ token, user: registeredUser });
+        isMounted.current && signIn({ token, user: registeredUser });
       } catch (err) {
         setIsLoading(false);
         Alert.alert('Error', translate('loginRegisterError'));

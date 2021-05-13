@@ -6,7 +6,11 @@ import { Ionicons } from '@expo/vector-icons';
 //  redux
 import { useSelector } from 'react-redux';
 import { IState } from '../../../store';
-import { IUser, UserMedia } from '../../../store/modules/user/types';
+import {
+  IUser,
+  MEDIA_TYPES,
+  UserMedia,
+} from '../../../store/modules/user/types';
 
 // components
 import { VideoItem, PhotoItem } from './items';
@@ -35,24 +39,21 @@ const ProfileScreen: React.FC = () => {
 
   const userMedia = user?.instagram?.userMedia;
 
-  const renderItem: ListRenderItem<UserMedia> = useCallback(
-    ({ item }) => {
-      return item.media_url.includes('video.cdninstagram.com') ? (
-        <VideoItem
-          media_url={item.media_url}
-          caption={item.caption}
-          instagram={user?.instagram?.userName || 'undefined'}
-        />
-      ) : (
-        <PhotoItem
-          media_url={item.media_url}
-          caption={item.caption}
-          instagram={user?.instagram?.userName || 'undefined'}
-        />
-      );
-    },
-    [user?.instagram?.userName],
-  );
+  const renderItem: ListRenderItem<UserMedia> = useCallback(({ item }) => {
+    return item.media_type === MEDIA_TYPES.video ? (
+      <VideoItem
+        media_url={item.media_url}
+        caption={item.caption}
+        date={item.timestamp}
+      />
+    ) : (
+      <PhotoItem
+        media_url={item.media_url}
+        caption={item.caption}
+        date={item.timestamp}
+      />
+    );
+  }, []);
 
   return (
     <Container>

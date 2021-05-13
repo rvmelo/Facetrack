@@ -4,10 +4,20 @@ export enum ActionTypes {
   loadUser = 'LOAD_USER',
 }
 
+export const MEDIA_TYPES = {
+  image: 'IMAGE',
+  video: 'VIDEO',
+  carousel_album: 'CAROUSEL_ALBUM',
+};
+
+export type media_types = 'IMAGE' | 'VIDEO' | 'CAROUSEL_ALBUM';
+
 export interface UserMedia {
   id: string;
   caption: string;
   media_url: string;
+  media_type: media_types;
+  timestamp: string;
 }
 
 export interface IUser {

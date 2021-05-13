@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Alert } from 'react-native';
 
 import * as Linking from 'expo-linking';
@@ -31,6 +31,8 @@ function useInstagramScreen(): ReturnValue {
 
   const { params } = useRoute();
 
+  const isMounted = useRef<boolean | null>(null);
+
   const user = params as IUser;
 
   const dispatch = useDispatch();
@@ -38,9 +40,17 @@ function useInstagramScreen(): ReturnValue {
   const navigation = useNavigation();
 
   useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
     Linking.addEventListener('url', async ({ url }) => {
       try {
-        if (!navigation.isFocused()) return;
+        if (!navigation.isFocused() || !isMounted.current) return;
 
         setIsLoading(true);
 
@@ -52,19 +62,20 @@ function useInstagramScreen(): ReturnValue {
 
         const { userName, userMedia } = response.data;
 
-        signUp({
-          user: {
-            ...user,
-            birthDate: user.birthDate ? new Date(user.birthDate) : undefined,
-            instagram: {
-              userName,
-              userMedia,
+        isMounted.current &&
+          signUp({
+            user: {
+              ...user,
+              birthDate: user.birthDate ? new Date(user.birthDate) : undefined,
+              instagram: {
+                userName,
+                userMedia,
+              },
             },
-          },
-        });
+          });
       } catch (err) {
-        setIsLoading(false);
-        Alert.alert('Error', translate('userCreationError'));
+        isMounted.current && setIsLoading(false);
+        Alert.alert('Error', `${translate('userCreationError')}:${err}`);
       }
     });
   }, [dispatch, user, navigation, signUp]);

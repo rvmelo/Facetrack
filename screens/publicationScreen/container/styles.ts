@@ -41,6 +41,14 @@ export const Instagram = styled.Text`
   color: ${Colors.accent};
 `;
 
+export const StyledDate = styled.Text`
+  margin-top: 10px;
+  text-align: center;
+  font-size: ${fonts.sizes.md}px;
+  font-family: ${fonts.family};
+  color: ${Colors.accent};
+`;
+
 export const Description = styled.Text`
   margin: 10px;
   text-align: center;
