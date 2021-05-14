@@ -3,6 +3,9 @@ import { FlatList, ListRenderItem } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
 
+// navigation
+import { useNavigation } from '@react-navigation/native';
+
 //  redux
 import { useSelector } from 'react-redux';
 import { IState } from '../../../store';
@@ -39,6 +42,8 @@ const ProfileScreen: React.FC = () => {
 
   const userMedia = user?.instagram?.userMedia;
 
+  const navigation = useNavigation();
+
   const renderItem: ListRenderItem<UserMedia> = useCallback(({ item }) => {
     return item.media_type === MEDIA_TYPES.video ? (
       <VideoItem
@@ -66,7 +71,7 @@ const ProfileScreen: React.FC = () => {
         />
         <StyledName>{user?.name}</StyledName>
         <Instagram>@{user?.instagram?.userName}</Instagram>
-        <StyledEditButton onPress={() => console.log('pressed')}>
+        <StyledEditButton onPress={() => navigation.navigate('EditProfile')}>
           <EditButtonLayout>
             <ButtonText>{translate('editProfile')}</ButtonText>
           </EditButtonLayout>

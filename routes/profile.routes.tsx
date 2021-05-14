@@ -1,8 +1,10 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
+//  screens
 import ProfileScreen from '../screens/profileScreen';
 import PublicationScreen from '../screens/publicationScreen';
+import EditProfileScreen from '../screens/editProfileScreen';
 
 // i18n
 import { translate } from '../i18n/src/locales';
@@ -35,6 +37,14 @@ const ProfileRoutes: React.FC = () => (
       options={{
         headerShown: true,
         headerTitle: translate('userPublication'),
+      }}
+    />
+    <Profile.Screen
+      name="EditProfile"
+      component={EditProfileScreen}
+      options={{
+        headerShown: true,
+        headerTitle: translate('editProfile'),
       }}
     />
   </Profile.Navigator>

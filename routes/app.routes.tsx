@@ -93,7 +93,9 @@ const AppDrawerRoutes: React.FC = () => (
         drawerIcon: () => (
           <Ionicons name="md-person-outline" size={25} color={Colors.accent} />
         ),
-        headerShown: getFocusedRouteNameFromRoute(route) !== 'Publication',
+        headerShown:
+          getFocusedRouteNameFromRoute(route) !== 'Publication' &&
+          getFocusedRouteNameFromRoute(route) !== 'EditProfile',
         headerTitle: translate('myProfile'),
         drawerLabel: translate('myProfile'),
       })}
