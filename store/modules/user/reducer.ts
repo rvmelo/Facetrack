@@ -4,6 +4,7 @@ import { ActionTypes, IUser } from './types';
 
 export const INITIAL_STATE: IUser = {
   userProviderId: '',
+  avatar: '',
   name: '',
   birthDate: undefined,
   sex: undefined,
@@ -17,6 +18,10 @@ const user: Reducer<IUser> = (state = INITIAL_STATE, action) => {
     switch (action.type) {
       case ActionTypes.loadUser: {
         Object.assign(draft, { ...action.payload });
+        return draft;
+      }
+      case ActionTypes.updateAvatar: {
+        Object.assign(draft, { avatar: action.payload });
         return draft;
       }
       default: {

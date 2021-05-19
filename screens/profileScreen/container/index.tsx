@@ -20,6 +20,7 @@ import { VideoItem, PhotoItem } from './items';
 
 // constants
 import Colors from '../../../constants/colors';
+import { base_url } from '../../../constants/backend';
 
 import {
   Container,
@@ -65,8 +66,7 @@ const ProfileScreen: React.FC = () => {
       <ProfileDataContainer>
         <UserAvatar
           source={{
-            uri:
-              'https://img.ibxk.com.br//2020/05/28/28135510637179.jpg?w=1200&h=675&mode=crop&scale=both',
+            uri: `${base_url}/files/${user?.avatar}`,
           }}
         />
         <StyledName>{user?.name}</StyledName>

@@ -1,12 +1,36 @@
-// import { all, call, takeLatest } from 'redux-saga/effects';
-// import { ActionTypes } from './types';
+// /* eslint-disable no-undef */
+// import { all, call, put, takeLatest } from 'redux-saga/effects';
+// import { AxiosResponse } from 'axios';
+// import { ActionTypes, IUser } from './types';
 
 // import api from '../../../services/api';
 
-// type CreateUserRequest = ReturnType<typeof createUser>;
+// import { updateAvatar, loadUser } from './actions';
 
-// function* handleUserCreation({ payload }: CreateUserRequest) {
-//   yield call(api.post, '/users', payload);
+// type UpdateAvatarRequest = ReturnType<typeof updateAvatar>;
+
+// function* handleAvatarUpdate({ payload }: UpdateAvatarRequest) {
+//   const fileType = payload.substring(payload.lastIndexOf('.') + 1);
+
+//   const data = new FormData();
+
+//   data.append(
+//     'avatar',
+//     JSON.parse(
+//       JSON.stringify({
+//         uri: payload,
+//         type: `image/${fileType}`,
+//         name: `photo.${fileType}`,
+//       }),
+//     ),
+//   );
+
+//   const response: AxiosResponse<IUser> = yield call(
+//     api.patch,
+//     '/users/avatar',
+//     data,
+//   );
+//   yield put(loadUser({ ...response.data }));
 // }
 
-// export default all([takeLatest(ActionTypes.createUser, handleUserCreation)]);
+// export default all([takeLatest(ActionTypes.updateAvatar, handleAvatarUpdate)]);

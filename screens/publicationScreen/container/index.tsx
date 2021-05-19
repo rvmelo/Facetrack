@@ -24,6 +24,9 @@ import {
   StyledDate,
 } from './styles';
 
+// constants
+import { base_url } from '../../../constants/backend';
+
 //   hooks
 import usePublication from '../usePublication';
 import { SCREEN_WIDTH } from '../../../constants/dimensions';
@@ -50,8 +53,7 @@ const PublicationScreen: React.FC = () => {
       <Header>
         <UserAvatar
           source={{
-            uri:
-              'https://img.ibxk.com.br//2020/05/28/28135510637179.jpg?w=1200&h=675&mode=crop&scale=both',
+            uri: `${base_url}/files/${user?.avatar}`,
           }}
         />
         <HeaderTextContainer>

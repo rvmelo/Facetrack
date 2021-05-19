@@ -2,6 +2,7 @@
 /* eslint-disable no-shadow */
 export enum ActionTypes {
   loadUser = 'LOAD_USER',
+  updateAvatar = 'UPDATE_AVATAR',
 }
 
 export const MEDIA_TYPES = {
@@ -23,6 +24,7 @@ export interface UserMedia {
 export interface IUser {
   userProviderId: string;
   name: string;
+  avatar: string;
   birthDate: Date | undefined;
   sex: 'male' | 'female' | undefined;
   relationshipStatus: 'single' | 'serious relationship' | 'married' | undefined;
