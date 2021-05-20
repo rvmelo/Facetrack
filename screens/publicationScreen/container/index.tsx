@@ -16,7 +16,6 @@ import {
   PublicationContainer,
   Header,
   HeaderTextContainer,
-  UserAvatar,
   StyledName,
   Instagram,
   UserPhoto,
@@ -24,13 +23,13 @@ import {
   StyledDate,
 } from './styles';
 
-// constants
-import { base_url } from '../../../constants/backend';
-
 //   hooks
 import usePublication from '../usePublication';
 import { SCREEN_WIDTH } from '../../../constants/dimensions';
 import { IState } from '../../../store';
+
+// components
+import Avatar from '../../../components/avatar';
 
 interface RouteParams {
   caption: string;
@@ -51,11 +50,7 @@ const PublicationScreen: React.FC = () => {
   return (
     <PublicationContainer>
       <Header>
-        <UserAvatar
-          source={{
-            uri: `${base_url}/files/${user?.avatar}`,
-          }}
-        />
+        <Avatar avatar={user?.avatar} />
         <HeaderTextContainer>
           <StyledName>{user?.name}</StyledName>
           <Instagram>@{user?.instagram?.userName}</Instagram>

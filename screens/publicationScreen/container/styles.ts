@@ -16,17 +16,12 @@ export const Header = styled.View`
   flex-direction: row;
   align-items: center;
   margin: 10px 0;
+  padding-left: 10px;
 `;
 
 export const HeaderTextContainer = styled.View`
   flex-direction: column;
-`;
-
-export const UserAvatar = styled.Image`
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
-  margin: 0 10px;
+  margin-left: 10px;
 `;
 
 export const StyledName = styled.Text`

@@ -17,10 +17,10 @@ import {
 
 // components
 import { VideoItem, PhotoItem } from './items';
+import Avatar from '../../../components/avatar/index';
 
 // constants
 import Colors from '../../../constants/colors';
-import { base_url } from '../../../constants/backend';
 
 import {
   Container,
@@ -30,7 +30,6 @@ import {
   StyledEditButton,
   EditButtonLayout,
   ButtonText,
-  UserAvatar,
   PhotoContainerText,
   EmptyPhotoContainer,
 } from './styles';
@@ -64,11 +63,7 @@ const ProfileScreen: React.FC = () => {
   return (
     <Container>
       <ProfileDataContainer>
-        <UserAvatar
-          source={{
-            uri: `${base_url}/files/${user?.avatar}`,
-          }}
-        />
+        <Avatar avatar={user?.avatar} />
         <StyledName>{user?.name}</StyledName>
         <Instagram>@{user?.instagram?.userName}</Instagram>
         <StyledEditButton onPress={() => navigation.navigate('EditProfile')}>

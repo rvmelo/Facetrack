@@ -18,19 +18,13 @@ export const StyledName = styled.Text`
   font-size: ${fonts.sizes.md}px;
   font-weight: bold;
   color: ${Colors.accent};
+  margin-top: 10px;
 `;
 
 export const Instagram = styled.Text`
   font-size: ${fonts.sizes.md}px;
   font-family: ${fonts.family};
   color: ${Colors.accent};
-`;
-
-export const UserAvatar = styled.Image`
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
-  margin-bottom: 20px;
 `;
 
 export const TouchableInterface = styled.TouchableWithoutFeedback``;

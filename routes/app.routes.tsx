@@ -25,7 +25,7 @@ import Colors from '../constants/colors';
 import { fonts } from '../constants/fonts';
 
 //  components
-import DrawerHeader from './components/drawerHeader';
+import DrawerHeader from '../components/drawerHeader';
 
 // i18n
 import { translate } from '../i18n/src/locales';
