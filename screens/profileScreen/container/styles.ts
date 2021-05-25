@@ -21,7 +21,7 @@ export const StyledName = styled.Text`
   margin-top: 10px;
 `;
 
-export const Instagram = styled.Text`
+export const StyledText = styled.Text`
   font-size: ${fonts.sizes.md}px;
   font-family: ${fonts.family};
   color: ${Colors.accent};

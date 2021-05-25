@@ -24,6 +24,10 @@ const user: Reducer<IUser> = (state = INITIAL_STATE, action) => {
         Object.assign(draft, { avatar: action.payload });
         return draft;
       }
+      case ActionTypes.updateUser: {
+        Object.assign(draft, { ...action.payload.user });
+        return draft;
+      }
       default: {
         return draft;
       }

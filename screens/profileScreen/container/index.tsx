@@ -26,7 +26,7 @@ import {
   Container,
   ProfileDataContainer,
   StyledName,
-  Instagram,
+  StyledText,
   StyledEditButton,
   EditButtonLayout,
   ButtonText,
@@ -65,7 +65,11 @@ const ProfileScreen: React.FC = () => {
       <ProfileDataContainer>
         <Avatar avatar={user?.avatar} />
         <StyledName>{user?.name}</StyledName>
-        <Instagram>@{user?.instagram?.userName}</Instagram>
+        <StyledText>@{user?.instagram?.userName}</StyledText>
+        <StyledText>{user?.sexualOrientation}</StyledText>
+        <StyledText>{user?.relationshipStatus}</StyledText>
+        {/* <StyledText>{user?.birthDate}</StyledText> */}
+
         <StyledEditButton onPress={() => navigation.navigate('EditProfile')}>
           <EditButtonLayout>
             <ButtonText>{translate('editProfile')}</ButtonText>

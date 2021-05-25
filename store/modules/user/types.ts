@@ -3,6 +3,7 @@
 export enum ActionTypes {
   loadUser = 'LOAD_USER',
   updateAvatar = 'UPDATE_AVATAR',
+  updateUser = 'UPDATE_USER',
 }
 
 export const MEDIA_TYPES = {

@@ -4,20 +4,19 @@ import { Ionicons } from '@expo/vector-icons';
 import { AvatarImage } from './styles';
 
 //  constants
-import { base_url } from '../../../constants/backend';
 import Colors from '../../../constants/colors';
 
 interface AvatarContentProps {
-  avatar: string;
+  avatarUri: string;
 }
 
-const AvatarContent: React.FC<AvatarContentProps> = ({ avatar }) => {
+const AvatarContent: React.FC<AvatarContentProps> = ({ avatarUri }) => {
   return (
     <>
-      {avatar ? (
+      {avatarUri ? (
         <AvatarImage
           source={{
-            uri: `${base_url}/files/${avatar}`,
+            uri: avatarUri,
           }}
         />
       ) : (

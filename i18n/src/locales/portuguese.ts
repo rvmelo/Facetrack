@@ -51,4 +51,8 @@ export default {
   // User Publication Screen
   userPublications: 'Publicações',
   userPublication: 'Publicação',
+
+  // Edit Screen
+  sexualOrientation2: 'Orientação Sexual',
+  relationshipStatus2: 'Status de Relacionamento',
 };

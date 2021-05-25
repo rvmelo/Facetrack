@@ -48,4 +48,8 @@ export default {
   // User Publication Screen
   userPublications: 'Publications',
   userPublication: 'Publication',
+
+  // Edit Screen
+  sexualOrientation2: 'Sexual Orientation',
+  relationshipStatus2: 'Relationship Status',
 };
