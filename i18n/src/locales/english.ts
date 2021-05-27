@@ -52,4 +52,6 @@ export default {
   // Edit Screen
   sexualOrientation2: 'Sexual Orientation',
   relationshipStatus2: 'Relationship Status',
+  userUpdateError: 'Error on user update',
+  avatarUpdateError: 'Error on avatar update',
 };

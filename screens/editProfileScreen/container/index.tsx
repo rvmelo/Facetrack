@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import React, { memo } from 'react';
+import { ActivityIndicator } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -21,6 +22,7 @@ import {
 
 // constants
 import { base_url } from '../../../constants/backend';
+import Colors from '../../../constants/colors';
 
 //  hooks
 import useEditProfile from '../useEditProfile';
@@ -35,7 +37,7 @@ const EditProfileScreen: React.FC = () => {
     userInfo,
     setUserInfo,
     setShouldUpdate,
-    localAvatarUri,
+    isLoading,
   } = useEditProfile();
 
   const user = useSelector<IState, IUser>(state => state.user);
@@ -44,12 +46,15 @@ const EditProfileScreen: React.FC = () => {
     <Container>
       <TouchableInterface onPress={handleAvatarUpdate}>
         <AvatarContainer>
-          <AvatarContent
-            avatarUri={
-              localAvatarUri ||
-              (user?.avatar ? `${base_url}/files/${user?.avatar}` : '')
-            }
-          />
+          {isLoading ? (
+            <ActivityIndicator color={Colors.primary} size="large" />
+          ) : (
+            <AvatarContent
+              avatarUri={
+                user?.avatar ? `${base_url}/files/${user?.avatar}` : ''
+              }
+            />
+          )}
         </AvatarContainer>
       </TouchableInterface>
       <AddPhotoButton onPress={handleAvatarUpdate}>

@@ -3,10 +3,11 @@ import { useCallback, useState, useEffect, useRef } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
 //  redux
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from '../store/modules/user/actions';
 import { IUser } from '../store/modules/user/types';
 import { INITIAL_STATE } from '../store/modules/user/reducer';
+import { IState } from '../store';
 
 //  services
 import api from '../services/api';
@@ -34,6 +35,14 @@ function useAuth(): ReturnValue {
   const [isLoading, setIsLoading] = useState(true);
 
   const isMounted = useRef<boolean | null>(null);
+
+  const userData = useSelector<IState, IUser>(state => state.user);
+
+  useEffect(() => {
+    (async () => {
+      await AsyncStorage.setItem('@Facetrack:user', JSON.stringify(userData));
+    })();
+  }, [userData]);
 
   const handleAutoSignIn = useCallback(async () => {
     setIsLoading(true);

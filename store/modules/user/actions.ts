@@ -1,7 +1,6 @@
 import { ActionTypes, IUser } from './types';
 
 interface UpdateUserPayload {
-  localAvatarUri: string;
   user: IUser;
 }
 

@@ -1,45 +1,47 @@
-/* eslint-disable no-undef */
-import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { AxiosResponse } from 'axios';
-import { ActionTypes, IUser } from './types';
+// /* eslint-disable no-undef */
+// import { all, call, put, takeLatest } from 'redux-saga/effects';
+// import { AxiosResponse } from 'axios';
+// import { ActionTypes, IUser } from './types';
 
-import api from '../../../services/api';
+// import api from '../../../services/api';
 
-import { loadUser, updateUser } from './actions';
+// import { loadUser, updateUser } from './actions';
 
-type UpdateUserRequest = ReturnType<typeof updateUser>;
+// type UpdateUserRequest = ReturnType<typeof updateUser>;
 
-function* handleUserUpdate({ payload }: UpdateUserRequest) {
-  const { localAvatarUri, user } = payload;
+// function* handleUserUpdate({ payload }: UpdateUserRequest) {
+//   const { localAvatarUri, user, setIsLoading } = payload;
 
-  yield call(api.patch, '/users', user);
+//   yield call(api.patch, '/users', user);
 
-  if (!localAvatarUri) return;
+//   if (!localAvatarUri) return;
 
-  const fileType = localAvatarUri.substring(
-    localAvatarUri.lastIndexOf('.') + 1,
-  );
+//   const fileType = localAvatarUri.substring(
+//     localAvatarUri.lastIndexOf('.') + 1,
+//   );
 
-  const data = new FormData();
+//   const data = new FormData();
 
-  data.append(
-    'avatar',
-    JSON.parse(
-      JSON.stringify({
-        uri: localAvatarUri,
-        type: `image/${fileType}`,
-        name: `photo.${fileType}`,
-      }),
-    ),
-  );
+//   data.append(
+//     'avatar',
+//     JSON.parse(
+//       JSON.stringify({
+//         uri: localAvatarUri,
+//         type: `image/${fileType}`,
+//         name: `photo.${fileType}`,
+//       }),
+//     ),
+//   );
 
-  const response: AxiosResponse<IUser> = yield call(
-    api.patch,
-    '/users/avatar',
-    data,
-  );
+//   const response: AxiosResponse<IUser> = yield call(
+//     api.patch,
+//     '/users/avatar',
+//     data,
+//   );
 
-  yield put(loadUser({ ...response.data }));
-}
+//   yield put(loadUser({ ...response.data }));
 
-export default all([takeLatest(ActionTypes.updateUser, handleUserUpdate)]);
+//   setIsLoading(false);
+// }
+
+// export default all([takeLatest(ActionTypes.updateUser, handleUserUpdate)]);
