@@ -3,6 +3,7 @@
 import { useCallback, useState, useEffect, useRef } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { Alert } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 // navigation
 import { useNavigation } from '@react-navigation/native';
@@ -77,6 +78,11 @@ function useEditProfile(): ReturnValue {
         }),
       );
 
+      await AsyncStorage.setItem(
+        '@Facetrack:user',
+        JSON.stringify(response.data),
+      );
+
       isMounted.current && setShouldUpdate(false);
     } catch (err) {
       Alert.alert('Error', `${translate('userUpdateError')}: ${err.message}`);
@@ -139,6 +145,12 @@ function useEditProfile(): ReturnValue {
       );
 
       dispatch(updateAvatar(response.data.avatar));
+
+      await AsyncStorage.setItem(
+        '@Facetrack:user',
+        JSON.stringify(response.data),
+      );
+
       isMounted.current && setIsLoading(false);
     } catch (err) {
       isMounted.current && setIsLoading(false);
