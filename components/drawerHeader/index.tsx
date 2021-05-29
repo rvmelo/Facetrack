@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 //  redux
 import { useSelector } from 'react-redux';
 import { IState } from '../../store';
-import { IUser } from '../../store/modules/user/types';
+import { IUserState } from '../../store/modules/user/types';
 
 //  styles
 import { Container, StyledName, Instagram } from './styles';
@@ -12,7 +12,7 @@ import { Container, StyledName, Instagram } from './styles';
 import Avatar from '../avatar';
 
 const DrawerHeader: React.FC = () => {
-  const user = useSelector<IState, IUser>(state => state.user);
+  const { user } = useSelector<IState, IUserState>(state => state.user);
 
   return (
     <Container>

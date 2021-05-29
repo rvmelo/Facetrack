@@ -7,7 +7,7 @@ import { useRoute } from '@react-navigation/native';
 //  redux
 import { useSelector } from 'react-redux';
 import {
-  IUser,
+  IUserState,
   MEDIA_TYPES,
   media_types,
 } from '../../../store/modules/user/types';
@@ -45,7 +45,7 @@ const PublicationScreen: React.FC = () => {
 
   const { imgHeight, formatDate } = usePublication({ media_type, media_url });
 
-  const user = useSelector<IState, IUser>(state => state.user);
+  const { user } = useSelector<IState, IUserState>(state => state.user);
 
   return (
     <PublicationContainer>

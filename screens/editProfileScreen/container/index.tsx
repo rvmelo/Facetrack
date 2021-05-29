@@ -8,7 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 //  redux
 import { useSelector } from 'react-redux';
 import { IState } from '../../../store';
-import { IUser } from '../../../store/modules/user/types';
+import { IUserState } from '../../../store/modules/user/types';
 
 //  styles
 import {
@@ -40,7 +40,7 @@ const EditProfileScreen: React.FC = () => {
     isLoading,
   } = useEditProfile();
 
-  const user = useSelector<IState, IUser>(state => state.user);
+  const { user } = useSelector<IState, IUserState>(state => state.user);
 
   return (
     <Container>

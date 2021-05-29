@@ -38,6 +38,8 @@ function useAuth(): ReturnValue {
   const handleAutoSignIn = useCallback(async () => {
     setIsLoading(true);
 
+    // await AsyncStorage.multiRemove(['@Facetrack:token', '@Facetrack:user']);
+
     const [token, user] = await AsyncStorage.multiGet([
       '@Facetrack:token',
       '@Facetrack:user',
@@ -110,7 +112,7 @@ function useAuth(): ReturnValue {
 
     dispatch(
       loadUser({
-        ...INITIAL_STATE,
+        ...INITIAL_STATE.user,
       }),
     );
   }, [dispatch]);

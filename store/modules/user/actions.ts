@@ -1,9 +1,5 @@
 import { ActionTypes, IUser } from './types';
 
-interface UpdateUserPayload {
-  user: IUser;
-}
-
 interface LoadUserReturnType {
   type: string;
   payload: IUser;
@@ -16,7 +12,7 @@ interface UpdateAvatarReturnType {
 
 interface UpdateUserReturnType {
   type: string;
-  payload: UpdateUserPayload;
+  payload: IUser;
 }
 
 export function loadUser(payload: IUser): LoadUserReturnType {
@@ -33,7 +29,7 @@ export function updateAvatar(payload: string): UpdateAvatarReturnType {
   };
 }
 
-export function updateUser(payload: UpdateUserPayload): UpdateUserReturnType {
+export function updateUser(payload: IUser): UpdateUserReturnType {
   return {
     type: ActionTypes.updateUser,
     payload,

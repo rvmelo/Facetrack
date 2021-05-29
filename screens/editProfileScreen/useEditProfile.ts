@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AxiosResponse } from 'axios';
 import { updateAvatar, updateUser } from '../../store/modules/user/actions';
 import { IState } from '../../store';
-import { IUser } from '../../store/modules/user/types';
+import { IUserState, IUser } from '../../store/modules/user/types';
 
 //  services
 import api from '../../services/api';
@@ -38,7 +38,7 @@ interface ReturnValue {
 }
 
 function useEditProfile(): ReturnValue {
-  const user = useSelector<IState, IUser>(state => state.user);
+  const { user } = useSelector<IState, IUserState>(state => state.user);
 
   const navigation = useNavigation();
 
@@ -72,9 +72,7 @@ function useEditProfile(): ReturnValue {
 
       dispatch(
         updateUser({
-          user: {
-            ...response.data,
-          },
+          ...response.data,
         }),
       );
 

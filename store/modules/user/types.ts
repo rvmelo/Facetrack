@@ -42,3 +42,8 @@ export interface IUser {
       }
     | undefined;
 }
+
+export interface IUserState {
+  user: IUser;
+  isAvatarLoading: boolean;
+}

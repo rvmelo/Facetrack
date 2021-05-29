@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { IState } from '../../../store';
 import {
-  IUser,
+  IUserState,
   MEDIA_TYPES,
   UserMedia,
 } from '../../../store/modules/user/types';
@@ -38,7 +38,7 @@ import {
 import { translate } from '../../../i18n/src/locales';
 
 const ProfileScreen: React.FC = () => {
-  const user = useSelector<IState, IUser>(state => state.user);
+  const { user } = useSelector<IState, IUserState>(state => state.user);
 
   const userMedia = user?.instagram?.userMedia;
 
