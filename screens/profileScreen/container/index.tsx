@@ -1,5 +1,10 @@
-import React, { memo, useCallback } from 'react';
-import { FlatList, ListRenderItem } from 'react-native';
+import React, { memo, useCallback, useEffect } from 'react';
+import {
+  FlatList,
+  ListRenderItem,
+  ActivityIndicator,
+  Alert,
+} from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -38,11 +43,18 @@ import {
 import { translate } from '../../../i18n/src/locales';
 
 const ProfileScreen: React.FC = () => {
-  const { user } = useSelector<IState, IUserState>(state => state.user);
+  const { user, isAvatarLoading, isUserUpdateFailure } = useSelector<
+    IState,
+    IUserState
+  >(state => state.user);
 
   const userMedia = user?.instagram?.userMedia;
 
   const navigation = useNavigation();
+
+  useEffect(() => {
+    isUserUpdateFailure && Alert.alert('Error', translate('userUpdateError'));
+  }, [isUserUpdateFailure]);
 
   const renderItem: ListRenderItem<UserMedia> = useCallback(({ item }) => {
     return item.media_type === MEDIA_TYPES.video ? (
@@ -63,7 +75,19 @@ const ProfileScreen: React.FC = () => {
   return (
     <Container>
       <ProfileDataContainer>
-        <Avatar avatar={user?.avatar} />
+        {isAvatarLoading ? (
+          <ActivityIndicator
+            color={Colors.primary}
+            size="large"
+            style={{
+              width: 60,
+              height: 60,
+              borderRadius: 30,
+            }}
+          />
+        ) : (
+          <Avatar avatar={user?.avatar} />
+        )}
         <StyledName>{user?.name}</StyledName>
         <StyledText>@{user?.instagram?.userName}</StyledText>
         <StyledText>{user?.sexualOrientation}</StyledText>

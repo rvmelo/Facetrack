@@ -2,8 +2,15 @@
 /* eslint-disable no-shadow */
 export enum ActionTypes {
   loadUser = 'LOAD_USER',
-  updateAvatar = 'UPDATE_AVATAR',
-  updateUser = 'UPDATE_USER',
+
+  updateAvatarRequest = 'UPDATE_AVATAR_REQUEST',
+  updateAvatarSuccess = 'UPDATE_AVATAR_SUCCESS',
+  updateAvatarFailure = 'UPDATE_AVATAR_FAILURE',
+  updateAvatarLoading = 'UPDATE_AVATAR_LOADING',
+
+  updateUserRequest = 'UPDATE_USER_REQUEST',
+  updateUserSuccess = 'UPDATE_USER_SUCCESS',
+  updateUserFailure = 'UPDATE_USER_FAILURE',
 }
 
 export const MEDIA_TYPES = {
@@ -46,4 +53,6 @@ export interface IUser {
 export interface IUserState {
   user: IUser;
   isAvatarLoading: boolean;
+  isAvatarUpdateFailure: boolean;
+  isUserUpdateFailure: boolean;
 }

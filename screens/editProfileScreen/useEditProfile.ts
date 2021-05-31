@@ -1,22 +1,22 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import { useCallback, useState, useEffect, useRef } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { Alert } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 
 // navigation
 import { useNavigation } from '@react-navigation/native';
 
 //  redux
 import { useDispatch, useSelector } from 'react-redux';
-import { AxiosResponse } from 'axios';
-import { updateAvatar, updateUser } from '../../store/modules/user/actions';
+import {
+  updateAvatarRequest,
+  updateUserRequest,
+} from '../../store/modules/user/actions';
 import { IState } from '../../store';
-import { IUserState, IUser } from '../../store/modules/user/types';
+import { IUserState } from '../../store/modules/user/types';
 
 //  services
-import api from '../../services/api';
 import { translate } from '../../i18n/src/locales';
 
 export interface UserInfoType {
@@ -34,57 +34,36 @@ interface ReturnValue {
   userInfo: UserInfoType;
   setUserInfo(userInfo: UserInfoType): void;
   setShouldUpdate(shouldUpdate: boolean): void;
-  isLoading: boolean;
 }
 
 function useEditProfile(): ReturnValue {
-  const { user } = useSelector<IState, IUserState>(state => state.user);
+  const { user, isAvatarUpdateFailure } = useSelector<IState, IUserState>(
+    state => state.user,
+  );
 
   const navigation = useNavigation();
-
-  const isMounted = useRef<boolean | null>(null);
 
   const [userInfo, setUserInfo] = useState<UserInfoType>({
     relationshipStatus: user?.relationshipStatus,
     sexualOrientation: user?.sexualOrientation,
   });
 
-  const [isLoading, setIsLoading] = useState(false);
-
   const [shouldUpdate, setShouldUpdate] = useState(false);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    isMounted.current = true;
-
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
+    isAvatarUpdateFailure &&
+      Alert.alert('Error', translate('avatarUpdateError'));
+  }, [isAvatarUpdateFailure]);
 
   const handleUserUpdate = useCallback(async () => {
-    try {
-      const response: AxiosResponse<IUser> = await api.patch('/users', {
+    dispatch(
+      updateUserRequest({
         ...user,
         ...userInfo,
-      });
-
-      dispatch(
-        updateUser({
-          ...response.data,
-        }),
-      );
-
-      await AsyncStorage.setItem(
-        '@Facetrack:user',
-        JSON.stringify(response.data),
-      );
-
-      isMounted.current && setShouldUpdate(false);
-    } catch (err) {
-      Alert.alert('Error', `${translate('userUpdateError')}: ${err.message}`);
-    }
+      }),
+    );
   }, [dispatch, user, userInfo]);
 
   useEffect(() => {
@@ -118,40 +97,10 @@ function useEditProfile(): ReturnValue {
 
       if (result.cancelled) return;
 
-      isMounted.current && setIsLoading(true);
-
       const imageUri = result.uri;
 
-      const fileType = imageUri.substring(imageUri.lastIndexOf('.') + 1);
-
-      const data = new FormData();
-
-      data.append(
-        'avatar',
-        JSON.parse(
-          JSON.stringify({
-            uri: imageUri,
-            type: `image/${fileType}`,
-            name: `photo.${fileType}`,
-          }),
-        ),
-      );
-
-      const response: AxiosResponse<IUser> = await api.patch(
-        '/users/avatar',
-        data,
-      );
-
-      dispatch(updateAvatar(response.data.avatar));
-
-      await AsyncStorage.setItem(
-        '@Facetrack:user',
-        JSON.stringify(response.data),
-      );
-
-      isMounted.current && setIsLoading(false);
+      dispatch(updateAvatarRequest(imageUri));
     } catch (err) {
-      isMounted.current && setIsLoading(false);
       Alert.alert('Error', `${translate('avatarUpdateError')}: ${err.message}`);
     }
   }, [dispatch]);
@@ -161,7 +110,6 @@ function useEditProfile(): ReturnValue {
     userInfo,
     setUserInfo,
     setShouldUpdate,
-    isLoading,
   };
 }
 

@@ -14,6 +14,8 @@ export const INITIAL_STATE: IUserState = {
     instagram: undefined,
   },
   isAvatarLoading: false,
+  isAvatarUpdateFailure: false,
+  isUserUpdateFailure: false,
 };
 
 const user: Reducer<IUserState> = (state = INITIAL_STATE, action) => {
@@ -23,14 +25,36 @@ const user: Reducer<IUserState> = (state = INITIAL_STATE, action) => {
         Object.assign(draft, { user: { ...action.payload } });
         return draft;
       }
-      case ActionTypes.updateAvatar: {
+      case ActionTypes.updateAvatarSuccess: {
         Object.assign(draft, {
           user: { ...draft.user, avatar: action.payload },
+          isAvatarUpdateFailure: false,
         });
         return draft;
       }
-      case ActionTypes.updateUser: {
-        Object.assign(draft, { user: { ...action.payload } });
+      case ActionTypes.updateAvatarFailure: {
+        Object.assign(draft, {
+          isAvatarUpdateFailure: true,
+        });
+        return draft;
+      }
+      case ActionTypes.updateAvatarLoading: {
+        Object.assign(draft, {
+          isAvatarLoading: action.payload,
+        });
+        return draft;
+      }
+      case ActionTypes.updateUserSuccess: {
+        Object.assign(draft, {
+          user: { ...action.payload },
+          isUserUpdateFailure: false,
+        });
+        return draft;
+      }
+      case ActionTypes.updateUserFailure: {
+        Object.assign(draft, {
+          isUserUpdateFailure: true,
+        });
         return draft;
       }
       default: {

@@ -37,16 +37,17 @@ const EditProfileScreen: React.FC = () => {
     userInfo,
     setUserInfo,
     setShouldUpdate,
-    isLoading,
   } = useEditProfile();
 
-  const { user } = useSelector<IState, IUserState>(state => state.user);
+  const { user, isAvatarLoading } = useSelector<IState, IUserState>(
+    state => state.user,
+  );
 
   return (
     <Container>
       <TouchableInterface onPress={handleAvatarUpdate}>
         <AvatarContainer>
-          {isLoading ? (
+          {isAvatarLoading ? (
             <ActivityIndicator color={Colors.primary} size="large" />
           ) : (
             <AvatarContent

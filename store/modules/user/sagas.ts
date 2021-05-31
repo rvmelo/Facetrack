@@ -1,47 +1,86 @@
-// /* eslint-disable no-undef */
-// import { all, call, put, takeLatest } from 'redux-saga/effects';
-// import { AxiosResponse } from 'axios';
-// import { ActionTypes, IUser } from './types';
+/* eslint-disable no-undef */
+import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { AxiosResponse } from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 
-// import api from '../../../services/api';
+import api from '../../../services/api';
 
-// import { loadUser, updateUser } from './actions';
+import { ActionTypes, IUser } from './types';
+import {
+  updateUserRequest,
+  updateUserSuccess,
+  updateUserFailure,
+  updateAvatarRequest,
+  updateAvatarSuccess,
+  updateAvatarFailure,
+  updateAvatarLoading,
+} from './actions';
 
-// type UpdateUserRequest = ReturnType<typeof updateUser>;
+type UpdateUserRequest = ReturnType<typeof updateUserRequest>;
+type UpdateAvatarRequest = ReturnType<typeof updateAvatarRequest>;
 
-// function* handleUserUpdate({ payload }: UpdateUserRequest) {
-//   const { localAvatarUri, user, setIsLoading } = payload;
+async function StoreUser(user: IUser) {
+  AsyncStorage.setItem('@Facetrack:user', JSON.stringify(user));
+}
 
-//   yield call(api.patch, '/users', user);
+function* handleUserUpdate({ payload }: UpdateUserRequest) {
+  try {
+    const response: AxiosResponse<IUser> = yield call(
+      api.patch,
+      '/users',
+      payload,
+    );
 
-//   if (!localAvatarUri) return;
+    yield call(StoreUser, response.data);
 
-//   const fileType = localAvatarUri.substring(
-//     localAvatarUri.lastIndexOf('.') + 1,
-//   );
+    yield put(updateUserSuccess(payload));
+  } catch (err) {
+    yield put(updateUserFailure());
+  }
+}
 
-//   const data = new FormData();
+function* handleAvatarUpdate({ payload }: UpdateAvatarRequest) {
+  const localAvatarUri = payload;
 
-//   data.append(
-//     'avatar',
-//     JSON.parse(
-//       JSON.stringify({
-//         uri: localAvatarUri,
-//         type: `image/${fileType}`,
-//         name: `photo.${fileType}`,
-//       }),
-//     ),
-//   );
+  try {
+    if (!localAvatarUri) return;
 
-//   const response: AxiosResponse<IUser> = yield call(
-//     api.patch,
-//     '/users/avatar',
-//     data,
-//   );
+    const fileType = localAvatarUri.substring(
+      localAvatarUri.lastIndexOf('.') + 1,
+    );
 
-//   yield put(loadUser({ ...response.data }));
+    const data = new FormData();
 
-//   setIsLoading(false);
-// }
+    data.append(
+      'avatar',
+      JSON.parse(
+        JSON.stringify({
+          uri: localAvatarUri,
+          type: `image/${fileType}`,
+          name: `photo.${fileType}`,
+        }),
+      ),
+    );
 
-// export default all([takeLatest(ActionTypes.updateUser, handleUserUpdate)]);
+    yield put(updateAvatarLoading(true));
+
+    const response: AxiosResponse<IUser> = yield call(
+      api.patch,
+      '/users/avatar',
+      data,
+    );
+
+    yield call(StoreUser, response.data);
+
+    yield put(updateAvatarLoading(false));
+    yield put(updateAvatarSuccess(response.data.avatar));
+  } catch (err) {
+    yield put(updateAvatarLoading(false));
+    yield put(updateAvatarFailure());
+  }
+}
+
+export default all([
+  takeLatest(ActionTypes.updateUserRequest, handleUserUpdate),
+  takeLatest(ActionTypes.updateAvatarRequest, handleAvatarUpdate),
+]);
