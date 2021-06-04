@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
 import React, { memo } from 'react';
 import { ActivityIndicator } from 'react-native';
 
@@ -14,8 +13,9 @@ import { IUserState } from '../../../store/modules/user/types';
 import {
   Container,
   AvatarContainer,
-  AddPhotoButton,
+  TouchableButton,
   ButtonLayout,
+  InstagramButtonLayout,
   TouchableInterface,
   ButtonText,
 } from './styles';
@@ -26,6 +26,7 @@ import Colors from '../../../constants/colors';
 
 //  hooks
 import useEditProfile from '../useEditProfile';
+import useInstagram from '../../../hooks/useInstagram';
 
 //  components
 import AvatarContent from './avatarContent';
@@ -38,6 +39,8 @@ const EditProfileScreen: React.FC = () => {
     setUserInfo,
     setShouldUpdate,
   } = useEditProfile();
+
+  const { handleInstagramRefresh } = useInstagram();
 
   const { user, isAvatarLoading } = useSelector<IState, IUserState>(
     state => state.user,
@@ -58,18 +61,25 @@ const EditProfileScreen: React.FC = () => {
           )}
         </AvatarContainer>
       </TouchableInterface>
-      <AddPhotoButton onPress={handleAvatarUpdate}>
+      <TouchableButton onPress={handleAvatarUpdate}>
         <ButtonLayout>
-          <Ionicons name="md-camera" size={25} color="white" />
+          <Ionicons name="md-camera-outline" size={25} color="white" />
           <ButtonText>Add Photo</ButtonText>
         </ButtonLayout>
-      </AddPhotoButton>
+      </TouchableButton>
 
       <PickerSection
         setUserInfo={setUserInfo}
         setShouldUpdate={setShouldUpdate}
         userInfo={userInfo}
       />
+
+      <TouchableButton onPress={handleInstagramRefresh}>
+        <InstagramButtonLayout>
+          <Ionicons name="md-logo-instagram" size={25} color="white" />
+          <ButtonText>Refresh Instagram</ButtonText>
+        </InstagramButtonLayout>
+      </TouchableButton>
     </Container>
   );
 };

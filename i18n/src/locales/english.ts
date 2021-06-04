@@ -54,4 +54,8 @@ export default {
   relationshipStatus2: 'Relationship Status',
   userUpdateError: 'Error on user update',
   avatarUpdateError: 'Error on avatar update',
+
+  //  Instagram Hook
+  instagramRequestFailed: 'This app failed to request instagram permissions',
+  instagramRenewFailed: 'This app needs to renew instagram permissions',
 };

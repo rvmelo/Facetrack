@@ -1,6 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect, useRef } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 import { Alert } from 'react-native';
+
+import { AxiosResponse } from 'axios';
 
 import * as Linking from 'expo-linking';
 
@@ -8,17 +11,22 @@ import * as Linking from 'expo-linking';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 //  redux
-import { useDispatch } from 'react-redux';
-import { IUser } from '../../../store/modules/user/types';
+import { IUser, UserMedia } from '../../../store/modules/user/types';
 
 //  hooks
 import useAuth from '../../../hooks/useAuth';
 
-//  apis
+//  api
 import api from '../../../services/api';
 
 // i18n
 import { translate } from '../../../i18n/src/locales';
+
+interface InstagramResponse {
+  userName: string;
+  userMedia: UserMedia[];
+  token: string;
+}
 
 interface ReturnValue {
   isLoading: boolean;
@@ -34,8 +42,6 @@ function useInstagramScreen(): ReturnValue {
   const isMounted = useRef<boolean | null>(null);
 
   const user = params as IUser;
-
-  const dispatch = useDispatch();
 
   const navigation = useNavigation();
 
@@ -56,11 +62,21 @@ function useInstagramScreen(): ReturnValue {
 
         const { code } = Linking.parse(url).queryParams || {};
 
-        const response = await api.get(
+        const response: AxiosResponse<InstagramResponse> = await api.get(
           `/sessions/auth/instagram/profile?code=${code}`,
         );
 
-        const { userName, userMedia } = response.data;
+        const { userName, userMedia, token } = response.data;
+
+        await AsyncStorage.setItem(
+          `@Facetrack:${user.userProviderId}-instagramToken`,
+          token,
+        );
+
+        await AsyncStorage.setItem(
+          `@Facetrack:${user.userProviderId}-lastInstagramRequestDate`,
+          new Date().toISOString(),
+        );
 
         isMounted.current &&
           signUp({
@@ -78,7 +94,7 @@ function useInstagramScreen(): ReturnValue {
         Alert.alert('Error', `${translate('userCreationError')}:${err}`);
       }
     });
-  }, [dispatch, user, navigation, signUp]);
+  }, [user, navigation, signUp]);
 
   return {
     isLoading,

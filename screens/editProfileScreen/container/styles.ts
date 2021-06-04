@@ -37,7 +37,7 @@ export const AvatarImage = styled.Image.attrs({
   width: 100%;
 `;
 
-export const AddPhotoButton = styled.TouchableNativeFeedback.attrs({
+export const TouchableButton = styled.TouchableNativeFeedback.attrs({
   background: TouchableNativeFeedback.Ripple('#ccc', true),
   useForeground: true,
 })``;
@@ -51,6 +51,18 @@ export const ButtonLayout = styled.View`
   justify-content: center;
   align-items: center;
   height: 40px;
+  overflow: hidden;
+`;
+
+export const InstagramButtonLayout = styled.View`
+  background: ${Colors.primary};
+  flex-direction: row;
+  padding: 10px;
+  margin-top: ${SCREEN_WIDTH / 3.5}px;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
   overflow: hidden;
 `;
 

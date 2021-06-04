@@ -1,12 +1,5 @@
 import React, { memo, useCallback, useEffect } from 'react';
-import {
-  FlatList,
-  ListRenderItem,
-  ActivityIndicator,
-  Alert,
-} from 'react-native';
-
-import { Ionicons } from '@expo/vector-icons';
+import { ListRenderItem, ActivityIndicator, Alert } from 'react-native';
 
 // navigation
 import { useNavigation } from '@react-navigation/native';
@@ -23,6 +16,10 @@ import {
 // components
 import { VideoItem, PhotoItem } from './items';
 import Avatar from '../../../components/avatar/index';
+import PhotoScroll from './photoScroll';
+
+// hooks
+import useInstagram from '../../../hooks/useInstagram';
 
 // constants
 import Colors from '../../../constants/colors';
@@ -35,7 +32,6 @@ import {
   StyledEditButton,
   EditButtonLayout,
   ButtonText,
-  PhotoContainerText,
   EmptyPhotoContainer,
 } from './styles';
 
@@ -48,6 +44,12 @@ const ProfileScreen: React.FC = () => {
     IUserState
   >(state => state.user);
 
+  const {
+    handleInstagramRefresh,
+    shouldRefreshInstagram,
+    isLoading,
+  } = useInstagram();
+
   const userMedia = user?.instagram?.userMedia;
 
   const navigation = useNavigation();
@@ -55,6 +57,15 @@ const ProfileScreen: React.FC = () => {
   useEffect(() => {
     isUserUpdateFailure && Alert.alert('Error', translate('userUpdateError'));
   }, [isUserUpdateFailure]);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', async () => {
+      const shouldRefresh = await shouldRefreshInstagram();
+      if (shouldRefresh) handleInstagramRefresh();
+    });
+
+    return unsubscribe;
+  }, [handleInstagramRefresh, shouldRefreshInstagram, navigation]);
 
   const renderItem: ListRenderItem<UserMedia> = useCallback(({ item }) => {
     return item.media_type === MEDIA_TYPES.video ? (
@@ -101,21 +112,20 @@ const ProfileScreen: React.FC = () => {
         </StyledEditButton>
       </ProfileDataContainer>
 
-      {Array.isArray(userMedia) && userMedia.length !== 0 ? (
-        <FlatList
-          data={Array.isArray(userMedia) ? userMedia : []}
-          renderItem={renderItem}
-          keyExtractor={photo => photo.id}
-          numColumns={3}
-          showsVerticalScrollIndicator={false}
-        />
-      ) : (
+      {isLoading ? (
         <EmptyPhotoContainer>
-          <Ionicons name="md-camera" size={40} color={Colors.accent} />
-          <PhotoContainerText>
-            {translate('photoDisplayMessage')}
-          </PhotoContainerText>
+          <ActivityIndicator
+            color={Colors.primary}
+            size="large"
+            style={{
+              width: 60,
+              height: 60,
+              borderRadius: 30,
+            }}
+          />
         </EmptyPhotoContainer>
+      ) : (
+        <PhotoScroll userMedia={userMedia} renderItem={renderItem} />
       )}
     </Container>
   );

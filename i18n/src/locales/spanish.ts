@@ -56,4 +56,10 @@ export default {
   relationshipStatus2: 'Estado Civil',
   userUpdateError: 'Error de actualización de usuario',
   avatarUpdateError: 'Error de actualización de avatar',
+
+  //  Instagram Hook
+  instagramRequestFailed:
+    'Esta aplicación no pudo solicitar permisos de Instagram',
+  instagramRenewFailed:
+    'Esta aplicación necesita renovar los permisos de Instagram',
 };

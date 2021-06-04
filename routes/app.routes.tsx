@@ -26,6 +26,7 @@ import { fonts } from '../constants/fonts';
 
 //  components
 import DrawerHeader from '../components/drawerHeader';
+import SettingsScreen from '../screens/settings';
 
 // i18n
 import { translate } from '../i18n/src/locales';
@@ -98,6 +99,21 @@ const AppDrawerRoutes: React.FC = () => (
           getFocusedRouteNameFromRoute(route) !== 'EditProfile',
         headerTitle: translate('myProfile'),
         drawerLabel: translate('myProfile'),
+      })}
+    />
+    <AppDrawer.Screen
+      name=" Settings"
+      component={SettingsScreen}
+      options={() => ({
+        drawerIcon: () => (
+          <Ionicons
+            name="md-settings-outline"
+            size={25}
+            color={Colors.accent}
+          />
+        ),
+        headerTitle: 'Configurações',
+        drawerLabel: 'Configurações',
       })}
     />
   </AppDrawer.Navigator>
