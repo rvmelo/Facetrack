@@ -10,7 +10,7 @@ interface UpdateAvatarReturnType {
   payload: string;
 }
 
-interface UpdateAvatarLoadingReturnType {
+interface UpdateLoadingStateReturnType {
   type: string;
   payload: boolean;
 }
@@ -48,9 +48,18 @@ export function updateAvatarFailure(): ActionReturnType {
 
 export function updateAvatarLoading(
   payload: boolean,
-): UpdateAvatarLoadingReturnType {
+): UpdateLoadingStateReturnType {
   return {
     type: ActionTypes.updateAvatarLoading,
+    payload,
+  };
+}
+
+export function updateUserMediaLoadState(
+  payload: boolean,
+): UpdateLoadingStateReturnType {
+  return {
+    type: ActionTypes.updateUserMediaLoadState,
     payload,
   };
 }

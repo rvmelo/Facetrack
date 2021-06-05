@@ -39,16 +39,14 @@ import {
 import { translate } from '../../../i18n/src/locales';
 
 const ProfileScreen: React.FC = () => {
-  const { user, isAvatarLoading, isUserUpdateFailure } = useSelector<
-    IState,
-    IUserState
-  >(state => state.user);
-
   const {
-    handleInstagramRefresh,
-    shouldRefreshInstagram,
-    isLoading,
-  } = useInstagram();
+    user,
+    isAvatarLoading,
+    isUserUpdateFailure,
+    isUserMediaLoading,
+  } = useSelector<IState, IUserState>(state => state.user);
+
+  const { handleInstagramRefresh, shouldRefreshInstagram } = useInstagram();
 
   const userMedia = user?.instagram?.userMedia;
 
@@ -112,7 +110,7 @@ const ProfileScreen: React.FC = () => {
         </StyledEditButton>
       </ProfileDataContainer>
 
-      {isLoading ? (
+      {isUserMediaLoading ? (
         <EmptyPhotoContainer>
           <ActivityIndicator
             color={Colors.primary}

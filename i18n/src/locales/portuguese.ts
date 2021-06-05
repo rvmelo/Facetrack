@@ -61,6 +61,8 @@ export default {
   //  Instagram Hook
   instagramRequestFailed:
     'Esse aplicativo falhou ao requisitar permissões do instagram',
-  instagramRenewFailed:
-    'Esse aplicativo precisa renovar permissões do instagram',
+  instagramRefreshFailed:
+    'Esse aplicativo falhou ao atualizar seu instagram. Tentar novamente?',
+  yes: 'Sim',
+  no: 'Não',
 };

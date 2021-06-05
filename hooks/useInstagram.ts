@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { differenceInDays } from 'date-fns';
 import { AxiosResponse } from 'axios';
@@ -13,7 +13,10 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from 'react-native';
 import { IUserState, UserMedia } from '../store/modules/user/types';
-import { loadUser } from '../store/modules/user/actions';
+import {
+  loadUser,
+  updateUserMediaLoadState,
+} from '../store/modules/user/actions';
 import { IState } from '../store';
 
 //  i18n
@@ -32,39 +35,25 @@ interface InstagramResponse {
 interface ReturnType {
   handleInstagramRefresh(): void;
   shouldRefreshInstagram(): Promise<boolean>;
-  isLoading: boolean;
 }
 
 function useInstagram(): ReturnType {
   const dispatch = useDispatch();
 
-  const [isLoading, setIsLoading] = useState(false);
-
-  const isMounted = useRef<boolean | null>(null);
   const isRequestSent = useRef<boolean | null>(null);
 
-  const { user } = useSelector<IState, IUserState>(state => state.user);
+  const { user, isUserMediaLoading } = useSelector<IState, IUserState>(
+    state => state.user,
+  );
 
   const navigation = useNavigation();
 
   useEffect(() => {
-    isMounted.current = true;
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
-
-  useEffect(() => {
     const unsubscribe = Linking.addEventListener('url', async ({ url }) => {
       try {
-        if (
-          !navigation.isFocused() ||
-          !isMounted.current ||
-          isRequestSent.current
-        )
-          return;
+        if (!navigation.isFocused() || isRequestSent.current) return;
 
-        setIsLoading(true);
+        dispatch(updateUserMediaLoadState(true));
 
         const { code } = Linking.parse(url).queryParams || {};
 
@@ -86,18 +75,18 @@ function useInstagram(): ReturnType {
           new Date().toISOString(),
         );
 
-        isMounted.current &&
-          dispatch(
-            loadUser({
-              ...user,
-              instagram: { userName, userMedia },
-            }),
-          );
+        dispatch(
+          loadUser({
+            ...user,
+            instagram: { userName, userMedia },
+          }),
+        );
 
-        isMounted.current && setIsLoading(false);
+        dispatch(updateUserMediaLoadState(false));
+        isRequestSent.current = false;
       } catch (err) {
-        isRequestSent.current = true;
-        isMounted.current && setIsLoading(false);
+        isRequestSent.current = false;
+        dispatch(updateUserMediaLoadState(false));
         Alert.alert(
           'Error',
           `${translate('instagramRequestFailed')}: ${err.message}`,
@@ -115,18 +104,20 @@ function useInstagram(): ReturnType {
 
     const previousDate = new Date(typeof date === 'string' ? date : '');
 
-    return !!date && differenceInDays(new Date(), previousDate) > 1;
-  }, [user.userProviderId]);
+    return (
+      !!date &&
+      differenceInDays(new Date(), previousDate) > 1 &&
+      !isUserMediaLoading
+    );
+  }, [user.userProviderId, isUserMediaLoading]);
 
   const handleInstagramRefresh = useCallback(async () => {
     try {
-      if (isRequestSent.current) return;
-
       const token = await AsyncStorage.getItem(
         `@Facetrack:${user.userProviderId}-instagramToken`,
       );
 
-      isMounted.current && setIsLoading(true);
+      dispatch(updateUserMediaLoadState(true));
 
       const response: AxiosResponse<InstagramResponse> = await api.get(
         `users/instagram?token=${token}`,
@@ -138,27 +129,34 @@ function useInstagram(): ReturnType {
         ? user?.instagram?.userName
         : '';
 
-      isMounted.current &&
-        dispatch(
-          loadUser({
-            ...user,
-            instagram: { userName, userMedia },
-          }),
-        );
+      dispatch(
+        loadUser({
+          ...user,
+          instagram: { userName, userMedia },
+        }),
+      );
 
       AsyncStorage.setItem(
         `@Facetrack:${user.userProviderId}-lastInstagramRequestDate`,
         new Date().toISOString(),
       );
-      isMounted.current && setIsLoading(false);
+      dispatch(updateUserMediaLoadState(false));
     } catch (err) {
-      isMounted.current && setIsLoading(false);
-      Alert.alert('Error', `${translate('instagramRenewFailed')}`, [
+      dispatch(updateUserMediaLoadState(false));
+      Alert.alert('Error', `${translate('instagramRefreshFailed')}`, [
         {
-          text: 'Ok',
+          text: translate('yes'),
           onPress: () =>
             WebBrowser.openBrowserAsync(
               `https://api.instagram.com/oauth/authorize?client_id=${instagram_client_id}&redirect_uri=${`${base_url}/sessions/auth/instagram/callback`}&scope=user_profile,user_media&response_type=code`,
+            ),
+        },
+        {
+          text: translate('no'),
+          onPress: () =>
+            AsyncStorage.setItem(
+              `@Facetrack:${user.userProviderId}-lastInstagramRequestDate`,
+              new Date().toISOString(),
             ),
         },
       ]);
@@ -168,7 +166,6 @@ function useInstagram(): ReturnType {
   return {
     handleInstagramRefresh,
     shouldRefreshInstagram,
-    isLoading,
   };
 }
 

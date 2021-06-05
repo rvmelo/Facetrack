@@ -42,9 +42,10 @@ const EditProfileScreen: React.FC = () => {
 
   const { handleInstagramRefresh } = useInstagram();
 
-  const { user, isAvatarLoading } = useSelector<IState, IUserState>(
-    state => state.user,
-  );
+  const { user, isAvatarLoading, isUserMediaLoading } = useSelector<
+    IState,
+    IUserState
+  >(state => state.user);
 
   return (
     <Container>
@@ -74,12 +75,18 @@ const EditProfileScreen: React.FC = () => {
         userInfo={userInfo}
       />
 
-      <TouchableButton onPress={handleInstagramRefresh}>
+      {isUserMediaLoading ? (
         <InstagramButtonLayout>
-          <Ionicons name="md-logo-instagram" size={25} color="white" />
-          <ButtonText>Refresh Instagram</ButtonText>
+          <ActivityIndicator color={Colors.primary} size="large" />
         </InstagramButtonLayout>
-      </TouchableButton>
+      ) : (
+        <TouchableButton onPress={handleInstagramRefresh}>
+          <InstagramButtonLayout primaryColor={Colors.primary}>
+            <Ionicons name="md-logo-instagram" size={25} color="white" />
+            <ButtonText>Refresh Instagram</ButtonText>
+          </InstagramButtonLayout>
+        </TouchableButton>
+      )}
     </Container>
   );
 };

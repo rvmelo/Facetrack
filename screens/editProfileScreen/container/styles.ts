@@ -6,6 +6,10 @@ import Colors from '../../../constants/colors';
 import { fonts } from '../../../constants/fonts';
 import { SCREEN_WIDTH } from '../../../constants/dimensions';
 
+interface InstagramButtonLayoutProps {
+  primaryColor?: string;
+}
+
 export const Container = styled.ScrollView.attrs({
   contentContainerStyle: {
     alignItems: 'center',
@@ -54,8 +58,9 @@ export const ButtonLayout = styled.View`
   overflow: hidden;
 `;
 
-export const InstagramButtonLayout = styled.View`
-  background: ${Colors.primary};
+export const InstagramButtonLayout = styled.View<InstagramButtonLayoutProps>`
+  background: ${props =>
+    props.primaryColor ? props.primaryColor : 'transparent'};
   flex-direction: row;
   padding: 10px;
   margin-top: ${SCREEN_WIDTH / 3.5}px;
