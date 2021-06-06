@@ -26,7 +26,7 @@ import { fonts } from '../constants/fonts';
 
 //  components
 import DrawerHeader from '../components/drawerHeader';
-import SettingsScreen from '../screens/settings';
+import SettingsScreen from '../screens/settingsScreen';
 
 // i18n
 import { translate } from '../i18n/src/locales';

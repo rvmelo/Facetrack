@@ -20,6 +20,9 @@ import {
   ButtonText,
 } from './styles';
 
+//  i18n
+import { translate } from '../../../i18n/src/locales';
+
 // constants
 import { base_url } from '../../../constants/backend';
 import Colors from '../../../constants/colors';
@@ -65,7 +68,7 @@ const EditProfileScreen: React.FC = () => {
       <TouchableButton onPress={handleAvatarUpdate}>
         <ButtonLayout>
           <Ionicons name="md-camera-outline" size={25} color="white" />
-          <ButtonText>Add Photo</ButtonText>
+          <ButtonText>{translate('addPhoto')}</ButtonText>
         </ButtonLayout>
       </TouchableButton>
 
@@ -83,7 +86,7 @@ const EditProfileScreen: React.FC = () => {
         <TouchableButton onPress={handleInstagramRefresh}>
           <InstagramButtonLayout primaryColor={Colors.primary}>
             <Ionicons name="md-logo-instagram" size={25} color="white" />
-            <ButtonText>Refresh Instagram</ButtonText>
+            <ButtonText>{translate('refreshInstagram')}</ButtonText>
           </InstagramButtonLayout>
         </TouchableButton>
       )}

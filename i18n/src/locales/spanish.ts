@@ -56,6 +56,8 @@ export default {
   relationshipStatus2: 'Estado Civil',
   userUpdateError: 'Error de actualización de usuario',
   avatarUpdateError: 'Error de actualización de avatar',
+  refreshInstagram: 'Actualizar Instagram',
+  addPhoto: 'Añadir Foto',
 
   //  Instagram Hook
   instagramRequestFailed:
