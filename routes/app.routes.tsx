@@ -112,8 +112,8 @@ const AppDrawerRoutes: React.FC = () => (
             color={Colors.accent}
           />
         ),
-        headerTitle: 'Configurações',
-        drawerLabel: 'Configurações',
+        headerTitle: translate('settings'),
+        drawerLabel: translate('settings'),
       })}
     />
   </AppDrawer.Navigator>

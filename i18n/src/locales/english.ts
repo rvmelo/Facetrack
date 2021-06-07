@@ -40,6 +40,7 @@ export default {
   // Drawer
   myProfile: 'My Profile',
   Logout: 'Logout',
+  settings: 'Settings',
 
   // Profile Screen
   editProfile: 'Edit Profile',
@@ -56,6 +57,11 @@ export default {
   avatarUpdateError: 'Error on avatar update',
   refreshInstagram: 'Refresh Instagram',
   addPhoto: 'Add Photo',
+
+  //  Settings Screen
+  deleteAccount: 'Delete Account',
+  userDeletionError: 'Error on user deletion',
+  deleteAccountQuestion: 'Are you sure do you want to delete your account?',
 
   //  Instagram Hook
   instagramRequestFailed: 'This app failed to request instagram permissions',

@@ -1,6 +1,9 @@
 import React, { memo } from 'react';
 import { ActivityIndicator, Alert } from 'react-native';
 
+//  i18n
+import { translate } from '../../../i18n/src/locales';
+
 //  constants
 import Colors from '../../../constants/colors';
 
@@ -21,14 +24,10 @@ const SettingsScreen: React.FC = () => {
     <Container>
       <TouchableButton
         onPress={() =>
-          Alert.alert(
-            'Error',
-            'Are you sure you want to delete your account?',
-            [
-              { text: 'Yes', onPress: () => handleUserDeletion() },
-              { text: 'No', onPress: () => undefined },
-            ],
-          )
+          Alert.alert('Error', translate('deleteAccountQuestion'), [
+            { text: translate('yes'), onPress: () => handleUserDeletion() },
+            { text: translate('no'), onPress: () => undefined },
+          ])
         }
       >
         {isLoading ? (
@@ -37,7 +36,7 @@ const SettingsScreen: React.FC = () => {
           </DeleteButtonLayout>
         ) : (
           <DeleteButtonLayout primaryColor={Colors.alert}>
-            <ButtonText>Delete Account</ButtonText>
+            <ButtonText>{translate('deleteAccount')}</ButtonText>
           </DeleteButtonLayout>
         )}
       </TouchableButton>

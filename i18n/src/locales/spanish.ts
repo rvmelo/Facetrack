@@ -42,6 +42,7 @@ export default {
   // Drawer
   myProfile: 'Mi Perfil',
   Logout: 'Salir',
+  settings: 'Ajustes',
 
   // Profile Screen
   editProfile: 'Editar Perfil',
@@ -58,6 +59,11 @@ export default {
   avatarUpdateError: 'Error de actualización de avatar',
   refreshInstagram: 'Actualizar Instagram',
   addPhoto: 'Añadir Foto',
+
+  //  Settings Screen
+  deleteAccount: 'Excluir Cuenta',
+  userDeletionError: 'Error al excluir usuario',
+  deleteAccountQuestion: 'Estás seguro de que deseas excluir tu cuenta',
 
   //  Instagram Hook
   instagramRequestFailed:

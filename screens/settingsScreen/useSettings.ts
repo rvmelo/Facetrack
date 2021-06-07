@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
 import { Alert } from 'react-native';
 
+//  i18n
+import { translate } from '../../i18n/src/locales';
+
 //  hooks
 import useAuth from '../../hooks/useAuth';
 
@@ -35,7 +38,7 @@ function useSettings(): ReturnType {
       signOut();
     } catch (err) {
       isMounted.current && setIsLoading(false);
-      Alert.alert('Error', `Error on user deletion: ${err.message}`);
+      Alert.alert('Error', `${translate('userDeletionError')}: ${err.message}`);
     }
   }, [signOut]);
 
