@@ -41,6 +41,7 @@ function useInstagram(): ReturnType {
   const dispatch = useDispatch();
 
   const isRequestSent = useRef<boolean | null>(null);
+  const isMounted = useRef<boolean | null>(null);
 
   const { user, isUserMediaLoading } = useSelector<IState, IUserState>(
     state => state.user,
@@ -49,9 +50,22 @@ function useInstagram(): ReturnType {
   const navigation = useNavigation();
 
   useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
     const unsubscribe = Linking.addEventListener('url', async ({ url }) => {
       try {
-        if (!navigation.isFocused() || isRequestSent.current) return;
+        if (
+          !navigation.isFocused() ||
+          isRequestSent.current ||
+          !isMounted.current
+        )
+          return;
 
         dispatch(updateUserMediaLoadState(true));
 
@@ -77,6 +91,14 @@ function useInstagram(): ReturnType {
 
         dispatch(
           loadUser({
+            ...user,
+            instagram: { userName, userMedia },
+          }),
+        );
+
+        await AsyncStorage.setItem(
+          '@Facetrack:user',
+          JSON.stringify({
             ...user,
             instagram: { userName, userMedia },
           }),
@@ -136,7 +158,15 @@ function useInstagram(): ReturnType {
         }),
       );
 
-      AsyncStorage.setItem(
+      await AsyncStorage.setItem(
+        '@Facetrack:user',
+        JSON.stringify({
+          ...user,
+          instagram: { userName, userMedia },
+        }),
+      );
+
+      await AsyncStorage.setItem(
         `@Facetrack:${user.userProviderId}-lastInstagramRequestDate`,
         new Date().toISOString(),
       );

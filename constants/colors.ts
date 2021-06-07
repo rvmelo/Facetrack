@@ -4,5 +4,6 @@ export default {
   accent: '#ffffff', //  secondary color for your app which complements the primary color
   disabled: '#ccc', //  color for disabled elements
   text: '#696969', // text color for content
+  alert: '#c53030',
   background: '#000',
 };
