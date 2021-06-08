@@ -14,8 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from 'react-native';
 import { IUserState, UserMedia } from '../store/modules/user/types';
 import {
-  loadUser,
-  updateUserMediaLoadState,
+  updateUserRequest,
+  updateUserLoadState,
 } from '../store/modules/user/actions';
 import { IState } from '../store';
 
@@ -43,7 +43,7 @@ function useInstagram(): ReturnType {
   const isRequestSent = useRef<boolean | null>(null);
   const isMounted = useRef<boolean | null>(null);
 
-  const { user, isUserMediaLoading } = useSelector<IState, IUserState>(
+  const { user, isUserLoading } = useSelector<IState, IUserState>(
     state => state.user,
   );
 
@@ -67,7 +67,8 @@ function useInstagram(): ReturnType {
         )
           return;
 
-        dispatch(updateUserMediaLoadState(true));
+        //  this dispatch is to start the spinner right after the request
+        dispatch(updateUserLoadState(true));
 
         const { code } = Linking.parse(url).queryParams || {};
 
@@ -79,6 +80,13 @@ function useInstagram(): ReturnType {
 
         const { userName, userMedia, token } = response.data;
 
+        dispatch(
+          updateUserRequest({
+            ...user,
+            instagram: { userName, userMedia },
+          }),
+        );
+
         await AsyncStorage.setItem(
           `@Facetrack:${user.userProviderId}-instagramToken`,
           token,
@@ -89,26 +97,10 @@ function useInstagram(): ReturnType {
           new Date().toISOString(),
         );
 
-        dispatch(
-          loadUser({
-            ...user,
-            instagram: { userName, userMedia },
-          }),
-        );
-
-        await AsyncStorage.setItem(
-          '@Facetrack:user',
-          JSON.stringify({
-            ...user,
-            instagram: { userName, userMedia },
-          }),
-        );
-
-        dispatch(updateUserMediaLoadState(false));
         isRequestSent.current = false;
       } catch (err) {
         isRequestSent.current = false;
-        dispatch(updateUserMediaLoadState(false));
+        dispatch(updateUserLoadState(false));
         Alert.alert(
           'Error',
           `${translate('instagramRequestFailed')}: ${err.message}`,
@@ -127,19 +119,18 @@ function useInstagram(): ReturnType {
     const previousDate = new Date(typeof date === 'string' ? date : '');
 
     return (
-      !!date &&
-      differenceInDays(new Date(), previousDate) > 1 &&
-      !isUserMediaLoading
+      !!date && differenceInDays(new Date(), previousDate) > 1 && !isUserLoading
     );
-  }, [user.userProviderId, isUserMediaLoading]);
+  }, [user.userProviderId, isUserLoading]);
 
   const handleInstagramRefresh = useCallback(async () => {
     try {
+      //  this dispatch is to start the spinner right after the request
+      dispatch(updateUserLoadState(true));
+
       const token = await AsyncStorage.getItem(
         `@Facetrack:${user.userProviderId}-instagramToken`,
       );
-
-      dispatch(updateUserMediaLoadState(true));
 
       const response: AxiosResponse<InstagramResponse> = await api.get(
         `users/instagram?token=${token}`,
@@ -152,15 +143,7 @@ function useInstagram(): ReturnType {
         : '';
 
       dispatch(
-        loadUser({
-          ...user,
-          instagram: { userName, userMedia },
-        }),
-      );
-
-      await AsyncStorage.setItem(
-        '@Facetrack:user',
-        JSON.stringify({
+        updateUserRequest({
           ...user,
           instagram: { userName, userMedia },
         }),
@@ -170,9 +153,8 @@ function useInstagram(): ReturnType {
         `@Facetrack:${user.userProviderId}-lastInstagramRequestDate`,
         new Date().toISOString(),
       );
-      dispatch(updateUserMediaLoadState(false));
     } catch (err) {
-      dispatch(updateUserMediaLoadState(false));
+      dispatch(updateUserLoadState(false));
       Alert.alert('Error', `${translate('instagramRefreshFailed')}`, [
         {
           text: translate('yes'),

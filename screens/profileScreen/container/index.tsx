@@ -43,7 +43,7 @@ const ProfileScreen: React.FC = () => {
     user,
     isAvatarLoading,
     isUserUpdateFailure,
-    isUserMediaLoading,
+    isUserLoading,
   } = useSelector<IState, IUserState>(state => state.user);
 
   const { handleInstagramRefresh, shouldRefreshInstagram } = useInstagram();
@@ -81,7 +81,19 @@ const ProfileScreen: React.FC = () => {
     );
   }, []);
 
-  return (
+  return isUserLoading ? (
+    <EmptyPhotoContainer>
+      <ActivityIndicator
+        color={Colors.primary}
+        size="large"
+        style={{
+          width: 60,
+          height: 60,
+          borderRadius: 30,
+        }}
+      />
+    </EmptyPhotoContainer>
+  ) : (
     <Container>
       <ProfileDataContainer>
         {isAvatarLoading ? (
@@ -110,21 +122,7 @@ const ProfileScreen: React.FC = () => {
         </StyledEditButton>
       </ProfileDataContainer>
 
-      {isUserMediaLoading ? (
-        <EmptyPhotoContainer>
-          <ActivityIndicator
-            color={Colors.primary}
-            size="large"
-            style={{
-              width: 60,
-              height: 60,
-              borderRadius: 30,
-            }}
-          />
-        </EmptyPhotoContainer>
-      ) : (
-        <PhotoScroll userMedia={userMedia} renderItem={renderItem} />
-      )}
+      <PhotoScroll userMedia={userMedia} renderItem={renderItem} />
     </Container>
   );
 };

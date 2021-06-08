@@ -45,7 +45,7 @@ const EditProfileScreen: React.FC = () => {
 
   const { handleInstagramRefresh } = useInstagram();
 
-  const { user, isAvatarLoading, isUserMediaLoading } = useSelector<
+  const { user, isAvatarLoading, isUserLoading } = useSelector<
     IState,
     IUserState
   >(state => state.user);
@@ -78,7 +78,7 @@ const EditProfileScreen: React.FC = () => {
         userInfo={userInfo}
       />
 
-      {isUserMediaLoading ? (
+      {isUserLoading ? (
         <InstagramButtonLayout>
           <ActivityIndicator color={Colors.primary} size="large" />
         </InstagramButtonLayout>

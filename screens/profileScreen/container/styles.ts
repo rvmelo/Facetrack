@@ -69,7 +69,7 @@ export const VideoContainer = styled.View`
 export const EmptyPhotoContainer = styled.View`
   flex: 1;
   align-items: center;
-  padding-top: 100px;
+  justify-content: center;
   background-color: ${Colors.background};
 `;
 

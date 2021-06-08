@@ -55,11 +55,11 @@ export function updateAvatarLoading(
   };
 }
 
-export function updateUserMediaLoadState(
+export function updateUserLoadState(
   payload: boolean,
 ): UpdateLoadingStateReturnType {
   return {
-    type: ActionTypes.updateUserMediaLoadState,
+    type: ActionTypes.updateUserLoadState,
     payload,
   };
 }

@@ -16,7 +16,7 @@ export const INITIAL_STATE: IUserState = {
   isAvatarLoading: false,
   isAvatarUpdateFailure: false,
   isUserUpdateFailure: false,
-  isUserMediaLoading: false,
+  isUserLoading: false,
 };
 
 const user: Reducer<IUserState> = (state = INITIAL_STATE, action) => {
@@ -45,9 +45,9 @@ const user: Reducer<IUserState> = (state = INITIAL_STATE, action) => {
         });
         return draft;
       }
-      case ActionTypes.updateUserMediaLoadState: {
+      case ActionTypes.updateUserLoadState: {
         Object.assign(draft, {
-          isUserMediaLoading: action.payload,
+          isUserLoading: action.payload,
         });
         return draft;
       }

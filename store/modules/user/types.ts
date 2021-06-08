@@ -12,7 +12,7 @@ export enum ActionTypes {
   updateUserSuccess = 'UPDATE_USER_SUCCESS',
   updateUserFailure = 'UPDATE_USER_FAILURE',
 
-  updateUserMediaLoadState = 'UPDATE_USER_MEDIA_LOAD_STATE',
+  updateUserLoadState = 'UPDATE_USER_LOAD_STATE',
 }
 
 export const MEDIA_TYPES = {
@@ -57,5 +57,5 @@ export interface IUserState {
   isAvatarLoading: boolean;
   isAvatarUpdateFailure: boolean;
   isUserUpdateFailure: boolean;
-  isUserMediaLoading: boolean;
+  isUserLoading: boolean;
 }

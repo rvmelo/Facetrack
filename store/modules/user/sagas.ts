@@ -10,6 +10,7 @@ import {
   updateUserRequest,
   updateUserSuccess,
   updateUserFailure,
+  updateUserLoadState,
   updateAvatarRequest,
   updateAvatarSuccess,
   updateAvatarFailure,
@@ -25,6 +26,8 @@ async function StoreUser(user: IUser) {
 
 function* handleUserUpdate({ payload }: UpdateUserRequest) {
   try {
+    yield put(updateUserLoadState(true));
+
     const response: AxiosResponse<IUser> = yield call(
       api.patch,
       '/users',
@@ -33,8 +36,10 @@ function* handleUserUpdate({ payload }: UpdateUserRequest) {
 
     yield call(StoreUser, response.data);
 
+    yield put(updateUserLoadState(false));
     yield put(updateUserSuccess(payload));
   } catch (err) {
+    yield put(updateUserLoadState(false));
     yield put(updateUserFailure());
   }
 }
