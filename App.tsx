@@ -24,7 +24,17 @@ const App: React.FC = () => {
     return <AppLoading />;
   }
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      theme={{
+        colors: {
+          ...Colors,
+          card: Colors.background,
+          notification: Colors.accent,
+          border: Colors.background,
+        },
+        dark: true,
+      }}
+    >
       <Provider store={store}>
         <StatusBar
           animated
