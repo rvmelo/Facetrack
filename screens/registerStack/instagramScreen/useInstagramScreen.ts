@@ -21,6 +21,10 @@ import api from '../../../services/api';
 
 // i18n
 import { translate } from '../../../i18n/src/locales';
+import {
+  instagramRequestDateKey,
+  instagramTokenKey,
+} from '../../../constants/storage';
 
 interface InstagramResponse {
   userName: string;
@@ -69,12 +73,12 @@ function useInstagramScreen(): ReturnValue {
         const { userName, userMedia, token } = response.data;
 
         await AsyncStorage.setItem(
-          `@Facetrack:${user.userProviderId}-instagramToken`,
+          instagramTokenKey(user.userProviderId),
           token,
         );
 
         await AsyncStorage.setItem(
-          `@Facetrack:${user.userProviderId}-lastInstagramRequestDate`,
+          instagramRequestDateKey(user.userProviderId),
           new Date().toISOString(),
         );
 

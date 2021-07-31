@@ -16,12 +16,13 @@ import {
   updateAvatarFailure,
   updateAvatarLoading,
 } from './actions';
+import { faceTrackUserKey } from '../../../constants/storage';
 
 type UpdateUserRequest = ReturnType<typeof updateUserRequest>;
 type UpdateAvatarRequest = ReturnType<typeof updateAvatarRequest>;
 
 async function StoreUser(user: IUser) {
-  AsyncStorage.setItem('@Facetrack:user', JSON.stringify(user));
+  AsyncStorage.setItem(faceTrackUserKey, JSON.stringify(user));
 }
 
 function* handleUserUpdate({ payload }: UpdateUserRequest) {

@@ -25,6 +25,10 @@ import { translate } from '../i18n/src/locales';
 //  api
 import api from '../services/api';
 import { base_url, instagram_client_id } from '../constants/backend';
+import {
+  instagramRequestDateKey,
+  instagramTokenKey,
+} from '../constants/storage';
 
 interface InstagramResponse {
   userMedia: UserMedia[];
@@ -88,12 +92,12 @@ function useInstagram(): ReturnType {
         );
 
         await AsyncStorage.setItem(
-          `@Facetrack:${user.userProviderId}-instagramToken`,
+          instagramTokenKey(user.userProviderId),
           token,
         );
 
         await AsyncStorage.setItem(
-          `@Facetrack:${user.userProviderId}-lastInstagramRequestDate`,
+          instagramRequestDateKey(user.userProviderId),
           new Date().toISOString(),
         );
 
@@ -113,7 +117,7 @@ function useInstagram(): ReturnType {
 
   const shouldRefreshInstagram = useCallback(async () => {
     const date = await AsyncStorage.getItem(
-      `@Facetrack:${user.userProviderId}-lastInstagramRequestDate`,
+      instagramRequestDateKey(user.userProviderId),
     );
 
     const previousDate = new Date(typeof date === 'string' ? date : '');
@@ -129,7 +133,7 @@ function useInstagram(): ReturnType {
       dispatch(updateUserLoadState(true));
 
       const token = await AsyncStorage.getItem(
-        `@Facetrack:${user.userProviderId}-instagramToken`,
+        instagramTokenKey(user.userProviderId),
       );
 
       const response: AxiosResponse<InstagramResponse> = await api.get(
@@ -150,7 +154,7 @@ function useInstagram(): ReturnType {
       );
 
       await AsyncStorage.setItem(
-        `@Facetrack:${user.userProviderId}-lastInstagramRequestDate`,
+        instagramRequestDateKey(user.userProviderId),
         new Date().toISOString(),
       );
     } catch (err) {
@@ -167,7 +171,7 @@ function useInstagram(): ReturnType {
           text: translate('no'),
           onPress: () =>
             AsyncStorage.setItem(
-              `@Facetrack:${user.userProviderId}-lastInstagramRequestDate`,
+              instagramRequestDateKey(user.userProviderId),
               new Date().toISOString(),
             ),
         },

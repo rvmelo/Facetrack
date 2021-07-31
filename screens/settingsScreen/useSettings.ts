@@ -35,6 +35,9 @@ function useSettings(): ReturnType {
       await api.delete('/users');
       isMounted.current && setIsLoading(false);
 
+      // remove instagram last request date key from storage
+      // remove instagram token key from storage
+
       signOut();
     } catch (err) {
       isMounted.current && setIsLoading(false);

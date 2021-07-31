@@ -11,6 +11,9 @@ import { INITIAL_STATE } from '../store/modules/user/reducer';
 //  services
 import api from '../services/api';
 
+//   constants
+import { faceTrackTokenKey, faceTrackUserKey } from '../constants/storage';
+
 interface SignInData {
   token: string;
   user: IUser;
@@ -74,8 +77,8 @@ function useAuth(): ReturnValue {
       api.defaults.headers.authorization = `Bearer ${token}`;
 
       await AsyncStorage.multiSet([
-        ['@Facetrack:token', token],
-        ['@Facetrack:user', JSON.stringify(user)],
+        [faceTrackTokenKey, token],
+        [faceTrackUserKey, JSON.stringify(user)],
       ]);
 
       dispatch(
@@ -94,8 +97,8 @@ function useAuth(): ReturnValue {
       const { token } = response.data;
 
       await AsyncStorage.multiSet([
-        ['@Facetrack:token', token],
-        ['@Facetrack:user', JSON.stringify(user)],
+        [faceTrackTokenKey, token],
+        [faceTrackUserKey, JSON.stringify(user)],
       ]);
 
       dispatch(
@@ -108,7 +111,7 @@ function useAuth(): ReturnValue {
   );
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove(['@Facetrack:token', '@Facetrack:user']);
+    await AsyncStorage.multiRemove([faceTrackTokenKey, faceTrackUserKey]);
 
     dispatch(
       loadUser({
@@ -118,7 +121,7 @@ function useAuth(): ReturnValue {
   }, [dispatch]);
 
   const handleUserUpdate = useCallback(async (user: IUser) => {
-    await AsyncStorage.setItem('@Facetrack:user', JSON.stringify(user));
+    await AsyncStorage.setItem(faceTrackUserKey, JSON.stringify(user));
 
     // new dispatch function to update user locally and on database
 
