@@ -36,4 +36,37 @@ export default {
 
   // Continue button
   continueButton: 'Continue',
+
+  // Drawer
+  myProfile: 'My Profile',
+  Logout: 'Logout',
+  settings: 'Settings',
+
+  // Profile Screen
+  editProfile: 'Edit Profile',
+  photoDisplayMessage: 'No Photos to Display',
+
+  // User Publication Screen
+  userPublications: 'Publications',
+  userPublication: 'Publication',
+
+  // Edit Screen
+  sexualOrientation2: 'Sexual Orientation',
+  relationshipStatus2: 'Relationship Status',
+  userUpdateError: 'Error on user update',
+  avatarUpdateError: 'Error on avatar update',
+  refreshInstagram: 'Refresh Instagram',
+  addPhoto: 'Add Photo',
+
+  //  Settings Screen
+  deleteAccount: 'Delete Account',
+  userDeletionError: 'Error on user deletion',
+  deleteAccountQuestion: 'Are you sure do you want to delete your account?',
+
+  //  Instagram Hook
+  instagramRequestFailed: 'This app failed to request instagram permissions',
+  instagramRefreshFailed:
+    'This app failed to update your instagram. Try again?',
+  yes: 'Yes',
+  no: 'No',
 };

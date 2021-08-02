@@ -2,13 +2,13 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 
-import { IUser } from './modules/user/types';
+import { IUserState } from './modules/user/types';
 
 import rootReducer from './modules/rootReducer';
 import rootSaga from './modules/rootSaga';
 
 export interface IState {
-  user: IUser;
+  user: IUserState;
 }
 
 const sagaMiddleware = createSagaMiddleware();

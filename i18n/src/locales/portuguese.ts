@@ -39,4 +39,38 @@ export default {
 
   // Continue button
   continueButton: 'Continuar',
+
+  // Drawer
+  myProfile: 'Meu Perfil',
+  Logout: 'Sair',
+  settings: 'Configurações',
+
+  // Profile Screen
+  editProfile: 'Editar Perfil',
+  photoDisplayMessage: 'Nenhuma Foto Para Mostrar',
+
+  // User Publication Screen
+  userPublications: 'Publicações',
+  userPublication: 'Publicação',
+
+  // Edit Screen
+  sexualOrientation2: 'Orientação Sexual',
+  relationshipStatus2: 'Status de Relacionamento',
+  userUpdateError: 'Erro na atualização do usuário',
+  avatarUpdateError: 'Erro na atualização do avatar',
+  refreshInstagram: 'Atualizar Instagram',
+  addPhoto: 'Adicionar Foto',
+
+  //  Settings Screen
+  deleteAccount: 'Excluir Conta',
+  userDeletionError: 'Erro na exclusão do usuário',
+  deleteAccountQuestion: 'Tem certeza que deseja excluir sua conta?',
+
+  //  Instagram Hook
+  instagramRequestFailed:
+    'Esse aplicativo falhou ao requisitar permissões do instagram',
+  instagramRefreshFailed:
+    'Esse aplicativo falhou ao atualizar seu instagram. Tentar novamente?',
+  yes: 'Sim',
+  no: 'Não',
 };

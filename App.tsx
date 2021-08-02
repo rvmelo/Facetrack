@@ -1,13 +1,19 @@
 /* eslint-disable global-require */
 import React from 'react';
+import { StatusBar } from 'react-native';
+
 import { Provider } from 'react-redux';
+
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
+
 import { NavigationContainer } from '@react-navigation/native';
 import store from './store';
 
-// import Login from './screens/login';
 import Routes from './routes';
+
+//  constants
+import Colors from './constants/colors';
 
 const App: React.FC = () => {
   const [fontsLoaded] = useFonts({
@@ -18,8 +24,23 @@ const App: React.FC = () => {
     return <AppLoading />;
   }
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      theme={{
+        colors: {
+          ...Colors,
+          card: Colors.background,
+          notification: Colors.accent,
+          border: Colors.background,
+        },
+        dark: true,
+      }}
+    >
       <Provider store={store}>
+        <StatusBar
+          animated
+          backgroundColor={Colors.background}
+          barStyle="light-content"
+        />
         <Routes />
       </Provider>
     </NavigationContainer>

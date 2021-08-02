@@ -1,5 +1,5 @@
 import { Alert } from 'react-native';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
@@ -9,13 +9,15 @@ import { useNavigation } from '@react-navigation/native';
 
 //  redux
 import { useDispatch } from 'react-redux';
-import { updateUser } from '../../store/modules/user/actions';
 
 //  constants
 import { base_url } from '../../constants/backend';
 
 //  services
 import api from '../../services/api';
+
+//  hooks
+import useAuth from '../../hooks/useAuth';
 
 // i18n
 import { translate } from '../../i18n/src/locales';
@@ -33,6 +35,10 @@ function useLoginButton(): ReturnValue {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const { signIn } = useAuth();
+
+  const isMounted = useRef<boolean | null>(null);
+
   const handleFacebookLogin = useCallback(() => {
     WebBrowser.openBrowserAsync(`${base_url}/sessions/auth/facebook`);
   }, []);
@@ -42,35 +48,43 @@ function useLoginButton(): ReturnValue {
   }, []);
 
   useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
     Linking.addEventListener('url', async () => {
       try {
-        if (!navigation.isFocused()) return;
+        if (!navigation.isFocused() || !isMounted.current) return;
 
         setIsLoading(true);
 
+        //  response from google or facebook signIn
         const response = await api.get('sessions/auth/success');
 
         if (!response.data) return;
 
-        const { notRegisteredUser, token } = response.data;
-
-        api.defaults.headers.authorization = `Bearer ${token}`;
+        const { notRegisteredUser, registeredUser, token } = response.data;
 
         if (notRegisteredUser && token) {
-          navigation.navigate('BirthDateScreen');
+          api.defaults.headers.authorization = `Bearer ${token}`;
+          navigation.navigate('BirthDateScreen', { ...notRegisteredUser });
           setIsLoading(false);
 
-          dispatch(
-            updateUser({
-              ...notRegisteredUser,
-            }),
-          );
+          return;
         }
+
+        //  signIn from my app
+        isMounted.current && signIn({ token, user: registeredUser });
       } catch (err) {
-        Alert.alert('Error', `${translate('loginRegisterError')}: `, err);
+        setIsLoading(false);
+        Alert.alert('Error', translate('loginRegisterError'));
       }
     });
-  }, [dispatch, navigation]);
+  }, [dispatch, navigation, signIn]);
 
   return {
     handleFacebookLogin,

@@ -31,7 +31,10 @@
       "camelcase": "off",
       "no-unused-expressions": "off",
       "react/prop-types": "off",
-      "prettier/prettier": "error",
+      "global-require": "off",
+      "prettier/prettier": ["error", {
+       "endOfLine": "auto"
+      }],
       "no-use-before-define": "off",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",

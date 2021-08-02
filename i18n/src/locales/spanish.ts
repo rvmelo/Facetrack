@@ -38,4 +38,38 @@ export default {
 
   // Continue button
   continueButton: 'Continuar',
+
+  // Drawer
+  myProfile: 'Mi Perfil',
+  Logout: 'Salir',
+  settings: 'Ajustes',
+
+  // Profile Screen
+  editProfile: 'Editar Perfil',
+  photoDisplayMessage: 'No Hay Fotos Para Mostrar',
+
+  // User Publication Screen
+  userPublications: 'Publicaciones',
+  userPublication: 'Publicación',
+
+  // Edit Screen
+  sexualOrientation2: 'Orientación Sexual',
+  relationshipStatus2: 'Estado Civil',
+  userUpdateError: 'Error de actualización de usuario',
+  avatarUpdateError: 'Error de actualización de avatar',
+  refreshInstagram: 'Actualizar Instagram',
+  addPhoto: 'Añadir Foto',
+
+  //  Settings Screen
+  deleteAccount: 'Excluir Cuenta',
+  userDeletionError: 'Error al excluir usuario',
+  deleteAccountQuestion: 'Estás seguro de que deseas excluir tu cuenta',
+
+  //  Instagram Hook
+  instagramRequestFailed:
+    'Esta aplicación no pudo solicitar permisos de Instagram',
+  instagramRefreshFailed:
+    'Esta aplicación no pudo actualizar su Instagram. Intentar nuevamente?',
+  yes: 'Sí',
+  no: 'No',
 };

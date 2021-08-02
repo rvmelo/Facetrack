@@ -1,22 +1,36 @@
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 import { Alert } from 'react-native';
+
+import { AxiosResponse } from 'axios';
 
 import * as Linking from 'expo-linking';
 
 // navigation
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-//  apis
-import { useSelector, useDispatch } from 'react-redux';
+//  redux
+import { IUser, UserMedia } from '../../../store/modules/user/types';
+
+//  hooks
+import useAuth from '../../../hooks/useAuth';
+
+//  api
 import api from '../../../services/api';
 
 // i18n
 import { translate } from '../../../i18n/src/locales';
+import {
+  instagramRequestDateKey,
+  instagramTokenKey,
+} from '../../../constants/storage';
 
-//  redux
-import { IState } from '../../../store';
-import { IUser } from '../../../store/modules/user/types';
+interface InstagramResponse {
+  userName: string;
+  userMedia: UserMedia[];
+  token: string;
+}
 
 interface ReturnValue {
   isLoading: boolean;
@@ -25,39 +39,66 @@ interface ReturnValue {
 function useInstagramScreen(): ReturnValue {
   const [isLoading, setIsLoading] = useState(false);
 
-  const user = useSelector<IState, IUser>(state => state.user);
-  const dispatch = useDispatch();
+  const { signUp } = useAuth();
+
+  const { params } = useRoute();
+
+  const isMounted = useRef<boolean | null>(null);
+
+  const user = params as IUser;
 
   const navigation = useNavigation();
 
   useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
     Linking.addEventListener('url', async ({ url }) => {
       try {
-        if (!navigation.isFocused()) return;
+        if (!navigation.isFocused() || !isMounted.current) return;
 
         setIsLoading(true);
 
         const { code } = Linking.parse(url).queryParams || {};
 
-        const response = await api.get(
+        const response: AxiosResponse<InstagramResponse> = await api.get(
           `/sessions/auth/instagram/profile?code=${code}`,
         );
 
-        const { userName, userMedia } = response.data;
+        const { userName, userMedia, token } = response.data;
 
-        await api.post('/users', {
-          ...user,
-          instagram: {
-            userName,
-            userMedia,
-          },
-        });
+        await AsyncStorage.setItem(
+          instagramTokenKey(user.userProviderId),
+          token,
+        );
+
+        await AsyncStorage.setItem(
+          instagramRequestDateKey(user.userProviderId),
+          new Date().toISOString(),
+        );
+
+        isMounted.current &&
+          signUp({
+            user: {
+              ...user,
+              birthDate: user.birthDate ? new Date(user.birthDate) : undefined,
+              instagram: {
+                userName,
+                userMedia,
+              },
+            },
+          });
       } catch (err) {
-        setIsLoading(false);
-        Alert.alert('Error', translate('userCreationError'));
+        isMounted.current && setIsLoading(false);
+        Alert.alert('Error', `${translate('userCreationError')}:${err}`);
       }
     });
-  }, [dispatch, user, navigation]);
+  }, [user, navigation, signUp]);
 
   return {
     isLoading,

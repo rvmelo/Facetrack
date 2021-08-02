@@ -4,12 +4,9 @@ import { isValid, differenceInYears, endOfDay, getYear } from 'date-fns';
 import { Alert } from 'react-native';
 
 //  navigation
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 // redux
-import { useDispatch, useSelector } from 'react-redux';
-import { updateUser } from '../../../store/modules/user/actions';
-import { IState } from '../../../store';
 import { IUser } from '../../../store/modules/user/types';
 
 // i18n
@@ -24,11 +21,11 @@ interface ReturnValue {
 function useBirthDateScreen(): ReturnValue {
   const [birthDate, setBirthDate] = useState('');
 
-  const dispatch = useDispatch();
-
-  const user = useSelector<IState, IUser>(state => state.user);
-
   const navigation = useNavigation();
+
+  const { params } = useRoute();
+
+  const user = params as IUser;
 
   useEffect(() => {
     navigation.addListener('beforeRemove', e => e.preventDefault());
@@ -66,10 +63,11 @@ function useBirthDateScreen(): ReturnValue {
       return;
     }
 
-    dispatch(updateUser({ ...user, birthDate: new Date(formattedDate) }));
-
-    navigation.navigate('GenderScreen');
-  }, [birthDate, navigation, dispatch, user]);
+    navigation.navigate('GenderScreen', {
+      ...user,
+      birthDate: formattedDate,
+    });
+  }, [birthDate, navigation, user]);
 
   return {
     birthDate,

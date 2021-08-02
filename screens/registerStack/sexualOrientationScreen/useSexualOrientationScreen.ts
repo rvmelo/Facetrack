@@ -1,12 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { useState, useCallback } from 'react';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 // redux
-import { useDispatch, useSelector } from 'react-redux';
-import { updateUser } from '../../../store/modules/user/actions';
-import { IState } from '../../../store';
 import { IUser } from '../../../store/modules/user/types';
 
 interface SexualOrientationOptions {
@@ -24,9 +21,9 @@ interface ReturnValue {
 function useSexualOrientationScreen(): ReturnValue {
   const navigation = useNavigation();
 
-  const dispatch = useDispatch();
+  const { params } = useRoute();
 
-  const user = useSelector<IState, IUser>(state => state.user);
+  const user = params as IUser;
 
   const [
     userSexualOrientation,
@@ -41,14 +38,11 @@ function useSexualOrientationScreen(): ReturnValue {
   );
 
   const handleContinue = useCallback(() => {
-    dispatch(
-      updateUser({
-        ...user,
-        sexualOrientation: userSexualOrientation?.option,
-      }),
-    );
-    navigation.navigate('RelationshipStatusScreen');
-  }, [navigation, dispatch, user, userSexualOrientation]);
+    navigation.navigate('RelationshipStatusScreen', {
+      ...user,
+      sexualOrientation: userSexualOrientation?.option,
+    });
+  }, [navigation, user, userSexualOrientation]);
 
   return {
     userSexualOrientation,
