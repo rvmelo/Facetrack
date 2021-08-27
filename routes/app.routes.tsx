@@ -68,23 +68,34 @@ const AppDrawerRoutes: React.FC = () => (
     drawerContent={(props: DrawerContentComponentProps) => (
       <CustomDrawerContent {...props} />
     )}
-    drawerContentOptions={{
-      activeTintColor: Colors.primary,
-      labelStyle: {
-        color: Colors.accent,
-        fontSize: fonts.sizes.md,
-        fontFamily: fonts.family,
-      },
-      style: {
-        backgroundColor: Colors.background,
-        paddingTop: 20,
-      },
-    }}
+    // drawerContentOptions={{
+    //   activeTintColor: Colors.primary,
+    //   labelStyle: {
+    //     color: Colors.accent,
+    //     fontSize: fonts.sizes.md,
+    //     fontFamily: fonts.family,
+    //   },
+    //   style: {
+    //     backgroundColor: Colors.background,
+    //     paddingTop: 20,
+    //   },
+    // }}
     screenOptions={() => ({
       headerShown: true,
       headerStyle: { backgroundColor: Colors.background },
       headerTitleStyle: { color: Colors.accent, fontFamily: fonts.family },
       headerTintColor: Colors.accent,
+
+      // activeTintColor: Colors.primary,
+      // labelStyle: {
+      //   color: Colors.accent,
+      //   fontSize: fonts.sizes.md,
+      //   fontFamily: fonts.family,
+      // },
+      // style: {
+      //   backgroundColor: Colors.background,
+      //   paddingTop: 20,
+      // },
     })}
   >
     <AppDrawer.Screen

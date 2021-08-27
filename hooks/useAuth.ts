@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useCallback, useState, useEffect, useRef } from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //  redux
 import { useDispatch } from 'react-redux';

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { differenceInDays } from 'date-fns';
 import { AxiosResponse } from 'axios';
 import * as WebBrowser from 'expo-web-browser';
