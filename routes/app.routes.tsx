@@ -27,6 +27,7 @@ import { fonts } from '../constants/fonts';
 //  components
 import DrawerHeader from '../components/drawerHeader';
 import SettingsScreen from '../screens/settingsScreen';
+import RateScreen from '../screens/rateScreen';
 
 // i18n
 import { translate } from '../i18n/src/locales';
@@ -110,6 +111,17 @@ const AppDrawerRoutes: React.FC = () => (
           getFocusedRouteNameFromRoute(route) !== 'EditProfile',
         headerTitle: translate('myProfile'),
         drawerLabel: translate('myProfile'),
+      })}
+    />
+    <AppDrawer.Screen
+      name="Rate Screen"
+      component={RateScreen}
+      options={() => ({
+        drawerIcon: () => (
+          <Ionicons name="md-globe" size={25} color={Colors.accent} />
+        ),
+        headerTitle: 'Rate Screen',
+        drawerLabel: 'Rate Screen',
       })}
     />
     <AppDrawer.Screen
