@@ -1,5 +1,6 @@
 import { Dimensions, TouchableNativeFeedback } from 'react-native';
 import styled from 'styled-components/native';
+import Animated from 'react-native-reanimated';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants/dimensions';
 
 // constants
@@ -19,6 +20,53 @@ const cardOrigin = {
     (Dimensions.get('window').height * 0.8) / 2,
 };
 
+export const ActivityIndicatorContainer = styled.View`
+  background-color: ${Colors.background};
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+//  Users List
+export const UsersListContainer = styled.View`
+  background-color: ${Colors.background};
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const RateScreenText = styled.Text`
+  font-size: ${fonts.sizes.lg}px;
+  font-family: ${fonts.family};
+  color: ${Colors.accent};
+  text-align: center;
+  margin-bottom: 20px;
+`;
+
+export const TouchableButton = styled.TouchableNativeFeedback.attrs({
+  background: TouchableNativeFeedback.Ripple('#ccc', true),
+  useForeground: true,
+})``;
+
+export const ButtonText = styled.Text`
+  color: ${Colors.accent};
+  font-family: ${fonts.family};
+  font-size: ${fonts.sizes.md}px;
+  margin-left: 5px;
+`;
+
+export const ButtonLayout = styled.View`
+  background: ${Colors.primary};
+  flex-direction: row;
+  padding: 10px;
+  margin: 20px 0;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  overflow: hidden;
+`;
+
 //  list item
 export const ListItemContainer = styled.View<ListItemContainerProps>`
   height: ${props => SCREEN_HEIGHT - props.headerHeight}px;
@@ -35,7 +83,19 @@ export const ItemText = styled.Text`
   text-align: center;
 `;
 
-export const ItemTextContainer = styled.View`
+export const CardContainer = styled(Animated.View)`
+  position: absolute;
+  width: 90%;
+  height: 60%;
+  overflow: hidden;
+  left: ${cardOrigin.x}px;
+  top: ${cardOrigin.y}px;
+  border-radius: 5px;
+  opacity: 1;
+  z-index: 2;
+`;
+
+export const ItemTextContainer = styled(Animated.View)`
   position: absolute;
   width: 90%;
   height: 60%;

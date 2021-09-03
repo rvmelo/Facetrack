@@ -1,49 +1,56 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { ViewStyle } from 'react-native';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-} from 'react-native-reanimated';
-import { DATA } from '../../constants/data';
+import { AxiosResponse } from 'axios';
+import { useCallback, useEffect, useState } from 'react';
+import { Alert } from 'react-native';
 
-export interface ItemInfo {
-  cardStyle: ViewStyle;
-  cardOpacity: Animated.SharedValue<number>;
-  data: {
-    id: string;
-    text: string;
-    uri: string;
-  };
-}
+import api from '../../services/api';
+import { IUser } from '../../store/modules/user/types';
 
-export interface ListData {
-  id: string;
-  text: string;
-  uri: string;
+export interface ItemData {
+  data: IUser;
 }
 
 interface ReturnType {
-  listItems: ItemInfo[];
+  listItems: ItemData[];
+  // eslint-disable-next-line no-unused-vars
+  setPage(page: number): void;
+  isLoading: boolean;
+  handleUsersRequest(): Promise<void>;
 }
 
 export function useList(): ReturnType {
-  const listItems = DATA.map((data: ListData) => {
-    const cardOpacity = useSharedValue(1);
+  const [listItems, setListItem] = useState<ItemData[]>([]);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
-    const cardStyle = useAnimatedStyle(() => {
-      return {
-        opacity: cardOpacity.value,
-      };
-    });
+  const handleUsersRequest = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const response: AxiosResponse<IUser[]> = await api.get(
+        `/users?page=${page}`,
+      );
 
-    return {
-      data,
-      cardStyle,
-      cardOpacity,
-    };
-  });
+      const auxList = response.data.map((data: IUser) => {
+        return {
+          data,
+        };
+      });
+      setListItem(auxList);
+      setIsLoading(false);
+    } catch (err) {
+      Alert.alert('Error', `Error on loading users: ${err.message}`);
+      setIsLoading(false);
+    }
+  }, [page]);
+
+  useEffect(() => {
+    handleUsersRequest();
+  }, [handleUsersRequest]);
 
   return {
     listItems,
+    setPage,
+    isLoading,
+    handleUsersRequest,
   };
 }

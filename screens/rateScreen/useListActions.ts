@@ -9,36 +9,34 @@ import { useHeaderHeight } from '@react-navigation/elements';
 
 //  constants
 import { SCREEN_HEIGHT } from '../../constants/dimensions';
-import { ListData } from './useList';
+import { ItemData } from './useList';
 
-export interface EvaluationProps {
+export interface ListAnimationProps {
   opacity: Animated.SharedValue<number>;
-  rate: number;
-  // eslint-disable-next-line no-unused-vars
-  setRate(number: number): void;
   index: number;
+  isLastItem: boolean;
 }
 
 export interface ScrollBackProps {
   index: number;
-  opacity: Animated.SharedValue<number>;
+}
+
+interface ListActionsProps {
+  ref: MutableRefObject<FlatList<ItemData> | null>;
+  setPage(value: number): void;
 }
 
 interface ReturnType {
-  handleUserEvaluation(value: EvaluationProps): void;
-  handleListScrollBack({ index, opacity }: ScrollBackProps): void;
-  // rate: number;
+  handleListAnimation(value: ListAnimationProps): void;
+  handleListScrollBack({ index }: ScrollBackProps): void;
 }
 
-export function useListActions(
-  ref: MutableRefObject<FlatList<ListData> | null>,
-): ReturnType {
+export function useListActions({ ref, setPage }: ListActionsProps): ReturnType {
   const headerHeight = useHeaderHeight();
 
   const handleListScrollBack = useCallback(
-    ({ index, opacity }: ScrollBackProps) => {
+    ({ index }: ScrollBackProps) => {
       if (ref?.current && index - 1 >= 0) {
-        opacity.value = 1;
         ref.current.scrollToOffset({
           offset: (index - 1) * (SCREEN_HEIGHT - headerHeight),
         });
@@ -58,15 +56,17 @@ export function useListActions(
     [ref, headerHeight],
   );
 
-  const handleUserEvaluation = useCallback(
-    ({ opacity, setRate, index, rate }: EvaluationProps) => {
+  const handleListAnimation = useCallback(
+    ({ opacity, index, isLastItem }: ListAnimationProps) => {
       const wrapper = () => {
+        if (isLastItem) {
+          setPage((prev: number) => prev + 1);
+          return;
+        }
+
         handleListScroll(index);
+        opacity.value = 1;
       };
-
-      setRate(rate);
-
-      // send rate value to backend
 
       opacity.value = withTiming(0, { duration: 500 }, isFinished => {
         if (isFinished) {
@@ -74,11 +74,11 @@ export function useListActions(
         }
       });
     },
-    [handleListScroll],
+    [handleListScroll, setPage],
   );
 
   return {
-    handleUserEvaluation,
+    handleListAnimation,
     handleListScrollBack,
   };
 }

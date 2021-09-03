@@ -1,56 +1,35 @@
-import React, { useRef } from 'react';
-import { FlatList } from 'react-native';
-import { DATA } from '../../../constants/data';
-import { useList, ListData } from '../useList';
-import { useListActions } from '../useListActions';
-import { ListItem } from './listItem';
+import React from 'react';
 
-interface ItemProps {
-  item: {
-    uri: string;
-  };
-}
+import { ActivityIndicator } from 'react-native';
+
+//  hooks
+import { useList } from '../useList';
+
+//   constants
+import Colors from '../../../constants/colors';
+import { ActivityIndicatorContainer } from './styles';
+import UsersList from './usersList';
 
 const RateScreen: React.FC = () => {
-  const ref = useRef<FlatList<ListData> | null>(null);
+  const { listItems, setPage, isLoading, handleUsersRequest } = useList();
 
-  const { handleListScrollBack, handleUserEvaluation } = useListActions(ref);
-
-  const { listItems } = useList();
-
-  const renderItem = ({ item }: ItemProps) => {
-    const cardOpacity = listItems.find(
-      card => card.data.uri === item.uri,
-    )?.cardOpacity;
-
-    const cardStyle = listItems.find(
-      card => card.data.uri === item.uri,
-    )?.cardStyle;
-    const cardIndex = listItems.findIndex(card => card.data.uri === item.uri);
-
-    const previousCardOpacity =
-      cardIndex > 0 ? listItems[cardIndex - 1].cardOpacity : undefined;
-
-    const cardData = { cardOpacity, cardStyle, cardIndex };
-
-    return (
-      <ListItem
-        uri={item.uri}
-        cardData={cardData}
-        previousCardOpacity={previousCardOpacity}
-        handleUserEvaluation={handleUserEvaluation}
-        handleListScrollBack={handleListScrollBack}
+  return isLoading ? (
+    <ActivityIndicatorContainer>
+      <ActivityIndicator
+        color={Colors.primary}
+        size="large"
+        style={{
+          width: 60,
+          height: 60,
+          borderRadius: 30,
+        }}
       />
-    );
-  };
-
-  return (
-    <FlatList
-      ref={ref}
-      data={DATA}
-      renderItem={renderItem}
-      scrollEnabled={false}
-      keyExtractor={item => item.id}
+    </ActivityIndicatorContainer>
+  ) : (
+    <UsersList
+      setPage={setPage}
+      listItems={listItems}
+      handleUsersRequest={handleUsersRequest}
     />
   );
 };

@@ -39,12 +39,8 @@ import {
 import { translate } from '../../../i18n/src/locales';
 
 const ProfileScreen: React.FC = () => {
-  const {
-    user,
-    isAvatarLoading,
-    isUserUpdateFailure,
-    isUserLoading,
-  } = useSelector<IState, IUserState>(state => state.user);
+  const { user, isAvatarLoading, isUserUpdateFailure, isUserLoading } =
+    useSelector<IState, IUserState>(state => state.user);
 
   const { handleInstagramRefresh, shouldRefreshInstagram } = useInstagram();
 
