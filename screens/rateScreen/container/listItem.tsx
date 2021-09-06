@@ -28,6 +28,7 @@ import { useListItem } from '../useListItem';
 interface ListItemProps {
   cardData: {
     uri: string | undefined;
+    cardUserId: string;
     cardIndex: number;
     isLastItem: boolean;
   };
@@ -66,6 +67,7 @@ export const ListItem: React.FC<ListItemProps> = ({
             })
           }
           onUserEvaluation={handleUserEvaluation}
+          userId={cardData.cardUserId}
           rate={rate}
         />
       )}

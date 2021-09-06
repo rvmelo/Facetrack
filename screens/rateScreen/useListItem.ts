@@ -8,9 +8,15 @@ import Animated, {
   interpolate,
   Extrapolate,
 } from 'react-native-reanimated';
+import api from '../../services/api';
+
+export interface UserEvaluationProps {
+  value: number;
+  cardUserId: string;
+}
 
 interface ReturnValue {
-  handleUserEvaluation(value: number): void;
+  handleUserEvaluation(value: UserEvaluationProps): void;
   rate: number;
   cardOpacity: Animated.SharedValue<number>;
   cardStyle: ViewStyle;
@@ -40,8 +46,10 @@ export function useListItem(): ReturnValue {
   });
 
   const handleUserEvaluation = useCallback(
-    (value: number) => {
+    async ({ value, cardUserId }: UserEvaluationProps) => {
       setRate(value);
+
+      api.patch(`/users/evaluation?value=${value}&toUserId=${cardUserId}`);
     },
     [setRate],
   );

@@ -19,6 +19,7 @@ interface ActionReturnType {
   type: string;
 }
 
+//  local user loading...
 export function loadUser(payload: IUser): UpdateUserReturnType {
   return {
     type: ActionTypes.loadUser,

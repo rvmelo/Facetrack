@@ -77,9 +77,8 @@ function useEditProfile(): ReturnValue {
 
   const handleAvatarUpdate = useCallback(async () => {
     try {
-      const {
-        status,
-      } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== 'granted') {
         Alert.alert(
           'Permission denied',

@@ -44,6 +44,7 @@ const UsersList: React.FC<UserListProps> = ({
 
       const cardData = {
         cardIndex,
+        cardUserId: item.data.userProviderId,
         uri: item.data.instagram?.userMedia[0]?.media_url,
         isLastItem: listItems.length - 1 === cardIndex,
       };
