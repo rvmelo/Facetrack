@@ -31,10 +31,11 @@ const UsersList: React.FC<UserListProps> = ({
 }) => {
   const ref = useRef<FlatList<ItemData> | null>(null);
 
-  const { handleListScrollBack, handleListAnimation } = useListActions({
-    ref,
-    setPage,
-  });
+  const { handleListScrollBack, handleListScroll, handleListAnimation } =
+    useListActions({
+      ref,
+      setPage,
+    });
 
   const renderItem: ListRenderItem<ItemData> = useCallback(
     ({ item }) => {
@@ -46,6 +47,8 @@ const UsersList: React.FC<UserListProps> = ({
         cardIndex,
         cardUserId: item.data.userProviderId,
         uri: item.data.instagram?.userMedia[0]?.media_url,
+        instaNick: item.data.instagram?.userName,
+        name: item.data.name,
         isLastItem: listItems.length - 1 === cardIndex,
       };
 
@@ -54,10 +57,11 @@ const UsersList: React.FC<UserListProps> = ({
           cardData={cardData}
           handleListAnimation={handleListAnimation}
           handleListScrollBack={handleListScrollBack}
+          handleListScroll={handleListScroll}
         />
       );
     },
-    [handleListScrollBack, handleListAnimation, listItems],
+    [handleListScrollBack, handleListScroll, handleListAnimation, listItems],
   );
 
   return listItems.length === 0 ? (

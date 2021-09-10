@@ -1,29 +1,19 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { FontAwesome5 } from '@expo/vector-icons';
 
 //  hooks
 import { useHeaderHeight } from '@react-navigation/elements';
 
 //   styles
-import {
-  BackButton,
-  CardContainer,
-  ItemText,
-  ItemTextContainer,
-  ListItemContainer,
-  StyledImage,
-} from './styles';
+import { ItemText, ItemTextContainer, ListItemContainer } from './styles';
 
 // components
 import ButtonPanel from './buttonPanel';
-import { ListAnimationProps, ScrollBackProps } from '../useListActions';
-
-//  constants
-import Colors from '../../../constants/colors';
+import { ListAnimationProps, ScrollProps } from '../useListActions';
 
 //  hooks
 import { useListItem } from '../useListItem';
+import { UserCard } from './userCard';
 
 interface ListItemProps {
   cardData: {
@@ -31,15 +21,19 @@ interface ListItemProps {
     cardUserId: string;
     cardIndex: number;
     isLastItem: boolean;
+    instaNick: string | undefined;
+    name: string | undefined;
   };
   handleListAnimation(value: ListAnimationProps): void;
-  handleListScrollBack({ index }: ScrollBackProps): void;
+  handleListScrollBack({ index }: ScrollProps): void;
+  handleListScroll({ index }: ScrollProps): void;
 }
 
 export const ListItem: React.FC<ListItemProps> = ({
   cardData,
   handleListAnimation,
   handleListScrollBack,
+  handleListScroll,
 }) => {
   const headerHeight = useHeaderHeight();
 
@@ -48,9 +42,12 @@ export const ListItem: React.FC<ListItemProps> = ({
 
   return (
     <ListItemContainer headerHeight={headerHeight}>
-      <CardContainer style={[cardStyle]}>
-        <StyledImage source={{ uri: cardData.uri }} />
-      </CardContainer>
+      <UserCard
+        cardData={cardData}
+        handleListScrollBack={handleListScrollBack}
+        handleListScroll={handleListScroll}
+        cardStyle={cardStyle}
+      />
 
       <ItemTextContainer style={[textStyle]}>
         <ItemText>Rated</ItemText>
@@ -70,22 +67,6 @@ export const ListItem: React.FC<ListItemProps> = ({
           userId={cardData.cardUserId}
           rate={rate}
         />
-      )}
-      {cardData.cardIndex > 0 && (
-        <BackButton
-          onPress={() =>
-            handleListScrollBack({
-              index: cardData.cardIndex,
-            })
-          }
-        >
-          <FontAwesome5
-            name="undo"
-            size={40}
-            color={Colors.primary}
-            style={{ marginBottom: 10 }}
-          />
-        </BackButton>
       )}
     </ListItemContainer>
   );

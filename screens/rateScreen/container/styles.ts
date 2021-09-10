@@ -7,7 +7,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants/dimensions';
 import { fonts } from '../../../constants/fonts';
 import Colors from '../../../constants/colors';
 
-interface ListItemContainerProps {
+interface ContainerProps {
   headerHeight: number;
 }
 
@@ -68,7 +68,7 @@ export const ButtonLayout = styled.View`
 `;
 
 //  list item
-export const ListItemContainer = styled.View<ListItemContainerProps>`
+export const ListItemContainer = styled.View<ContainerProps>`
   height: ${props => SCREEN_HEIGHT - props.headerHeight}px;
   width: ${SCREEN_WIDTH}px;
   align-items: center;
@@ -95,6 +95,21 @@ export const CardContainer = styled(Animated.View)`
   z-index: 2;
 `;
 
+export const TouchableCard = styled.TouchableWithoutFeedback``;
+
+export const CardBottom = styled.View`
+  background-color: white;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const CardBottomText = styled.Text`
+  font-family: ${fonts.family};
+  font-size: ${fonts.sizes.md}px;
+  color: ${Colors.primary};
+`;
+
 export const ItemTextContainer = styled(Animated.View)`
   position: absolute;
   width: 90%;
@@ -106,19 +121,57 @@ export const ItemTextContainer = styled(Animated.View)`
 
 export const StyledImage = styled.ImageBackground`
   flex: 1;
+  justify-content: flex-end;
+  padding: 0 20px 20px 20px;
 `;
 
-export const ButtonPanelContainer = styled.View`
+export const InfoContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const RowDataContainer = styled.View``;
+
+export const InfoRow = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const ImageText = styled.Text`
+  font-family: ${fonts.family};
+  font-size: ${fonts.sizes.md}px;
+  color: ${Colors.accent};
+  margin-left: 5px;
+`;
+
+export const ButtonPanelContainer = styled.View<ContainerProps>`
   width: 80%;
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
-  margin-bottom: 20px;
+  position: absolute;
+  left: auto;
+  right: auto;
+  top: ${props => (SCREEN_HEIGHT - props.headerHeight) * 0.6 + cardOrigin.y}px;
+  z-index: 5;
 `;
 
-export const BackButton = styled.TouchableOpacity.attrs({
-  background: TouchableNativeFeedback.Ripple('#ccc', true),
-  useForeground: true,
-})``;
-
 export const TouchableIcon = styled.TouchableWithoutFeedback``;
+
+export const IconButtonContainer = styled.View`
+  flex-direction: row;
+`;
+
+// Icon button
+export const StyledIconButton = styled.View`
+  height: 30px;
+  width: 30px;
+  margin-left: 10px;
+  border-radius: 5px;
+  border-color: ${Colors.accent};
+  border-width: 2px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+`;

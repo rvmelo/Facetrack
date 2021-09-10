@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useCallback } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+
+import { useHeaderHeight } from '@react-navigation/elements';
 import { UserEvaluationProps } from '../useListItem';
 
 //  components
@@ -30,8 +32,10 @@ const ButtonPanel: React.FC<ButtonPanelProps> = ({
     [onListAnimation, onUserEvaluation],
   );
 
+  const headerHeight = useHeaderHeight();
+
   return (
-    <ButtonPanelContainer>
+    <ButtonPanelContainer headerHeight={headerHeight}>
       <TouchableIcon
         onPress={() => onButtonPress({ value: 1, cardUserId: userId })}
       >

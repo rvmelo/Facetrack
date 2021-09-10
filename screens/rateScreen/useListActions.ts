@@ -17,8 +17,9 @@ export interface ListAnimationProps {
   isLastItem: boolean;
 }
 
-export interface ScrollBackProps {
+export interface ScrollProps {
   index: number;
+  isLastItem?: boolean;
 }
 
 interface ListActionsProps {
@@ -28,14 +29,15 @@ interface ListActionsProps {
 
 interface ReturnType {
   handleListAnimation(value: ListAnimationProps): void;
-  handleListScrollBack({ index }: ScrollBackProps): void;
+  handleListScrollBack({ index }: ScrollProps): void;
+  handleListScroll({ index }: ScrollProps): void;
 }
 
 export function useListActions({ ref, setPage }: ListActionsProps): ReturnType {
   const headerHeight = useHeaderHeight();
 
   const handleListScrollBack = useCallback(
-    ({ index }: ScrollBackProps) => {
+    ({ index }: ScrollProps) => {
       if (ref?.current && index - 1 >= 0) {
         ref.current.scrollToOffset({
           offset: (index - 1) * (SCREEN_HEIGHT - headerHeight),
@@ -46,25 +48,25 @@ export function useListActions({ ref, setPage }: ListActionsProps): ReturnType {
   );
 
   const handleListScroll = useCallback(
-    (index: number) => {
+    ({ index, isLastItem = false }: ScrollProps) => {
+      if (isLastItem) {
+        setPage((prev: number) => prev + 1);
+        return;
+      }
+
       if (ref?.current) {
         ref.current.scrollToOffset({
           offset: (index + 1) * (SCREEN_HEIGHT - headerHeight),
         });
       }
     },
-    [ref, headerHeight],
+    [ref, headerHeight, setPage],
   );
 
   const handleListAnimation = useCallback(
     ({ opacity, index, isLastItem }: ListAnimationProps) => {
       const wrapper = () => {
-        if (isLastItem) {
-          setPage((prev: number) => prev + 1);
-          return;
-        }
-
-        handleListScroll(index);
+        handleListScroll({ index, isLastItem });
         opacity.value = 1;
       };
 
@@ -74,11 +76,12 @@ export function useListActions({ ref, setPage }: ListActionsProps): ReturnType {
         }
       });
     },
-    [handleListScroll, setPage],
+    [handleListScroll],
   );
 
   return {
     handleListAnimation,
     handleListScrollBack,
+    handleListScroll,
   };
 }
