@@ -34,8 +34,9 @@ import Colors from '../constants/colors';
 import { fonts } from '../constants/fonts';
 
 //  components
-import SettingsScreen from '../screens/settingsScreen';
 import RateScreen from '../screens/rateScreen';
+import { NotificationScreen } from '../screens/notificationScreen/container';
+import { SearchScreen } from '../screens/searchScreen/container';
 
 // i18n
 import { translate } from '../i18n/src/locales';
@@ -127,7 +128,7 @@ const AppTabRoutes: React.FC = () => {
 
       <Tab.Screen
         name="Search"
-        component={SettingsScreen}
+        component={SearchScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <Ionicons
@@ -141,7 +142,7 @@ const AppTabRoutes: React.FC = () => {
       />
       <Tab.Screen
         name="Notifications"
-        component={SettingsScreen}
+        component={NotificationScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <Ionicons
