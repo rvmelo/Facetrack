@@ -3,6 +3,7 @@ import { ListRenderItem, ActivityIndicator, Alert } from 'react-native';
 
 // navigation
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 //  redux
 import { useSelector } from 'react-redux';
@@ -38,6 +39,13 @@ import {
 // i18n
 import { translate } from '../../../i18n/src/locales';
 
+import { ProfileStackParamList } from '../../../routes/types';
+
+type NavigationProps = StackNavigationProp<
+  ProfileStackParamList,
+  'ProfileScreen'
+>;
+
 const ProfileScreen: React.FC = () => {
   const { user, isAvatarLoading, isUserUpdateFailure, isUserLoading } =
     useSelector<IState, IUserState>(state => state.user);
@@ -46,7 +54,7 @@ const ProfileScreen: React.FC = () => {
 
   const userMedia = user?.instagram?.userMedia;
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProps>();
 
   useEffect(() => {
     isUserUpdateFailure && Alert.alert('Error', translate('userUpdateError'));

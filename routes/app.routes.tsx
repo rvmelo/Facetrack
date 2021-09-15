@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { Alert, TouchableWithoutFeedback } from 'react-native';
 
-// import * as Notifications from 'expo-notifications';
+import * as Notifications from 'expo-notifications';
 
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -44,6 +44,10 @@ import { notificationTokenKey } from '../constants/storage';
 import api from '../services/api';
 import { HeaderButton } from './styles';
 
+// interface Subscription {
+//   remove: () => void;
+// }
+
 type NavigationProps = StackNavigationProp<
   ProfileStackParamList,
   'ProfileScreen'
@@ -55,6 +59,20 @@ const AppTabRoutes: React.FC = () => {
   const { user } = useSelector<IState, IUserState>(state => state.user);
 
   const navigation = useNavigation<NavigationProps>();
+
+  Notifications.setNotificationHandler({
+    handleNotification: async notification => {
+      const isAlert =
+        user.userProviderId ===
+        notification?.request?.content?.data?.userProviderId;
+
+      return {
+        shouldShowAlert: isAlert,
+        shouldPlaySound: isAlert,
+        shouldSetBadge: isAlert,
+      };
+    },
+  });
 
   // const notificationListener = useRef<Subscription>({} as Subscription);
   // const responseListener = useRef<Subscription>({} as Subscription);
