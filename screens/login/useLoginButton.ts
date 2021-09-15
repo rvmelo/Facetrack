@@ -1,14 +1,18 @@
 import { Alert } from 'react-native';
 import { useCallback, useEffect, useState, useRef } from 'react';
 
+import { AxiosResponse } from 'axios';
+
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
 
 // navigation
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 
 //  redux
 import { useDispatch } from 'react-redux';
+import { IUser } from '../../store/modules/user/types';
 
 //  constants
 import { base_url } from '../../constants/backend';
@@ -22,6 +26,16 @@ import useAuth from '../../hooks/useAuth';
 // i18n
 import { translate } from '../../i18n/src/locales';
 
+import { RegisterStackParamList } from '../../routes/types';
+
+interface AuthResponse {
+  notRegisteredUser: IUser | undefined;
+  registeredUser: IUser;
+  token: string;
+}
+
+type NavigationProps = StackNavigationProp<RegisterStackParamList, 'Login'>;
+
 interface ReturnValue {
   handleFacebookLogin(): void;
   handleGoogleLogin(): void;
@@ -31,7 +45,7 @@ interface ReturnValue {
 function useLoginButton(): ReturnValue {
   const dispatch = useDispatch();
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProps>();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -63,7 +77,9 @@ function useLoginButton(): ReturnValue {
         setIsLoading(true);
 
         //  response from google or facebook signIn
-        const response = await api.get('sessions/auth/success');
+        const response: AxiosResponse<AuthResponse> = await api.get(
+          'sessions/auth/success',
+        );
 
         if (!response.data) return;
 

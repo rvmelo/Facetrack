@@ -2,6 +2,8 @@
 import { useState, useCallback } from 'react';
 
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RegisterStackParamList } from '../../../routes/types';
 
 // redux
 import { IUser } from '../../../store/modules/user/types';
@@ -9,6 +11,11 @@ import { IUser } from '../../../store/modules/user/types';
 interface SexualOrientationOptions {
   option: 'heterosexual' | 'homosexual' | 'bisexual' | 'asexual' | undefined;
 }
+
+type NavigationProps = StackNavigationProp<
+  RegisterStackParamList,
+  'SexualOrientationScreen'
+>;
 
 interface ReturnValue {
   userSexualOrientation: SexualOrientationOptions;
@@ -19,16 +26,14 @@ interface ReturnValue {
 }
 
 function useSexualOrientationScreen(): ReturnValue {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProps>();
 
   const { params } = useRoute();
 
   const user = params as IUser;
 
-  const [
-    userSexualOrientation,
-    setUserSexualOrientation,
-  ] = useState<SexualOrientationOptions>({} as SexualOrientationOptions);
+  const [userSexualOrientation, setUserSexualOrientation] =
+    useState<SexualOrientationOptions>({} as SexualOrientationOptions);
 
   const handleUserSexualOrientation = useCallback(
     (sexualOrientation: SexualOrientationOptions) => {

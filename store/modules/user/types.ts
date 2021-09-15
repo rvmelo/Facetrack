@@ -36,7 +36,7 @@ export interface IUser {
   name: string;
   avatar: string;
   rate: number;
-  birthDate: Date | undefined;
+  birthDate: string | undefined;
   sex: 'male' | 'female' | undefined;
   relationshipStatus: 'single' | 'serious relationship' | 'married' | undefined;
   sexualOrientation:

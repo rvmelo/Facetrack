@@ -7,8 +7,9 @@ import SexualOrientationScreen from '../screens/registerStack/sexualOrientationS
 import RelationshipStatusScreen from '../screens/registerStack/relationshipStatusScreen';
 import InstagramScreen from '../screens/registerStack/instagramScreen';
 import BirthDateScreen from '../screens/registerStack/birthDateScreen';
+import { RegisterStackParamList } from './types';
 
-const Auth = createStackNavigator();
+const Auth = createStackNavigator<RegisterStackParamList>();
 
 const AuthRoutes: React.FC = () => (
   <Auth.Navigator

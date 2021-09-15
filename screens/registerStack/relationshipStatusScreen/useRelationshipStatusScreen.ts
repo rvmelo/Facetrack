@@ -2,6 +2,8 @@
 import { useState, useCallback } from 'react';
 
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RegisterStackParamList } from '../../../routes/types';
 
 // redux
 import { IUser } from '../../../store/modules/user/types';
@@ -9,6 +11,11 @@ import { IUser } from '../../../store/modules/user/types';
 interface RelationshipStatusOptions {
   option: 'single' | 'married' | 'serious relationship' | undefined;
 }
+
+type NavigationProps = StackNavigationProp<
+  RegisterStackParamList,
+  'RelationshipStatusScreen'
+>;
 
 interface ReturnValue {
   userRelationshipStatus: RelationshipStatusOptions;
@@ -19,16 +26,14 @@ interface ReturnValue {
 }
 
 function useRelationshipStatusScreen(): ReturnValue {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProps>();
 
   const { params } = useRoute();
 
   const user = params as IUser;
 
-  const [
-    userRelationshipStatus,
-    setUserRelationshipStatus,
-  ] = useState<RelationshipStatusOptions>({} as RelationshipStatusOptions);
+  const [userRelationshipStatus, setUserRelationshipStatus] =
+    useState<RelationshipStatusOptions>({} as RelationshipStatusOptions);
 
   const handleUserRelationshipStatus = useCallback(
     (relationshipStatus: RelationshipStatusOptions) => {

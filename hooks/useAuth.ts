@@ -96,6 +96,8 @@ function useAuth(): ReturnValue {
 
       const { token } = response.data;
 
+      api.defaults.headers.authorization = `Bearer ${token}`;
+
       await AsyncStorage.multiSet([
         [faceTrackTokenKey, token],
         [faceTrackUserKey, JSON.stringify(user)],

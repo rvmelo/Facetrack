@@ -1,5 +1,18 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
-import { media_types } from '../store/modules/user/types';
+import { IUser, media_types } from '../store/modules/user/types';
+
+//  register routes
+
+export type RegisterStackParamList = {
+  Login: undefined;
+  BirthDateScreen: IUser;
+  GenderScreen: IUser;
+  SexualOrientationScreen: IUser;
+  RelationshipStatusScreen: IUser;
+  InstagramScreen: IUser;
+};
+
+//  app routes
 
 export type ProfileStackParamList = {
   ProfileScreen: undefined;

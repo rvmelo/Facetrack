@@ -86,7 +86,7 @@ function useInstagramScreen(): ReturnValue {
           signUp({
             user: {
               ...user,
-              birthDate: user.birthDate ? new Date(user.birthDate) : undefined,
+              birthDate: user.birthDate,
               instagram: {
                 userName,
                 userMedia,
