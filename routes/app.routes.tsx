@@ -1,86 +1,62 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from 'react';
-import { Alert } from 'react-native';
+import { Alert, TouchableWithoutFeedback } from 'react-native';
 
 // import * as Notifications from 'expo-notifications';
-
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
-  DrawerContentComponentProps,
-} from '@react-navigation/drawer';
 
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+//  navigation
+import {
+  getFocusedRouteNameFromRoute,
+  useNavigation,
+} from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 //  redux
 import { useSelector } from 'react-redux';
 import { IState } from '../store';
 import { IUserState } from '../store/modules/user/types';
 
-//  navigation
+//  services
+import { registerForPushNotificationsAsync } from '../services/notification';
 
-//  navigators
+//  routes
 import ProfileRoutes from './profile.routes';
 
-//  hooks
-import useAuth from '../hooks/useAuth';
+//  route types
+import { ProfileStackParamList, TabParamList } from './types';
 
 //  constants
 import Colors from '../constants/colors';
 import { fonts } from '../constants/fonts';
 
 //  components
-import DrawerHeader from '../components/drawerHeader';
 import SettingsScreen from '../screens/settingsScreen';
 import RateScreen from '../screens/rateScreen';
 
 // i18n
 import { translate } from '../i18n/src/locales';
-import { registerForPushNotificationsAsync } from '../services/notification';
 import { notificationTokenKey } from '../constants/storage';
 import api from '../services/api';
+import { HeaderButton } from './styles';
 
-const AppDrawer = createDrawerNavigator();
+type NavigationProps = StackNavigationProp<
+  ProfileStackParamList,
+  'ProfileScreen'
+>;
 
-const CustomDrawerContent: React.FC<DrawerContentComponentProps> = props => {
-  const { signOut } = useAuth();
+const Tab = createBottomTabNavigator<TabParamList>();
 
-  return (
-    <>
-      <DrawerHeader />
-      <DrawerContentScrollView {...props}>
-        <DrawerItemList {...props} />
-        <DrawerItem
-          label={translate('Logout')}
-          onPress={signOut}
-          labelStyle={{
-            color: Colors.accent,
-            fontSize: fonts.sizes.md,
-            fontFamily: fonts.family,
-          }}
-          icon={() => (
-            <Ionicons
-              name="md-log-out-outline"
-              size={25}
-              color={Colors.accent}
-            />
-          )}
-        />
-      </DrawerContentScrollView>
-    </>
-  );
-};
-
-const AppDrawerRoutes: React.FC = () => {
+const AppTabRoutes: React.FC = () => {
   const { user } = useSelector<IState, IUserState>(state => state.user);
 
-  // const notificationListener = useRef<any>();
-  // const responseListener = useRef<any>();
+  const navigation = useNavigation<NavigationProps>();
+
+  // const notificationListener = useRef<Subscription>({} as Subscription);
+  // const responseListener = useRef<Subscription>({} as Subscription);
 
   // useEffect(() => {
   //   notificationListener.current =
@@ -125,87 +101,89 @@ const AppDrawerRoutes: React.FC = () => {
   }, [user.userProviderId]);
 
   return (
-    <AppDrawer.Navigator
-      initialRouteName="Profile"
-      drawerContent={(props: DrawerContentComponentProps) => (
-        <CustomDrawerContent {...props} />
-      )}
-      // drawerContentOptions={{
-      //   activeTintColor: Colors.primary,
-      //   labelStyle: {
-      //     color: Colors.accent,
-      //     fontSize: fonts.sizes.md,
-      //     fontFamily: fonts.family,
-      //   },
-      //   style: {
-      //     backgroundColor: Colors.background,
-      //     paddingTop: 20,
-      //   },
-      // }}
-      screenOptions={() => ({
-        headerShown: true,
-        headerStyle: { backgroundColor: Colors.background },
+    <Tab.Navigator
+      initialRouteName="RateScreen"
+      screenOptions={{
+        tabBarActiveTintColor: Colors.primary,
+        tabBarInactiveTintColor: Colors.accent,
+        tabBarShowLabel: false,
         headerTitleStyle: { color: Colors.accent, fontFamily: fonts.family },
-        headerTintColor: Colors.accent,
-
-        // activeTintColor: Colors.primary,
-        // labelStyle: {
-        //   color: Colors.accent,
-        //   fontSize: fonts.sizes.md,
-        //   fontFamily: fonts.family,
-        // },
-        // style: {
-        //   backgroundColor: Colors.background,
-        //   paddingTop: 20,
-        // },
-      })}
+      }}
     >
-      <AppDrawer.Screen
-        name=" Profile"
-        component={ProfileRoutes}
-        options={({ route }) => ({
-          drawerIcon: () => (
+      <Tab.Screen
+        name="RateScreen"
+        component={RateScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
             <Ionicons
-              name="md-person-outline"
+              name="md-location"
               size={25}
-              color={Colors.accent}
+              color={focused ? Colors.primary : Colors.accent}
+            />
+          ),
+          headerShown: false,
+        }}
+      />
+
+      <Tab.Screen
+        name="Search"
+        component={SettingsScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name="md-search"
+              size={25}
+              color={focused ? Colors.primary : Colors.accent}
+            />
+          ),
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="Notifications"
+        component={SettingsScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name="md-notifications"
+              size={25}
+              color={focused ? Colors.primary : Colors.accent}
+            />
+          ),
+          headerShown: false,
+        }}
+      />
+
+      <Tab.Screen
+        name="Profile"
+        options={({ route }) => ({
+          tabBarLabel: translate('myProfile'),
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name="md-person"
+              size={25}
+              color={focused ? Colors.primary : Colors.accent}
             />
           ),
           headerShown:
             getFocusedRouteNameFromRoute(route) !== 'Publication' &&
-            getFocusedRouteNameFromRoute(route) !== 'EditProfile',
+            getFocusedRouteNameFromRoute(route) !== 'EditProfile' &&
+            getFocusedRouteNameFromRoute(route) !== 'Settings',
           headerTitle: translate('myProfile'),
-          drawerLabel: translate('myProfile'),
-        })}
-      />
-      <AppDrawer.Screen
-        name="Rate Screen"
-        component={RateScreen}
-        options={() => ({
-          drawerIcon: () => (
-            <Ionicons name="md-globe" size={25} color={Colors.accent} />
+          headerRight: () => (
+            <HeaderButton>
+              <TouchableWithoutFeedback
+                onPress={() => navigation.navigate('Settings')}
+              >
+                <Ionicons name="md-menu" size={30} color={Colors.accent} />
+              </TouchableWithoutFeedback>
+            </HeaderButton>
           ),
-          headerTitle: 'Rate Screen',
-          drawerLabel: 'Rate Screen',
         })}
+        component={ProfileRoutes}
       />
-      <AppDrawer.Screen
-        name=" Settings"
-        component={SettingsScreen}
-        options={() => ({
-          drawerIcon: () => (
-            <Ionicons
-              name="md-settings-outline"
-              size={25}
-              color={Colors.accent}
-            />
-          ),
-          headerTitle: translate('settings'),
-          drawerLabel: translate('settings'),
-        })}
-      />
-    </AppDrawer.Navigator>
+    </Tab.Navigator>
   );
 };
 
-export default AppDrawerRoutes;
+export default AppTabRoutes;

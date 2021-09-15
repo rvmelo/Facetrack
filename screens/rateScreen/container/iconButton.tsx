@@ -19,7 +19,7 @@ export const IconButton: React.FC<IconButtonProps> = memo(
     return (
       <TouchableNativeFeedback
         onPress={onPress}
-        background={TouchableNativeFeedback.Ripple('#ccc', true)}
+        background={TouchableNativeFeedback.Ripple(Colors.disabled, true)}
         useForeground
       >
         <StyledIconButton>

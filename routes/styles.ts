@@ -12,3 +12,9 @@ export const StyledSpinner = styled.ActivityIndicator.attrs({
   size: 'large',
   color: Colors.primary,
 })``;
+
+export const HeaderButton = styled.View`
+  margin-right: 20px;
+  height: 100%;
+  justify-content: center;
+`;

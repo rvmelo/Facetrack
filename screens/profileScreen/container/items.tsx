@@ -4,29 +4,36 @@ import { Video } from 'expo-av';
 
 //  navigation
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { TouchableInterface, UserPhoto, VideoContainer } from './styles';
-import { MEDIA_TYPES } from '../../../store/modules/user/types';
+import { media_types, MEDIA_TYPES } from '../../../store/modules/user/types';
+import { ProfileStackParamList } from '../../../routes/types';
 
-interface ItemProps {
+type ItemProps = {
   media_url: string;
   caption: string;
   date: string;
-}
+};
+
+type NavigationProps = StackNavigationProp<
+  ProfileStackParamList,
+  'ProfileScreen'
+>;
 
 export const PhotoItem: React.FC<ItemProps> = ({
   media_url,
   caption,
   date,
 }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProps>();
 
   return (
     <TouchableInterface
       onPress={() =>
         navigation.navigate('Publication', {
           media_url,
-          media_type: MEDIA_TYPES.image,
+          media_type: MEDIA_TYPES.image as media_types,
           caption,
           date,
         })
@@ -42,7 +49,7 @@ export const VideoItem: React.FC<ItemProps> = ({
   caption,
   date,
 }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProps>();
 
   const videoRef = React.createRef<Video>();
 
@@ -51,7 +58,7 @@ export const VideoItem: React.FC<ItemProps> = ({
       onPress={() =>
         navigation.navigate('Publication', {
           media_url,
-          media_type: MEDIA_TYPES.video,
+          media_type: MEDIA_TYPES.video as media_types,
           caption,
           date,
         })

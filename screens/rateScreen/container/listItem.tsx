@@ -2,7 +2,7 @@
 import React from 'react';
 
 //  hooks
-import { useHeaderHeight } from '@react-navigation/elements';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 //   styles
 import { ItemText, ItemTextContainer, ListItemContainer } from './styles';
@@ -35,13 +35,13 @@ export const ListItem: React.FC<ListItemProps> = ({
   handleListScrollBack,
   handleListScroll,
 }) => {
-  const headerHeight = useHeaderHeight();
+  const bottomTabHeight = useBottomTabBarHeight();
 
   const { rate, handleUserEvaluation, cardStyle, cardOpacity, textStyle } =
     useListItem();
 
   return (
-    <ListItemContainer headerHeight={headerHeight}>
+    <ListItemContainer bottomTabHeight={bottomTabHeight}>
       <UserCard
         cardData={cardData}
         handleListScrollBack={handleListScrollBack}
@@ -49,7 +49,7 @@ export const ListItem: React.FC<ListItemProps> = ({
         cardStyle={cardStyle}
       />
 
-      <ItemTextContainer style={[textStyle]}>
+      <ItemTextContainer bottomTabHeight={bottomTabHeight} style={[textStyle]}>
         <ItemText>Rated</ItemText>
         <ItemText>User ${rate} stars</ItemText>
       </ItemTextContainer>

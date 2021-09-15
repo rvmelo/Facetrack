@@ -2,7 +2,7 @@
 import React, { useCallback } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
-import { useHeaderHeight } from '@react-navigation/elements';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { UserEvaluationProps } from '../useListItem';
 
 //  components
@@ -32,10 +32,10 @@ const ButtonPanel: React.FC<ButtonPanelProps> = ({
     [onListAnimation, onUserEvaluation],
   );
 
-  const headerHeight = useHeaderHeight();
+  const bottomTabHeight = useBottomTabBarHeight();
 
   return (
-    <ButtonPanelContainer headerHeight={headerHeight}>
+    <ButtonPanelContainer bottomTabHeight={bottomTabHeight}>
       <TouchableIcon
         onPress={() => onButtonPress({ value: 1, cardUserId: userId })}
       >

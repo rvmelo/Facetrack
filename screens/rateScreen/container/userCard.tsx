@@ -2,6 +2,9 @@ import React, { memo } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { ViewStyle } from 'react-native';
 
+//  hooks
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+
 //   styles
 import {
   CardContainer,
@@ -41,9 +44,11 @@ interface UserCardProps {
 
 export const UserCard: React.FC<UserCardProps> = memo(
   ({ cardData, cardStyle, handleListScrollBack, handleListScroll }) => {
+    const bottomTabHeight = useBottomTabBarHeight();
+
     return (
       <TouchableCard onPress={() => console.log('pressing')}>
-        <CardContainer style={[cardStyle]}>
+        <CardContainer bottomTabHeight={bottomTabHeight} style={[cardStyle]}>
           <StyledImage source={{ uri: cardData.uri }}>
             <InfoContainer>
               <RowDataContainer>

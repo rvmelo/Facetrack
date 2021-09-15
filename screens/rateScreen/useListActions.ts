@@ -5,7 +5,7 @@ import { FlatList } from 'react-native';
 import Animated, { runOnJS, withTiming } from 'react-native-reanimated';
 
 //  hooks
-import { useHeaderHeight } from '@react-navigation/elements';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 //  constants
 import { SCREEN_HEIGHT } from '../../constants/dimensions';
@@ -34,17 +34,17 @@ interface ReturnType {
 }
 
 export function useListActions({ ref, setPage }: ListActionsProps): ReturnType {
-  const headerHeight = useHeaderHeight();
+  const bottomTabHeight = useBottomTabBarHeight();
 
   const handleListScrollBack = useCallback(
     ({ index }: ScrollProps) => {
       if (ref?.current && index - 1 >= 0) {
         ref.current.scrollToOffset({
-          offset: (index - 1) * (SCREEN_HEIGHT - headerHeight),
+          offset: (index - 1) * (SCREEN_HEIGHT - bottomTabHeight),
         });
       }
     },
-    [ref, headerHeight],
+    [ref, bottomTabHeight],
   );
 
   const handleListScroll = useCallback(
@@ -56,11 +56,11 @@ export function useListActions({ ref, setPage }: ListActionsProps): ReturnType {
 
       if (ref?.current) {
         ref.current.scrollToOffset({
-          offset: (index + 1) * (SCREEN_HEIGHT - headerHeight),
+          offset: (index + 1) * (SCREEN_HEIGHT - bottomTabHeight),
         });
       }
     },
-    [ref, headerHeight, setPage],
+    [ref, bottomTabHeight, setPage],
   );
 
   const handleListAnimation = useCallback(

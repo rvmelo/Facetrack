@@ -8,7 +8,7 @@ import { fonts } from '../../../constants/fonts';
 import Colors from '../../../constants/colors';
 
 interface ContainerProps {
-  headerHeight: number;
+  bottomTabHeight: number;
 }
 
 const cardOrigin = {
@@ -17,7 +17,7 @@ const cardOrigin = {
     (Dimensions.get('window').width * 0.9) / 2,
   y:
     Dimensions.get('window').height / 2 -
-    (Dimensions.get('window').height * 0.8) / 2,
+    (Dimensions.get('window').height * 0.6) / 2,
 };
 
 export const ActivityIndicatorContainer = styled.View`
@@ -69,11 +69,18 @@ export const ButtonLayout = styled.View`
 
 //  list item
 export const ListItemContainer = styled.View<ContainerProps>`
-  height: ${props => SCREEN_HEIGHT - props.headerHeight}px;
+  height: ${props => SCREEN_HEIGHT - props.bottomTabHeight}px;
   width: ${SCREEN_WIDTH}px;
   align-items: center;
-  justify-content: flex-end;
-  padding-bottom: 50px;
+`;
+
+export const ItemTextContainer = styled(Animated.View)<ContainerProps>`
+  position: absolute;
+  width: 90%;
+  height: 60%;
+  left: ${cardOrigin.x}px;
+  top: ${props => cardOrigin.y - props.bottomTabHeight}px;
+  justify-content: center;
 `;
 
 export const ItemText = styled.Text`
@@ -83,13 +90,13 @@ export const ItemText = styled.Text`
   text-align: center;
 `;
 
-export const CardContainer = styled(Animated.View)`
+export const CardContainer = styled(Animated.View)<ContainerProps>`
   position: absolute;
   width: 90%;
   height: 60%;
   overflow: hidden;
   left: ${cardOrigin.x}px;
-  top: ${cardOrigin.y}px;
+  top: ${props => cardOrigin.y - props.bottomTabHeight}px;
   border-radius: 5px;
   opacity: 1;
   z-index: 2;
@@ -108,15 +115,6 @@ export const CardBottomText = styled.Text`
   font-family: ${fonts.family};
   font-size: ${fonts.sizes.md}px;
   color: ${Colors.primary};
-`;
-
-export const ItemTextContainer = styled(Animated.View)`
-  position: absolute;
-  width: 90%;
-  height: 60%;
-  left: ${cardOrigin.x}px;
-  top: ${cardOrigin.y}px;
-  justify-content: center;
 `;
 
 export const StyledImage = styled.ImageBackground`
@@ -153,7 +151,8 @@ export const ButtonPanelContainer = styled.View<ContainerProps>`
   position: absolute;
   left: auto;
   right: auto;
-  top: ${props => (SCREEN_HEIGHT - props.headerHeight) * 0.6 + cardOrigin.y}px;
+  top: ${props =>
+    (SCREEN_HEIGHT - props.bottomTabHeight) * 0.57 + cardOrigin.y}px;
   z-index: 5;
 `;
 

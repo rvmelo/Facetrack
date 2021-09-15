@@ -9,13 +9,20 @@ interface DeleteButtonLayoutProps {
   primaryColor?: string;
 }
 
-export const Container = styled.ScrollView.attrs({
-  contentContainerStyle: {
-    alignItems: 'center',
-    paddingTop: 120,
-  },
-})`
-  background-color: ${Colors.background};
+// export const Container = styled.ScrollView.attrs({
+//   contentContainerStyle: {
+//     alignItems: 'center',
+//     paddingTop: 120,
+//   },
+// })`
+//   background-color: ${Colors.background};
+// `;
+
+export const Container = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  padding: 120px 0 20px 0;
 `;
 
 export const TouchableButton = styled.TouchableNativeFeedback.attrs({
@@ -41,5 +48,19 @@ export const ButtonText = styled.Text`
   color: ${Colors.accent};
   font-family: ${fonts.family};
   font-size: ${fonts.sizes.md}px;
+  margin-left: 5px;
+`;
+
+export const ItemContainer = styled.View`
+  flex-direction: row;
+  width: 350px;
+`;
+
+export const ItemsContainer = styled.View``;
+
+export const ItemText = styled.Text`
+  font-size: ${fonts.sizes.md}px;
+  font-family: ${fonts.family};
+  color: ${Colors.accent};
   margin-left: 5px;
 `;
