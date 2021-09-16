@@ -26,8 +26,13 @@ export type ProfileStackParamList = {
   Settings: undefined;
 };
 
-export type TabParamList = {
+export type EvaluationStackParamList = {
   RateScreen: undefined;
+  RandomUserScreen: IUser;
+};
+
+export type TabParamList = {
+  Evaluation: undefined;
   Search: undefined;
   Notifications: undefined;
   Profile: NavigatorScreenParams<undefined>;
