@@ -25,8 +25,6 @@ export function useCard(): ReturnValue {
         `users/${userProviderId}`,
       );
 
-      // console.log(userData.data.instagram?.userMedia);
-
       navigation.navigate('RandomUserScreen', { user: { ...userData.data } });
     },
     [navigation],

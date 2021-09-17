@@ -27,7 +27,7 @@ export type ProfileStackParamList = {
 };
 
 export type EvaluationStackParamList = {
-  RateScreen: undefined;
+  RateScreen: { value: number; userProviderId: string };
   RandomUserScreen: { user: IUser };
 };
 
