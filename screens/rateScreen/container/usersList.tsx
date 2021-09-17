@@ -45,10 +45,12 @@ const UsersList: React.FC<UserListProps> = ({
 
       const cardData = {
         cardIndex,
-        cardUserId: item.data.userProviderId,
-        uri: item.data.instagram?.userMedia[0]?.media_url,
-        instaNick: item.data.instagram?.userName,
-        name: item.data.name,
+        cardUserId: item?.data?.userProviderId,
+        uri: item?.data?.instagram?.userMedia
+          ? item?.data?.instagram?.userMedia[0]?.media_url
+          : undefined,
+        instaNick: item?.data?.instagram?.userName,
+        name: item?.data?.name,
         isLastItem: listItems.length - 1 === cardIndex,
       };
 

@@ -15,9 +15,10 @@ import {
 } from '../../../store/modules/user/types';
 
 // components
-import { VideoItem, PhotoItem } from './items';
+import { VideoItem, PhotoItem } from '../../../components/profileItems/items';
+import { ProfileButton } from '../../../components/profileItems/profileButton';
+import PhotoScroll from '../../../components/profileItems/photoScroll';
 import Avatar from '../../../components/avatar/index';
-import PhotoScroll from './photoScroll';
 
 // hooks
 import useInstagram from '../../../hooks/useInstagram';
@@ -30,9 +31,6 @@ import {
   ProfileDataContainer,
   StyledName,
   StyledText,
-  StyledEditButton,
-  EditButtonLayout,
-  ButtonText,
   EmptyPhotoContainer,
 } from './styles';
 
@@ -119,11 +117,10 @@ const ProfileScreen: React.FC = () => {
         <StyledText>{user?.relationshipStatus}</StyledText>
         {/* <StyledText>{user?.birthDate}</StyledText> */}
 
-        <StyledEditButton onPress={() => navigation.navigate('EditProfile')}>
-          <EditButtonLayout>
-            <ButtonText>{translate('editProfile')}</ButtonText>
-          </EditButtonLayout>
-        </StyledEditButton>
+        <ProfileButton
+          onPress={() => navigation.navigate('EditProfile')}
+          text={translate('editProfile')}
+        />
       </ProfileDataContainer>
 
       <PhotoScroll userMedia={userMedia} renderItem={renderItem} />

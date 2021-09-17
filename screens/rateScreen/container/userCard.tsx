@@ -25,6 +25,7 @@ import { IconButton } from './iconButton';
 //  constants
 import Colors from '../../../constants/colors';
 import { ScrollProps } from '../useListActions';
+import { useCard } from '../useCard';
 
 interface UserCardProps {
   cardData: {
@@ -46,10 +47,18 @@ export const UserCard: React.FC<UserCardProps> = memo(
   ({ cardData, cardStyle, handleListScrollBack, handleListScroll }) => {
     const bottomTabHeight = useBottomTabBarHeight();
 
+    const { handleProfileView } = useCard();
+
     return (
-      <TouchableCard onPress={() => console.log('pressing')}>
+      <TouchableCard onPress={() => handleProfileView(cardData.cardUserId)}>
         <CardContainer bottomTabHeight={bottomTabHeight} style={[cardStyle]}>
-          <StyledImage source={{ uri: cardData.uri }}>
+          <StyledImage
+            source={
+              cardData.uri
+                ? { uri: cardData.uri }
+                : require('../../../assets/avatar.png')
+            }
+          >
             <InfoContainer>
               <RowDataContainer>
                 <InfoRow>

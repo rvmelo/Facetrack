@@ -35,10 +35,11 @@ export function useList(): ReturnType {
           data,
         };
       });
+
       setListItem(auxList);
       setIsLoading(false);
     } catch (err) {
-      Alert.alert('Error', `Error on loading users: ${err.message}`);
+      Alert.alert('Error', `Error on loading users:  ${err.message}`);
       setIsLoading(false);
     }
   }, [page]);

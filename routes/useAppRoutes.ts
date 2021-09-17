@@ -83,7 +83,9 @@ export function useAppRoutes(): ReturnValue {
           `users/${fromUserProviderId}`,
         );
 
-        evaluationNavigator.navigate('RandomUserScreen', { ...userData.data });
+        evaluationNavigator.navigate('RandomUserScreen', {
+          user: { ...userData.data },
+        });
       });
 
     return () => {

@@ -7,8 +7,8 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { TouchableInterface, UserPhoto, VideoContainer } from './styles';
-import { media_types, MEDIA_TYPES } from '../../../store/modules/user/types';
-import { ProfileStackParamList } from '../../../routes/types';
+import { media_types, MEDIA_TYPES } from '../../store/modules/user/types';
+import { ProfileStackParamList } from '../../routes/types';
 
 type ItemProps = {
   media_url: string;
