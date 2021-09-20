@@ -27,6 +27,9 @@ import { notificationTokenKey } from '../constants/storage';
 import { registerForPushNotificationsAsync } from '../services/notification';
 import api from '../services/api';
 
+//  i18n
+import { translate } from '../i18n/src/locales';
+
 type ProfileNavigatorProps = StackNavigationProp<
   ProfileStackParamList,
   'ProfileScreen'
@@ -114,7 +117,7 @@ export function useAppRoutes(): ReturnValue {
           userProviderId: user.userProviderId,
         });
       } catch (err) {
-        Alert.alert('Error', 'No permission to receive notifications');
+        Alert.alert('Error', translate('enableNotificationError'));
       }
     })();
   }, [user.userProviderId]);

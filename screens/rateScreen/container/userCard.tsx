@@ -5,6 +5,9 @@ import { ViewStyle } from 'react-native';
 //  hooks
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
+//  i18n
+import { translate } from '../../../i18n/src/locales';
+
 //   styles
 import {
   CardContainer,
@@ -95,7 +98,7 @@ export const UserCard: React.FC<UserCardProps> = memo(
             </InfoContainer>
           </StyledImage>
           <CardBottom>
-            <CardBottomText>View Instagram</CardBottomText>
+            <CardBottomText>{translate('viewInstagram')}</CardBottomText>
           </CardBottom>
         </CardContainer>
       </TouchableCard>
