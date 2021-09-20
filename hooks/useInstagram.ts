@@ -67,7 +67,8 @@ function useInstagram(): ReturnType {
         if (
           !navigation.isFocused() ||
           isRequestSent.current ||
-          !isMounted.current
+          !isMounted.current ||
+          !url.includes('code=')
         )
           return;
 
