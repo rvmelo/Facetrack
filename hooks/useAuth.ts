@@ -12,7 +12,11 @@ import { INITIAL_STATE } from '../store/modules/user/reducer';
 import api from '../services/api';
 
 //   constants
-import { faceTrackTokenKey, faceTrackUserKey } from '../constants/storage';
+import {
+  faceTrackTokenKey,
+  faceTrackUserKey,
+  notificationTokenKey,
+} from '../constants/storage';
 
 interface SignInData {
   token: string;
@@ -113,7 +117,11 @@ function useAuth(): ReturnValue {
   );
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove([faceTrackTokenKey, faceTrackUserKey]);
+    await AsyncStorage.multiRemove([
+      faceTrackTokenKey,
+      faceTrackUserKey,
+      notificationTokenKey,
+    ]);
 
     dispatch(
       loadUser({

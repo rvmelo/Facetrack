@@ -83,7 +83,7 @@ const AppTabRoutes: React.FC = () => {
               color={focused ? Colors.primary : Colors.accent}
             />
           ),
-          headerShown: false,
+          headerShown: true,
         }}
       />
 

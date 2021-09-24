@@ -2,15 +2,30 @@ import styled from 'styled-components/native';
 import Colors from '../../../constants/colors';
 import { fonts } from '../../../constants/fonts';
 
-export const Container = styled.View`
-  flex: 1;
-  background-color: ${Colors.background};
+export const ItemContainer = styled.View`
+  width: 100%;
+  border-width: 0.5px;
   align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-bottom: 10px;
+  padding-top: 10px;
 `;
 
-export const ScreenText = styled.Text`
-  font-size: ${fonts.sizes.lg}px;
+export const TextContainer = styled.View`
+  width: 80%;
+`;
+
+export const HeaderText = styled.Text`
+  font-weight: bold;
+`;
+
+export const InstagramText = styled.Text`
+  color: ${Colors.disabled};
+`;
+
+export const ItemText = styled.Text`
   font-family: ${fonts.family};
+  font-size: ${fonts.sizes.md}px;
   color: ${Colors.accent};
 `;
