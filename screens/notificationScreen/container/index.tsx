@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useCallback } from 'react';
+/* eslint-disable no-underscore-dangle */
+import React, { useCallback } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
-import { AxiosResponse } from 'axios';
-import api from '../../../services/api';
 
 //  components
 import Avatar from '../../../components/avatar/index';
@@ -14,36 +13,10 @@ import {
   ItemText,
   TextContainer,
 } from './styles';
-
-interface UserData {
-  avatar: string;
-  name: string;
-  userProviderId: string;
-  instagram: {
-    userName: string;
-  };
-}
-
-interface EvaluationData {
-  fromUserId: UserData;
-  value: number;
-}
-
-interface NotificationData {
-  foundEvaluations: EvaluationData[];
-}
+import { EvaluationData, useNotificationScreen } from './useNotificationScreen';
 
 export const NotificationScreen: React.FC = () => {
-  const [notifications, setNotifications] = useState<EvaluationData[]>([]);
-
-  useEffect(() => {
-    (async () => {
-      const response: AxiosResponse<NotificationData> = await api.get(
-        '/evaluation?page=1',
-      );
-      setNotifications(response?.data?.foundEvaluations);
-    })();
-  }, []);
+  const { notifications, isRefreshing, onRefresh } = useNotificationScreen();
 
   const renderItem: ListRenderItem<EvaluationData> = useCallback(({ item }) => {
     const { avatar, name, instagram } = item.fromUserId;
@@ -53,6 +26,7 @@ export const NotificationScreen: React.FC = () => {
       <ItemContainer>
         <Avatar avatar={avatar} />
         <TextContainer>
+          <InstagramText>{item.updated_at} </InstagramText>
           <ItemText>
             <HeaderText>{name} </HeaderText>
             <InstagramText>@{instagram?.userName}</InstagramText>
@@ -67,8 +41,10 @@ export const NotificationScreen: React.FC = () => {
   return (
     <FlatList
       data={notifications}
+      refreshing={isRefreshing}
+      onRefresh={onRefresh}
       renderItem={renderItem}
-      keyExtractor={item => item.fromUserId.userProviderId}
+      keyExtractor={item => item._id}
     />
   );
 };
