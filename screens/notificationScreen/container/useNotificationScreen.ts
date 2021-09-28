@@ -1,8 +1,8 @@
 import { useState, useCallback, useEffect } from 'react';
+import { Alert } from 'react-native';
 import { AxiosResponse } from 'axios';
 
 //  services
-import { Alert } from 'react-native';
 import api from '../../../services/api';
 
 interface UserData {
@@ -19,6 +19,7 @@ export interface EvaluationData {
   updated_at: string;
   fromUserId: UserData;
   value: number;
+  userProviderId: string;
 }
 
 interface NotificationData {

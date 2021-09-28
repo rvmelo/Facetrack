@@ -8,7 +8,6 @@ import Avatar from '../../../components/avatar/index';
 import { VideoItem, PhotoItem } from '../../../components/profileItems/items';
 import PhotoScroll from '../../../components/profileItems/photoScroll';
 import { ProfileButton } from '../../../components/profileItems/profileButton';
-import { ModalComponent } from '../../../components/profileItems/modalComponent';
 
 import {
   Container,
@@ -16,9 +15,10 @@ import {
   StyledName,
   StyledText,
 } from './styles';
-import { useRandomUserScreen } from '../useRandomUserScreen';
+import { ModalComponent } from '../../../components/profileItems/modalComponent';
+import { useNotificationUserScreen } from '../useNotificationUser';
 
-export const RandomUserScreen: React.FC = memo(() => {
+export const NotificationUserScreen: React.FC = memo(() => {
   const {
     modalVisible,
     setModalVisible,
@@ -27,7 +27,7 @@ export const RandomUserScreen: React.FC = memo(() => {
     handleEvaluation,
     userMedia,
     user,
-  } = useRandomUserScreen();
+  } = useNotificationUserScreen();
 
   const renderItem: ListRenderItem<UserMedia> = useCallback(({ item }) => {
     return item.media_type === MEDIA_TYPES.video ? (

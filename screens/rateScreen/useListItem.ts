@@ -49,7 +49,7 @@ export function useListItem(): ReturnValue {
     async ({ value, cardUserId }: UserEvaluationProps) => {
       setRate(value);
 
-      api.patch(`/evaluation?value=${value}&toUserId=${cardUserId}`);
+      await api.patch(`/evaluation?value=${value}&toUserId=${cardUserId}`);
     },
     [setRate],
   );

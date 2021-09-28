@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { ButtonPanelContainer, TouchableIcon } from './styles';
 
 //  constants
-import Colors from '../../../constants/colors';
+import Colors from '../../constants/colors';
 
 interface ButtonPanelProps {
   rate: number;

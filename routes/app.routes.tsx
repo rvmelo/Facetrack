@@ -11,6 +11,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //  routes
 import ProfileRoutes from './profile.routes';
 import EvaluationRoutes from './evaluation.routes';
+import NotificationRoutes from './notification.routes';
 
 //  route types
 import { TabParamList } from './types';
@@ -20,7 +21,6 @@ import Colors from '../constants/colors';
 import { fonts } from '../constants/fonts';
 
 //  components
-import { NotificationScreen } from '../screens/notificationScreen/container';
 import { SearchScreen } from '../screens/searchScreen/container';
 
 // i18n
@@ -74,7 +74,7 @@ const AppTabRoutes: React.FC = () => {
       />
       <Tab.Screen
         name="Notifications"
-        component={NotificationScreen}
+        component={NotificationRoutes}
         options={{
           tabBarIcon: ({ focused }) => (
             <Ionicons
@@ -83,7 +83,7 @@ const AppTabRoutes: React.FC = () => {
               color={focused ? Colors.primary : Colors.accent}
             />
           ),
-          headerShown: true,
+          headerShown: false,
         }}
       />
 

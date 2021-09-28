@@ -1,6 +1,13 @@
+import { TouchableNativeFeedback } from 'react-native';
+
 import styled from 'styled-components/native';
 import Colors from '../../../constants/colors';
 import { fonts } from '../../../constants/fonts';
+
+export const TouchableItem = styled.TouchableNativeFeedback.attrs({
+  background: TouchableNativeFeedback.Ripple('#ccc', true),
+  useForeground: true,
+})``;
 
 export const ItemContainer = styled.View`
   width: 100%;
@@ -10,6 +17,7 @@ export const ItemContainer = styled.View`
   justify-content: space-around;
   padding-bottom: 10px;
   padding-top: 10px;
+  overflow: hidden;
 `;
 
 export const TextContainer = styled.View`

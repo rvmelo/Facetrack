@@ -26,6 +26,11 @@ export type ProfileStackParamList = {
   Settings: undefined;
 };
 
+export type NotificationStackParamList = {
+  NotificationScreen: undefined;
+  NotificationUserScreen: { user: IUser };
+};
+
 export type EvaluationStackParamList = {
   RateScreen: { value: number; userProviderId: string };
   RandomUserScreen: { user: IUser };

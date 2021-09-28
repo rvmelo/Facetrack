@@ -6,11 +6,11 @@ import { CenteredView, ModalText, ModalUserInfoContainer } from './styles';
 // components
 import { ModalButton } from './modalButton';
 import { CloseButton } from './closeButton';
-import Avatar from '../../../components/avatar/index';
+import Avatar from '../avatar/index';
 import { ButtonPanel } from './buttonPanel';
 
 //  constants
-import Colors from '../../../constants/colors';
+import Colors from '../../constants/colors';
 
 interface ModalComponentProps {
   modalVisible: boolean;

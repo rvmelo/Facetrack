@@ -2,7 +2,7 @@ import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
 //  constants
-import Colors from '../../../constants/colors';
+import Colors from '../../constants/colors';
 
 //  styles
 import { CloseButtonLayout, StyledModalButton } from './styles';
