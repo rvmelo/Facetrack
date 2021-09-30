@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import { Alert } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -14,21 +14,21 @@ import { useSelector } from 'react-redux';
 
 // navigation
 import { useNavigation } from '@react-navigation/native';
-import { EvaluationStackParamList, ProfileStackParamList } from './types';
+import { EvaluationStackParamList, ProfileStackParamList } from '../types';
 
 // redux
-import { IState } from '../store';
-import { IUser, IUserState } from '../store/modules/user/types';
+import { IState } from '../../store';
+import { IUser, IUserState } from '../../store/modules/user/types';
 
 // constants
-import { notificationTokenKey } from '../constants/storage';
+import { notificationTokenKey } from '../../constants/storage';
 
 //  services
-import { registerForPushNotificationsAsync } from '../services/notification';
-import api from '../services/api';
+import { registerForPushNotificationsAsync } from '../../services/notification';
+import api from '../../services/api';
 
 //  i18n
-import { translate } from '../i18n/src/locales';
+import { translate } from '../../i18n/src/locales';
 
 type ProfileNavigatorProps = StackNavigationProp<
   ProfileStackParamList,
@@ -44,11 +44,36 @@ interface Subscription {
   remove: () => void;
 }
 
-interface ReturnValue {
-  profileNavigator: ProfileNavigatorProps;
+interface UserData {
+  avatar: string;
+  name: string;
+  userProviderId: string;
+  instagram: {
+    userName: string;
+  };
 }
 
-export function useAppRoutes(): ReturnValue {
+export interface NotificationData {
+  _id: string;
+  updated_at: string;
+  fromUserId: UserData;
+  value: number;
+  isRead?: boolean;
+}
+
+interface NotificationResponse {
+  foundEvaluations: NotificationData[];
+}
+
+interface ReturnValue {
+  profileNavigator: ProfileNavigatorProps;
+  notifications: NotificationData[];
+  isRefreshing: boolean;
+  onRefresh: () => Promise<void>;
+  unreadNotificationsAmount: number;
+}
+
+export function useNotifications(): ReturnValue {
   const profileNavigator = useNavigation<ProfileNavigatorProps>();
   const evaluationNavigator = useNavigation<EvaluationNavigatorProps>();
 
@@ -70,6 +95,39 @@ export function useAppRoutes(): ReturnValue {
 
   // const notificationListener = useRef<Subscription>({} as Subscription);
   const responseListener = useRef<Subscription>({} as Subscription);
+
+  const [notifications, setNotifications] = useState<NotificationData[]>([]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const unreadNotificationsAmount = useMemo(() => {
+    return notifications.reduce((total, notificationItem) => {
+      if (!notificationItem.isRead) {
+        return total + 1;
+      }
+      return total;
+    }, 0);
+  }, [notifications]);
+
+  const onRefresh = useCallback(async () => {
+    try {
+      setIsRefreshing(true);
+
+      const response: AxiosResponse<NotificationResponse> = await api.get(
+        `/evaluation`,
+      );
+
+      setNotifications(response?.data?.foundEvaluations);
+
+      setIsRefreshing(false);
+    } catch (err) {
+      setIsRefreshing(false);
+      Alert.alert('Failed on updating notifications');
+    }
+  }, []);
+
+  useEffect(() => {
+    onRefresh();
+  }, [onRefresh]);
 
   useEffect(() => {
     // notificationListener.current =
@@ -124,5 +182,9 @@ export function useAppRoutes(): ReturnValue {
 
   return {
     profileNavigator,
+    isRefreshing,
+    notifications,
+    onRefresh,
+    unreadNotificationsAmount,
   };
 }

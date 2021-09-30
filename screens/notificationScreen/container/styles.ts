@@ -9,7 +9,11 @@ export const TouchableItem = styled.TouchableNativeFeedback.attrs({
   useForeground: true,
 })``;
 
-export const ItemContainer = styled.View`
+interface ItemContainerProps {
+  isRead: boolean | undefined;
+}
+
+export const ItemContainer = styled.View<ItemContainerProps>`
   width: 100%;
   border-width: 0.5px;
   align-items: center;
@@ -18,6 +22,8 @@ export const ItemContainer = styled.View`
   padding-bottom: 10px;
   padding-top: 10px;
   overflow: hidden;
+  background-color: ${props =>
+    props.isRead ? 'transparent' : Colors.disabled};
 `;
 
 export const TextContainer = styled.View`

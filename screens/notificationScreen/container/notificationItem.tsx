@@ -12,24 +12,36 @@ import {
   TextContainer,
   TouchableItem,
 } from './styles';
-import { useItem } from './useItem';
 
-interface ItemProps {
-  avatar: string;
+//  hooks
+import { useNotificationItem } from './useNotificationItem';
+
+interface NotificationItemProps {
+  fromUser: {
+    name: string;
+    avatar: string;
+    instaName: string;
+    userProviderId: string;
+  };
   updated_at: string;
-  name: string;
-  instaName: string;
   value: number;
-  userProviderId: string;
+  isRead: boolean | undefined;
+  evaluationId: string;
 }
 
-export const Item: React.FC<ItemProps> = memo(
-  ({ avatar, updated_at, name, instaName, value, userProviderId }) => {
-    const { handleItemPress } = useItem({ userProviderId });
+export const NotificationItem: React.FC<NotificationItemProps> = memo(
+  ({ fromUser, evaluationId, isRead, updated_at, value }) => {
+    const { avatar, name, instaName, userProviderId } = fromUser;
+
+    const { handleItemPress } = useNotificationItem({
+      userProviderId,
+      evaluationId,
+      isRead,
+    });
 
     return (
       <TouchableItem onPress={handleItemPress}>
-        <ItemContainer>
+        <ItemContainer isRead={isRead}>
           <Avatar avatar={avatar} />
           <TextContainer>
             <InstagramText>{updated_at} </InstagramText>

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -9,10 +10,21 @@ import { NotificationUserScreen } from '../screens/notificationUserScreen/contai
 import Colors from '../constants/colors';
 import { fonts } from '../constants/fonts';
 import { NotificationStackParamList } from './types';
+import { NotificationData } from './hooks/useNotifications';
 
 const Notification = createStackNavigator<NotificationStackParamList>();
 
-const NotificationRoutes: React.FC = () => (
+interface NotificationRoutesProps {
+  notifications: NotificationData[];
+  isRefreshing: boolean;
+  onRefresh: () => Promise<void>;
+}
+
+const NotificationRoutes: React.FC<NotificationRoutesProps> = ({
+  notifications,
+  isRefreshing,
+  onRefresh,
+}) => (
   <Notification.Navigator
     initialRouteName="NotificationScreen"
     screenOptions={{
@@ -23,7 +35,13 @@ const NotificationRoutes: React.FC = () => (
   >
     <Notification.Screen
       name="NotificationScreen"
-      component={NotificationScreen}
+      children={() => (
+        <NotificationScreen
+          notifications={notifications}
+          isRefreshing={isRefreshing}
+          onRefresh={onRefresh}
+        />
+      )}
       options={{
         headerShown: true,
         headerTitle: 'Notifications',

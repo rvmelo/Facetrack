@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
@@ -26,12 +27,18 @@ import { SearchScreen } from '../screens/searchScreen/container';
 // i18n
 import { translate } from '../i18n/src/locales';
 import { HeaderButton } from './styles';
-import { useAppRoutes } from './useAppRoutes';
+import { useNotifications } from './hooks/useNotifications';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
 const AppTabRoutes: React.FC = () => {
-  const { profileNavigator } = useAppRoutes();
+  const {
+    profileNavigator,
+    notifications,
+    onRefresh,
+    isRefreshing,
+    unreadNotificationsAmount,
+  } = useNotifications();
 
   return (
     <Tab.Navigator
@@ -74,8 +81,22 @@ const AppTabRoutes: React.FC = () => {
       />
       <Tab.Screen
         name="Notifications"
-        component={NotificationRoutes}
+        children={() => (
+          <NotificationRoutes
+            notifications={notifications}
+            isRefreshing={isRefreshing}
+            onRefresh={onRefresh}
+          />
+        )}
         options={{
+          tabBarBadge:
+            unreadNotificationsAmount > 0
+              ? unreadNotificationsAmount
+              : undefined,
+          tabBarBadgeStyle: {
+            color: Colors.accent,
+            backgroundColor: Colors.primary,
+          },
           tabBarIcon: ({ focused }) => (
             <Ionicons
               name="md-notifications"

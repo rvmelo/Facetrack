@@ -13,6 +13,8 @@ import { IUser } from '../../../store/modules/user/types';
 
 interface UseItemProps {
   userProviderId: string;
+  evaluationId: string;
+  isRead: boolean | undefined;
 }
 
 type NavigationProps = StackNavigationProp<
@@ -24,7 +26,11 @@ interface ReturnType {
   handleItemPress: () => Promise<void>;
 }
 
-export function useItem({ userProviderId }: UseItemProps): ReturnType {
+export function useNotificationItem({
+  userProviderId,
+  evaluationId,
+  isRead,
+}: UseItemProps): ReturnType {
   const navigation = useNavigation<NavigationProps>();
 
   const handleItemPress = useCallback(async () => {
@@ -35,7 +41,11 @@ export function useItem({ userProviderId }: UseItemProps): ReturnType {
     navigation.navigate('NotificationUserScreen', {
       user: { ...userData.data },
     });
-  }, [navigation, userProviderId]);
+
+    if (isRead) return;
+
+    await api.patch(`/evaluation/update/${evaluationId}`);
+  }, [navigation, userProviderId, evaluationId, isRead]);
 
   return {
     handleItemPress,

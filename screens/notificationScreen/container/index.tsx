@@ -3,28 +3,43 @@ import React, { useCallback } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 
 //  components
-import { Item } from './item';
+import { NotificationItem } from './notificationItem';
 
-import { EvaluationData, useNotificationScreen } from './useNotificationScreen';
+import { NotificationData } from '../../../routes/hooks/useNotifications';
 
-export const NotificationScreen: React.FC = () => {
-  const { notifications, isRefreshing, onRefresh } = useNotificationScreen();
+interface NotificationScreenProps {
+  notifications: NotificationData[];
+  isRefreshing: boolean;
+  onRefresh: () => Promise<void>;
+}
 
-  const renderItem: ListRenderItem<EvaluationData> = useCallback(({ item }) => {
-    const { avatar, name, instagram, userProviderId } = item.fromUserId;
-    const { value } = item;
+export const NotificationScreen: React.FC<NotificationScreenProps> = ({
+  notifications,
+  isRefreshing,
+  onRefresh,
+}) => {
+  const renderItem: ListRenderItem<NotificationData> = useCallback(
+    ({ item }) => {
+      const { avatar, name, instagram, userProviderId } = item.fromUserId;
+      const { value, _id } = item;
 
-    return (
-      <Item
-        avatar={avatar}
-        updated_at={item?.updated_at}
-        name={name}
-        instaName={instagram?.userName}
-        value={value}
-        userProviderId={userProviderId}
-      />
-    );
-  }, []);
+      return (
+        <NotificationItem
+          fromUser={{
+            avatar,
+            userProviderId,
+            instaName: instagram?.userName,
+            name,
+          }}
+          updated_at={item?.updated_at}
+          value={value}
+          isRead={item.isRead}
+          evaluationId={_id}
+        />
+      );
+    },
+    [],
+  );
   return (
     <FlatList
       data={notifications}
