@@ -10,21 +10,10 @@ import { NotificationUserScreen } from '../screens/notificationUserScreen/contai
 import Colors from '../constants/colors';
 import { fonts } from '../constants/fonts';
 import { NotificationStackParamList } from './types';
-import { NotificationData } from './hooks/useNotifications';
 
 const Notification = createStackNavigator<NotificationStackParamList>();
 
-interface NotificationRoutesProps {
-  notifications: NotificationData[];
-  isRefreshing: boolean;
-  onRefresh: () => Promise<void>;
-}
-
-const NotificationRoutes: React.FC<NotificationRoutesProps> = ({
-  notifications,
-  isRefreshing,
-  onRefresh,
-}) => (
+const NotificationRoutes: React.FC = () => (
   <Notification.Navigator
     initialRouteName="NotificationScreen"
     screenOptions={{
@@ -35,13 +24,7 @@ const NotificationRoutes: React.FC<NotificationRoutesProps> = ({
   >
     <Notification.Screen
       name="NotificationScreen"
-      children={() => (
-        <NotificationScreen
-          notifications={notifications}
-          isRefreshing={isRefreshing}
-          onRefresh={onRefresh}
-        />
-      )}
+      component={NotificationScreen}
       options={{
         headerShown: true,
         headerTitle: 'Notifications',

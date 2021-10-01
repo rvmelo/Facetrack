@@ -34,10 +34,8 @@ const Tab = createBottomTabNavigator<TabParamList>();
 const AppTabRoutes: React.FC = () => {
   const {
     profileNavigator,
-    notifications,
-    onRefresh,
-    isRefreshing,
     unreadNotificationsAmount,
+    setUnreadNotificationsAmount,
   } = useNotifications();
 
   return (
@@ -81,13 +79,10 @@ const AppTabRoutes: React.FC = () => {
       />
       <Tab.Screen
         name="Notifications"
-        children={() => (
-          <NotificationRoutes
-            notifications={notifications}
-            isRefreshing={isRefreshing}
-            onRefresh={onRefresh}
-          />
-        )}
+        listeners={{
+          tabPress: () => setUnreadNotificationsAmount(0),
+        }}
+        component={NotificationRoutes}
         options={{
           tabBarBadge:
             unreadNotificationsAmount > 0

@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useCallback, useMemo } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import { Alert } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -67,10 +67,9 @@ interface NotificationResponse {
 
 interface ReturnValue {
   profileNavigator: ProfileNavigatorProps;
-  notifications: NotificationData[];
-  isRefreshing: boolean;
-  onRefresh: () => Promise<void>;
   unreadNotificationsAmount: number;
+  // eslint-disable-next-line no-unused-vars
+  setUnreadNotificationsAmount: (value: number) => void;
 }
 
 export function useNotifications(): ReturnValue {
@@ -93,34 +92,31 @@ export function useNotifications(): ReturnValue {
     },
   });
 
-  // const notificationListener = useRef<Subscription>({} as Subscription);
+  const notificationListener = useRef<Subscription>({} as Subscription);
   const responseListener = useRef<Subscription>({} as Subscription);
 
-  const [notifications, setNotifications] = useState<NotificationData[]>([]);
-  const [isRefreshing, setIsRefreshing] = useState(false);
-
-  const unreadNotificationsAmount = useMemo(() => {
-    return notifications.reduce((total, notificationItem) => {
-      if (!notificationItem.isRead) {
-        return total + 1;
-      }
-      return total;
-    }, 0);
-  }, [notifications]);
+  const [unreadNotificationsAmount, setUnreadNotificationsAmount] = useState(0);
 
   const onRefresh = useCallback(async () => {
     try {
-      setIsRefreshing(true);
-
       const response: AxiosResponse<NotificationResponse> = await api.get(
-        `/evaluation`,
+        `/evaluation?page=1`,
       );
 
-      setNotifications(response?.data?.foundEvaluations);
+      const auxNotifications = response?.data?.foundEvaluations;
 
-      setIsRefreshing(false);
+      const unreadNotifications = auxNotifications.reduce(
+        (total, notificationItem) => {
+          if (!notificationItem.isRead) {
+            return total + 1;
+          }
+          return total;
+        },
+        0,
+      );
+
+      setUnreadNotificationsAmount(unreadNotifications);
     } catch (err) {
-      setIsRefreshing(false);
       Alert.alert('Failed on updating notifications');
     }
   }, []);
@@ -130,10 +126,10 @@ export function useNotifications(): ReturnValue {
   }, [onRefresh]);
 
   useEffect(() => {
-    // notificationListener.current =
-    //   Notifications.addNotificationReceivedListener(notification => {
-    //     console.log('notification received: ', notification);
-    //   });
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener(() => {
+        onRefresh();
+      });
 
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener(async response => {
@@ -150,12 +146,12 @@ export function useNotifications(): ReturnValue {
       });
 
     return () => {
-      // Notifications.removeNotificationSubscription(
-      //   notificationListener.current,
-      // );
+      Notifications.removeNotificationSubscription(
+        notificationListener.current,
+      );
       Notifications.removeNotificationSubscription(responseListener.current);
     };
-  }, [evaluationNavigator]);
+  }, [evaluationNavigator, onRefresh]);
 
   useEffect(() => {
     (async () => {
@@ -175,6 +171,8 @@ export function useNotifications(): ReturnValue {
           userProviderId: user.userProviderId,
         });
       } catch (err) {
+        // eslint-disable-next-line no-console
+        console.log('error: ', err);
         Alert.alert('Error', translate('enableNotificationError'));
       }
     })();
@@ -182,9 +180,7 @@ export function useNotifications(): ReturnValue {
 
   return {
     profileNavigator,
-    isRefreshing,
-    notifications,
-    onRefresh,
     unreadNotificationsAmount,
+    setUnreadNotificationsAmount,
   };
 }

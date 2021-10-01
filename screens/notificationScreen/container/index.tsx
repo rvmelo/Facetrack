@@ -7,17 +7,20 @@ import { NotificationItem } from './notificationItem';
 
 import { NotificationData } from '../../../routes/hooks/useNotifications';
 
-interface NotificationScreenProps {
-  notifications: NotificationData[];
-  isRefreshing: boolean;
-  onRefresh: () => Promise<void>;
-}
+//  constants
+import { ListFooterComponent } from './listFooterComponent';
+import { useNotifications } from '../useNotifications';
 
-export const NotificationScreen: React.FC<NotificationScreenProps> = ({
-  notifications,
-  isRefreshing,
-  onRefresh,
-}) => {
+export const NotificationScreen: React.FC = () => {
+  const {
+    notifications,
+    isRefreshing,
+    onRefresh,
+    onListEnd,
+    isLoading,
+    setOnMomentumScrollBegin,
+  } = useNotifications();
+
   const renderItem: ListRenderItem<NotificationData> = useCallback(
     ({ item }) => {
       const { avatar, name, instagram, userProviderId } = item.fromUserId;
@@ -46,6 +49,10 @@ export const NotificationScreen: React.FC<NotificationScreenProps> = ({
       refreshing={isRefreshing}
       onRefresh={onRefresh}
       renderItem={renderItem}
+      onEndReached={() => onListEnd()}
+      onEndReachedThreshold={0.1}
+      onMomentumScrollBegin={() => setOnMomentumScrollBegin(true)}
+      ListFooterComponent={() => <ListFooterComponent isLoading={isLoading} />}
       keyExtractor={item => item._id}
     />
   );
