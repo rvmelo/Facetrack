@@ -3,6 +3,9 @@ import React, { memo } from 'react';
 //  components
 import Avatar from '../../../components/avatar/index';
 
+// services
+import { formatDate, getHoursFromDate } from '../../../services/date';
+
 //  styles
 import {
   HeaderText,
@@ -11,6 +14,7 @@ import {
   ItemText,
   TextContainer,
   TouchableItem,
+  StyledDate,
 } from './styles';
 
 //  hooks
@@ -25,18 +29,18 @@ interface NotificationItemProps {
   };
   updated_at: string;
   value: number;
-  isRead: boolean | undefined;
+  isNotificationRead: boolean | undefined;
   evaluationId: string;
 }
 
 export const NotificationItem: React.FC<NotificationItemProps> = memo(
-  ({ fromUser, evaluationId, isRead, updated_at, value }) => {
+  ({ fromUser, evaluationId, updated_at, value, isNotificationRead }) => {
     const { avatar, name, instaName, userProviderId } = fromUser;
 
-    const { handleItemPress } = useNotificationItem({
+    const { handleItemPress, isRead } = useNotificationItem({
       userProviderId,
       evaluationId,
-      isRead,
+      isNotificationRead,
     });
 
     return (
@@ -44,13 +48,15 @@ export const NotificationItem: React.FC<NotificationItemProps> = memo(
         <ItemContainer isRead={isRead}>
           <Avatar avatar={avatar} />
           <TextContainer>
-            <InstagramText>{updated_at} </InstagramText>
-            <ItemText>
+            <StyledDate>
+              {formatDate(updated_at)}, {getHoursFromDate(updated_at)}
+            </StyledDate>
+            <ItemText numberOfLines={1}>
               <HeaderText>{name} </HeaderText>
               <InstagramText>@{instaName}</InstagramText>
             </ItemText>
-            <ItemText>
-              {name} has rated you with {value} stars
+            <ItemText numberOfLines={2}>
+              {name.split(' ')[0]} has rated you with {value} stars
             </ItemText>
           </TextContainer>
         </ItemContainer>

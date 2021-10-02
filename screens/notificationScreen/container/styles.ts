@@ -15,15 +15,13 @@ interface ItemContainerProps {
 
 export const ItemContainer = styled.View<ItemContainerProps>`
   width: 100%;
-  border-width: 0.5px;
+  height: 100px;
   align-items: center;
   flex-direction: row;
   justify-content: space-around;
-  padding-bottom: 10px;
-  padding-top: 10px;
   overflow: hidden;
   background-color: ${props =>
-    props.isRead ? 'transparent' : Colors.disabled};
+    props.isRead ? 'transparent' : 'rgba(242, 241, 239, 0.3)'};
 `;
 
 export const TextContainer = styled.View`
@@ -38,8 +36,17 @@ export const InstagramText = styled.Text`
   color: ${Colors.disabled};
 `;
 
+export const StyledDate = styled.Text`
+  color: ${Colors.disabled};
+  font-family: ${fonts.family};
+  font-size: ${fonts.sizes.sm}px;
+`;
+
 export const ItemText = styled.Text`
   font-family: ${fonts.family};
   font-size: ${fonts.sizes.md}px;
   color: ${Colors.accent};
+`;
+export const ItemSeparator = styled.View`
+  height: 10px;
 `;

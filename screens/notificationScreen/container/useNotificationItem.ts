@@ -1,5 +1,6 @@
+import { useState, useCallback } from 'react';
+
 import { AxiosResponse } from 'axios';
-import { useCallback } from 'react';
 
 // navigation
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -11,43 +12,53 @@ import { IUser } from '../../../store/modules/user/types';
 
 //   navigation
 
-interface UseItemProps {
-  userProviderId: string;
-  evaluationId: string;
-  isRead: boolean | undefined;
-}
-
 type NavigationProps = StackNavigationProp<
   NotificationStackParamList,
   'NotificationScreen'
 >;
 
+interface UseItemProps {
+  userProviderId: string;
+  evaluationId: string;
+  isNotificationRead: boolean | undefined;
+}
+
 interface ReturnType {
   handleItemPress: () => Promise<void>;
+  isRead: boolean | undefined;
 }
 
 export function useNotificationItem({
   userProviderId,
   evaluationId,
-  isRead,
+  isNotificationRead,
 }: UseItemProps): ReturnType {
   const navigation = useNavigation<NavigationProps>();
 
+  const [isRead, setIsRead] = useState<boolean | undefined>(isNotificationRead);
+
   const handleItemPress = useCallback(async () => {
-    const userData: AxiosResponse<IUser> = await api.get(
-      `users/${userProviderId}`,
-    );
+    try {
+      const userData: AxiosResponse<IUser> = await api.get(
+        `users/${userProviderId}`,
+      );
 
-    navigation.navigate('NotificationUserScreen', {
-      user: { ...userData.data },
-    });
+      navigation.navigate('NotificationUserScreen', {
+        user: { ...userData.data },
+      });
 
-    if (isRead) return;
+      if (isRead) return;
 
-    await api.patch(`/evaluation/update/${evaluationId}`);
+      setIsRead(true);
+
+      await api.patch(`/evaluation/update/${evaluationId}`);
+    } catch (err) {
+      setIsRead(false);
+    }
   }, [navigation, userProviderId, evaluationId, isRead]);
 
   return {
     handleItemPress,
+    isRead,
   };
 }

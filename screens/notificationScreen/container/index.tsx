@@ -4,12 +4,11 @@ import { FlatList, ListRenderItem } from 'react-native';
 
 //  components
 import { NotificationItem } from './notificationItem';
-
-import { NotificationData } from '../../../routes/hooks/useNotifications';
-
-//  constants
 import { ListFooterComponent } from './listFooterComponent';
-import { useNotifications } from '../useNotifications';
+
+//  hooks
+import { useNotifications, NotificationData } from '../useNotifications';
+import { ItemSeparator } from './styles';
 
 export const NotificationScreen: React.FC = () => {
   const {
@@ -20,6 +19,9 @@ export const NotificationScreen: React.FC = () => {
     isLoading,
     setOnMomentumScrollBegin,
   } = useNotifications();
+
+  //  the sum of item separator and item size heights
+  const ITEM_HEIGHT = 110;
 
   const renderItem: ListRenderItem<NotificationData> = useCallback(
     ({ item }) => {
@@ -36,8 +38,8 @@ export const NotificationScreen: React.FC = () => {
           }}
           updated_at={item?.updated_at}
           value={value}
-          isRead={item.isRead}
           evaluationId={_id}
+          isNotificationRead={item.isRead}
         />
       );
     },
@@ -52,8 +54,14 @@ export const NotificationScreen: React.FC = () => {
       onEndReached={() => onListEnd()}
       onEndReachedThreshold={0.1}
       onMomentumScrollBegin={() => setOnMomentumScrollBegin(true)}
+      ItemSeparatorComponent={ItemSeparator}
       ListFooterComponent={() => <ListFooterComponent isLoading={isLoading} />}
       keyExtractor={item => item._id}
+      getItemLayout={(data, index) => ({
+        length: ITEM_HEIGHT,
+        offset: ITEM_HEIGHT * index,
+        index,
+      })}
     />
   );
 };
