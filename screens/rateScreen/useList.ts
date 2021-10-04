@@ -12,23 +12,18 @@ export interface ItemData {
 
 interface ReturnType {
   listItems: ItemData[];
-  // eslint-disable-next-line no-unused-vars
-  setPage(page: number): void;
   isLoading: boolean;
   handleUsersRequest(): Promise<void>;
 }
 
 export function useList(): ReturnType {
   const [listItems, setListItem] = useState<ItemData[]>([]);
-  const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleUsersRequest = useCallback(async () => {
     try {
       setIsLoading(true);
-      const response: AxiosResponse<IUser[]> = await api.get(
-        `/users?page=${page}`,
-      );
+      const response: AxiosResponse<IUser[]> = await api.get(`/users`);
 
       const auxList = response.data.map((data: IUser) => {
         return {
@@ -38,11 +33,12 @@ export function useList(): ReturnType {
 
       setListItem(auxList);
       setIsLoading(false);
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
       Alert.alert('Error', `Error on loading users:  ${err.message}`);
       setIsLoading(false);
     }
-  }, [page]);
+  }, []);
 
   useEffect(() => {
     handleUsersRequest();
@@ -50,7 +46,6 @@ export function useList(): ReturnType {
 
   return {
     listItems,
-    setPage,
     isLoading,
     handleUsersRequest,
   };

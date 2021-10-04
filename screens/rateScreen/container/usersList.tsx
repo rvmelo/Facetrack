@@ -20,13 +20,11 @@ import {
 
 interface UserListProps {
   listItems: ItemData[];
-  setPage(value: number): void;
   handleUsersRequest(): Promise<void>;
 }
 
 const UsersList: React.FC<UserListProps> = ({
   listItems,
-  setPage,
   handleUsersRequest,
 }) => {
   const ref = useRef<FlatList<ItemData> | null>(null);
@@ -34,7 +32,7 @@ const UsersList: React.FC<UserListProps> = ({
   const { handleListScrollBack, handleListScroll, handleListAnimation } =
     useListActions({
       ref,
-      setPage,
+      handleUsersRequest,
     });
 
   const renderItem: ListRenderItem<ItemData> = useCallback(

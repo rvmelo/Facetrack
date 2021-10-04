@@ -11,7 +11,7 @@ import { ActivityIndicatorContainer } from './styles';
 import UsersList from './usersList';
 
 const RateScreen: React.FC = () => {
-  const { listItems, setPage, isLoading, handleUsersRequest } = useList();
+  const { listItems, isLoading, handleUsersRequest } = useList();
 
   return isLoading ? (
     <ActivityIndicatorContainer>
@@ -26,11 +26,7 @@ const RateScreen: React.FC = () => {
       />
     </ActivityIndicatorContainer>
   ) : (
-    <UsersList
-      setPage={setPage}
-      listItems={listItems}
-      handleUsersRequest={handleUsersRequest}
-    />
+    <UsersList listItems={listItems} handleUsersRequest={handleUsersRequest} />
   );
 };
 

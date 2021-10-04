@@ -24,7 +24,7 @@ export interface ScrollProps {
 
 interface ListActionsProps {
   ref: MutableRefObject<FlatList<ItemData> | null>;
-  setPage(value: number): void;
+  handleUsersRequest: () => Promise<void>;
 }
 
 interface ReturnType {
@@ -33,7 +33,10 @@ interface ReturnType {
   handleListScroll({ index }: ScrollProps): void;
 }
 
-export function useListActions({ ref, setPage }: ListActionsProps): ReturnType {
+export function useListActions({
+  ref,
+  handleUsersRequest,
+}: ListActionsProps): ReturnType {
   const bottomTabHeight = useBottomTabBarHeight();
 
   const handleListScrollBack = useCallback(
@@ -50,7 +53,7 @@ export function useListActions({ ref, setPage }: ListActionsProps): ReturnType {
   const handleListScroll = useCallback(
     ({ index, isLastItem = false }: ScrollProps) => {
       if (isLastItem) {
-        setPage((prev: number) => prev + 1);
+        handleUsersRequest();
         return;
       }
 
@@ -60,7 +63,7 @@ export function useListActions({ ref, setPage }: ListActionsProps): ReturnType {
         });
       }
     },
-    [ref, bottomTabHeight, setPage],
+    [ref, bottomTabHeight, handleUsersRequest],
   );
 
   const handleListAnimation = useCallback(
