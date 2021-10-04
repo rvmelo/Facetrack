@@ -11,6 +11,9 @@ import Colors from '../constants/colors';
 import { fonts } from '../constants/fonts';
 import { NotificationStackParamList } from './types';
 
+//  i18n
+import { translate } from '../i18n/src/locales';
+
 const Notification = createStackNavigator<NotificationStackParamList>();
 
 const NotificationRoutes: React.FC = () => (
@@ -27,7 +30,7 @@ const NotificationRoutes: React.FC = () => (
       component={NotificationScreen}
       options={{
         headerShown: true,
-        headerTitle: 'Notifications',
+        headerTitle: translate('notifications'),
       }}
     />
     <Notification.Screen

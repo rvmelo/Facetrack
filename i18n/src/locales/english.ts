@@ -63,6 +63,10 @@ export default {
   userDeletionError: 'Error on user deletion',
   deleteAccountQuestion: 'Are you sure do you want to delete your account?',
 
+  //  Notification Screen
+  userEvaluation: '{{name}} has rated you with {{value}} stars',
+  notifications: 'Notifications',
+
   //  Rate Screen
   viewInstagram: 'View Instagram',
 

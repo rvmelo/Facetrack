@@ -21,7 +21,10 @@ export const NotificationScreen: React.FC = () => {
   } = useNotifications();
 
   //  the sum of item separator and item size heights
-  const ITEM_HEIGHT = 110;
+  const ITEM_HEIGHT = 130;
+  const ITEM_SEPARATOR_HEIGHT = 10;
+
+  const TOTAL_HEIGHT = ITEM_HEIGHT + ITEM_SEPARATOR_HEIGHT;
 
   const renderItem: ListRenderItem<NotificationData> = useCallback(
     ({ item }) => {
@@ -40,6 +43,7 @@ export const NotificationScreen: React.FC = () => {
           value={value}
           evaluationId={_id}
           isNotificationRead={item.isRead}
+          itemHeight={ITEM_HEIGHT}
         />
       );
     },
@@ -54,12 +58,14 @@ export const NotificationScreen: React.FC = () => {
       onEndReached={() => onListEnd()}
       onEndReachedThreshold={0.1}
       onMomentumScrollBegin={() => setOnMomentumScrollBegin(true)}
-      ItemSeparatorComponent={ItemSeparator}
+      ItemSeparatorComponent={() => (
+        <ItemSeparator height={ITEM_SEPARATOR_HEIGHT} />
+      )}
       ListFooterComponent={() => <ListFooterComponent isLoading={isLoading} />}
       keyExtractor={item => item._id}
       getItemLayout={(data, index) => ({
-        length: ITEM_HEIGHT,
-        offset: ITEM_HEIGHT * index,
+        length: TOTAL_HEIGHT,
+        offset: TOTAL_HEIGHT * index,
         index,
       })}
     />

@@ -68,6 +68,10 @@ export default {
   //  Rate Screen
   viewInstagram: 'Ver Instagram',
 
+  //  Notification Screen
+  userEvaluation: '{{name}} te calificó con {{value}} estrellas',
+  notifications: 'Notificaciones',
+
   //  expo-notifications
   enableNotificationError: 'Error al habilitar notificaciones',
 

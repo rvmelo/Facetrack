@@ -1,5 +1,8 @@
 import React, { memo } from 'react';
 
+//  i18n
+import I18n from 'i18n-js';
+
 //  components
 import Avatar from '../../../components/avatar/index';
 
@@ -31,10 +34,18 @@ interface NotificationItemProps {
   value: number;
   isNotificationRead: boolean | undefined;
   evaluationId: string;
+  itemHeight: number;
 }
 
 export const NotificationItem: React.FC<NotificationItemProps> = memo(
-  ({ fromUser, evaluationId, updated_at, value, isNotificationRead }) => {
+  ({
+    fromUser,
+    evaluationId,
+    updated_at,
+    value,
+    isNotificationRead,
+    itemHeight,
+  }) => {
     const { avatar, name, instaName, userProviderId } = fromUser;
 
     const { handleItemPress, isRead } = useNotificationItem({
@@ -45,7 +56,7 @@ export const NotificationItem: React.FC<NotificationItemProps> = memo(
 
     return (
       <TouchableItem onPress={handleItemPress}>
-        <ItemContainer isRead={isRead}>
+        <ItemContainer isRead={isRead} height={itemHeight}>
           <Avatar avatar={avatar} />
           <TextContainer>
             <StyledDate>
@@ -55,8 +66,8 @@ export const NotificationItem: React.FC<NotificationItemProps> = memo(
               <HeaderText>{name} </HeaderText>
               <InstagramText>@{instaName}</InstagramText>
             </ItemText>
-            <ItemText numberOfLines={2}>
-              {name.split(' ')[0]} has rated you with {value} stars
+            <ItemText numberOfLines={3}>
+              {I18n.t('userEvaluation', { name: name.split(' ')[0], value })}
             </ItemText>
           </TextContainer>
         </ItemContainer>

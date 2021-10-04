@@ -11,14 +11,16 @@ export const TouchableItem = styled.TouchableNativeFeedback.attrs({
 
 interface ItemContainerProps {
   isRead: boolean | undefined;
+  height: number;
 }
 
 export const ItemContainer = styled.View<ItemContainerProps>`
   width: 100%;
-  height: 100px;
+  height: ${props => props.height}px;
   align-items: center;
   flex-direction: row;
   justify-content: space-around;
+  padding-right: 10px;
   overflow: hidden;
   background-color: ${props =>
     props.isRead ? 'transparent' : 'rgba(242, 241, 239, 0.3)'};
@@ -47,6 +49,11 @@ export const ItemText = styled.Text`
   font-size: ${fonts.sizes.md}px;
   color: ${Colors.accent};
 `;
-export const ItemSeparator = styled.View`
-  height: 10px;
+
+interface ItemSeparatorProps {
+  height: number;
+}
+
+export const ItemSeparator = styled.View<ItemSeparatorProps>`
+  height: ${props => props.height}px;
 `;
