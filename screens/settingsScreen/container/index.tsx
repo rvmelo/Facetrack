@@ -1,5 +1,11 @@
 import React, { memo } from 'react';
-import { ActivityIndicator, Alert } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  TouchableWithoutFeedback,
+} from 'react-native';
+
+import { Ionicons } from '@expo/vector-icons';
 
 //  i18n
 import { translate } from '../../../i18n/src/locales';
@@ -12,16 +18,34 @@ import {
   DeleteButtonLayout,
   TouchableButton,
   ButtonText,
+  ItemContainer,
+  ItemText,
+  ItemsContainer,
 } from './styles';
 
 //  hooks
 import useSettings from '../useSettings';
+import useAuth from '../../../hooks/useAuth';
 
 const SettingsScreen: React.FC = () => {
   const { handleUserDeletion, isLoading } = useSettings();
+  const { signOut } = useAuth();
 
   return (
     <Container>
+      <ItemsContainer>
+        <TouchableWithoutFeedback onPress={signOut}>
+          <ItemContainer>
+            <Ionicons
+              name="md-log-out-outline"
+              size={20}
+              color={Colors.accent}
+            />
+            <ItemText>{translate('Logout')}</ItemText>
+          </ItemContainer>
+        </TouchableWithoutFeedback>
+      </ItemsContainer>
+
       <TouchableButton
         onPress={() =>
           Alert.alert('Error', translate('deleteAccountQuestion'), [

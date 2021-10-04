@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useCallback, useState, useEffect, useRef } from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //  redux
 import { useDispatch } from 'react-redux';
@@ -12,7 +12,11 @@ import { INITIAL_STATE } from '../store/modules/user/reducer';
 import api from '../services/api';
 
 //   constants
-import { faceTrackTokenKey, faceTrackUserKey } from '../constants/storage';
+import {
+  faceTrackTokenKey,
+  faceTrackUserKey,
+  notificationTokenKey,
+} from '../constants/storage';
 
 interface SignInData {
   token: string;
@@ -96,6 +100,8 @@ function useAuth(): ReturnValue {
 
       const { token } = response.data;
 
+      api.defaults.headers.authorization = `Bearer ${token}`;
+
       await AsyncStorage.multiSet([
         [faceTrackTokenKey, token],
         [faceTrackUserKey, JSON.stringify(user)],
@@ -111,7 +117,11 @@ function useAuth(): ReturnValue {
   );
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove([faceTrackTokenKey, faceTrackUserKey]);
+    await AsyncStorage.multiRemove([
+      faceTrackTokenKey,
+      faceTrackUserKey,
+      notificationTokenKey,
+    ]);
 
     dispatch(
       loadUser({

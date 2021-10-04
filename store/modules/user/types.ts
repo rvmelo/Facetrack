@@ -35,7 +35,8 @@ export interface IUser {
   userProviderId: string;
   name: string;
   avatar: string;
-  birthDate: Date | undefined;
+  rate: number;
+  birthDate: string | undefined;
   sex: 'male' | 'female' | undefined;
   relationshipStatus: 'single' | 'serious relationship' | 'married' | undefined;
   sexualOrientation:

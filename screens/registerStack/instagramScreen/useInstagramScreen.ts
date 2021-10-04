@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect, useRef } from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
 
 import { AxiosResponse } from 'axios';
@@ -86,7 +86,7 @@ function useInstagramScreen(): ReturnValue {
           signUp({
             user: {
               ...user,
-              birthDate: user.birthDate ? new Date(user.birthDate) : undefined,
+              birthDate: user.birthDate,
               instagram: {
                 userName,
                 userMedia,

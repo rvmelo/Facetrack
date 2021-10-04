@@ -15,11 +15,8 @@ import {
 } from './styles';
 
 const LoginScreen: React.FC = () => {
-  const {
-    handleFacebookLogin,
-    handleGoogleLogin,
-    isLoading,
-  } = useLoginButton();
+  const { handleFacebookLogin, handleGoogleLogin, isLoading } =
+    useLoginButton();
 
   return (
     <Container>

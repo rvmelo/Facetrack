@@ -1,122 +1,138 @@
+/* eslint-disable react/no-children-prop */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
-  DrawerContentComponentProps,
-} from '@react-navigation/drawer';
+import { TouchableWithoutFeedback } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
 
 //  navigation
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-//  navigators
+//  routes
 import ProfileRoutes from './profile.routes';
+import EvaluationRoutes from './evaluation.routes';
+import NotificationRoutes from './notification.routes';
 
-//  hooks
-import useAuth from '../hooks/useAuth';
+//  route types
+import { TabParamList } from './types';
 
 //  constants
 import Colors from '../constants/colors';
 import { fonts } from '../constants/fonts';
 
 //  components
-import DrawerHeader from '../components/drawerHeader';
-import SettingsScreen from '../screens/settingsScreen';
+import { SearchScreen } from '../screens/searchScreen/container';
 
 // i18n
 import { translate } from '../i18n/src/locales';
+import { HeaderButton } from './styles';
+import { useNotifications } from './hooks/useNotifications';
 
-const AppDrawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator<TabParamList>();
 
-const CustomDrawerContent: React.FC<DrawerContentComponentProps> = props => {
-  const { signOut } = useAuth();
+const AppTabRoutes: React.FC = () => {
+  const {
+    profileNavigator,
+    unreadNotificationsAmount,
+    setUnreadNotificationsAmount,
+  } = useNotifications();
 
   return (
-    <>
-      <DrawerHeader />
-      <DrawerContentScrollView {...props}>
-        <DrawerItemList {...props} />
-        <DrawerItem
-          label={translate('Logout')}
-          onPress={signOut}
-          labelStyle={{
-            color: Colors.accent,
-            fontSize: fonts.sizes.md,
-            fontFamily: fonts.family,
-          }}
-          icon={() => (
+    <Tab.Navigator
+      initialRouteName="Evaluation"
+      screenOptions={{
+        tabBarActiveTintColor: Colors.primary,
+        tabBarInactiveTintColor: Colors.accent,
+        tabBarShowLabel: false,
+        headerTitleStyle: { color: Colors.accent, fontFamily: fonts.family },
+      }}
+    >
+      <Tab.Screen
+        name="Evaluation"
+        component={EvaluationRoutes}
+        options={{
+          tabBarIcon: ({ focused }) => (
             <Ionicons
-              name="md-log-out-outline"
+              name="md-location"
               size={25}
-              color={Colors.accent}
+              color={focused ? Colors.primary : Colors.accent}
             />
-          )}
-        />
-      </DrawerContentScrollView>
-    </>
+          ),
+          headerShown: false,
+        }}
+      />
+
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name="md-search"
+              size={25}
+              color={focused ? Colors.primary : Colors.accent}
+            />
+          ),
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="Notifications"
+        listeners={{
+          tabPress: () => setUnreadNotificationsAmount(0),
+        }}
+        component={NotificationRoutes}
+        options={{
+          tabBarBadge:
+            unreadNotificationsAmount > 0
+              ? unreadNotificationsAmount
+              : undefined,
+          tabBarBadgeStyle: {
+            color: Colors.accent,
+            backgroundColor: Colors.primary,
+          },
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name="md-notifications"
+              size={25}
+              color={focused ? Colors.primary : Colors.accent}
+            />
+          ),
+          headerShown: false,
+        }}
+      />
+
+      <Tab.Screen
+        name="Profile"
+        options={({ route }) => ({
+          tabBarLabel: translate('myProfile'),
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name="md-person"
+              size={25}
+              color={focused ? Colors.primary : Colors.accent}
+            />
+          ),
+          headerShown:
+            getFocusedRouteNameFromRoute(route) !== 'Publication' &&
+            getFocusedRouteNameFromRoute(route) !== 'EditProfile' &&
+            getFocusedRouteNameFromRoute(route) !== 'Settings',
+          headerTitle: translate('myProfile'),
+          headerRight: () => (
+            <HeaderButton>
+              <TouchableWithoutFeedback
+                onPress={() => profileNavigator.navigate('Settings')}
+              >
+                <Ionicons name="md-menu" size={30} color={Colors.accent} />
+              </TouchableWithoutFeedback>
+            </HeaderButton>
+          ),
+        })}
+        component={ProfileRoutes}
+      />
+    </Tab.Navigator>
   );
 };
 
-const AppDrawerRoutes: React.FC = () => (
-  <AppDrawer.Navigator
-    initialRouteName="Profile"
-    drawerContent={(props: DrawerContentComponentProps) => (
-      <CustomDrawerContent {...props} />
-    )}
-    drawerContentOptions={{
-      activeTintColor: Colors.primary,
-      labelStyle: {
-        color: Colors.accent,
-        fontSize: fonts.sizes.md,
-        fontFamily: fonts.family,
-      },
-      style: {
-        backgroundColor: Colors.background,
-        paddingTop: 20,
-      },
-    }}
-    screenOptions={() => ({
-      headerShown: true,
-      headerStyle: { backgroundColor: Colors.background },
-      headerTitleStyle: { color: Colors.accent, fontFamily: fonts.family },
-      headerTintColor: Colors.accent,
-    })}
-  >
-    <AppDrawer.Screen
-      name=" Profile"
-      component={ProfileRoutes}
-      options={({ route }) => ({
-        drawerIcon: () => (
-          <Ionicons name="md-person-outline" size={25} color={Colors.accent} />
-        ),
-        headerShown:
-          getFocusedRouteNameFromRoute(route) !== 'Publication' &&
-          getFocusedRouteNameFromRoute(route) !== 'EditProfile',
-        headerTitle: translate('myProfile'),
-        drawerLabel: translate('myProfile'),
-      })}
-    />
-    <AppDrawer.Screen
-      name=" Settings"
-      component={SettingsScreen}
-      options={() => ({
-        drawerIcon: () => (
-          <Ionicons
-            name="md-settings-outline"
-            size={25}
-            color={Colors.accent}
-          />
-        ),
-        headerTitle: translate('settings'),
-        drawerLabel: translate('settings'),
-      })}
-    />
-  </AppDrawer.Navigator>
-);
-
-export default AppDrawerRoutes;
+export default AppTabRoutes;

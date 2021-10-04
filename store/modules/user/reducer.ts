@@ -7,6 +7,7 @@ export const INITIAL_STATE: IUserState = {
     userProviderId: '',
     avatar: '',
     name: '',
+    rate: 0,
     birthDate: undefined,
     sex: undefined,
     relationshipStatus: undefined,

@@ -1,4 +1,3 @@
-import { TouchableNativeFeedback } from 'react-native';
 import styled from 'styled-components/native';
 
 import Colors from '../../../constants/colors';
@@ -29,27 +28,6 @@ export const StyledText = styled.Text`
 
 export const TouchableInterface = styled.TouchableWithoutFeedback``;
 
-export const StyledEditButton = styled.TouchableNativeFeedback.attrs({
-  background: TouchableNativeFeedback.Ripple('#ccc', true),
-  useForeground: true,
-})``;
-
-export const EditButtonLayout = styled.View`
-  background: ${Colors.primary};
-  margin: 10px 0;
-  border-radius: 5px;
-  overflow: hidden;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-`;
-
-export const ButtonText = styled.Text`
-  color: ${Colors.accent};
-  font-family: ${fonts.family};
-  font-size: ${fonts.sizes.md}px;
-`;
-
 // photo section
 
 export const UserPhoto = styled.Image.attrs(({ source }) => {
@@ -71,11 +49,4 @@ export const EmptyPhotoContainer = styled.View`
   align-items: center;
   justify-content: center;
   background-color: ${Colors.background};
-`;
-
-export const PhotoContainerText = styled.Text`
-  font-size: ${fonts.sizes.lg}px;
-  font-family: ${fonts.family};
-  text-align: center;
-  color: ${Colors.accent};
 `;

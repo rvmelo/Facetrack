@@ -2,6 +2,8 @@
 import { useState, useCallback } from 'react';
 
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RegisterStackParamList } from '../../../routes/types';
 
 // redux
 import { IUser } from '../../../store/modules/user/types';
@@ -12,8 +14,13 @@ interface ReturnValue {
   handleContinue: () => void;
 }
 
+type NavigationProps = StackNavigationProp<
+  RegisterStackParamList,
+  'GenderScreen'
+>;
+
 function useGenderScreen(): ReturnValue {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProps>();
 
   const { params } = useRoute();
 

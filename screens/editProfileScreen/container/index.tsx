@@ -36,12 +36,8 @@ import AvatarContent from './avatarContent';
 import PickerSection from './pickerSection';
 
 const EditProfileScreen: React.FC = () => {
-  const {
-    handleAvatarUpdate,
-    userInfo,
-    setUserInfo,
-    setShouldUpdate,
-  } = useEditProfile();
+  const { handleAvatarUpdate, userInfo, setUserInfo, setShouldUpdate } =
+    useEditProfile();
 
   const { handleInstagramRefresh } = useInstagram();
 

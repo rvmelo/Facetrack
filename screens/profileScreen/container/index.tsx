@@ -3,6 +3,7 @@ import { ListRenderItem, ActivityIndicator, Alert } from 'react-native';
 
 // navigation
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 //  redux
 import { useSelector } from 'react-redux';
@@ -14,9 +15,10 @@ import {
 } from '../../../store/modules/user/types';
 
 // components
-import { VideoItem, PhotoItem } from './items';
+import { VideoItem, PhotoItem } from '../../../components/profileItems/items';
+import { ProfileButton } from '../../../components/profileItems/profileButton';
+import PhotoScroll from '../../../components/profileItems/photoScroll';
 import Avatar from '../../../components/avatar/index';
-import PhotoScroll from './photoScroll';
 
 // hooks
 import useInstagram from '../../../hooks/useInstagram';
@@ -29,28 +31,28 @@ import {
   ProfileDataContainer,
   StyledName,
   StyledText,
-  StyledEditButton,
-  EditButtonLayout,
-  ButtonText,
   EmptyPhotoContainer,
 } from './styles';
 
 // i18n
 import { translate } from '../../../i18n/src/locales';
 
+import { ProfileStackParamList } from '../../../routes/types';
+
+type NavigationProps = StackNavigationProp<
+  ProfileStackParamList,
+  'ProfileScreen'
+>;
+
 const ProfileScreen: React.FC = () => {
-  const {
-    user,
-    isAvatarLoading,
-    isUserUpdateFailure,
-    isUserLoading,
-  } = useSelector<IState, IUserState>(state => state.user);
+  const { user, isAvatarLoading, isUserUpdateFailure, isUserLoading } =
+    useSelector<IState, IUserState>(state => state.user);
 
   const { handleInstagramRefresh, shouldRefreshInstagram } = useInstagram();
 
   const userMedia = user?.instagram?.userMedia;
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProps>();
 
   useEffect(() => {
     isUserUpdateFailure && Alert.alert('Error', translate('userUpdateError'));
@@ -115,11 +117,10 @@ const ProfileScreen: React.FC = () => {
         <StyledText>{user?.relationshipStatus}</StyledText>
         {/* <StyledText>{user?.birthDate}</StyledText> */}
 
-        <StyledEditButton onPress={() => navigation.navigate('EditProfile')}>
-          <EditButtonLayout>
-            <ButtonText>{translate('editProfile')}</ButtonText>
-          </EditButtonLayout>
-        </StyledEditButton>
+        <ProfileButton
+          onPress={() => navigation.navigate('EditProfile')}
+          text={translate('editProfile')}
+        />
       </ProfileDataContainer>
 
       <PhotoScroll userMedia={userMedia} renderItem={renderItem} />

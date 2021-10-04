@@ -66,6 +66,16 @@ export default {
   userDeletionError: 'Erro na exclusão do usuário',
   deleteAccountQuestion: 'Tem certeza que deseja excluir sua conta?',
 
+  //  Rate Screen
+  viewInstagram: 'Visualizar Instagram',
+
+  //  Notification Screen
+  userEvaluation: '{{name}} avaliou você com {{value}} estrelas',
+  notifications: 'Notificações',
+
+  //  expo-notifications
+  enableNotificationError: 'Erro ao habilitar notificações',
+
   //  Instagram Hook
   instagramRequestFailed:
     'Esse aplicativo falhou ao requisitar permissões do instagram',

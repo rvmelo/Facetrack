@@ -4,13 +4,13 @@ import { FlatList, ListRenderItem } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 //  i18n
-import { translate } from 'i18n-js';
+import { translate } from '../../i18n/src/locales/index';
 
 //  redux
-import { UserMedia } from '../../../store/modules/user/types';
+import { UserMedia } from '../../store/modules/user/types';
 
 //  constants
-import Colors from '../../../constants/colors';
+import Colors from '../../constants/colors';
 
 //  styles
 import { EmptyPhotoContainer, PhotoContainerText } from './styles';
