@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
+
+import * as Location from 'expo-location';
 
 import { AxiosResponse } from 'axios';
 
@@ -49,6 +51,29 @@ function useInstagramScreen(): ReturnValue {
 
   const navigation = useNavigation();
 
+  const handleLocation = useCallback(async () => {
+    const foregroundRequest =
+      await Location.requestForegroundPermissionsAsync();
+
+    if (foregroundRequest.status !== 'granted') {
+      throw new Error(
+        'You should grant permissions for this app to track you position all the time',
+      );
+    }
+
+    const backgroundRequest =
+      await Location.requestBackgroundPermissionsAsync();
+
+    if (backgroundRequest.status !== 'granted') {
+      throw new Error(
+        'You should grant permissions for this app to track you position all the time',
+      );
+    }
+
+    // const provider = await Location.getProviderStatusAsync();
+    // console.log(`provider: ${JSON.stringify(provider)}`);
+  }, []);
+
   useEffect(() => {
     isMounted.current = true;
 
@@ -63,6 +88,8 @@ function useInstagramScreen(): ReturnValue {
         if (!navigation.isFocused() || !isMounted.current) return;
 
         setIsLoading(true);
+
+        await handleLocation();
 
         const { code } = Linking.parse(url).queryParams || {};
 
@@ -98,7 +125,7 @@ function useInstagramScreen(): ReturnValue {
         Alert.alert('Error', `${translate('userCreationError')}:${err}`);
       }
     });
-  }, [user, navigation, signUp]);
+  }, [user, navigation, signUp, handleLocation]);
 
   return {
     isLoading,
