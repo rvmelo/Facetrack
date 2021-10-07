@@ -28,6 +28,7 @@ import { SearchScreen } from '../screens/searchScreen/container';
 import { translate } from '../i18n/src/locales';
 import { HeaderButton } from './styles';
 import { useNotifications } from './hooks/useNotifications';
+import { useLocation } from './hooks/useLocation';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
@@ -37,6 +38,8 @@ const AppTabRoutes: React.FC = () => {
     unreadNotificationsAmount,
     setUnreadNotificationsAmount,
   } = useNotifications();
+
+  useLocation();
 
   return (
     <Tab.Navigator
