@@ -2,8 +2,9 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 //  screens
-import RateScreen from '../screens/rateScreen';
+// import RateScreen from '../screens/rateScreen';
 import { RandomUserScreen } from '../screens/randomUserScreen/container';
+import { TrackScreen } from '../screens/trackScreen/container';
 
 // i18n
 // import { translate } from '../i18n/src/locales';
@@ -26,7 +27,7 @@ const EvaluationRoutes: React.FC = () => (
   >
     <Evaluation.Screen
       name="RateScreen"
-      component={RateScreen}
+      component={TrackScreen}
       options={{
         headerShown: false,
       }}
