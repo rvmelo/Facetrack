@@ -1,3 +1,3 @@
 export const base_url =
-  'https://4775-2804-14c-4382-921d-5c3e-981d-5c04-4b15.ngrok.io';
+  'https://650d-2804-14c-4382-921d-48a6-dd-b532-115a.ngrok.io';
 export const instagram_client_id = '2328180553948136';
