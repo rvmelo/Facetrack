@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
 export interface TrackedUser {
   id: number;
@@ -9,7 +9,9 @@ interface ReturnType {
   users: TrackedUser[];
   // eslint-disable-next-line no-unused-vars
   setUsers: (users: TrackedUser[]) => void;
-  formatData: () => void;
+  isVisible: boolean;
+  // eslint-disable-next-line no-unused-vars
+  setIsVisible: (isVisible: boolean) => void;
 }
 
 export const sampleData = [
@@ -196,23 +198,12 @@ export function useTrackScreen(): ReturnType {
     });
   });
 
-  const formatData = useCallback(() => {
-    let idCount = 0;
-
-    const auxData = sampleData.map(data => {
-      idCount += 1;
-      return {
-        id: idCount,
-        url: data.avatarUrl,
-      };
-    });
-
-    setUsers([...auxData]);
-  }, []);
+  const [isVisible, setIsVisible] = useState(false);
 
   return {
     users,
     setUsers,
-    formatData,
+    isVisible,
+    setIsVisible,
   };
 }

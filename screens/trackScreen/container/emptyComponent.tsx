@@ -1,27 +1,11 @@
 import React from 'react';
 
-//  constants
-import { Ionicons } from '@expo/vector-icons';
-import Colors from '../../../constants/colors';
+import { Container, EmptyScreenText } from './styles';
 
-import {
-  TouchableInterface,
-  EmptyContainer,
-  TrackButtonContainer,
-} from './styles';
-
-interface EmptyComponentProps {
-  onPress: () => void;
-}
-
-export const EmptyComponent: React.FC<EmptyComponentProps> = ({ onPress }) => {
+export const EmptyComponent: React.FC = () => {
   return (
-    <EmptyContainer>
-      <TouchableInterface onPress={onPress}>
-        <TrackButtonContainer>
-          <Ionicons name="md-location" size={30} color={Colors.accent} />
-        </TrackButtonContainer>
-      </TouchableInterface>
-    </EmptyContainer>
+    <Container>
+      <EmptyScreenText>No users found</EmptyScreenText>
+    </Container>
   );
 };

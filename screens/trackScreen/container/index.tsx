@@ -1,44 +1,34 @@
-import React, { useCallback } from 'react';
-import { FlatList, ListRenderItem } from 'react-native';
+import React from 'react';
+
+import { Ionicons } from '@expo/vector-icons';
 
 //  components
-import Avatar from '../../../components/avatar/index';
-import { TrackedUser, useTrackScreen } from '../useTrackScreen';
-import { EmptyComponent } from './emptyComponent';
-import { ListButton } from './ListButton';
+import { useTrackScreen } from '../useTrackScreen';
+import { ModalComponent } from './modalComponent';
 
 //  styles
-import { ItemContainer, ItemSeparator, ItemText, Container } from './styles';
+import { TouchableInterface, Container, TrackButtonContainer } from './styles';
+
+//  constants
+import Colors from '../../../constants/colors';
 
 export const TrackScreen: React.FC = () => {
-  const { users, setUsers, formatData } = useTrackScreen();
-
-  const renderItem: ListRenderItem<TrackedUser> = useCallback(({ item }) => {
-    return (
-      <ItemContainer>
-        <Avatar avatar={item.url} />
-        <ItemText>@rvtheone</ItemText>
-      </ItemContainer>
-    );
-  }, []);
+  const { users, isVisible, setIsVisible } = useTrackScreen();
 
   return (
-    <Container>
-      <FlatList
-        data={users}
-        renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
-        numColumns={4}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          flex: users.length === 0 ? 1 : 0,
-          alignItems: 'center',
-          marginTop: 20,
-        }}
-        ItemSeparatorComponent={ItemSeparator}
-        ListEmptyComponent={() => <EmptyComponent onPress={formatData} />}
+    <>
+      <Container>
+        <TouchableInterface onPress={() => setIsVisible(true)}>
+          <TrackButtonContainer>
+            <Ionicons name="md-location" size={30} color={Colors.accent} />
+          </TrackButtonContainer>
+        </TouchableInterface>
+      </Container>
+      <ModalComponent
+        users={users}
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
       />
-      {users.length > 0 && <ListButton onPress={() => setUsers([])} />}
-    </Container>
+    </>
   );
 };

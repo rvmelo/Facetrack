@@ -10,7 +10,7 @@ export const ListButton: React.FC<ListButtonProps> = ({ onPress }) => {
   return (
     <TouchableInterface onPress={onPress}>
       <ListButtonContainer>
-        <ButtonText>Clear Search</ButtonText>
+        <ButtonText>Close</ButtonText>
       </ListButtonContainer>
     </TouchableInterface>
   );
