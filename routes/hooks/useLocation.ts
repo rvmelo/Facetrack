@@ -80,7 +80,10 @@ export function useLocation(): void {
         distanceInterval: 100,
       });
     } catch (err) {
-      Alert.alert('Error', `Background position update failed to start`);
+      Alert.alert(
+        'Error',
+        `Background position update failed to start: ${err}`,
+      );
     }
   }, []);
 

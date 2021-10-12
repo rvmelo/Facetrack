@@ -3,7 +3,7 @@ import { FlatList, ListRenderItem, Modal } from 'react-native';
 
 //  components
 import Avatar from '../../../components/avatar/index';
-import { TrackedUser } from '../useTrackScreen';
+import { IUser } from '../../../store/modules/user/types';
 import { EmptyComponent } from './emptyComponent';
 import { ListButton } from './ListButton';
 
@@ -11,7 +11,7 @@ import { ListButton } from './ListButton';
 import { ItemContainer, ItemSeparator, ItemText, ModalView } from './styles';
 
 interface ModalComponentProps {
-  users: TrackedUser[];
+  users: IUser[];
   isVisible: boolean;
   // eslint-disable-next-line no-unused-vars
   setIsVisible: (isVisible: boolean) => void;
@@ -19,18 +19,16 @@ interface ModalComponentProps {
 
 export const ModalComponent: React.FC<ModalComponentProps> = memo(
   ({ users, isVisible, setIsVisible }) => {
-    // const { avatarUri, instaName } = userData;
-
     const ITEM_HEIGHT = 100;
     const ITEM_SEPARATOR_HEIGHT = 20;
 
     const TOTAL_HEIGHT = ITEM_HEIGHT + ITEM_SEPARATOR_HEIGHT;
 
-    const renderItem: ListRenderItem<TrackedUser> = useCallback(({ item }) => {
+    const renderItem: ListRenderItem<IUser> = useCallback(({ item }) => {
       return (
         <ItemContainer height={ITEM_HEIGHT}>
-          <Avatar avatar={item.url} />
-          <ItemText>@rvtheone</ItemText>
+          <Avatar avatar={item.avatar} />
+          <ItemText>@{item?.instagram?.userName}</ItemText>
         </ItemContainer>
       );
     }, []);
@@ -46,7 +44,7 @@ export const ModalComponent: React.FC<ModalComponentProps> = memo(
           <FlatList
             data={users}
             renderItem={renderItem}
-            keyExtractor={item => item.id.toString()}
+            keyExtractor={item => item.userProviderId}
             numColumns={4}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{
@@ -67,9 +65,8 @@ export const ModalComponent: React.FC<ModalComponentProps> = memo(
               index,
             })}
           />
-          {users.length > 0 && (
-            <ListButton onPress={() => setIsVisible(false)} />
-          )}
+
+          <ListButton onPress={() => setIsVisible(false)} />
         </ModalView>
       </Modal>
     );

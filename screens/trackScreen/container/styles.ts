@@ -60,6 +60,12 @@ export const EmptyScreenText = styled.Text`
   color: ${Colors.accent};
 `;
 
+export const ScreenText = styled.Text`
+  font-size: ${fonts.sizes.md}px;
+  font-family: ${fonts.family};
+  color: ${Colors.accent};
+`;
+
 //   index screen
 
 export const Container = styled.View`
@@ -77,6 +83,7 @@ export const TrackButtonContainer = styled.View`
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  margin-bottom: 20px;
 `;
 
 //  modal
