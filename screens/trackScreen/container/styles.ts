@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 //  constants
 import { fonts } from '../../../constants/fonts';
 import Colors from '../../../constants/colors';
-import { SCREEN_HEIGHT } from '../../../constants/dimensions';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants/dimensions';
 
 interface ItemContainerProps {
   height: number;
@@ -95,4 +95,22 @@ export const ModalView = styled.View`
   margin-top: ${SCREEN_HEIGHT / 3.5}px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
+  overflow: hidden;
+`;
+
+export const ListHeaderContainer = styled.View`
+  width: ${SCREEN_WIDTH}px;
+  padding: 20px;
+  align-items: center;
+`;
+
+interface ListHeaderTextProps {
+  size: number;
+}
+
+export const ListHeaderText = styled.Text<ListHeaderTextProps>`
+  font-size: ${props => props.size}px;
+  font-family: ${fonts.family};
+  color: ${Colors.accent};
+  margin-top: 3px;
 `;

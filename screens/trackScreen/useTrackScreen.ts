@@ -1,5 +1,8 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
+import { Alert } from 'react-native';
+
 import { AxiosResponse } from 'axios';
+
 import api from '../../services/api';
 import { IUser } from '../../store/modules/user/types';
 
@@ -18,7 +21,12 @@ interface ReturnType {
   distance: number;
   // eslint-disable-next-line no-unused-vars
   setDistance: (distance: number) => void;
-  onUserTracking: () => void;
+  isLoading: boolean;
+  isRefreshing: boolean;
+  // eslint-disable-next-line no-unused-vars
+  setOnMomentumScrollBegin: (onMomentumScrollBegin: boolean) => void;
+  onRefresh: () => Promise<void>;
+  onListEnd: () => Promise<void>;
 }
 
 export function useTrackScreen(): ReturnType {
@@ -28,17 +36,67 @@ export function useTrackScreen(): ReturnType {
 
   const [isVisible, setIsVisible] = useState(false);
 
-  const onUserTracking = useCallback(async () => {
-    const response: AxiosResponse<IUser[]> = await api.get(
-      `users/track-user?distance=${distance}`,
-    );
+  const [isLoading, setIsLoading] = useState(false);
 
-    if (!response?.data) return;
+  const [onMomentumScrollBegin, setOnMomentumScrollBegin] = useState(false);
 
-    setUsers([...response.data]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [page, setPage] = useState(1);
 
-    setIsVisible(true);
-  }, [distance]);
+  const isMounted = useRef<boolean | null>(null);
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  const onRefresh = useCallback(async () => {
+    try {
+      setIsRefreshing(true);
+
+      if (!isVisible) return;
+
+      const response: AxiosResponse<IUser[]> = await api.get(
+        `users/track-user?distance=${distance}&page=1`,
+      );
+
+      isMounted.current && setPage(1);
+
+      isMounted.current && setUsers([...response.data]);
+
+      setIsRefreshing(false);
+    } catch (err) {
+      isMounted.current && setIsRefreshing(false);
+      Alert.alert('Failed on tracking users');
+    }
+  }, [distance, isVisible]);
+
+  const onListEnd = useCallback(async () => {
+    try {
+      if (isLoading || !onMomentumScrollBegin) return;
+
+      setIsLoading(true);
+
+      const response: AxiosResponse<IUser[]> = await api.get(
+        `users/track-user?distance=${distance}&page=${page + 1}`,
+      );
+
+      isMounted.current && setIsLoading(false);
+
+      isMounted.current && setPage(prev => prev + 1);
+
+      isMounted.current && setUsers(prev => [...prev, ...response?.data]);
+
+      isMounted.current && setOnMomentumScrollBegin(false);
+    } catch (err) {
+      isMounted.current && setIsLoading(false);
+      isMounted.current && setOnMomentumScrollBegin(false);
+      Alert.alert('Failed on tracking new users');
+    }
+  }, [page, isLoading, onMomentumScrollBegin, distance]);
 
   return {
     users,
@@ -47,6 +105,10 @@ export function useTrackScreen(): ReturnType {
     setIsVisible,
     distance,
     setDistance,
-    onUserTracking,
+    isLoading,
+    isRefreshing,
+    setOnMomentumScrollBegin,
+    onRefresh,
+    onListEnd,
   };
 }

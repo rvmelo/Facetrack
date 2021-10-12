@@ -26,7 +26,11 @@ export const TrackScreen: React.FC = () => {
     setIsVisible,
     distance,
     setDistance,
-    onUserTracking,
+    isLoading,
+    isRefreshing,
+    onRefresh,
+    setOnMomentumScrollBegin,
+    onListEnd,
   } = useTrackScreen();
 
   return (
@@ -44,7 +48,7 @@ export const TrackScreen: React.FC = () => {
           onValueChange={value => setDistance(value)}
           value={distance}
         />
-        <TouchableInterface onPress={onUserTracking}>
+        <TouchableInterface onPress={() => setIsVisible(true)}>
           <TrackButtonContainer>
             <Ionicons name="md-location" size={40} color={Colors.accent} />
           </TrackButtonContainer>
@@ -55,6 +59,12 @@ export const TrackScreen: React.FC = () => {
         users={users}
         isVisible={isVisible}
         setIsVisible={setIsVisible}
+        isLoading={isLoading}
+        isRefreshing={isRefreshing}
+        onRefresh={onRefresh}
+        onListEnd={onListEnd}
+        setOnMomentumScrollBegin={setOnMomentumScrollBegin}
+        distance={distance}
       />
     </>
   );
