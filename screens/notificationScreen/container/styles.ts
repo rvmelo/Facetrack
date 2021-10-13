@@ -24,6 +24,8 @@ export const ItemContainer = styled.View<ItemContainerProps>`
   overflow: hidden;
   background-color: ${props =>
     props.isRead ? 'transparent' : 'rgba(242, 241, 239, 0.3)'};
+  border-bottom-width: 0.5px;
+  border-color: ${Colors.disabled};
 `;
 
 export const TextContainer = styled.View`
@@ -48,12 +50,4 @@ export const ItemText = styled.Text`
   font-family: ${fonts.family};
   font-size: ${fonts.sizes.md}px;
   color: ${Colors.accent};
-`;
-
-interface ItemSeparatorProps {
-  height: number;
-}
-
-export const ItemSeparator = styled.View<ItemSeparatorProps>`
-  height: ${props => props.height}px;
 `;
