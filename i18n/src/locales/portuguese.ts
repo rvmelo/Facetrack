@@ -83,4 +83,11 @@ export default {
     'Esse aplicativo falhou ao atualizar seu instagram. Tentar novamente?',
   yes: 'Sim',
   no: 'Não',
+
+  //  track screen
+  trackDistance: 'Distância em metros',
+  track: 'Rastrear',
+  nearbyUsers: 'Usuários próximos',
+  distance: 'Distância',
+  close: 'Fechar',
 };

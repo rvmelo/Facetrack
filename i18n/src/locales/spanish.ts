@@ -82,4 +82,11 @@ export default {
     'Esta aplicación no pudo actualizar su Instagram. Intentar nuevamente?',
   yes: 'Sí',
   no: 'No',
+
+  //  track screen
+  trackDistance: 'Distancia en metros',
+  track: 'Rastrear',
+  nearbyUsers: 'Usuarios cercanos',
+  distance: 'Distancia',
+  close: 'Cerrar',
 };

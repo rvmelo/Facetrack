@@ -19,6 +19,9 @@ import {
 //  constants
 import Colors from '../../../constants/colors';
 
+//  i18n
+import { translate } from '../../../i18n/src/locales';
+
 export const TrackScreen: React.FC = () => {
   const {
     users,
@@ -36,7 +39,9 @@ export const TrackScreen: React.FC = () => {
   return (
     <>
       <Container>
-        <ScreenText>Distance in meters: {distance.toFixed(0)}</ScreenText>
+        <ScreenText>
+          {translate('trackDistance')}: {distance.toFixed(0)}
+        </ScreenText>
         <Slider
           style={{ width: 200, height: 40, marginVertical: 20 }}
           minimumValue={100}
@@ -53,7 +58,7 @@ export const TrackScreen: React.FC = () => {
             <Ionicons name="md-location" size={40} color={Colors.accent} />
           </TrackButtonContainer>
         </TouchableInterface>
-        <ScreenText>Track</ScreenText>
+        <ScreenText>{translate('track')}</ScreenText>
       </Container>
       <ModalComponent
         users={users}

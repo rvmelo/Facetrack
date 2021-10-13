@@ -79,4 +79,11 @@ export default {
     'This app failed to update your instagram. Try again?',
   yes: 'Yes',
   no: 'No',
+
+  //  track screen
+  trackDistance: 'Distance in meters',
+  track: 'Track',
+  nearbyUsers: 'Nearby users',
+  distance: 'Distance',
+  close: 'Close',
 };
