@@ -89,4 +89,9 @@ export default {
   nearbyUsers: 'Usuarios cercanos',
   distance: 'Distancia',
   close: 'Cerrar',
+
+  //  useLocation hook
+  locationPermissionError:
+    'Debes permitir que esta aplicación rastree tu posición en todo momento',
+  backgroundTrackingError: 'No se pudo iniciar el rastreo en segundo plano',
 };

@@ -86,4 +86,9 @@ export default {
   nearbyUsers: 'Nearby users',
   distance: 'Distance',
   close: 'Close',
+
+  //  useLocation hook
+  locationPermissionError:
+    'You should grant permissions for this app to track your position all the time',
+  backgroundTrackingError: 'Background position update failed to start',
 };

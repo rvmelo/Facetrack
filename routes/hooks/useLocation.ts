@@ -13,6 +13,9 @@ import { userLocationKey } from '../../constants/storage';
 //  services
 import api from '../../services/api';
 
+//  i18n
+import { translate } from '../../i18n/src/locales';
+
 interface LocationCoordsArray {
   locations: Location.LocationObject[];
 }
@@ -30,11 +33,9 @@ export function useLocation(): void {
       await Location.requestBackgroundPermissionsAsync();
 
     if (foregroundStatus !== 'granted' || backgroundStatus !== 'granted') {
-      Alert.alert(
-        'Error',
-        'You should grant permissions for this app to track your position all the time',
-        [{ text: 'Ok', onPress: () => signOut() }],
-      );
+      Alert.alert('Error', translate('locationPermissionError'), [
+        { text: 'Ok', onPress: () => signOut() },
+      ]);
     }
   }, [signOut]);
 
@@ -80,10 +81,7 @@ export function useLocation(): void {
         distanceInterval: 100,
       });
     } catch (err) {
-      Alert.alert(
-        'Error',
-        `Background position update failed to start: ${err}`,
-      );
+      Alert.alert('Error', `${translate('backgroundTrackingError')}: ${err}`);
     }
   }, []);
 

@@ -23,6 +23,7 @@ import api from '../../../services/api';
 
 // i18n
 import { translate } from '../../../i18n/src/locales';
+
 import {
   instagramRequestDateKey,
   instagramTokenKey,
@@ -56,18 +57,14 @@ function useInstagramScreen(): ReturnValue {
       await Location.requestForegroundPermissionsAsync();
 
     if (foregroundRequest.status !== 'granted') {
-      throw new Error(
-        'You should grant permissions for this app to track you position all the time',
-      );
+      throw new Error(translate('locationPermissionError'));
     }
 
     const backgroundRequest =
       await Location.requestBackgroundPermissionsAsync();
 
     if (backgroundRequest.status !== 'granted') {
-      throw new Error(
-        'You should grant permissions for this app to track you position all the time',
-      );
+      throw new Error(translate('locationPermissionError'));
     }
 
     // const provider = await Location.getProviderStatusAsync();

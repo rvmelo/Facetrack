@@ -90,4 +90,9 @@ export default {
   nearbyUsers: 'Usuários próximos',
   distance: 'Distância',
   close: 'Fechar',
+
+  //  useLocation hook
+  locationPermissionError:
+    'Você deve permitir que esse aplicativo rastreie sua posição a todo tempo',
+  backgroundTrackingError: 'O rastreamento em segundo plano falhou em iniciar',
 };
