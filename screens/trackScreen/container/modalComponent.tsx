@@ -47,15 +47,20 @@ export const ModalComponent: React.FC<ModalComponentProps> = memo(
       onRefresh();
     }, [onRefresh]);
 
-    const renderItem: ListRenderItem<IUser> = useCallback(({ item }) => {
-      return (
-        <ListItem
-          height={ITEM_HEIGHT}
-          avatar={item.avatar}
-          instaName={item?.instagram?.userName}
-        />
-      );
-    }, []);
+    const renderItem: ListRenderItem<IUser> = useCallback(
+      ({ item }) => {
+        return (
+          <ListItem
+            userProviderId={item.userProviderId}
+            height={ITEM_HEIGHT}
+            avatar={item.avatar}
+            instaName={item?.instagram?.userName}
+            setIsVisible={setIsVisible}
+          />
+        );
+      },
+      [setIsVisible],
+    );
 
     return (
       <Modal

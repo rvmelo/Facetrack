@@ -15,6 +15,7 @@ export const ItemContainer = styled.View<ItemContainerProps>`
   align-items: center;
   margin: 0 10px;
   height: ${props => props.height}px;
+  overflow: hidden;
 `;
 
 export const ItemText = styled.Text`
