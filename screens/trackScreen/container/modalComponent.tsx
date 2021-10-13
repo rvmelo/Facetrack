@@ -2,15 +2,15 @@ import React, { useCallback, useEffect, memo } from 'react';
 import { FlatList, ListRenderItem, Modal } from 'react-native';
 
 //  components
-import Avatar from '../../../components/avatar/index';
 import { ListFooterComponent } from '../../../components/listFooterComponent';
 import { IUser } from '../../../store/modules/user/types';
 import { EmptyComponent } from './emptyComponent';
 import { ListButton } from './ListButton';
 import { ListHeaderComponent } from './listHeaderComponent';
+import { ListItem } from './listItem';
 
 //  styles
-import { ItemContainer, ItemSeparator, ItemText, ModalView } from './styles';
+import { ItemSeparator, ModalView } from './styles';
 
 interface ModalComponentProps {
   users: IUser[];
@@ -49,10 +49,11 @@ export const ModalComponent: React.FC<ModalComponentProps> = memo(
 
     const renderItem: ListRenderItem<IUser> = useCallback(({ item }) => {
       return (
-        <ItemContainer height={ITEM_HEIGHT}>
-          <Avatar avatar={item.avatar} />
-          <ItemText>@{item?.instagram?.userName}</ItemText>
-        </ItemContainer>
+        <ListItem
+          height={ITEM_HEIGHT}
+          avatar={item.avatar}
+          instaName={item?.instagram?.userName}
+        />
       );
     }, []);
 

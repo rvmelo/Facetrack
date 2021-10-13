@@ -6,11 +6,6 @@ import { AxiosResponse } from 'axios';
 import api from '../../services/api';
 import { IUser } from '../../store/modules/user/types';
 
-export interface TrackedUser {
-  id: number;
-  url: string;
-}
-
 interface ReturnType {
   users: IUser[];
   // eslint-disable-next-line no-unused-vars

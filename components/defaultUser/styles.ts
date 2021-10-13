@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
-import Colors from '../../../constants/colors';
-import { fonts } from '../../../constants/fonts';
+import Colors from '../../constants/colors';
+import { fonts } from '../../constants/fonts';
 
 export const Container = styled.View`
   flex: 1;

@@ -6,6 +6,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { RandomUserScreen } from '../screens/randomUserScreen/container';
 import { TrackScreen } from '../screens/trackScreen/container';
 
+import { DefaultUser as TrackedUserScreen } from '../components/defaultUser';
+
 // i18n
 // import { translate } from '../i18n/src/locales';
 
@@ -35,6 +37,13 @@ const EvaluationRoutes: React.FC = () => (
     <Evaluation.Screen
       name="RandomUserScreen"
       component={RandomUserScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
+    <Evaluation.Screen
+      name="TrackedUserScreen"
+      component={TrackedUserScreen}
       options={{
         headerShown: false,
       }}

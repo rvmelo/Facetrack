@@ -10,7 +10,7 @@ interface RouteParams {
   user: IUser;
 }
 
-interface ReturnValue {
+interface ReturnType {
   modalVisible: boolean;
   // eslint-disable-next-line no-unused-vars
   setModalVisible: (value: boolean) => void;
@@ -23,7 +23,7 @@ interface ReturnValue {
   user: IUser;
 }
 
-export function useNotificationUserScreen(): ReturnValue {
+export function useDefaultUser(): ReturnType {
   const route = useRoute();
 
   const { user } = route?.params as RouteParams;
@@ -42,6 +42,7 @@ export function useNotificationUserScreen(): ReturnValue {
       );
 
       setRate(value);
+
       setModalVisible(false);
     },
     [user.userProviderId],

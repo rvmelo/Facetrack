@@ -1,13 +1,13 @@
 import React, { memo, useCallback } from 'react';
 import { ListRenderItem } from 'react-native';
 
-import { MEDIA_TYPES, UserMedia } from '../../../store/modules/user/types';
+import { MEDIA_TYPES, UserMedia } from '../../store/modules/user/types';
 
 // components
-import Avatar from '../../../components/avatar/index';
-import { VideoItem, PhotoItem } from '../../../components/profileItems/items';
-import PhotoScroll from '../../../components/profileItems/photoScroll';
-import { ProfileButton } from '../../../components/profileItems/profileButton';
+import Avatar from '../avatar/index';
+import { VideoItem, PhotoItem } from '../profileItems/items';
+import PhotoScroll from '../profileItems/photoScroll';
+import { ProfileButton } from '../profileItems/profileButton';
 
 import {
   Container,
@@ -15,10 +15,10 @@ import {
   StyledName,
   StyledText,
 } from './styles';
-import { ModalComponent } from '../../../components/profileItems/modalComponent';
-import { useNotificationUserScreen } from '../useNotificationUser';
+import { ModalComponent } from '../profileItems/modalComponent';
+import { useDefaultUser } from './useDefaultUser';
 
-export const NotificationUserScreen: React.FC = memo(() => {
+export const DefaultUser: React.FC = memo(() => {
   const {
     modalVisible,
     setModalVisible,
@@ -27,7 +27,7 @@ export const NotificationUserScreen: React.FC = memo(() => {
     handleEvaluation,
     userMedia,
     user,
-  } = useNotificationUserScreen();
+  } = useDefaultUser();
 
   const renderItem: ListRenderItem<UserMedia> = useCallback(({ item }) => {
     return item.media_type === MEDIA_TYPES.video ? (
