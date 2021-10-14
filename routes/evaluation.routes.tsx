@@ -2,9 +2,10 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 //  screens
-// import RateScreen from '../screens/rateScreen';
+import RateScreen from '../screens/rateScreen';
 import { RandomUserScreen } from '../screens/randomUserScreen/container';
 import { TrackScreen } from '../screens/trackScreen/container';
+import { TrackOptionScreen } from '../screens/trackOptionScreen/container';
 
 import { DefaultUser as TrackedUserScreen } from '../components/defaultUser';
 
@@ -20,7 +21,7 @@ const Evaluation = createStackNavigator<EvaluationStackParamList>();
 
 const EvaluationRoutes: React.FC = () => (
   <Evaluation.Navigator
-    initialRouteName="RateScreen"
+    initialRouteName="TrackOptionScreen"
     screenOptions={{
       headerStyle: { backgroundColor: Colors.background },
       headerTitleStyle: { color: Colors.accent, fontFamily: fonts.family },
@@ -28,7 +29,21 @@ const EvaluationRoutes: React.FC = () => (
     }}
   >
     <Evaluation.Screen
+      name="TrackOptionScreen"
+      component={TrackOptionScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
+    <Evaluation.Screen
       name="RateScreen"
+      component={RateScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
+    <Evaluation.Screen
+      name="TrackScreen"
       component={TrackScreen}
       options={{
         headerShown: false,

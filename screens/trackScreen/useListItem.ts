@@ -19,7 +19,7 @@ import { translate } from '../../i18n/src/locales';
 
 type NavigationProps = StackNavigationProp<
   EvaluationStackParamList,
-  'RateScreen'
+  'TrackScreen'
 >;
 
 interface ReturnType {
