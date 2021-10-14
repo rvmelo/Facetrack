@@ -5,6 +5,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+//  i18n
+import { translate } from '../../../i18n/src/locales';
+
 import { OptionButton } from './optionButton';
 
 import Colors from '../../../constants/colors';
@@ -24,15 +27,15 @@ export const TrackOptionScreen: React.FC = () => {
     <Container>
       <IconContainer>
         <Ionicons name="md-location" size={150} color={Colors.primary} />
-        <IconText>Choose your tracking option</IconText>
+        <IconText>{translate('trackInfoLabel')}</IconText>
       </IconContainer>
       <ButtonsContainer>
         <OptionButton
-          text="Track random users"
+          text={translate('randomTrack')}
           onPress={() => navigation.navigate('RateScreen')}
         />
         <OptionButton
-          text="Track users by location"
+          text={translate('trackByDistance')}
           onPress={() => navigation.navigate('TrackScreen')}
         />
       </ButtonsContainer>

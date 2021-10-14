@@ -95,6 +95,11 @@ export default {
   userLoadingProfileError:
     'No se pudo cargar el perfil de usuario. Por favor revise su conexion a internet.',
 
+  //  tracking option screen
+  trackInfoLabel: 'Elija su opción de rastreo',
+  randomTrack: 'Rastrear usuarios aleatorios',
+  trackByDistance: 'Rastrear usuarios por distancia',
+
   //  useLocation hook
   locationPermissionError:
     'Debes permitir que esta aplicación rastree tu posición en todo momento',

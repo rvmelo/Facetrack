@@ -92,6 +92,11 @@ export default {
   userLoadingProfileError:
     'Failed to load user profile. Please, check your internet connection.',
 
+  //  tracking option screen
+  trackInfoLabel: 'Choose your tracking option',
+  randomTrack: 'Track random users',
+  trackByDistance: 'Track users by distance',
+
   //  useLocation hook
   locationPermissionError:
     'You should grant permissions for this app to track your position all the time',
