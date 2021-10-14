@@ -1,10 +1,16 @@
 // navigation
 import { useRoute } from '@react-navigation/native';
 import { useCallback, useState } from 'react';
+
+//  services
 import api from '../../services/api';
+import { showToast } from '../../services/toast';
 
 //  redux
 import { IUser, UserMedia } from '../../store/modules/user/types';
+
+//  i18n
+import { translate } from '../../i18n/src/locales';
 
 interface RouteParams {
   user: IUser;
@@ -35,15 +41,21 @@ export function useDefaultUser(): ReturnType {
 
   const handleEvaluation = useCallback(
     async (value: number) => {
-      if (value <= 0) return;
+      try {
+        if (value <= 0) return;
 
-      await api.patch(
-        `/evaluation?value=${value}&toUserId=${user.userProviderId}`,
-      );
+        await api.patch(
+          `/evaluation?value=${value}&toUserId=${user.userProviderId}`,
+        );
 
-      setRate(value);
+        setRate(value);
 
-      setModalVisible(false);
+        setModalVisible(false);
+      } catch (err) {
+        showToast({
+          message: translate('sendEvaluationError'),
+        });
+      }
     },
     [user.userProviderId],
   );

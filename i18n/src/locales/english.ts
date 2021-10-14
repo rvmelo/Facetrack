@@ -69,9 +69,12 @@ export default {
 
   //  Rate Screen
   viewInstagram: 'View Instagram',
+  sendEvaluationError:
+    'Failed to send evaluation. Please, check your internet connection.',
 
   //  expo-notifications
   enableNotificationError: 'Error in enabling notifications',
+  loadNotificationError: 'Failed on loading notifications.',
 
   //  Instagram Hook
   instagramRequestFailed: 'This app failed to request instagram permissions',
@@ -86,6 +89,8 @@ export default {
   nearbyUsers: 'Nearby users',
   distance: 'Distance',
   close: 'Close',
+  userLoadingProfileError:
+    'Failed to load user profile. Please, check your internet connection.',
 
   //  useLocation hook
   locationPermissionError:

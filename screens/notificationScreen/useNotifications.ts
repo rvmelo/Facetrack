@@ -1,10 +1,13 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
-import { Alert } from 'react-native';
 
 import { AxiosResponse } from 'axios';
 
 //  services
 import api from '../../services/api';
+import { showToast } from '../../services/toast';
+
+//  i18n
+import { translate } from '../../i18n/src/locales';
 
 interface UserData {
   avatar: string;
@@ -71,7 +74,7 @@ export function useNotifications(): ReturnType {
       setIsRefreshing(false);
     } catch (err) {
       isMounted.current && setIsRefreshing(false);
-      Alert.alert('Failed on updating notifications');
+      showToast({ message: translate('loadNotificationError') });
     }
   }, []);
 
@@ -99,7 +102,7 @@ export function useNotifications(): ReturnType {
     } catch (err) {
       isMounted.current && setIsLoading(false);
       isMounted.current && setOnMomentumScrollBegin(false);
-      Alert.alert('Failed on updating notifications');
+      showToast({ message: translate('loadNotificationError') });
     }
   }, [page, isLoading, onMomentumScrollBegin]);
 

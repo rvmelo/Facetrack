@@ -68,6 +68,8 @@ export default {
 
   //  Rate Screen
   viewInstagram: 'Visualizar Instagram',
+  sendEvaluationError:
+    'Falha ao enviar avaliação. Por favor, cheque sua conexão com a internet.',
 
   //  Notification Screen
   userEvaluation: '{{name}} avaliou você com {{value}} estrelas',
@@ -75,6 +77,7 @@ export default {
 
   //  expo-notifications
   enableNotificationError: 'Erro ao habilitar notificações',
+  loadNotificationError: 'Falha ao carregar notificações.',
 
   //  Instagram Hook
   instagramRequestFailed:
@@ -90,6 +93,8 @@ export default {
   nearbyUsers: 'Usuários próximos',
   distance: 'Distância',
   close: 'Fechar',
+  userLoadingProfileError:
+    'Falha ao carregar perfil de usuário. Por favor, cheque sua conexão com a internet.',
 
   //  useLocation hook
   locationPermissionError:
