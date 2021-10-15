@@ -3,6 +3,8 @@
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 
+import { AxiosError, AxiosResponse } from 'axios';
+
 import { Ionicons } from '@expo/vector-icons';
 
 //  navigation
@@ -26,9 +28,16 @@ import { SearchScreen } from '../screens/searchScreen/container';
 
 // i18n
 import { translate } from '../i18n/src/locales';
+
 import { HeaderButton } from './styles';
+
+//  hooks
 import { useNotifications } from './hooks/useNotifications';
 import { useLocation } from './hooks/useLocation';
+import useAuth from '../hooks/useAuth';
+
+//  services
+import api from '../services/api';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
@@ -40,6 +49,15 @@ const AppTabRoutes: React.FC = () => {
   } = useNotifications();
 
   useLocation();
+
+  const { signOut } = useAuth();
+
+  api.interceptors.response.use(
+    (response: AxiosResponse) => response,
+    (error: AxiosError) => {
+      if (error.response?.status === 401) signOut();
+    },
+  );
 
   return (
     <Tab.Navigator
