@@ -6,6 +6,9 @@ import api from '../../services/api';
 import { showToast } from '../../services/toast';
 import { IUser } from '../../store/modules/user/types';
 
+//  i18n
+import { translate } from '../../i18n/src/locales';
+
 export interface ItemData {
   data: IUser;
 }
@@ -50,7 +53,7 @@ export function useList(): ReturnType {
         return;
       }
 
-      showToast({ message: 'Error on loading users' });
+      showToast({ message: translate('loadUsersError') });
       isMounted.current && setIsLoading(false);
     }
   }, []);

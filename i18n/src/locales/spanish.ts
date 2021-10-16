@@ -69,6 +69,7 @@ export default {
   viewInstagram: 'Ver Instagram',
   sendEvaluationError:
     'No se pudo enviar la evaluación. Por favor revise su conexion a internet.',
+  loadUsersError: 'Error al cargar usuarios',
 
   //  Notification Screen
   userEvaluation: '{{name}} te calificó con {{value}} estrellas',
@@ -94,6 +95,7 @@ export default {
   close: 'Cerrar',
   userLoadingProfileError:
     'No se pudo cargar el perfil de usuario. Por favor revise su conexion a internet.',
+  trackingUsersError: 'Falló en el rastreo de los usuarios',
 
   //  tracking option screen
   trackInfoLabel: 'Elija su opción de rastreo',

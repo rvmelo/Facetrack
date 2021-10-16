@@ -71,6 +71,7 @@ export default {
   viewInstagram: 'View Instagram',
   sendEvaluationError:
     'Failed to send evaluation. Please, check your internet connection.',
+  loadUsersError: 'Error on loading users',
 
   //  expo-notifications
   enableNotificationError: 'Error in enabling notifications',
@@ -91,6 +92,7 @@ export default {
   close: 'Close',
   userLoadingProfileError:
     'Failed to load user profile. Please, check your internet connection.',
+  trackingUsersError: 'Failed on tracking users',
 
   //  tracking option screen
   trackInfoLabel: 'Choose your tracking option',

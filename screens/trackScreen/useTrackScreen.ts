@@ -6,6 +6,9 @@ import api from '../../services/api';
 import { IUser } from '../../store/modules/user/types';
 import { showToast } from '../../services/toast';
 
+//  i18n
+import { translate } from '../../i18n/src/locales';
+
 interface ReturnType {
   users: IUser[];
   // eslint-disable-next-line no-unused-vars
@@ -71,7 +74,7 @@ export function useTrackScreen(): ReturnType {
       }
 
       isMounted.current && setIsRefreshing(false);
-      showToast({ message: 'Failed on tracking users' });
+      showToast({ message: translate('trackingUsersError') });
     }
   }, [distance, isVisible]);
 
@@ -101,7 +104,7 @@ export function useTrackScreen(): ReturnType {
 
       isMounted.current && setIsLoading(false);
       isMounted.current && setOnMomentumScrollBegin(false);
-      showToast({ message: 'Failed on tracking users' });
+      showToast({ message: translate('trackingUsersError') });
     }
   }, [page, isLoading, onMomentumScrollBegin, distance]);
 
