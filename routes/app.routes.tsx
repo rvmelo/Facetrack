@@ -55,7 +55,10 @@ const AppTabRoutes: React.FC = () => {
   api.interceptors.response.use(
     (response: AxiosResponse) => response,
     (error: AxiosError) => {
-      if (error.response?.status === 401) signOut();
+      if (error.response?.status === 401) {
+        signOut();
+      }
+      throw error;
     },
   );
 

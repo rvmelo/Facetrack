@@ -1,10 +1,10 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { Alert } from 'react-native';
 
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 import api from '../../services/api';
 import { IUser } from '../../store/modules/user/types';
+import { showToast } from '../../services/toast';
 
 interface ReturnType {
   users: IUser[];
@@ -64,8 +64,14 @@ export function useTrackScreen(): ReturnType {
 
       setIsRefreshing(false);
     } catch (err) {
+      const error = err as AxiosError;
+
+      if (error.response?.status === 401) {
+        return;
+      }
+
       isMounted.current && setIsRefreshing(false);
-      Alert.alert('Failed on tracking users');
+      showToast({ message: 'Failed on tracking users' });
     }
   }, [distance, isVisible]);
 
@@ -87,9 +93,15 @@ export function useTrackScreen(): ReturnType {
 
       isMounted.current && setOnMomentumScrollBegin(false);
     } catch (err) {
+      const error = err as AxiosError;
+
+      if (error.response?.status === 401) {
+        return;
+      }
+
       isMounted.current && setIsLoading(false);
       isMounted.current && setOnMomentumScrollBegin(false);
-      Alert.alert('Failed on tracking new users');
+      showToast({ message: 'Failed on tracking users' });
     }
   }, [page, isLoading, onMomentumScrollBegin, distance]);
 

@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { AxiosResponse } from 'axios';
+import { AxiosResponse, AxiosError } from 'axios';
 import { useCallback, useEffect, useState, useRef } from 'react';
-import { Alert } from 'react-native';
 
 import api from '../../services/api';
+import { showToast } from '../../services/toast';
 import { IUser } from '../../store/modules/user/types';
 
 export interface ItemData {
@@ -43,9 +43,14 @@ export function useList(): ReturnType {
 
       isMounted.current && setListItem(auxList);
       isMounted.current && setIsLoading(false);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      Alert.alert('Error', `Error on loading users:  ${err.message}`);
+    } catch (err) {
+      const error = err as AxiosError;
+
+      if (error.response?.status === 401) {
+        return;
+      }
+
+      showToast({ message: 'Error on loading users' });
       isMounted.current && setIsLoading(false);
     }
   }, []);
