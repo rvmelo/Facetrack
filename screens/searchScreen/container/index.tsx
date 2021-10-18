@@ -1,12 +1,35 @@
 import React from 'react';
+import { Ionicons } from '@expo/vector-icons';
+
+//  constants
+import Colors from '../../../constants/colors';
 
 //  styles
-import { Container, ScreenText } from './styles';
+import { Container, InputContainer, StyledInput } from './styles';
+
+//  hooks
+import { useSearchScreen } from './useSearchScreen';
+import { UsersList } from './usersList';
 
 export const SearchScreen: React.FC = () => {
+  const { users, searchUsers } = useSearchScreen();
+
   return (
     <Container>
-      <ScreenText>Search Screen</ScreenText>
+      <InputContainer>
+        <Ionicons
+          name="md-search"
+          size={25}
+          style={{ marginLeft: 5, marginRight: 10 }}
+          color={Colors.accent}
+        />
+        <StyledInput
+          placeholder="Search"
+          placeholderTextColor={Colors.disabled}
+          onChangeText={text => searchUsers(text)}
+        />
+      </InputContainer>
+      <UsersList users={users} />
     </Container>
   );
 };
