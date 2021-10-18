@@ -67,6 +67,9 @@ export default {
 
   //  Rate Screen
   viewInstagram: 'Ver Instagram',
+  sendEvaluationError:
+    'No se pudo enviar la evaluación. Por favor revise su conexion a internet.',
+  loadUsersError: 'Error al cargar usuarios',
 
   //  Notification Screen
   userEvaluation: '{{name}} te calificó con {{value}} estrellas',
@@ -74,6 +77,7 @@ export default {
 
   //  expo-notifications
   enableNotificationError: 'Error al habilitar notificaciones',
+  loadNotificationError: 'No se pudo cargar las notificaciones.',
 
   //  Instagram Hook
   instagramRequestFailed:
@@ -82,4 +86,24 @@ export default {
     'Esta aplicación no pudo actualizar su Instagram. Intentar nuevamente?',
   yes: 'Sí',
   no: 'No',
+
+  //  track screen
+  trackDistance: 'Distancia en metros',
+  track: 'Rastrear',
+  nearbyUsers: 'Usuarios cercanos',
+  distance: 'Distancia',
+  close: 'Cerrar',
+  userLoadingProfileError:
+    'No se pudo cargar el perfil de usuario. Por favor revise su conexion a internet.',
+  trackingUsersError: 'Falló en el rastreo de los usuarios',
+
+  //  tracking option screen
+  trackInfoLabel: 'Elija su opción de rastreo',
+  randomTrack: 'Rastrear usuarios aleatorios',
+  trackByDistance: 'Rastrear usuarios por distancia',
+
+  //  useLocation hook
+  locationPermissionError:
+    'Debes permitir que esta aplicación rastree tu posición en todo momento',
+  backgroundTrackingError: 'No se pudo iniciar el rastreo en segundo plano',
 };

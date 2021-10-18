@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 //  screens
 import { NotificationScreen } from '../screens/notificationScreen/container';
-import { NotificationUserScreen } from '../screens/notificationUserScreen/container';
+import { DefaultUser as NotificationUserScreen } from '../components/defaultUser';
 
 //  constants
 import Colors from '../constants/colors';

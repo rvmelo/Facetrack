@@ -8,7 +8,13 @@ import Animated, {
   interpolate,
   Extrapolate,
 } from 'react-native-reanimated';
+
+//  services
 import api from '../../services/api';
+import { showToast } from '../../services/toast';
+
+//  i18n
+import { translate } from '../../i18n/src/locales';
 
 export interface UserEvaluationProps {
   value: number;
@@ -47,9 +53,15 @@ export function useListItem(): ReturnValue {
 
   const handleUserEvaluation = useCallback(
     async ({ value, cardUserId }: UserEvaluationProps) => {
-      setRate(value);
+      try {
+        setRate(value);
 
-      await api.patch(`/evaluation?value=${value}&toUserId=${cardUserId}`);
+        await api.patch(`/evaluation?value=${value}&toUserId=${cardUserId}`);
+      } catch (err) {
+        showToast({
+          message: translate('sendEvaluationError'),
+        });
+      }
     },
     [setRate],
   );

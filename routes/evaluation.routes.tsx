@@ -4,6 +4,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 //  screens
 import RateScreen from '../screens/rateScreen';
 import { RandomUserScreen } from '../screens/randomUserScreen/container';
+import { TrackScreen } from '../screens/trackScreen/container';
+import { TrackOptionScreen } from '../screens/trackOptionScreen/container';
+
+import { DefaultUser as TrackedUserScreen } from '../components/defaultUser';
 
 // i18n
 // import { translate } from '../i18n/src/locales';
@@ -17,13 +21,20 @@ const Evaluation = createStackNavigator<EvaluationStackParamList>();
 
 const EvaluationRoutes: React.FC = () => (
   <Evaluation.Navigator
-    initialRouteName="RateScreen"
+    initialRouteName="TrackOptionScreen"
     screenOptions={{
       headerStyle: { backgroundColor: Colors.background },
       headerTitleStyle: { color: Colors.accent, fontFamily: fonts.family },
       headerTintColor: Colors.accent,
     }}
   >
+    <Evaluation.Screen
+      name="TrackOptionScreen"
+      component={TrackOptionScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
     <Evaluation.Screen
       name="RateScreen"
       component={RateScreen}
@@ -32,8 +43,22 @@ const EvaluationRoutes: React.FC = () => (
       }}
     />
     <Evaluation.Screen
+      name="TrackScreen"
+      component={TrackScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
+    <Evaluation.Screen
       name="RandomUserScreen"
       component={RandomUserScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
+    <Evaluation.Screen
+      name="TrackedUserScreen"
+      component={TrackedUserScreen}
       options={{
         headerShown: false,
       }}

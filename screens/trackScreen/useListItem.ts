@@ -1,26 +1,33 @@
+import { useCallback } from 'react';
+
+import { AxiosResponse } from 'axios';
+
+//  navigation
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { AxiosResponse } from 'axios';
-import { useCallback } from 'react';
 import { EvaluationStackParamList } from '../../routes/types';
+
+//  redux
+import { IUser } from '../../store/modules/user/types';
+
+//  services
 import api from '../../services/api';
 import { showToast } from '../../services/toast';
-import { IUser } from '../../store/modules/user/types';
 
 //  i18n
 import { translate } from '../../i18n/src/locales';
 
 type NavigationProps = StackNavigationProp<
   EvaluationStackParamList,
-  'RateScreen'
+  'TrackScreen'
 >;
 
-interface ReturnValue {
+interface ReturnType {
   // eslint-disable-next-line no-unused-vars
-  handleProfileView: (userProviderId: string) => void;
+  handleProfileView: (userProviderId: string) => Promise<void>;
 }
 
-export function useCard(): ReturnValue {
+export function useListItem(): ReturnType {
   const navigation = useNavigation<NavigationProps>();
 
   const handleProfileView = useCallback(
@@ -30,7 +37,9 @@ export function useCard(): ReturnValue {
           `users/${userProviderId}`,
         );
 
-        navigation.navigate('RandomUserScreen', { user: { ...userData.data } });
+        navigation.navigate('TrackedUserScreen', {
+          user: { ...userData.data },
+        });
       } catch (err) {
         showToast({
           message: translate('userLoadingProfileError'),

@@ -32,8 +32,11 @@ export type NotificationStackParamList = {
 };
 
 export type EvaluationStackParamList = {
-  RateScreen: { value: number; userProviderId: string };
+  TrackOptionScreen: undefined;
+  RateScreen: { value: number; userProviderId: string } | undefined;
+  TrackScreen: undefined;
   RandomUserScreen: { user: IUser };
+  TrackedUserScreen: { user: IUser };
 };
 
 export type TabParamList = {

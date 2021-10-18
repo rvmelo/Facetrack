@@ -2,7 +2,11 @@
 import React, { useEffect } from 'react';
 
 // navigation
-import { useRoute } from '@react-navigation/native';
+import {
+  useRoute,
+  useNavigation,
+  CommonActions,
+} from '@react-navigation/native';
 
 //  hooks
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
@@ -47,6 +51,8 @@ export const ListItem: React.FC<ListItemProps> = ({
 
   const route = useRoute();
 
+  const navigation = useNavigation();
+
   const { rate, handleUserEvaluation, cardStyle, cardOpacity, textStyle } =
     useListItem();
 
@@ -54,6 +60,8 @@ export const ListItem: React.FC<ListItemProps> = ({
     if (!route?.params) return;
 
     const { value, userProviderId } = route.params as RouteParams;
+
+    if (!value || !userProviderId) return;
 
     if (cardData.cardUserId !== userProviderId) return;
 
@@ -63,7 +71,17 @@ export const ListItem: React.FC<ListItemProps> = ({
       opacity: cardOpacity,
     });
     handleUserEvaluation({ cardUserId: cardData.cardUserId, value });
+
+    navigation.dispatch({
+      ...CommonActions.setParams({
+        value: undefined,
+        userProviderId: undefined,
+      }),
+      source: route.key,
+    });
   }, [
+    route.key,
+    navigation,
     cardData,
     handleUserEvaluation,
     handleListAnimation,

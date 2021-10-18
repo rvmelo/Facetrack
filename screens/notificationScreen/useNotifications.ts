@@ -1,10 +1,13 @@
-import { useEffect, useState, useCallback } from 'react';
-import { Alert } from 'react-native';
+import { useEffect, useState, useCallback, useRef } from 'react';
 
 import { AxiosResponse } from 'axios';
 
 //  services
 import api from '../../services/api';
+import { showToast } from '../../services/toast';
+
+//  i18n
+import { translate } from '../../i18n/src/locales';
 
 interface UserData {
   avatar: string;
@@ -46,6 +49,16 @@ export function useNotifications(): ReturnType {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const isMounted = useRef<boolean | null>(null);
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   const onRefresh = useCallback(async () => {
     try {
       setIsRefreshing(true);
@@ -54,14 +67,14 @@ export function useNotifications(): ReturnType {
         `/evaluation?page=1`,
       );
 
-      setPage(1);
+      isMounted.current && setPage(1);
 
-      setNotifications(response?.data?.foundEvaluations);
+      isMounted.current && setNotifications(response?.data?.foundEvaluations);
 
       setIsRefreshing(false);
     } catch (err) {
-      setIsRefreshing(false);
-      Alert.alert('Failed on updating notifications');
+      isMounted.current && setIsRefreshing(false);
+      showToast({ message: translate('loadNotificationError') });
     }
   }, []);
 
@@ -75,17 +88,21 @@ export function useNotifications(): ReturnType {
         `/evaluation?page=${page + 1}`,
       );
 
-      setIsLoading(false);
+      isMounted.current && setIsLoading(false);
 
-      setPage(prev => prev + 1);
+      isMounted.current && setPage(prev => prev + 1);
 
-      setNotifications(prev => [...prev, ...response?.data?.foundEvaluations]);
+      isMounted.current &&
+        setNotifications(prev => [
+          ...prev,
+          ...response?.data?.foundEvaluations,
+        ]);
 
-      setOnMomentumScrollBegin(false);
+      isMounted.current && setOnMomentumScrollBegin(false);
     } catch (err) {
-      setIsLoading(false);
-      setOnMomentumScrollBegin(false);
-      Alert.alert('Failed on updating notifications');
+      isMounted.current && setIsLoading(false);
+      isMounted.current && setOnMomentumScrollBegin(false);
+      showToast({ message: translate('loadNotificationError') });
     }
   }, [page, isLoading, onMomentumScrollBegin]);
 

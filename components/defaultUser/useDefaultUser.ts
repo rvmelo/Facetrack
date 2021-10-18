@@ -1,16 +1,22 @@
 // navigation
 import { useRoute } from '@react-navigation/native';
 import { useCallback, useState } from 'react';
+
+//  services
 import api from '../../services/api';
+import { showToast } from '../../services/toast';
 
 //  redux
 import { IUser, UserMedia } from '../../store/modules/user/types';
+
+//  i18n
+import { translate } from '../../i18n/src/locales';
 
 interface RouteParams {
   user: IUser;
 }
 
-interface ReturnValue {
+interface ReturnType {
   modalVisible: boolean;
   // eslint-disable-next-line no-unused-vars
   setModalVisible: (value: boolean) => void;
@@ -23,7 +29,7 @@ interface ReturnValue {
   user: IUser;
 }
 
-export function useNotificationUserScreen(): ReturnValue {
+export function useDefaultUser(): ReturnType {
   const route = useRoute();
 
   const { user } = route?.params as RouteParams;
@@ -35,14 +41,21 @@ export function useNotificationUserScreen(): ReturnValue {
 
   const handleEvaluation = useCallback(
     async (value: number) => {
-      if (value <= 0) return;
+      try {
+        if (value <= 0) return;
 
-      await api.patch(
-        `/evaluation?value=${value}&toUserId=${user.userProviderId}`,
-      );
+        await api.patch(
+          `/evaluation?value=${value}&toUserId=${user.userProviderId}`,
+        );
 
-      setRate(value);
-      setModalVisible(false);
+        setRate(value);
+
+        setModalVisible(false);
+      } catch (err) {
+        showToast({
+          message: translate('sendEvaluationError'),
+        });
+      }
     },
     [user.userProviderId],
   );

@@ -29,6 +29,7 @@ import api from '../../services/api';
 
 //  i18n
 import { translate } from '../../i18n/src/locales';
+import { showToast } from '../../services/toast';
 
 type ProfileNavigatorProps = StackNavigationProp<
   ProfileStackParamList,
@@ -117,7 +118,7 @@ export function useNotifications(): ReturnValue {
 
       setUnreadNotificationsAmount(unreadNotifications);
     } catch (err) {
-      Alert.alert('Failed on updating notifications');
+      showToast({ message: translate('loadNotificationError') });
     }
   }, []);
 

@@ -69,9 +69,13 @@ export default {
 
   //  Rate Screen
   viewInstagram: 'View Instagram',
+  sendEvaluationError:
+    'Failed to send evaluation. Please, check your internet connection.',
+  loadUsersError: 'Error on loading users',
 
   //  expo-notifications
   enableNotificationError: 'Error in enabling notifications',
+  loadNotificationError: 'Failed on loading notifications.',
 
   //  Instagram Hook
   instagramRequestFailed: 'This app failed to request instagram permissions',
@@ -79,4 +83,24 @@ export default {
     'This app failed to update your instagram. Try again?',
   yes: 'Yes',
   no: 'No',
+
+  //  track screen
+  trackDistance: 'Distance in meters',
+  track: 'Track',
+  nearbyUsers: 'Nearby users',
+  distance: 'Distance',
+  close: 'Close',
+  userLoadingProfileError:
+    'Failed to load user profile. Please, check your internet connection.',
+  trackingUsersError: 'Failed on tracking users',
+
+  //  tracking option screen
+  trackInfoLabel: 'Choose your tracking option',
+  randomTrack: 'Track random users',
+  trackByDistance: 'Track users by distance',
+
+  //  useLocation hook
+  locationPermissionError:
+    'You should grant permissions for this app to track your position all the time',
+  backgroundTrackingError: 'Background position update failed to start',
 };

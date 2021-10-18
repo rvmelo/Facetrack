@@ -39,7 +39,12 @@ export const ModalComponent: React.FC<ModalComponentProps> = memo(
     const { avatarUri, instaName } = userData;
 
     return (
-      <Modal animationType="slide" transparent visible={modalVisible}>
+      <Modal
+        animationType="slide"
+        transparent
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
         <CenteredView>
           <View style={styles.modalView}>
             <ModalUserInfoContainer>

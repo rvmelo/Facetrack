@@ -1,10 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { AxiosResponse } from 'axios';
-import { useCallback, useEffect, useState } from 'react';
-import { Alert } from 'react-native';
+import { AxiosResponse, AxiosError } from 'axios';
+import { useCallback, useEffect, useState, useRef } from 'react';
 
 import api from '../../services/api';
+import { showToast } from '../../services/toast';
 import { IUser } from '../../store/modules/user/types';
+
+//  i18n
+import { translate } from '../../i18n/src/locales';
 
 export interface ItemData {
   data: IUser;
@@ -20,6 +23,16 @@ export function useList(): ReturnType {
   const [listItems, setListItem] = useState<ItemData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const isMounted = useRef<boolean | null>(null);
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   const handleUsersRequest = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -31,12 +44,17 @@ export function useList(): ReturnType {
         };
       });
 
-      setListItem(auxList);
-      setIsLoading(false);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      Alert.alert('Error', `Error on loading users:  ${err.message}`);
-      setIsLoading(false);
+      isMounted.current && setListItem(auxList);
+      isMounted.current && setIsLoading(false);
+    } catch (err) {
+      const error = err as AxiosError;
+
+      if (error.response?.status === 401) {
+        return;
+      }
+
+      showToast({ message: translate('loadUsersError') });
+      isMounted.current && setIsLoading(false);
     }
   }, []);
 
