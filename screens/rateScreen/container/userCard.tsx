@@ -2,8 +2,14 @@ import React, { memo } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { ViewStyle } from 'react-native';
 
-//  hooks
+//  navigation
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { EvaluationStackParamList } from '../../../routes/types';
+
+//  redux
+import { IUser } from '../../../store/modules/user/types';
 
 //  i18n
 import { translate } from '../../../i18n/src/locales';
@@ -28,16 +34,17 @@ import { IconButton } from './iconButton';
 //  constants
 import Colors from '../../../constants/colors';
 import { ScrollProps } from '../useListActions';
-import { useCard } from '../useCard';
+
+type NavigationProps = StackNavigationProp<
+  EvaluationStackParamList,
+  'RateScreen'
+>;
 
 interface UserCardProps {
+  user: IUser;
   cardData: {
-    uri: string | undefined;
-    cardUserId: string;
     cardIndex: number;
     isLastItem: boolean;
-    instaNick: string | undefined;
-    name: string | undefined;
   };
   cardStyle: ViewStyle;
   // eslint-disable-next-line no-unused-vars
@@ -47,30 +54,32 @@ interface UserCardProps {
 }
 
 export const UserCard: React.FC<UserCardProps> = memo(
-  ({ cardData, cardStyle, handleListScrollBack, handleListScroll }) => {
+  ({ user, cardData, cardStyle, handleListScrollBack, handleListScroll }) => {
     const bottomTabHeight = useBottomTabBarHeight();
 
-    const { handleProfileView } = useCard();
+    const navigation = useNavigation<NavigationProps>();
+
+    const uri = user?.instagram?.userMedia
+      ? user?.instagram?.userMedia[0]?.media_url
+      : undefined;
 
     return (
-      <TouchableCard onPress={() => handleProfileView(cardData.cardUserId)}>
+      <TouchableCard
+        onPress={() => navigation.navigate('RandomUserScreen', { user })}
+      >
         <CardContainer bottomTabHeight={bottomTabHeight} style={[cardStyle]}>
           <StyledImage
-            source={
-              cardData.uri
-                ? { uri: cardData.uri }
-                : require('../../../assets/avatar.png')
-            }
+            source={{ uri } || require('../../../assets/avatar.png')}
           >
             <InfoContainer>
               <RowDataContainer>
                 <InfoRow>
                   <Ionicons name="md-person" color={Colors.accent} />
-                  <ImageText>{cardData.name}</ImageText>
+                  <ImageText>{user?.name}</ImageText>
                 </InfoRow>
                 <InfoRow>
                   <Ionicons name="md-logo-instagram" color={Colors.accent} />
-                  <ImageText>{cardData.instaNick}</ImageText>
+                  <ImageText>{user?.instagram?.userName}</ImageText>
                 </InfoRow>
               </RowDataContainer>
               <IconButtonContainer>

@@ -11,6 +11,9 @@ import {
 //  hooks
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
+//  redux
+import { IUser } from '../../../store/modules/user/types';
+
 //   styles
 import { ItemText, ItemTextContainer, ListItemContainer } from './styles';
 
@@ -23,13 +26,10 @@ import { useListItem } from '../useListItem';
 import { UserCard } from './userCard';
 
 interface ListItemProps {
+  user: IUser;
   cardData: {
-    uri: string | undefined;
-    cardUserId: string;
     cardIndex: number;
     isLastItem: boolean;
-    instaNick: string | undefined;
-    name: string | undefined;
   };
   handleListAnimation(value: ListAnimationProps): void;
   handleListScrollBack({ index }: ScrollProps): void;
@@ -42,6 +42,7 @@ interface RouteParams {
 }
 
 export const ListItem: React.FC<ListItemProps> = ({
+  user,
   cardData,
   handleListAnimation,
   handleListScrollBack,
@@ -63,14 +64,14 @@ export const ListItem: React.FC<ListItemProps> = ({
 
     if (!value || !userProviderId) return;
 
-    if (cardData.cardUserId !== userProviderId) return;
+    if (user?.userProviderId !== userProviderId) return;
 
     handleListAnimation({
       index: cardData.cardIndex,
       isLastItem: cardData.isLastItem,
       opacity: cardOpacity,
     });
-    handleUserEvaluation({ cardUserId: cardData.cardUserId, value });
+    handleUserEvaluation({ cardUserId: user?.userProviderId, value });
 
     navigation.dispatch({
       ...CommonActions.setParams({
@@ -87,11 +88,13 @@ export const ListItem: React.FC<ListItemProps> = ({
     handleListAnimation,
     cardOpacity,
     route.params,
+    user?.userProviderId,
   ]);
 
   return (
     <ListItemContainer bottomTabHeight={bottomTabHeight}>
       <UserCard
+        user={user}
         cardData={cardData}
         handleListScrollBack={handleListScrollBack}
         handleListScroll={handleListScroll}
@@ -113,7 +116,7 @@ export const ListItem: React.FC<ListItemProps> = ({
             })
           }
           onUserEvaluation={handleUserEvaluation}
-          userId={cardData.cardUserId}
+          userId={user?.userProviderId}
           rate={rate}
         />
       )}

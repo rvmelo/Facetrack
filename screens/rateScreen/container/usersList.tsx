@@ -43,17 +43,12 @@ const UsersList: React.FC<UserListProps> = ({
 
       const cardData = {
         cardIndex,
-        cardUserId: item?.data?.userProviderId,
-        uri: item?.data?.instagram?.userMedia
-          ? item?.data?.instagram?.userMedia[0]?.media_url
-          : undefined,
-        instaNick: item?.data?.instagram?.userName,
-        name: item?.data?.name,
         isLastItem: listItems.length - 1 === cardIndex,
       };
 
       return (
         <ListItem
+          user={item.data}
           cardData={cardData}
           handleListAnimation={handleListAnimation}
           handleListScrollBack={handleListScrollBack}
