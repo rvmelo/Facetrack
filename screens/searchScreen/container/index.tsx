@@ -12,7 +12,7 @@ import { useSearchScreen } from './useSearchScreen';
 import { UsersList } from './usersList';
 
 export const SearchScreen: React.FC = () => {
-  const { users, searchUsers } = useSearchScreen();
+  const { users, debounceSearchUsers } = useSearchScreen();
 
   return (
     <Container>
@@ -26,7 +26,7 @@ export const SearchScreen: React.FC = () => {
         <StyledInput
           placeholder="Search"
           placeholderTextColor={Colors.disabled}
-          onChangeText={text => searchUsers(text)}
+          onChangeText={text => debounceSearchUsers(text)}
         />
       </InputContainer>
       <UsersList users={users} />

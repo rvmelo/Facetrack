@@ -11,13 +11,15 @@ import { IUser } from '../../../store/modules/user/types';
 interface ReturnType {
   users: IUser[];
   // eslint-disable-next-line no-unused-vars
-  searchUsers: (text: string) => void;
+  debounceSearchUsers: (text: string) => void;
 }
 
 export function useSearchScreen(): ReturnType {
   const [users, setUsers] = useState<IUser[]>([]);
 
   const searchUsers = useCallback(async (text: string) => {
+    if (!text) return;
+
     const parsedText = text.replace(/\s/g, '+');
 
     const response: AxiosResponse<IUser[]> = await api.get(
@@ -25,17 +27,25 @@ export function useSearchScreen(): ReturnType {
     );
 
     setUsers(response.data);
-
-    // const parsedData = response.data.map(user => ({
-    //   ...user,
-    //   instagram: '',
-    // }));
-
-    // console.log(parsedData);
   }, []);
+
+  const debounce = useCallback(
+    (timeout = 500) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let timer: any;
+      return (text: string) => {
+        clearTimeout(timer);
+
+        timer = setTimeout(() => searchUsers(text), timeout);
+      };
+    },
+    [searchUsers],
+  );
+
+  const debounceSearchUsers = debounce();
 
   return {
     users,
-    searchUsers,
+    debounceSearchUsers,
   };
 }
