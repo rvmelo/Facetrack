@@ -1,41 +1,49 @@
 import React from 'react';
 
+//  navigation
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { EvaluationStackParamList } from '../../../routes/types';
+
 //  components
 import Avatar from '../../../components/avatar/index';
-
-//  hooks
-import { useListItem } from '../useListItem';
+import { IUser } from '../../../store/modules/user/types';
 
 import { ItemContainer, ItemText, TouchableInterface } from './styles';
 
+type NavigationProps = StackNavigationProp<
+  EvaluationStackParamList,
+  'TrackScreen'
+>;
+
 interface ListItemProps {
+  user: IUser;
   height: number;
-  avatar: string;
-  instaName: string | undefined;
-  userProviderId: string;
   // eslint-disable-next-line no-unused-vars
   setIsVisible: (isVisible: boolean) => void;
 }
 
 export const ListItem: React.FC<ListItemProps> = ({
+  user,
   height,
-  avatar,
-  instaName,
-  userProviderId,
   setIsVisible,
 }) => {
-  const { handleProfileView } = useListItem();
+  const navigation = useNavigation<NavigationProps>();
+
+  const instagram = user?.instagram?.userName;
 
   return (
     <TouchableInterface
       onPress={() => {
         setIsVisible(false);
-        handleProfileView(userProviderId);
+        navigation.navigate('TrackedUserScreen', {
+          user,
+        });
       }}
     >
       <ItemContainer height={height}>
-        <Avatar avatar={avatar} />
-        {instaName && <ItemText>@{instaName}</ItemText>}
+        <Avatar avatar={user?.avatar} />
+        {instagram && <ItemText>@{instagram}</ItemText>}
       </ItemContainer>
     </TouchableInterface>
   );

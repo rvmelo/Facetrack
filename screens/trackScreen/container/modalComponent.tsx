@@ -51,10 +51,8 @@ export const ModalComponent: React.FC<ModalComponentProps> = memo(
       ({ item }) => {
         return (
           <ListItem
-            userProviderId={item.userProviderId}
+            user={item}
             height={ITEM_HEIGHT}
-            avatar={item.avatar}
-            instaName={item?.instagram?.userName}
             setIsVisible={setIsVisible}
           />
         );
