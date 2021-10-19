@@ -1,4 +1,5 @@
 import React from 'react';
+import { ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 //  constants
@@ -12,7 +13,7 @@ import { useSearchScreen } from './useSearchScreen';
 import { UsersList } from './usersList';
 
 export const SearchScreen: React.FC = () => {
-  const { users, debounceSearchUsers } = useSearchScreen();
+  const { users, debounceSearchUsers, isLoading } = useSearchScreen();
 
   return (
     <Container>
@@ -29,7 +30,15 @@ export const SearchScreen: React.FC = () => {
           onChangeText={text => debounceSearchUsers(text)}
         />
       </InputContainer>
-      <UsersList users={users} />
+      {isLoading ? (
+        <ActivityIndicator
+          style={{ marginTop: 20 }}
+          color={Colors.primary}
+          size="large"
+        />
+      ) : (
+        <UsersList users={users} />
+      )}
     </Container>
   );
 };

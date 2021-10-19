@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 import { IUser } from '../../../store/modules/user/types';
+import { EmptyComponent } from './emptyComponent';
 import { ListItem } from './listItem';
 
 interface UsersListProps {
@@ -27,7 +28,11 @@ export const UsersList: React.FC<UsersListProps> = ({ users }) => {
       renderItem={renderItem}
       keyExtractor={item => item.userProviderId}
       showsVerticalScrollIndicator={false}
-      // ListEmptyComponent={EmptyComponent}
+      ListEmptyComponent={EmptyComponent}
+      contentContainerStyle={{
+        flex: users.length === 0 ? 1 : 0,
+        paddingTop: 20,
+      }}
       // getItemLayout={(data, index) => ({
       //   length: TOTAL_HEIGHT,
       //   offset: TOTAL_HEIGHT * index,

@@ -1,32 +1,64 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useRef, useEffect } from 'react';
 
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 //  services
 import api from '../../../services/api';
 
 //  redux
 import { IUser } from '../../../store/modules/user/types';
+import { showToast } from '../../../services/toast';
 
 interface ReturnType {
   users: IUser[];
   // eslint-disable-next-line no-unused-vars
   debounceSearchUsers: (text: string) => void;
+  isLoading: boolean;
 }
 
 export function useSearchScreen(): ReturnType {
   const [users, setUsers] = useState<IUser[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const isMounted = useRef<boolean | null>(null);
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   const searchUsers = useCallback(async (text: string) => {
-    if (!text) return;
+    try {
+      if (!text) return;
 
-    const parsedText = text.replace(/\s/g, '+');
+      setIsLoading(true);
 
-    const response: AxiosResponse<IUser[]> = await api.get(
-      `users/search-user?query=${parsedText}`,
-    );
+      const parsedText = text.replace(/\s/g, '+');
 
-    setUsers(response.data);
+      const response: AxiosResponse<IUser[]> = await api.get(
+        `users/search-user?query=${parsedText}`,
+      );
+
+      isMounted.current && setIsLoading(false);
+
+      isMounted.current && setUsers(response.data);
+    } catch (err) {
+      const error = err as AxiosError;
+
+      if (error.response?.status === 401) {
+        return;
+      }
+
+      showToast({
+        message:
+          'Error on searching users. Please, check your internet connection',
+      });
+
+      isMounted.current && setIsLoading(false);
+    }
   }, []);
 
   const debounce = useCallback(
@@ -47,5 +79,6 @@ export function useSearchScreen(): ReturnType {
   return {
     users,
     debounceSearchUsers,
+    isLoading,
   };
 }

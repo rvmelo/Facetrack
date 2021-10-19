@@ -20,7 +20,7 @@ export const ScreenText = styled.Text`
 
 export const InputContainer = styled.View`
   background-color: #404040;
-  margin: 20px 10px;
+  margin: 20px 10px 0;
   flex-direction: row;
   align-items: center;
   border-radius: 5px;
@@ -62,4 +62,20 @@ export const UserName = styled.Text`
   font-size: ${fonts.sizes.md}px;
   font-family: ${fonts.family};
   color: ${Colors.disabled};
+`;
+
+//  Empty component
+
+export const EmptyContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  /* background: purple; */
+`;
+
+export const SmallScreenText = styled.Text`
+  font-size: ${fonts.sizes.sm}px;
+  font-family: ${fonts.family};
+  color: ${Colors.disabled};
+  text-align: center;
 `;
