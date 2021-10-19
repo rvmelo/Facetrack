@@ -5,10 +5,10 @@ import { AxiosResponse } from 'axios';
 // navigation
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-import { NotificationStackParamList } from '../../../routes/types';
+import { NotificationStackParamList } from '../../routes/types';
 
-import api from '../../../services/api';
-import { IUser } from '../../../store/modules/user/types';
+import api from '../../services/api';
+import { IUser } from '../../store/modules/user/types';
 
 //   navigation
 

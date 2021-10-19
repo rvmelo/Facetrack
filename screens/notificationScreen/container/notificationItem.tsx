@@ -21,7 +21,7 @@ import {
 } from './styles';
 
 //  hooks
-import { useNotificationItem } from './useNotificationItem';
+import { useNotificationItem } from '../useNotificationItem';
 
 interface NotificationItemProps {
   fromUser: {
