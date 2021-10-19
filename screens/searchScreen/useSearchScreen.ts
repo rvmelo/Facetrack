@@ -3,11 +3,11 @@ import { useCallback, useState, useRef, useEffect } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 
 //  services
-import api from '../../../services/api';
+import api from '../../services/api';
 
 //  redux
-import { IUser } from '../../../store/modules/user/types';
-import { showToast } from '../../../services/toast';
+import { IUser } from '../../store/modules/user/types';
+import { showToast } from '../../services/toast';
 
 interface ReturnType {
   users: IUser[];

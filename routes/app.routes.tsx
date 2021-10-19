@@ -15,6 +15,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ProfileRoutes from './profile.routes';
 import EvaluationRoutes from './evaluation.routes';
 import NotificationRoutes from './notification.routes';
+import SearchRoutes from './search.routes';
 
 //  route types
 import { TabParamList } from './types';
@@ -22,9 +23,6 @@ import { TabParamList } from './types';
 //  constants
 import Colors from '../constants/colors';
 import { fonts } from '../constants/fonts';
-
-//  components
-import { SearchScreen } from '../screens/searchScreen/container';
 
 // i18n
 import { translate } from '../i18n/src/locales';
@@ -89,7 +87,7 @@ const AppTabRoutes: React.FC = () => {
 
       <Tab.Screen
         name="Search"
-        component={SearchScreen}
+        component={SearchRoutes}
         options={{
           tabBarIcon: ({ focused }) => (
             <Ionicons

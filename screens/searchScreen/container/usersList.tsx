@@ -12,14 +12,7 @@ export const UsersList: React.FC<UsersListProps> = ({ users }) => {
   const ITEM_HEIGHT = 70;
 
   const renderItem: ListRenderItem<IUser> = useCallback(({ item }) => {
-    return (
-      <ListItem
-        name={item.name}
-        height={ITEM_HEIGHT}
-        avatar={item.avatar}
-        instaName={item?.instagram?.userName}
-      />
-    );
+    return <ListItem height={ITEM_HEIGHT} user={item} />;
   }, []);
 
   return (

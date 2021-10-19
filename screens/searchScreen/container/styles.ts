@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { TouchableNativeFeedback } from 'react-native';
 
 //  constants
 import Colors from '../../../constants/colors';
@@ -35,6 +36,11 @@ export const StyledInput = styled.TextInput`
 
 //  list item
 
+export const TouchableInterface = styled.TouchableNativeFeedback.attrs({
+  background: TouchableNativeFeedback.Ripple('#ccc', true),
+  useForeground: true,
+})``;
+
 interface ItemContainerProps {
   height: number;
 }
@@ -45,6 +51,7 @@ export const ItemContainer = styled.View<ItemContainerProps>`
   justify-content: flex-start;
   width: ${SCREEN_WIDTH}px;
   padding-left: 20px;
+  overflow: hidden;
 `;
 
 export const TextContainer = styled.View`

@@ -9,7 +9,7 @@ import Colors from '../../../constants/colors';
 import { Container, InputContainer, StyledInput } from './styles';
 
 //  hooks
-import { useSearchScreen } from './useSearchScreen';
+import { useSearchScreen } from '../useSearchScreen';
 import { UsersList } from './usersList';
 
 export const SearchScreen: React.FC = () => {
