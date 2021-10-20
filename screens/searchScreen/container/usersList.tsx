@@ -32,11 +32,11 @@ export const UsersList: React.FC<UsersListProps> = ({
         flex: users.length === 0 ? 1 : 0,
         paddingTop: 20,
       }}
-      // getItemLayout={(data, index) => ({
-      //   length: TOTAL_HEIGHT,
-      //   offset: TOTAL_HEIGHT * index,
-      //   index,
-      // })}
+      getItemLayout={(data, index) => ({
+        length: ITEM_HEIGHT,
+        offset: ITEM_HEIGHT * index,
+        index,
+      })}
     />
   );
 };
