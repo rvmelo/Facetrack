@@ -17,6 +17,7 @@ export const ScreenText = styled.Text`
   font-size: ${fonts.sizes.lg}px;
   font-family: ${fonts.family};
   color: ${Colors.accent};
+  text-align: center;
 `;
 
 export const InputContainer = styled.View`
@@ -77,7 +78,6 @@ export const EmptyContainer = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  /* background: purple; */
 `;
 
 export const SmallScreenText = styled.Text`

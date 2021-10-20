@@ -51,3 +51,26 @@ export const ItemText = styled.Text`
   font-size: ${fonts.sizes.md}px;
   color: ${Colors.accent};
 `;
+
+//  Empty component
+
+export const EmptyContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  /* background: purple; */
+`;
+
+export const ScreenText = styled.Text`
+  font-size: ${fonts.sizes.lg}px;
+  font-family: ${fonts.family};
+  color: ${Colors.accent};
+  text-align: center;
+`;
+
+export const SmallScreenText = styled.Text`
+  font-size: ${fonts.sizes.sm}px;
+  font-family: ${fonts.family};
+  color: ${Colors.disabled};
+  text-align: center;
+`;

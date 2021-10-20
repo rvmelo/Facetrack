@@ -66,6 +66,8 @@ export default {
   //  Notification Screen
   userEvaluation: '{{name}} has rated you with {{value}} stars',
   notifications: 'Notifications',
+  notificationsNotFound: 'No notifications found',
+  notificationInfo: 'Start evaluating users to get notifications',
 
   //  Rate Screen
   viewInstagram: 'View Instagram',

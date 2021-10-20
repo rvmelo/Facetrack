@@ -74,6 +74,8 @@ export default {
   //  Notification Screen
   userEvaluation: '{{name}} te calificó con {{value}} estrellas',
   notifications: 'Notificaciones',
+  notificationsNotFound: 'No se encontraron notificaciones',
+  notificationInfo: 'Califica a otros usuarios para recibir notificaciones',
 
   //  expo-notifications
   enableNotificationError: 'Error al habilitar notificaciones',
