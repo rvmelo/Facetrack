@@ -5,28 +5,38 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { DefaultUser as SearchedUserScreen } from '../components/defaultUser';
 import { SearchScreen } from '../screens/searchScreen/container';
 
+//  routes
+import ProfileRoutes from './profile.routes';
+
 //  constants
 import { SearchStackParamList } from './types';
 
-const Evaluation = createStackNavigator<SearchStackParamList>();
+const Search = createStackNavigator<SearchStackParamList>();
 
 const SearchRoutes: React.FC = () => (
-  <Evaluation.Navigator initialRouteName="SearchScreen">
-    <Evaluation.Screen
+  <Search.Navigator initialRouteName="SearchScreen">
+    <Search.Screen
       name="SearchScreen"
       component={SearchScreen}
       options={{
         headerShown: false,
       }}
     />
-    <Evaluation.Screen
+    <Search.Screen
       name="SearchedUserScreen"
       component={SearchedUserScreen}
       options={{
         headerShown: false,
       }}
     />
-  </Evaluation.Navigator>
+    <Search.Screen
+      name="MyProfileRoutes"
+      component={ProfileRoutes}
+      options={{
+        headerShown: false,
+      }}
+    />
+  </Search.Navigator>
 );
 
 export default SearchRoutes;

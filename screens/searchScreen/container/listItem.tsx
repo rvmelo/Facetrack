@@ -1,13 +1,19 @@
 import React from 'react';
 
+//  redux
+import { useSelector } from 'react-redux';
+
 //  navigation
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { SearchStackParamList } from '../../../routes/types';
 
+//  redux
+import { IState } from '../../../store';
+import { IUser, IUserState } from '../../../store/modules/user/types';
+
 //  components
 import Avatar from '../../../components/avatar/index';
-import { IUser } from '../../../store/modules/user/types';
 
 import {
   Instagram,
@@ -30,6 +36,10 @@ interface ListItemProps {
 export const ListItem: React.FC<ListItemProps> = ({ height, user }) => {
   const { avatar, name, instagram } = user;
 
+  const { user: myProfile } = useSelector<IState, IUserState>(
+    state => state.user,
+  );
+
   const navigation = useNavigation<NavigationProps>();
 
   const instaName = instagram?.userName;
@@ -37,9 +47,11 @@ export const ListItem: React.FC<ListItemProps> = ({ height, user }) => {
   return (
     <TouchableInterface
       onPress={() =>
-        navigation.navigate('SearchedUserScreen', {
-          user,
-        })
+        myProfile.userProviderId === user.userProviderId
+          ? navigation.navigate('MyProfileRoutes')
+          : navigation.navigate('SearchedUserScreen', {
+              user,
+            })
       }
     >
       <ItemContainer height={height}>
