@@ -102,6 +102,12 @@ export default {
   randomTrack: 'Rastrear usuarios aleatorios',
   trackByDistance: 'Rastrear usuarios por distancia',
 
+  //  search screen
+  searchUsers: 'Buscar usuarios',
+  noUsersFound: 'No se encontraron usuarios',
+  search: 'Buscar',
+  searchInfo: 'Buscar usuarios por nombre o por instagram',
+
   //  useLocation hook
   locationPermissionError:
     'Debes permitir que esta aplicación rastree tu posición en todo momento',

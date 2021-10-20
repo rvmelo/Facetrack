@@ -14,11 +14,14 @@ interface ReturnType {
   // eslint-disable-next-line no-unused-vars
   debounceSearchUsers: (text: string) => void;
   isLoading: boolean;
+  isSearchStarted: boolean;
 }
 
 export function useSearchScreen(): ReturnType {
   const [users, setUsers] = useState<IUser[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [isSearchStarted, setIsSearchStarted] = useState(false);
 
   const isMounted = useRef<boolean | null>(null);
 
@@ -35,6 +38,8 @@ export function useSearchScreen(): ReturnType {
       if (!text) return;
 
       setIsLoading(true);
+
+      setIsSearchStarted(true);
 
       const parsedText = text.replace(/\s/g, '+');
 
@@ -80,5 +85,6 @@ export function useSearchScreen(): ReturnType {
     users,
     debounceSearchUsers,
     isLoading,
+    isSearchStarted,
   };
 }

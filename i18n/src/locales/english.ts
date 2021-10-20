@@ -99,6 +99,12 @@ export default {
   randomTrack: 'Track random users',
   trackByDistance: 'Track users by distance',
 
+  //  search screen
+  searchUsers: 'Search users',
+  noUsersFound: 'No users found',
+  search: 'Search',
+  searchInfo: 'Search users by name or by instagram',
+
   //  useLocation hook
   locationPermissionError:
     'You should grant permissions for this app to track your position all the time',

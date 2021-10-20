@@ -2,6 +2,9 @@ import React from 'react';
 import { ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
+//  i18n
+import { translate } from '../../../i18n/src/locales';
+
 //  constants
 import Colors from '../../../constants/colors';
 
@@ -13,7 +16,8 @@ import { useSearchScreen } from '../useSearchScreen';
 import { UsersList } from './usersList';
 
 export const SearchScreen: React.FC = () => {
-  const { users, debounceSearchUsers, isLoading } = useSearchScreen();
+  const { users, debounceSearchUsers, isLoading, isSearchStarted } =
+    useSearchScreen();
 
   return (
     <Container>
@@ -25,7 +29,7 @@ export const SearchScreen: React.FC = () => {
           color={Colors.accent}
         />
         <StyledInput
-          placeholder="Search"
+          placeholder={translate('search')}
           placeholderTextColor={Colors.disabled}
           onChangeText={text => debounceSearchUsers(text)}
         />
@@ -37,7 +41,7 @@ export const SearchScreen: React.FC = () => {
           size="large"
         />
       ) : (
-        <UsersList users={users} />
+        <UsersList users={users} isSearchStarted={isSearchStarted} />
       )}
     </Container>
   );
