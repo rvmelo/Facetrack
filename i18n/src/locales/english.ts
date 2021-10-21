@@ -66,6 +66,8 @@ export default {
   //  Notification Screen
   userEvaluation: '{{name}} has rated you with {{value}} stars',
   notifications: 'Notifications',
+  notificationsNotFound: 'No notifications found',
+  notificationInfo: 'Start evaluating users to get notifications',
 
   //  Rate Screen
   viewInstagram: 'View Instagram',
@@ -98,6 +100,12 @@ export default {
   trackInfoLabel: 'Choose your tracking option',
   randomTrack: 'Track random users',
   trackByDistance: 'Track users by distance',
+
+  //  search screen
+  searchUsers: 'Search users',
+  noUsersFound: 'No users found',
+  search: 'Search',
+  searchInfo: 'Search users by name or by instagram',
 
   //  useLocation hook
   locationPermissionError:

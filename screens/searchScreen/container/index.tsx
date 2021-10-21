@@ -1,12 +1,48 @@
 import React from 'react';
+import { ActivityIndicator } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
+//  i18n
+import { translate } from '../../../i18n/src/locales';
+
+//  constants
+import Colors from '../../../constants/colors';
 
 //  styles
-import { Container, ScreenText } from './styles';
+import { Container, InputContainer, StyledInput } from './styles';
+
+//  hooks
+import { useSearchScreen } from '../useSearchScreen';
+import { UsersList } from './usersList';
 
 export const SearchScreen: React.FC = () => {
+  const { users, debounceSearchUsers, isLoading, isSearchStarted } =
+    useSearchScreen();
+
   return (
     <Container>
-      <ScreenText>Search Screen</ScreenText>
+      <InputContainer>
+        <Ionicons
+          name="md-search"
+          size={25}
+          style={{ marginLeft: 5, marginRight: 10 }}
+          color={Colors.accent}
+        />
+        <StyledInput
+          placeholder={translate('search')}
+          placeholderTextColor={Colors.disabled}
+          onChangeText={text => debounceSearchUsers(text)}
+        />
+      </InputContainer>
+      {isLoading ? (
+        <ActivityIndicator
+          style={{ marginTop: 20 }}
+          color={Colors.primary}
+          size="large"
+        />
+      ) : (
+        <UsersList users={users} isSearchStarted={isSearchStarted} />
+      )}
     </Container>
   );
 };

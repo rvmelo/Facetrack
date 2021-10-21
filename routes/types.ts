@@ -39,6 +39,12 @@ export type EvaluationStackParamList = {
   TrackedUserScreen: { user: IUser };
 };
 
+export type SearchStackParamList = {
+  SearchScreen: undefined;
+  SearchedUserScreen: { user: IUser };
+  MyProfileRoutes: undefined;
+};
+
 export type TabParamList = {
   Evaluation: undefined;
   Search: undefined;

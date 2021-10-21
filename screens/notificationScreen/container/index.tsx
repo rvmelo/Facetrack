@@ -5,6 +5,7 @@ import { FlatList, ListRenderItem } from 'react-native';
 //  components
 import { NotificationItem } from './notificationItem';
 import { ListFooterComponent } from '../../../components/listFooterComponent';
+import { EmptyComponent } from './emptyComponent';
 
 //  hooks
 import { useNotifications, NotificationData } from '../useNotifications';
@@ -47,6 +48,8 @@ export const NotificationScreen: React.FC = () => {
   return (
     <FlatList
       data={notifications}
+      ListEmptyComponent={EmptyComponent}
+      contentContainerStyle={{ flex: notifications.length === 0 ? 1 : 0 }}
       refreshing={isRefreshing}
       onRefresh={onRefresh}
       renderItem={renderItem}

@@ -20,7 +20,7 @@ interface ReturnType {
 }
 
 export function useList(): ReturnType {
-  const [listItems, setListItem] = useState<ItemData[]>([]);
+  const [listItems, setListItems] = useState<ItemData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const isMounted = useRef<boolean | null>(null);
@@ -44,7 +44,7 @@ export function useList(): ReturnType {
         };
       });
 
-      isMounted.current && setListItem(auxList);
+      isMounted.current && setListItems(auxList);
       isMounted.current && setIsLoading(false);
     } catch (err) {
       const error = err as AxiosError;

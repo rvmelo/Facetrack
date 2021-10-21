@@ -75,6 +75,8 @@ export default {
   //  Notification Screen
   userEvaluation: '{{name}} avaliou você com {{value}} estrelas',
   notifications: 'Notificações',
+  notificationsNotFound: 'Nenhuma notificação encontrada',
+  notificationInfo: 'Avalie outros usuários para receber notificações',
 
   //  expo-notifications
   enableNotificationError: 'Erro ao habilitar notificações',
@@ -102,6 +104,12 @@ export default {
   trackInfoLabel: 'Escolha seu modo de rastreio',
   randomTrack: 'Rastrear usuários aleatórios',
   trackByDistance: 'Rastrear usuários por distância',
+
+  //  search screen
+  searchUsers: 'Pesquisar usuários',
+  noUsersFound: 'Nenhum usuário encontrado',
+  search: 'Pesquisar',
+  searchInfo: 'Pesquisar usuários por nome ou por instagram',
 
   //  useLocation hook
   locationPermissionError:
