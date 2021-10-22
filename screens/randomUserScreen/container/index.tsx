@@ -9,6 +9,11 @@ import { VideoItem, PhotoItem } from '../../../components/profileItems/items';
 import PhotoScroll from '../../../components/profileItems/photoScroll';
 import { ProfileButton } from '../../../components/profileItems/profileButton';
 import { ModalComponent } from '../../../components/profileItems/modalComponent';
+import { MediaModal } from '../../../components/profileItems/mediaModal';
+
+// hooks
+import { useMediaModal } from '../../../components/profileItems/hooks/useMediaModal';
+import { useRandomUserScreen } from '../useRandomUserScreen';
 
 import {
   Container,
@@ -16,7 +21,6 @@ import {
   StyledName,
   StyledText,
 } from './styles';
-import { useRandomUserScreen } from '../useRandomUserScreen';
 
 export const RandomUserScreen: React.FC = memo(() => {
   const {
@@ -29,21 +33,31 @@ export const RandomUserScreen: React.FC = memo(() => {
     user,
   } = useRandomUserScreen();
 
-  const renderItem: ListRenderItem<UserMedia> = useCallback(({ item }) => {
-    return item.media_type === MEDIA_TYPES.video ? (
-      <VideoItem
-        media_url={item.media_url}
-        caption={item.caption}
-        date={item.timestamp}
-      />
-    ) : (
-      <PhotoItem
-        media_url={item.media_url}
-        caption={item.caption}
-        date={item.timestamp}
-      />
-    );
-  }, []);
+  const { isVisible, setIsVisible, media, setMedia, imgHeight } =
+    useMediaModal();
+
+  const renderItem: ListRenderItem<UserMedia> = useCallback(
+    ({ item }) => {
+      return item.media_type === MEDIA_TYPES.video ? (
+        <VideoItem
+          media_url={item.media_url}
+          onPress={() => {
+            setIsVisible(true);
+            setMedia(item);
+          }}
+        />
+      ) : (
+        <PhotoItem
+          media_url={item.media_url}
+          onPress={() => {
+            setIsVisible(true);
+            setMedia(item);
+          }}
+        />
+      );
+    },
+    [setIsVisible, setMedia],
+  );
 
   return (
     <>
@@ -70,6 +84,13 @@ export const RandomUserScreen: React.FC = memo(() => {
         handleEvaluation={handleEvaluation}
         rate={rate}
         setRate={setRate}
+      />
+      <MediaModal
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        media={media}
+        imgHeight={imgHeight}
+        instagram={user?.instagram?.userName}
       />
     </>
   );

@@ -8,6 +8,10 @@ import Avatar from '../avatar/index';
 import { VideoItem, PhotoItem } from '../profileItems/items';
 import PhotoScroll from '../profileItems/photoScroll';
 import { ProfileButton } from '../profileItems/profileButton';
+import { MediaModal } from '../profileItems/mediaModal';
+
+//   hooks
+import { useMediaModal } from '../profileItems/hooks/useMediaModal';
 
 import {
   Container,
@@ -29,21 +33,31 @@ export const DefaultUser: React.FC = memo(() => {
     user,
   } = useDefaultUser();
 
-  const renderItem: ListRenderItem<UserMedia> = useCallback(({ item }) => {
-    return item.media_type === MEDIA_TYPES.video ? (
-      <VideoItem
-        media_url={item.media_url}
-        caption={item.caption}
-        date={item.timestamp}
-      />
-    ) : (
-      <PhotoItem
-        media_url={item.media_url}
-        caption={item.caption}
-        date={item.timestamp}
-      />
-    );
-  }, []);
+  const { isVisible, setIsVisible, media, setMedia, imgHeight } =
+    useMediaModal();
+
+  const renderItem: ListRenderItem<UserMedia> = useCallback(
+    ({ item }) => {
+      return item.media_type === MEDIA_TYPES.video ? (
+        <VideoItem
+          media_url={item.media_url}
+          onPress={() => {
+            setIsVisible(true);
+            setMedia(item);
+          }}
+        />
+      ) : (
+        <PhotoItem
+          media_url={item.media_url}
+          onPress={() => {
+            setIsVisible(true);
+            setMedia(item);
+          }}
+        />
+      );
+    },
+    [setIsVisible, setMedia],
+  );
 
   return (
     <>
@@ -70,6 +84,13 @@ export const DefaultUser: React.FC = memo(() => {
         handleEvaluation={handleEvaluation}
         rate={rate}
         setRate={setRate}
+      />
+      <MediaModal
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        media={media}
+        imgHeight={imgHeight}
+        instagram={user?.instagram?.userName}
       />
     </>
   );

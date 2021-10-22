@@ -1,5 +1,5 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
-import { IUser, media_types } from '../store/modules/user/types';
+import { IUser } from '../store/modules/user/types';
 
 //  register routes
 
@@ -17,12 +17,6 @@ export type RegisterStackParamList = {
 export type ProfileStackParamList = {
   ProfileScreen: undefined;
   EditProfile: undefined;
-  Publication: {
-    caption: string;
-    media_type: media_types;
-    media_url: string;
-    date: string;
-  };
   Settings: undefined;
 };
 

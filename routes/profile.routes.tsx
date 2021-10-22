@@ -3,7 +3,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 //  screens
 import ProfileScreen from '../screens/profileScreen';
-import PublicationScreen from '../screens/publicationScreen';
 import EditProfileScreen from '../screens/editProfileScreen';
 import SettingsScreen from '../screens/settingsScreen';
 
@@ -31,14 +30,6 @@ const ProfileRoutes: React.FC = () => (
       component={ProfileScreen}
       options={{
         headerShown: false,
-      }}
-    />
-    <Profile.Screen
-      name="Publication"
-      component={PublicationScreen}
-      options={{
-        headerShown: true,
-        headerTitle: translate('userPublication'),
       }}
     />
     <Profile.Screen

@@ -3,7 +3,7 @@ import { TouchableNativeFeedback } from 'react-native';
 
 import Colors from '../../constants/colors';
 import { fonts } from '../../constants/fonts';
-import { SCREEN_WIDTH } from '../../constants/dimensions';
+import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../constants/dimensions';
 
 export const TouchableInterface = styled.TouchableWithoutFeedback``;
 
@@ -101,9 +101,49 @@ export const ModalButtonLayout = styled.View`
 `;
 
 export const ModalText = styled.Text`
-  color: ${Colors.background};
+  color: ${Colors.accent};
   font-family: ${fonts.family};
-  font-size: ${fonts.sizes.md}px;
+  font-size: ${fonts.sizes.sm}px;
+  text-align: left;
+`;
+
+//  media modal
+
+export const Instagram = styled.Text`
+  color: ${Colors.accent};
+  font-weight: bold;
+`;
+
+export const ModalDate = styled.Text`
+  color: ${Colors.accent};
+  font-family: ${fonts.family};
+  font-size: ${fonts.sizes.sm}px;
+  text-align: center;
+  margin-top: 5px;
+`;
+
+export const ModalTextContainer = styled.View`
+  margin: 20px 5px 20px;
+  padding: 5px;
+  border-radius: 5px;
+  background: #404040;
+`;
+
+export const ModalBackground = styled.View`
+  flex: 1;
+  background: rgba(64, 64, 64, 0.5);
+  align-items: center;
+  justify-content: flex-start;
+  padding-bottom: ${0.2 * SCREEN_HEIGHT}px;
+`;
+
+interface ModalPhotoProps {
+  imgHeight: number;
+}
+
+export const ModalPhoto = styled.Image<ModalPhotoProps>`
+  width: ${SCREEN_WIDTH}px;
+  height: ${props => props.imgHeight}px;
 `;
 
 //  close button
