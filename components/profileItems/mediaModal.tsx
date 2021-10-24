@@ -11,7 +11,7 @@ import { PhotoMedia, VideoMedia } from './modalMedias';
 import { formatDate } from '../../services/date';
 
 //  styles
-import { ModalBackground } from './styles';
+import { ModalBackground, ModalContent } from './styles';
 
 interface MediaModalProps {
   isVisible: boolean;
@@ -37,29 +37,30 @@ export const MediaModal: React.FC<MediaModalProps> = memo(
       >
         <ModalBackground bottomTabHeight={bottomTabHeight}>
           <ScrollView>
-            {media_type === MEDIA_TYPES.video ? (
-              <VideoMedia
-                media_url={media_url}
-                instagram={instagram}
-                caption={caption}
-                date={timestamp ? formatDate(timestamp) : ''}
+            <ModalContent>
+              {media_type === MEDIA_TYPES.video ? (
+                <VideoMedia
+                  media_url={media_url}
+                  instagram={instagram}
+                  caption={caption}
+                  date={timestamp ? formatDate(timestamp) : ''}
+                />
+              ) : (
+                <PhotoMedia
+                  media_url={media_url}
+                  instagram={instagram}
+                  caption={caption}
+                  imgHeight={imgHeight}
+                  date={timestamp ? formatDate(timestamp) : ''}
+                />
+              )}
+              <CloseButton
+                onPress={() => setIsVisible(false)}
+                styles={{
+                  marginVertical: 20,
+                }}
               />
-            ) : (
-              <PhotoMedia
-                media_url={media_url}
-                instagram={instagram}
-                caption={caption}
-                imgHeight={imgHeight}
-                date={timestamp ? formatDate(timestamp) : ''}
-              />
-            )}
-            <CloseButton
-              onPress={() => setIsVisible(false)}
-              styles={{
-                alignSelf: 'center',
-                marginVertical: 20,
-              }}
-            />
+            </ModalContent>
           </ScrollView>
         </ModalBackground>
       </Modal>

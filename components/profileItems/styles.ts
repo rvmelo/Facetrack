@@ -139,6 +139,11 @@ export const ModalBackground = styled.View<ModalBackgroundProps>`
   padding-bottom: ${props => props.bottomTabHeight}px;
 `;
 
+export const ModalContent = styled.View`
+  align-items: center;
+  justify-content: space-around;
+`;
+
 interface ModalPhotoProps {
   imgHeight: number;
 }
