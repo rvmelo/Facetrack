@@ -3,7 +3,7 @@ import { TouchableNativeFeedback } from 'react-native';
 
 import Colors from '../../constants/colors';
 import { fonts } from '../../constants/fonts';
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../constants/dimensions';
+import { SCREEN_WIDTH } from '../../constants/dimensions';
 
 export const TouchableInterface = styled.TouchableWithoutFeedback``;
 
@@ -123,18 +123,20 @@ export const ModalDate = styled.Text`
 `;
 
 export const ModalTextContainer = styled.View`
-  margin: 20px 5px 20px;
+  margin: 20px 5px 0;
   padding: 5px;
   border-radius: 5px;
   background: #404040;
 `;
 
-export const ModalBackground = styled.View`
+interface ModalBackgroundProps {
+  bottomTabHeight: number;
+}
+
+export const ModalBackground = styled.View<ModalBackgroundProps>`
   flex: 1;
-  background: rgba(64, 64, 64, 0.5);
-  align-items: center;
-  justify-content: flex-start;
-  padding-bottom: ${0.2 * SCREEN_HEIGHT}px;
+  background: rgba(0, 0, 0, 0.9);
+  padding-bottom: ${props => props.bottomTabHeight}px;
 `;
 
 interface ModalPhotoProps {

@@ -5,7 +5,6 @@ import { Video } from 'expo-av';
 import { SCREEN_WIDTH } from '../../constants/dimensions';
 
 import {
-  ModalBackground,
   ModalTextContainer,
   ModalPhoto,
   ModalText,
@@ -36,7 +35,7 @@ export const PhotoMedia: React.FC<PhotoData> = ({
   date,
 }) => {
   return (
-    <ModalBackground>
+    <>
       <ModalPhoto source={{ uri: media_url }} imgHeight={imgHeight} />
       <ModalDate>{date}</ModalDate>
       <ModalTextContainer>
@@ -45,7 +44,7 @@ export const PhotoMedia: React.FC<PhotoData> = ({
           {caption}
         </ModalText>
       </ModalTextContainer>
-    </ModalBackground>
+    </>
   );
 };
 
@@ -56,7 +55,7 @@ export const VideoMedia: React.FC<VideoData> = ({
   date,
 }) => {
   return (
-    <ModalBackground>
+    <>
       <Video
         style={{ width: SCREEN_WIDTH, height: SCREEN_WIDTH }}
         source={{
@@ -73,6 +72,6 @@ export const VideoMedia: React.FC<VideoData> = ({
           {caption}
         </ModalText>
       </ModalTextContainer>
-    </ModalBackground>
+    </>
   );
 };
