@@ -112,6 +112,7 @@ export default {
 
   //  useLocation hook
   locationPermissionError:
-    'Debes permitir que esta aplicación rastree tu posición en todo momento',
+    'Debes permitir que esta aplicación acceda a la localización de tu dispositivo',
   backgroundTrackingError: 'No se pudo iniciar el rastreo en segundo plano',
+  foregroundTrackingError: 'No se pudo iniciar el rastreo en primero plano',
 };

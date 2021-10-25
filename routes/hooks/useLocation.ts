@@ -80,7 +80,7 @@ export function useLocation(): void {
         } catch (err) {
           Alert.alert(
             'Error',
-            `${translate('backgroundTrackingError')}: ${err}`,
+            `${translate('foregroundTrackingError')}: ${err}`,
           );
         }
       },

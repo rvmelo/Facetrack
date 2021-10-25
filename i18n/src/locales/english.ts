@@ -109,6 +109,7 @@ export default {
 
   //  useLocation hook
   locationPermissionError:
-    'You should grant permissions for this app to track your position all the time',
+    'You should grant permissions for this app to access your device location',
   backgroundTrackingError: 'Background position update failed to start',
+  foregroundTrackingError: 'Foreground position update failed to start',
 };
