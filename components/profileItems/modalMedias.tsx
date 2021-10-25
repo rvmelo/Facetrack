@@ -10,6 +10,7 @@ import {
   ModalText,
   ModalDate,
   Instagram,
+  MediaContainer,
 } from './styles';
 
 interface PhotoData {
@@ -35,7 +36,7 @@ export const PhotoMedia: React.FC<PhotoData> = ({
   date,
 }) => {
   return (
-    <>
+    <MediaContainer>
       <ModalPhoto source={{ uri: media_url }} imgHeight={imgHeight} />
       <ModalDate>{date}</ModalDate>
       <ModalTextContainer>
@@ -44,7 +45,7 @@ export const PhotoMedia: React.FC<PhotoData> = ({
           {caption}
         </ModalText>
       </ModalTextContainer>
-    </>
+    </MediaContainer>
   );
 };
 
@@ -55,7 +56,7 @@ export const VideoMedia: React.FC<VideoData> = ({
   date,
 }) => {
   return (
-    <>
+    <MediaContainer>
       <Video
         style={{ width: SCREEN_WIDTH, height: SCREEN_WIDTH }}
         source={{
@@ -72,6 +73,6 @@ export const VideoMedia: React.FC<VideoData> = ({
           {caption}
         </ModalText>
       </ModalTextContainer>
-    </>
+    </MediaContainer>
   );
 };

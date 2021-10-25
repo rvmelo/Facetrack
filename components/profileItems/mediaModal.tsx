@@ -13,6 +13,9 @@ import { formatDate } from '../../services/date';
 //  styles
 import { ModalBackground, ModalContent } from './styles';
 
+//  constants
+import { SCREEN_HEIGHT } from '../../constants/dimensions';
+
 interface MediaModalProps {
   isVisible: boolean;
   // eslint-disable-next-line no-unused-vars
@@ -36,7 +39,11 @@ export const MediaModal: React.FC<MediaModalProps> = memo(
         onRequestClose={() => setIsVisible(false)}
       >
         <ModalBackground bottomTabHeight={bottomTabHeight}>
-          <ScrollView>
+          <ScrollView
+            contentContainerStyle={{
+              minHeight: SCREEN_HEIGHT - bottomTabHeight,
+            }}
+          >
             <ModalContent>
               {media_type === MEDIA_TYPES.video ? (
                 <VideoMedia

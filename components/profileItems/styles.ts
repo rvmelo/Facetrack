@@ -3,6 +3,8 @@ import { TouchableNativeFeedback } from 'react-native';
 
 import Colors from '../../constants/colors';
 import { fonts } from '../../constants/fonts';
+
+//  constants
 import { SCREEN_WIDTH } from '../../constants/dimensions';
 
 export const TouchableInterface = styled.TouchableWithoutFeedback``;
@@ -141,8 +143,11 @@ export const ModalBackground = styled.View<ModalBackgroundProps>`
 
 export const ModalContent = styled.View`
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  flex: 1;
 `;
+
+export const MediaContainer = styled.View``;
 
 interface ModalPhotoProps {
   imgHeight: number;
