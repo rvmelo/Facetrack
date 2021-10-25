@@ -86,7 +86,7 @@ function useInstagramScreen(): ReturnValue {
 
         setIsLoading(true);
 
-        await handleLocation();
+        // await handleLocation();
 
         const { code } = Linking.parse(url).queryParams || {};
 

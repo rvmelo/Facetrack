@@ -24,8 +24,9 @@ export const NotificationScreen: React.FC = () => {
 
   const renderItem: ListRenderItem<NotificationData> = useCallback(
     ({ item }) => {
-      const { avatar, name, instagram, userProviderId } = item.fromUserId;
-      const { value, _id } = item;
+      const { avatar, name, instagram, userProviderId } =
+        item?.fromUserId || {};
+      const { value, _id } = item || {};
 
       return (
         <NotificationItem

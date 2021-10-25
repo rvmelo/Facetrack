@@ -50,6 +50,7 @@ export const ItemContainer = styled.View<ItemContainerProps>`
   height: ${props => props.height}px;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: center;
   width: ${SCREEN_WIDTH}px;
   padding-left: 20px;
   overflow: hidden;
