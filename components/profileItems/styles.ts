@@ -147,7 +147,9 @@ export const ModalContent = styled.View`
   flex: 1;
 `;
 
-export const MediaContainer = styled.View``;
+export const MediaContainer = styled.View`
+  align-items: center;
+`;
 
 interface ModalPhotoProps {
   imgHeight: number;
