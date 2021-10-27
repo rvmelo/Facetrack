@@ -4,23 +4,18 @@ import { ListRenderItem } from 'react-native';
 import { MEDIA_TYPES, UserMedia } from '../../../store/modules/user/types';
 
 // components
-import Avatar from '../../../components/avatar/index';
 import { VideoItem, PhotoItem } from '../../../components/profileItems/items';
 import PhotoScroll from '../../../components/profileItems/photoScroll';
 import { ProfileButton } from '../../../components/profileItems/profileButton';
 import { ModalComponent } from '../../../components/profileItems/modalComponent';
 import { MediaModal } from '../../../components/profileItems/mediaModal';
+import { Header } from '../../../components/profileItems/header';
 
 // hooks
 import { useMediaModal } from '../../../components/profileItems/hooks/useMediaModal';
 import { useRandomUserScreen } from '../useRandomUserScreen';
 
-import {
-  Container,
-  ProfileDataContainer,
-  StyledName,
-  StyledText,
-} from './styles';
+import { Container, ProfileDataContainer, StyledText } from './styles';
 
 export const RandomUserScreen: React.FC = memo(() => {
   const {
@@ -63,8 +58,11 @@ export const RandomUserScreen: React.FC = memo(() => {
     <>
       <Container>
         <ProfileDataContainer>
-          <Avatar avatar={user?.avatar} />
-          <StyledName>{user?.name}</StyledName>
+          <Header
+            avatar={user?.avatar}
+            name={user?.name}
+            rate={user?.rate?.toFixed(2)}
+          />
           <StyledText>@{user?.instagram?.userName}</StyledText>
           <StyledText>{user?.sexualOrientation}</StyledText>
           <StyledText>{user?.relationshipStatus}</StyledText>

@@ -65,6 +65,12 @@ const user: Reducer<IUserState> = (state = INITIAL_STATE, action) => {
         });
         return draft;
       }
+      case ActionTypes.updateUserRate: {
+        Object.assign(draft, {
+          user: { ...draft.user, rate: action.payload },
+        });
+        return draft;
+      }
       default: {
         return draft;
       }

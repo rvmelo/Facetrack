@@ -15,6 +15,11 @@ interface UpdateLoadingStateReturnType {
   payload: boolean;
 }
 
+interface UpdateUserRateReturnType {
+  type: string;
+  payload: number;
+}
+
 interface ActionReturnType {
   type: string;
 }
@@ -82,5 +87,12 @@ export function updateUserSuccess(payload: IUser): UpdateUserReturnType {
 export function updateUserFailure(): ActionReturnType {
   return {
     type: ActionTypes.updateUserFailure,
+  };
+}
+
+export function updateUserRate(payload: number): UpdateUserRateReturnType {
+  return {
+    type: ActionTypes.updateUserRate,
+    payload,
   };
 }

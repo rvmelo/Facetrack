@@ -18,8 +18,8 @@ import {
 import { VideoItem, PhotoItem } from '../../../components/profileItems/items';
 import { ProfileButton } from '../../../components/profileItems/profileButton';
 import PhotoScroll from '../../../components/profileItems/photoScroll';
-import Avatar from '../../../components/avatar/index';
 import { MediaModal } from '../../../components/profileItems/mediaModal';
+import { Header } from '../../../components/profileItems/header';
 
 // hooks
 import useInstagram from '../../../hooks/useInstagram';
@@ -31,9 +31,8 @@ import Colors from '../../../constants/colors';
 import {
   Container,
   ProfileDataContainer,
-  StyledName,
   StyledText,
-  EmptyPhotoContainer,
+  EmptyContainer,
 } from './styles';
 
 // i18n
@@ -96,7 +95,7 @@ const ProfileScreen: React.FC = () => {
   );
 
   return isUserLoading ? (
-    <EmptyPhotoContainer>
+    <EmptyContainer>
       <ActivityIndicator
         color={Colors.primary}
         size="large"
@@ -106,25 +105,18 @@ const ProfileScreen: React.FC = () => {
           borderRadius: 30,
         }}
       />
-    </EmptyPhotoContainer>
+    </EmptyContainer>
   ) : (
     <>
       <Container>
         <ProfileDataContainer>
-          {isAvatarLoading ? (
-            <ActivityIndicator
-              color={Colors.primary}
-              size="large"
-              style={{
-                width: 60,
-                height: 60,
-                borderRadius: 30,
-              }}
-            />
-          ) : (
-            <Avatar avatar={user?.avatar} />
-          )}
-          <StyledName>{user?.name}</StyledName>
+          <Header
+            isAvatarLoading={isAvatarLoading}
+            avatar={user?.avatar}
+            name={user?.name}
+            rate={user?.rate?.toFixed(2)}
+          />
+
           <StyledText>@{user?.instagram?.userName}</StyledText>
           <StyledText>{user?.sexualOrientation}</StyledText>
           <StyledText>{user?.relationshipStatus}</StyledText>

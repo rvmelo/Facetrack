@@ -13,6 +13,8 @@ export enum ActionTypes {
   updateUserFailure = 'UPDATE_USER_FAILURE',
 
   updateUserLoadState = 'UPDATE_USER_LOAD_STATE',
+
+  updateUserRate = 'UPDATE_USER_RATE',
 }
 
 export const MEDIA_TYPES = {

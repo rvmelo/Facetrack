@@ -4,21 +4,16 @@ import { ListRenderItem } from 'react-native';
 import { MEDIA_TYPES, UserMedia } from '../../store/modules/user/types';
 
 // components
-import Avatar from '../avatar/index';
 import { VideoItem, PhotoItem } from '../profileItems/items';
 import PhotoScroll from '../profileItems/photoScroll';
 import { ProfileButton } from '../profileItems/profileButton';
 import { MediaModal } from '../profileItems/mediaModal';
+import { Header } from '../profileItems/header';
 
 //   hooks
 import { useMediaModal } from '../profileItems/hooks/useMediaModal';
 
-import {
-  Container,
-  ProfileDataContainer,
-  StyledName,
-  StyledText,
-} from './styles';
+import { Container, ProfileDataContainer, StyledText } from './styles';
 import { ModalComponent } from '../profileItems/modalComponent';
 import { useDefaultUser } from './useDefaultUser';
 
@@ -63,8 +58,11 @@ export const DefaultUser: React.FC = memo(() => {
     <>
       <Container>
         <ProfileDataContainer>
-          <Avatar avatar={user?.avatar} />
-          <StyledName>{user?.name}</StyledName>
+          <Header
+            avatar={user?.avatar}
+            name={user?.name}
+            rate={user?.rate?.toFixed(2)}
+          />
           <StyledText>@{user?.instagram?.userName}</StyledText>
           <StyledText>{user?.sexualOrientation}</StyledText>
           <StyledText>{user?.relationshipStatus}</StyledText>

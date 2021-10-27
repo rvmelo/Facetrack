@@ -173,3 +173,26 @@ export const CloseButtonLayout = styled.View`
   justify-content: center;
   align-items: center;
 `;
+
+//  header
+export const HeaderContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+export const HeaderInfoContainer = styled.View`
+  margin-left: 10px;
+`;
+
+export const HeaderText = styled.Text`
+  font-size: ${fonts.sizes.md}px;
+  font-weight: bold;
+  color: ${Colors.accent};
+`;
+
+export const StyledText = styled.Text`
+  font-size: ${fonts.sizes.md}px;
+  font-family: ${fonts.family};
+  color: ${Colors.accent};
+`;

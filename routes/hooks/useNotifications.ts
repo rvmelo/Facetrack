@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Notifications from 'expo-notifications';
 
 // redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // navigation
 import { useNavigation } from '@react-navigation/native';
@@ -18,6 +18,7 @@ import { EvaluationStackParamList, ProfileStackParamList } from '../types';
 
 // redux
 import { IState } from '../../store';
+import { updateUserRate } from '../../store/modules/user/actions';
 import { IUser, IUserState } from '../../store/modules/user/types';
 
 // constants
@@ -77,6 +78,8 @@ export function useNotifications(): ReturnValue {
   const profileNavigator = useNavigation<ProfileNavigatorProps>();
   const evaluationNavigator = useNavigation<EvaluationNavigatorProps>();
 
+  const dispatch = useDispatch();
+
   const { user } = useSelector<IState, IUserState>(state => state.user);
 
   Notifications.setNotificationHandler({
@@ -100,11 +103,16 @@ export function useNotifications(): ReturnValue {
 
   const onRefresh = useCallback(async () => {
     try {
-      const response: AxiosResponse<NotificationResponse> = await api.get(
-        `/evaluation?page=1`,
+      const rateResponse: AxiosResponse<{ rate: number }> = await api.get(
+        'users/update-rate',
       );
 
-      const auxNotifications = response?.data?.foundEvaluations;
+      const { rate } = rateResponse?.data || {};
+
+      const notificationResponse: AxiosResponse<NotificationResponse> =
+        await api.get(`/evaluation?page=1`);
+
+      const auxNotifications = notificationResponse?.data?.foundEvaluations;
 
       const unreadNotifications = auxNotifications.reduce(
         (total, notificationItem) => {
@@ -117,10 +125,11 @@ export function useNotifications(): ReturnValue {
       );
 
       setUnreadNotificationsAmount(unreadNotifications);
+      dispatch(updateUserRate(rate));
     } catch (err) {
       showToast({ message: translate('loadNotificationError') });
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     onRefresh();
