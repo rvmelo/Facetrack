@@ -19,6 +19,7 @@ import { translate } from '../../i18n/src/locales';
 export interface UserEvaluationProps {
   value: number;
   cardUserId: string;
+  message?: string;
 }
 
 interface ReturnValue {
@@ -52,11 +53,15 @@ export function useListItem(): ReturnValue {
   });
 
   const handleUserEvaluation = useCallback(
-    async ({ value, cardUserId }: UserEvaluationProps) => {
+    async ({ value, cardUserId, message = '' }: UserEvaluationProps) => {
       try {
         setRate(value);
 
-        await api.patch(`/evaluation?value=${value}&toUserId=${cardUserId}`);
+        await api.post('/evaluation', {
+          value,
+          toUserId: cardUserId,
+          message: message?.trim(),
+        });
       } catch (err) {
         showToast({
           message: translate('sendEvaluationError'),

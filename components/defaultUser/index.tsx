@@ -18,15 +18,8 @@ import { RateModal } from '../profileItems/rateModal';
 import { useDefaultUser } from './useDefaultUser';
 
 export const DefaultUser: React.FC = memo(() => {
-  const {
-    modalVisible,
-    setModalVisible,
-    rate,
-    setRate,
-    handleEvaluation,
-    userMedia,
-    user,
-  } = useDefaultUser();
+  const { modalVisible, setModalVisible, handleEvaluation, userMedia, user } =
+    useDefaultUser();
 
   const { isVisible, setIsVisible, media, setMedia, imgHeight } =
     useMediaModal();
@@ -80,8 +73,6 @@ export const DefaultUser: React.FC = memo(() => {
           instaName: user?.instagram?.userName,
         }}
         handleEvaluation={handleEvaluation}
-        rate={rate}
-        setRate={setRate}
       />
       <MediaModal
         isVisible={isVisible}

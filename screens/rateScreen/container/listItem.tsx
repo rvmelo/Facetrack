@@ -39,6 +39,7 @@ interface ListItemProps {
 interface RouteParams {
   value: number;
   userProviderId: string;
+  message?: string;
 }
 
 export const ListItem: React.FC<ListItemProps> = ({
@@ -60,7 +61,7 @@ export const ListItem: React.FC<ListItemProps> = ({
   useEffect(() => {
     if (!route?.params) return;
 
-    const { value, userProviderId } = route.params as RouteParams;
+    const { value, userProviderId, message } = route.params as RouteParams;
 
     if (!value || !userProviderId) return;
 
@@ -71,7 +72,7 @@ export const ListItem: React.FC<ListItemProps> = ({
       isLastItem: cardData.isLastItem,
       opacity: cardOpacity,
     });
-    handleUserEvaluation({ cardUserId: user?.userProviderId, value });
+    handleUserEvaluation({ cardUserId: user?.userProviderId, value, message });
 
     navigation.dispatch({
       ...CommonActions.setParams({

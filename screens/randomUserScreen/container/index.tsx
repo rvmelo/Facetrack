@@ -18,15 +18,8 @@ import { useRandomUserScreen } from '../useRandomUserScreen';
 import { Container, ProfileDataContainer, StyledText } from './styles';
 
 export const RandomUserScreen: React.FC = memo(() => {
-  const {
-    modalVisible,
-    setModalVisible,
-    rate,
-    setRate,
-    handleEvaluation,
-    userMedia,
-    user,
-  } = useRandomUserScreen();
+  const { modalVisible, setModalVisible, handleEvaluation, userMedia, user } =
+    useRandomUserScreen();
 
   const { isVisible, setIsVisible, media, setMedia, imgHeight } =
     useMediaModal();
@@ -80,8 +73,6 @@ export const RandomUserScreen: React.FC = memo(() => {
           instaName: user?.instagram?.userName,
         }}
         handleEvaluation={handleEvaluation}
-        rate={rate}
-        setRate={setRate}
       />
       <MediaModal
         isVisible={isVisible}

@@ -27,7 +27,9 @@ export type NotificationStackParamList = {
 
 export type EvaluationStackParamList = {
   TrackOptionScreen: undefined;
-  RateScreen: { value: number; userProviderId: string } | undefined;
+  RateScreen:
+    | { value: number; userProviderId: string; message: string }
+    | undefined;
   TrackScreen: undefined;
   RandomUserScreen: { user: IUser };
   TrackedUserScreen: { user: IUser };

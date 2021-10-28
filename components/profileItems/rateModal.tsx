@@ -19,32 +19,27 @@ import { ButtonPanel } from './buttonPanel';
 import Colors from '../../constants/colors';
 import { useRateModal } from './hooks/useRateModal';
 
+interface EvaluationInput {
+  value: number;
+  message?: string;
+}
+
 interface ModalComponentProps {
   modalVisible: boolean;
   // eslint-disable-next-line no-unused-vars
   setModalVisible: (value: boolean) => void;
-  rate: number;
-  // eslint-disable-next-line no-unused-vars
-  setRate: (value: number) => void;
   userData: {
     avatarUri: string;
     instaName: string | undefined;
   };
   // eslint-disable-next-line no-unused-vars
-  handleEvaluation: (value: number) => void;
+  handleEvaluation: (input: EvaluationInput) => void;
 }
 
 export const RateModal: React.FC<ModalComponentProps> = memo(
-  ({
-    modalVisible,
-    setModalVisible,
-    rate,
-    setRate,
-    userData,
-    handleEvaluation,
-  }) => {
+  ({ userData, handleEvaluation, modalVisible, setModalVisible }) => {
     const { avatarUri, instaName } = userData;
-    const { display } = useRateModal();
+    const { display, rate, setRate, message, setMessage } = useRateModal();
 
     return (
       <Modal
@@ -62,9 +57,13 @@ export const RateModal: React.FC<ModalComponentProps> = memo(
             {display && <ButtonPanel rate={rate} setRate={setRate} />}
 
             <InputContainer>
-              <RateModalInput />
+              <RateModalInput onChangeText={text => setMessage(text)} />
             </InputContainer>
-            {display && <ModalButton onPress={() => handleEvaluation(rate)} />}
+            {display && (
+              <ModalButton
+                onPress={() => handleEvaluation({ value: rate, message })}
+              />
+            )}
           </View>
           {display && (
             <CloseButton
