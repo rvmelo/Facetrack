@@ -29,7 +29,9 @@ export const InputContainer = styled.View`
   overflow: hidden;
 `;
 
-export const StyledInput = styled.TextInput`
+export const StyledInput = styled.TextInput.attrs({
+  selectionColor: Colors.primary,
+})`
   height: 40px;
   flex: 1;
   color: ${Colors.accent};

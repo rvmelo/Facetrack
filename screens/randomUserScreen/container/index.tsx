@@ -7,7 +7,7 @@ import { MEDIA_TYPES, UserMedia } from '../../../store/modules/user/types';
 import { VideoItem, PhotoItem } from '../../../components/profileItems/items';
 import PhotoScroll from '../../../components/profileItems/photoScroll';
 import { ProfileButton } from '../../../components/profileItems/profileButton';
-import { ModalComponent } from '../../../components/profileItems/modalComponent';
+import { RateModal } from '../../../components/profileItems/rateModal';
 import { MediaModal } from '../../../components/profileItems/mediaModal';
 import { Header } from '../../../components/profileItems/header';
 
@@ -72,7 +72,7 @@ export const RandomUserScreen: React.FC = memo(() => {
 
         <PhotoScroll userMedia={userMedia} renderItem={renderItem} />
       </Container>
-      <ModalComponent
+      <RateModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         userData={{

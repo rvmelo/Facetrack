@@ -14,7 +14,7 @@ import { Header } from '../profileItems/header';
 import { useMediaModal } from '../profileItems/hooks/useMediaModal';
 
 import { Container, ProfileDataContainer, StyledText } from './styles';
-import { ModalComponent } from '../profileItems/modalComponent';
+import { RateModal } from '../profileItems/rateModal';
 import { useDefaultUser } from './useDefaultUser';
 
 export const DefaultUser: React.FC = memo(() => {
@@ -72,7 +72,7 @@ export const DefaultUser: React.FC = memo(() => {
 
         <PhotoScroll userMedia={userMedia} renderItem={renderItem} />
       </Container>
-      <ModalComponent
+      <RateModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         userData={{

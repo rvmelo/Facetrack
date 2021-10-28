@@ -1,7 +1,13 @@
 import React, { memo } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
 
-import { CenteredView, ModalText, ModalUserInfoContainer } from './styles';
+import {
+  CenteredView,
+  InputContainer,
+  RateModalText,
+  ModalUserInfoContainer,
+  RateModalInput,
+} from './styles';
 
 // components
 import { ModalButton } from './modalButton';
@@ -11,6 +17,7 @@ import { ButtonPanel } from './buttonPanel';
 
 //  constants
 import Colors from '../../constants/colors';
+import { useRateModal } from './hooks/useRateModal';
 
 interface ModalComponentProps {
   modalVisible: boolean;
@@ -27,7 +34,7 @@ interface ModalComponentProps {
   handleEvaluation: (value: number) => void;
 }
 
-export const ModalComponent: React.FC<ModalComponentProps> = memo(
+export const RateModal: React.FC<ModalComponentProps> = memo(
   ({
     modalVisible,
     setModalVisible,
@@ -37,6 +44,7 @@ export const ModalComponent: React.FC<ModalComponentProps> = memo(
     handleEvaluation,
   }) => {
     const { avatarUri, instaName } = userData;
+    const { display } = useRateModal();
 
     return (
       <Modal
@@ -49,12 +57,21 @@ export const ModalComponent: React.FC<ModalComponentProps> = memo(
           <View style={styles.modalView}>
             <ModalUserInfoContainer>
               <Avatar avatar={avatarUri} />
-              <ModalText>@{instaName}</ModalText>
+              <RateModalText>@{instaName}</RateModalText>
             </ModalUserInfoContainer>
-            <ButtonPanel rate={rate} setRate={setRate} />
-            <ModalButton onPress={() => handleEvaluation(rate)} />
+            {display && <ButtonPanel rate={rate} setRate={setRate} />}
+
+            <InputContainer>
+              <RateModalInput />
+            </InputContainer>
+            {display && <ModalButton onPress={() => handleEvaluation(rate)} />}
           </View>
-          <CloseButton onPress={() => setModalVisible(false)} />
+          {display && (
+            <CloseButton
+              styles={{ marginTop: 20 }}
+              onPress={() => setModalVisible(false)}
+            />
+          )}
         </CenteredView>
       </Modal>
     );
@@ -63,7 +80,6 @@ export const ModalComponent: React.FC<ModalComponentProps> = memo(
 
 const styles = StyleSheet.create({
   modalView: {
-    margin: 20,
     backgroundColor: Colors.accent,
     borderRadius: 20,
     padding: 35,

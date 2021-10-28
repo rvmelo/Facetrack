@@ -71,13 +71,37 @@ export const ButtonPanelContainer = styled.View`
 
 export const TouchableIcon = styled.TouchableWithoutFeedback``;
 
-// modal
+// rate modal
 export const CenteredView = styled.View`
   flex: 1;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   margin-top: 22px;
+  background: rgba(0, 0, 0, 0.9);
 `;
+
+export const RateModalText = styled.Text`
+  color: ${Colors.background};
+  font-family: ${fonts.family};
+  font-size: ${fonts.sizes.sm}px;
+`;
+
+export const InputContainer = styled.View`
+  border-color: ${Colors.primary};
+  border-width: 2px;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 10px 0;
+  width: 250px;
+`;
+
+export const RateModalInput = styled.TextInput.attrs({
+  multiline: true,
+  numberOfLines: 10,
+  textAlignVertical: 'top',
+  placeholder: 'Leave a message (optional)',
+  selectionColor: Colors.primary,
+})``;
 
 //  modal button
 
@@ -110,7 +134,6 @@ export const ModalText = styled.Text`
 `;
 
 //  media modal
-
 export const Instagram = styled.Text`
   color: ${Colors.accent};
   font-weight: bold;
