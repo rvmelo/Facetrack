@@ -9,6 +9,7 @@ import PhotoScroll from '../profileItems/photoScroll';
 import { ProfileButton } from '../profileItems/profileButton';
 import { MediaModal } from '../profileItems/mediaModal';
 import { Header } from '../profileItems/header';
+import { SelectionBar } from '../profileItems/selectionBar';
 
 //   hooks
 import { useMediaModal } from '../profileItems/hooks/useMediaModal';
@@ -61,8 +62,8 @@ export const DefaultUser: React.FC = memo(() => {
           <StyledText>{user?.relationshipStatus}</StyledText>
           {/* <StyledText>{user?.birthDate}</StyledText> */}
           <ProfileButton onPress={() => setModalVisible(true)} text="Rate" />
+          <SelectionBar />
         </ProfileDataContainer>
-
         <PhotoScroll userMedia={userMedia} renderItem={renderItem} />
       </Container>
       <RateModal

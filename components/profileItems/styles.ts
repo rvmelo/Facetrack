@@ -219,3 +219,24 @@ export const StyledText = styled.Text`
   font-family: ${fonts.family};
   color: ${Colors.accent};
 `;
+
+//  selection bar
+export const BarContainer = styled.View`
+  height: 50px;
+  margin: 10px 0 20px;
+  flex-direction: row;
+  border-color: ${Colors.accent};
+  width: 100%;
+`;
+
+interface BarItemProps {
+  isSelected: boolean;
+}
+
+export const BarItem = styled.View<BarItemProps>`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  border-bottom-width: 2px;
+  border-color: ${props => (props.isSelected ? Colors.primary : 'transparent')};
+`;
