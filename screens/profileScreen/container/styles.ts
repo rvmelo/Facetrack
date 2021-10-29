@@ -43,3 +43,18 @@ export const EmptyContainer = styled.View`
   justify-content: center;
   background-color: ${Colors.background};
 `;
+
+//  profile scroll
+export const EmptyPhotoContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  background-color: ${Colors.background};
+`;
+
+export const PhotoContainerText = styled.Text`
+  font-size: ${fonts.sizes.lg}px;
+  font-family: ${fonts.family};
+  text-align: center;
+  color: ${Colors.accent};
+`;

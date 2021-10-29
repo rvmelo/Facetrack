@@ -51,6 +51,8 @@ export function useDefaultUser(): ReturnType {
           message: message?.trim(),
         });
 
+        await api.get(`users/update-rate/${user.userProviderId}`);
+
         setModalVisible(false);
       } catch (err) {
         showToast({

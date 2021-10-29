@@ -6,39 +6,28 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 //  redux
-import { useSelector } from 'react-redux';
-import { IState } from '../../../store';
-import {
-  IUserState,
-  MEDIA_TYPES,
-  UserMedia,
-} from '../../../store/modules/user/types';
+
+import { MEDIA_TYPES, UserMedia } from '../../../store/modules/user/types';
 
 // components
 import { VideoItem, PhotoItem } from '../../../components/profileItems/items';
-import { ProfileButton } from '../../../components/profileItems/profileButton';
-import PhotoScroll from '../../../components/profileItems/photoScroll';
 import { MediaModal } from '../../../components/profileItems/mediaModal';
-import { Header } from '../../../components/profileItems/header';
 
 // hooks
 import useInstagram from '../../../hooks/useInstagram';
 import { useMediaModal } from '../../../components/profileItems/hooks/useMediaModal';
+import { useProfileScreen } from '../useProfileScreen';
 
 // constants
 import Colors from '../../../constants/colors';
 
-import {
-  Container,
-  ProfileDataContainer,
-  StyledText,
-  EmptyContainer,
-} from './styles';
+import { Container, EmptyContainer } from './styles';
 
 // i18n
 import { translate } from '../../../i18n/src/locales';
 
 import { ProfileStackParamList } from '../../../routes/types';
+import { ProfileScroll } from './profileScroll';
 
 type NavigationProps = StackNavigationProp<
   ProfileStackParamList,
@@ -46,15 +35,19 @@ type NavigationProps = StackNavigationProp<
 >;
 
 const ProfileScreen: React.FC = () => {
-  const { user, isAvatarLoading, isUserUpdateFailure, isUserLoading } =
-    useSelector<IState, IUserState>(state => state.user);
+  const {
+    user,
+    isUserLoading,
+    isUserUpdateFailure,
+    isAvatarLoading,
+    onUserLoading,
+    isRefreshing,
+  } = useProfileScreen();
 
   const { handleInstagramRefresh, shouldRefreshInstagram } = useInstagram();
 
   const { isVisible, setIsVisible, media, setMedia, imgHeight } =
     useMediaModal();
-
-  const userMedia = user?.instagram?.userMedia;
 
   const navigation = useNavigation<NavigationProps>();
 
@@ -109,26 +102,13 @@ const ProfileScreen: React.FC = () => {
   ) : (
     <>
       <Container>
-        <ProfileDataContainer>
-          <Header
-            isAvatarLoading={isAvatarLoading}
-            avatar={user?.avatar}
-            name={user?.name}
-            rate={user?.rate?.toFixed(2)}
-          />
-
-          <StyledText>@{user?.instagram?.userName}</StyledText>
-          <StyledText>{user?.sexualOrientation}</StyledText>
-          <StyledText>{user?.relationshipStatus}</StyledText>
-          {/* <StyledText>{user?.birthDate}</StyledText> */}
-
-          <ProfileButton
-            onPress={() => navigation.navigate('EditProfile')}
-            text={translate('editProfile')}
-          />
-        </ProfileDataContainer>
-
-        <PhotoScroll userMedia={userMedia} renderItem={renderItem} />
+        <ProfileScroll
+          user={user}
+          isAvatarLoading={isAvatarLoading}
+          renderItem={renderItem}
+          onUserLoading={onUserLoading}
+          isRefreshing={isRefreshing}
+        />
       </Container>
       <MediaModal
         isVisible={isVisible}
