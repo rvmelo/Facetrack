@@ -1,5 +1,5 @@
 import React, { memo, useCallback } from 'react';
-import { ListRenderItem } from 'react-native';
+import { ListRenderItem, ScrollView } from 'react-native';
 
 import { MEDIA_TYPES, UserMedia } from '../../store/modules/user/types';
 
@@ -10,6 +10,7 @@ import { ProfileButton } from '../profileItems/profileButton';
 import { MediaModal } from '../profileItems/mediaModal';
 import { Header } from '../profileItems/header';
 import { SelectionBar } from '../profileItems/selectionBar';
+import { EvaluationList } from '../profileItems/evaluationList';
 
 //   hooks
 import { useMediaModal } from '../profileItems/hooks/useMediaModal';
@@ -19,8 +20,14 @@ import { RateModal } from '../profileItems/rateModal';
 import { useDefaultUser } from './useDefaultUser';
 
 export const DefaultUser: React.FC = memo(() => {
-  const { modalVisible, setModalVisible, handleEvaluation, userMedia, user } =
-    useDefaultUser();
+  const {
+    modalVisible,
+    setModalVisible,
+    handleEvaluation,
+    userMedia,
+    user,
+    scroll,
+  } = useDefaultUser();
 
   const { isVisible, setIsVisible, media, setMedia, imgHeight } =
     useMediaModal();
@@ -62,9 +69,12 @@ export const DefaultUser: React.FC = memo(() => {
           <StyledText>{user?.relationshipStatus}</StyledText>
           {/* <StyledText>{user?.birthDate}</StyledText> */}
           <ProfileButton onPress={() => setModalVisible(true)} text="Rate" />
-          <SelectionBar />
+          <SelectionBar scroll={scroll} />
         </ProfileDataContainer>
-        <PhotoScroll userMedia={userMedia} renderItem={renderItem} />
+        <ScrollView ref={scroll} scrollEnabled={false} horizontal>
+          <PhotoScroll userMedia={userMedia} renderItem={renderItem} />
+          <EvaluationList />
+        </ScrollView>
       </Container>
       <RateModal
         modalVisible={modalVisible}

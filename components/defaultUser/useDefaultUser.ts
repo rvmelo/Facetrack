@@ -1,6 +1,8 @@
+import React, { useCallback, useState, useEffect, useRef } from 'react';
+import { ScrollView } from 'react-native';
+
 // navigation
 import { useRoute } from '@react-navigation/native';
-import { useCallback, useState } from 'react';
 
 //  services
 import api from '../../services/api';
@@ -29,6 +31,7 @@ interface ReturnType {
   // eslint-disable-next-line no-unused-vars
   handleEvaluation: (input: EvaluationInput) => void;
   user: IUser;
+  scroll: React.RefObject<ScrollView>;
 }
 
 export function useDefaultUser(): ReturnType {
@@ -39,6 +42,18 @@ export function useDefaultUser(): ReturnType {
   const userMedia = user?.instagram?.userMedia;
 
   const [modalVisible, setModalVisible] = useState(false);
+
+  const scroll = useRef<ScrollView>(null);
+
+  const isMounted = useRef<boolean | null>(null);
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   const handleEvaluation = useCallback(
     async ({ value, message = '' }: EvaluationInput) => {
@@ -53,7 +68,7 @@ export function useDefaultUser(): ReturnType {
 
         await api.get(`users/update-rate/${user.userProviderId}`);
 
-        setModalVisible(false);
+        isMounted.current && setModalVisible(false);
       } catch (err) {
         showToast({
           message: translate('sendEvaluationError'),
@@ -69,5 +84,6 @@ export function useDefaultUser(): ReturnType {
     userMedia,
     handleEvaluation,
     user,
+    scroll,
   };
 }

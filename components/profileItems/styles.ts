@@ -240,3 +240,10 @@ export const BarItem = styled.View<BarItemProps>`
   border-bottom-width: 2px;
   border-color: ${props => (props.isSelected ? Colors.primary : 'transparent')};
 `;
+
+// evaluation List
+
+export const EvaluationContainer = styled.View`
+  flex: 1;
+  width: ${SCREEN_WIDTH}px;
+`;

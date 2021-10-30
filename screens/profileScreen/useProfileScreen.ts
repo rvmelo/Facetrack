@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { AxiosResponse } from 'axios';
 
 //  redux
@@ -24,8 +24,18 @@ export function useProfileScreen(): ReturnType {
 
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  const isMounted = useRef<boolean | null>(null);
+
   const { user, isAvatarLoading, isUserUpdateFailure, isUserLoading } =
     useSelector<IState, IUserState>(state => state.user);
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   const onUserLoading = useCallback(async () => {
     setIsRefreshing(true);
@@ -36,7 +46,7 @@ export function useProfileScreen(): ReturnType {
 
     const { rate } = response?.data || {};
 
-    setIsRefreshing(false);
+    isMounted.current && setIsRefreshing(false);
 
     if (!rate) return;
 
