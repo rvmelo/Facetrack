@@ -261,14 +261,8 @@ interface ItemContainerProps {
 export const ItemContainer = styled.View<ItemContainerProps>`
   width: ${SCREEN_WIDTH}px;
   height: ${props => props.height}px;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-around;
-  padding-right: 10px;
   overflow: hidden;
   background-color: transparent;
-  border-bottom-width: 0.5px;
-  border-color: ${Colors.disabled};
 `;
 
 export const ItemText = styled.Text`
@@ -278,7 +272,8 @@ export const ItemText = styled.Text`
 `;
 
 export const TextContainer = styled.View`
-  width: 80%;
+  flex: 1;
+  margin: 0 10px;
 `;
 
 export const TouchableItem = styled.TouchableNativeFeedback.attrs({
@@ -290,4 +285,9 @@ export const StyledDate = styled.Text`
   color: ${Colors.disabled};
   font-family: ${fonts.family};
   font-size: ${fonts.sizes.sm}px;
+`;
+
+export const ItemWrapper = styled.View`
+  flex-direction: row;
+  align-items: center;
 `;

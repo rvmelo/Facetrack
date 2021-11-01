@@ -7,7 +7,7 @@ import { EvaluationItem } from './evaluationItem';
 import { ListFooterComponent } from '../listFooterComponent';
 
 //  hooks
-import { useNotifications, EvaluationData } from './hooks/useEvaluation';
+import { useEvaluations, EvaluationData } from './hooks/useEvaluations';
 
 interface EvaluationListProps {
   userProviderId: string;
@@ -23,7 +23,7 @@ export const EvaluationList: React.FC<EvaluationListProps> = ({
     onListEnd,
     isLoading,
     setOnMomentumScrollBegin,
-  } = useNotifications({ userProviderId });
+  } = useEvaluations({ userProviderId });
 
   const ITEM_HEIGHT = 130;
 

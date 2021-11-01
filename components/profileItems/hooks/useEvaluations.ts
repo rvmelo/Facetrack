@@ -44,7 +44,7 @@ interface ReturnType {
   setOnMomentumScrollBegin: (value: boolean) => void;
 }
 
-export function useNotifications({ userProviderId }: IRequest): ReturnType {
+export function useEvaluations({ userProviderId }: IRequest): ReturnType {
   const [onMomentumScrollBegin, setOnMomentumScrollBegin] = useState(false);
 
   const [evaluations, setNotifications] = useState<EvaluationData[]>([]);

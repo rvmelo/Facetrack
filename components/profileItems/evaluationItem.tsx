@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
 
+import { Ionicons } from '@expo/vector-icons';
+
 //  i18n
 import I18n from 'i18n-js';
 
@@ -8,6 +10,9 @@ import Avatar from '../avatar/index';
 
 // services
 import { formatDate, getHoursFromDate } from '../../services/date';
+
+//  constants
+import Colors from '../../constants/colors';
 
 //  styles
 import {
@@ -18,6 +23,7 @@ import {
   TextContainer,
   TouchableItem,
   StyledDate,
+  ItemWrapper,
 } from './styles';
 
 interface EvaluationItemProps {
@@ -40,22 +46,30 @@ export const EvaluationItem: React.FC<EvaluationItemProps> = memo(
     return (
       <TouchableItem onPress={() => undefined}>
         <ItemContainer height={itemHeight}>
-          <Avatar avatar={avatar} />
-          <TextContainer>
-            <StyledDate>
-              {formatDate(updated_at)}, {getHoursFromDate(updated_at)}
-            </StyledDate>
-            <ItemText numberOfLines={1}>
-              <HeaderText>{name} </HeaderText>
-              <InstagramText>@{instaName}</InstagramText>
-            </ItemText>
-            <ItemText numberOfLines={3}>
-              {I18n.t('userEvaluation', {
-                name: name?.split(' ')[0],
-                value,
-              })}
-            </ItemText>
-          </TextContainer>
+          <ItemWrapper>
+            <Avatar avatar={avatar} />
+            <TextContainer>
+              <StyledDate>
+                {formatDate(updated_at)}, {getHoursFromDate(updated_at)}
+              </StyledDate>
+              <ItemText numberOfLines={1}>
+                <HeaderText>{name} </HeaderText>
+                <InstagramText>@{instaName}</InstagramText>
+              </ItemText>
+              <ItemText numberOfLines={3}>
+                {I18n.t('userEvaluation', {
+                  name: name?.split(' ')[0],
+                  value,
+                })}
+              </ItemText>
+            </TextContainer>
+            <Ionicons
+              name="md-open"
+              style={{ alignSelf: 'flex-start', marginRight: 5 }}
+              size={30}
+              color={Colors.accent}
+            />
+          </ItemWrapper>
         </ItemContainer>
       </TouchableItem>
     );
