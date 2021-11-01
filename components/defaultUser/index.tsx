@@ -73,7 +73,7 @@ export const DefaultUser: React.FC = memo(() => {
         </ProfileDataContainer>
         <ScrollView ref={scroll} scrollEnabled={false} horizontal>
           <PhotoScroll userMedia={userMedia} renderItem={renderItem} />
-          <EvaluationList />
+          <EvaluationList userProviderId={user.userProviderId} />
         </ScrollView>
       </Container>
       <RateModal

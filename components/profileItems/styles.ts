@@ -247,3 +247,47 @@ export const EvaluationContainer = styled.View`
   flex: 1;
   width: ${SCREEN_WIDTH}px;
 `;
+
+//  evaluation item
+
+export const InstagramText = styled.Text`
+  color: ${Colors.disabled};
+`;
+
+interface ItemContainerProps {
+  height: number;
+}
+
+export const ItemContainer = styled.View<ItemContainerProps>`
+  width: ${SCREEN_WIDTH}px;
+  height: ${props => props.height}px;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-right: 10px;
+  overflow: hidden;
+  background-color: transparent;
+  border-bottom-width: 0.5px;
+  border-color: ${Colors.disabled};
+`;
+
+export const ItemText = styled.Text`
+  font-family: ${fonts.family};
+  font-size: ${fonts.sizes.md}px;
+  color: ${Colors.accent};
+`;
+
+export const TextContainer = styled.View`
+  width: 80%;
+`;
+
+export const TouchableItem = styled.TouchableNativeFeedback.attrs({
+  background: TouchableNativeFeedback.Ripple('#ccc', true),
+  useForeground: true,
+})``;
+
+export const StyledDate = styled.Text`
+  color: ${Colors.disabled};
+  font-family: ${fonts.family};
+  font-size: ${fonts.sizes.sm}px;
+`;

@@ -2,17 +2,16 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 
 import { AxiosResponse } from 'axios';
 
-//  redux
-import { useSelector } from 'react-redux';
-import { IState } from '../../store';
-import { IUserState } from '../../store/modules/user/types';
-
 //  services
-import api from '../../services/api';
-import { showToast } from '../../services/toast';
+import api from '../../../services/api';
+import { showToast } from '../../../services/toast';
 
 //  i18n
-import { translate } from '../../i18n/src/locales';
+import { translate } from '../../../i18n/src/locales';
+
+interface IRequest {
+  userProviderId: string;
+}
 
 interface UserData {
   avatar: string;
@@ -23,7 +22,7 @@ interface UserData {
   };
 }
 
-export interface NotificationData {
+export interface EvaluationData {
   _id: string;
   updated_at: string;
   fromUserId: UserData;
@@ -31,12 +30,12 @@ export interface NotificationData {
   isRead?: boolean;
 }
 
-interface NotificationResponse {
-  foundEvaluations: NotificationData[];
+interface EvaluationResponse {
+  foundEvaluations: EvaluationData[];
 }
 
 interface ReturnType {
-  notifications: NotificationData[];
+  evaluations: EvaluationData[];
   isRefreshing: boolean;
   onRefresh: () => Promise<void>;
   onListEnd: () => Promise<void>;
@@ -45,18 +44,16 @@ interface ReturnType {
   setOnMomentumScrollBegin: (value: boolean) => void;
 }
 
-export function useNotifications(): ReturnType {
+export function useNotifications({ userProviderId }: IRequest): ReturnType {
   const [onMomentumScrollBegin, setOnMomentumScrollBegin] = useState(false);
 
-  const [notifications, setNotifications] = useState<NotificationData[]>([]);
+  const [evaluations, setNotifications] = useState<EvaluationData[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [page, setPage] = useState(1);
 
   const [isLoading, setIsLoading] = useState(false);
 
   const isMounted = useRef<boolean | null>(null);
-
-  const { user } = useSelector<IState, IUserState>(state => state.user);
 
   useEffect(() => {
     isMounted.current = true;
@@ -70,8 +67,8 @@ export function useNotifications(): ReturnType {
     try {
       setIsRefreshing(true);
 
-      const response: AxiosResponse<NotificationResponse> = await api.get(
-        `/evaluation/received/${user.userProviderId}?page=1`,
+      const response: AxiosResponse<EvaluationResponse> = await api.get(
+        `/evaluation/received/${userProviderId}?page=1`,
       );
 
       isMounted.current && setPage(1);
@@ -83,7 +80,7 @@ export function useNotifications(): ReturnType {
       isMounted.current && setIsRefreshing(false);
       showToast({ message: translate('loadNotificationError') });
     }
-  }, [user.userProviderId]);
+  }, [userProviderId]);
 
   const onListEnd = useCallback(async () => {
     try {
@@ -91,8 +88,8 @@ export function useNotifications(): ReturnType {
 
       setIsLoading(true);
 
-      const response: AxiosResponse<NotificationResponse> = await api.get(
-        `/evaluation/received/${user.userProviderId}?page=${page + 1}`,
+      const response: AxiosResponse<EvaluationResponse> = await api.get(
+        `/evaluation/received/${userProviderId}?page=${page + 1}`,
       );
 
       isMounted.current && setIsLoading(false);
@@ -111,7 +108,7 @@ export function useNotifications(): ReturnType {
       isMounted.current && setOnMomentumScrollBegin(false);
       showToast({ message: translate('loadNotificationError') });
     }
-  }, [page, isLoading, onMomentumScrollBegin, user.userProviderId]);
+  }, [page, isLoading, onMomentumScrollBegin, userProviderId]);
 
   useEffect(() => {
     onRefresh();
@@ -119,7 +116,7 @@ export function useNotifications(): ReturnType {
 
   return {
     isRefreshing,
-    notifications,
+    evaluations,
     onRefresh,
     onListEnd,
     isLoading,

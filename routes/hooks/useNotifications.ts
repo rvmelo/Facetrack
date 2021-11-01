@@ -101,7 +101,7 @@ export function useNotifications(): ReturnValue {
   const onRefresh = useCallback(async () => {
     try {
       const notificationResponse: AxiosResponse<NotificationResponse> =
-        await api.get(`/evaluation?page=1`);
+        await api.get(`/evaluation/received/${user.userProviderId}?page=1`);
 
       const auxNotifications = notificationResponse?.data?.foundEvaluations;
 
@@ -119,7 +119,7 @@ export function useNotifications(): ReturnValue {
     } catch (err) {
       showToast({ message: translate('loadNotificationError') });
     }
-  }, []);
+  }, [user.userProviderId]);
 
   useEffect(() => {
     onRefresh();
