@@ -60,6 +60,7 @@ export const EvaluationList: React.FC<EvaluationListProps> = ({
             setEvaluation({ rate: value, message });
             setModalVisible(true);
           }}
+          hasMessage={!!message}
         />
       );
     },

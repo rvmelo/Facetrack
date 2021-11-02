@@ -37,41 +37,48 @@ interface EvaluationItemProps {
   evaluationId: string;
   itemHeight: number;
   onPress: () => void;
+  hasMessage: boolean;
 }
 
 export const EvaluationItem: React.FC<EvaluationItemProps> = memo(
-  ({ fromUser, updated_at, value, itemHeight, onPress }) => {
+  ({ fromUser, updated_at, value, itemHeight, hasMessage, onPress }) => {
     const { avatar, name, instaName } = fromUser;
 
-    return (
-      <TouchableItem onPress={onPress}>
-        <ItemContainer height={itemHeight}>
-          <ItemWrapper>
-            <Avatar avatar={avatar} />
-            <TextContainer>
-              <StyledDate>
-                {formatDate(updated_at)}, {getHoursFromDate(updated_at)}
-              </StyledDate>
-              <ItemText numberOfLines={1}>
-                <HeaderText>{name} </HeaderText>
-                <InstagramText>@{instaName}</InstagramText>
-              </ItemText>
-              <ItemText numberOfLines={3}>
-                {I18n.t('receivedEvaluation', {
-                  name: name?.split(' ')[0],
-                  value,
-                })}
-              </ItemText>
-            </TextContainer>
+    const ItemContent = (
+      <ItemContainer height={itemHeight}>
+        <ItemWrapper>
+          <Avatar avatar={avatar} />
+          <TextContainer>
+            <StyledDate>
+              {formatDate(updated_at)}, {getHoursFromDate(updated_at)}
+            </StyledDate>
+            <ItemText numberOfLines={1}>
+              <HeaderText>{name} </HeaderText>
+              <InstagramText>@{instaName}</InstagramText>
+            </ItemText>
+            <ItemText numberOfLines={3}>
+              {I18n.t('receivedEvaluation', {
+                name: name?.split(' ')[0],
+                value,
+              })}
+            </ItemText>
+          </TextContainer>
+          {hasMessage && (
             <Ionicons
               name="md-open"
               style={{ alignSelf: 'flex-start', marginRight: 5 }}
               size={30}
               color={Colors.accent}
             />
-          </ItemWrapper>
-        </ItemContainer>
-      </TouchableItem>
+          )}
+        </ItemWrapper>
+      </ItemContainer>
+    );
+
+    return hasMessage ? (
+      <TouchableItem onPress={onPress}>{ItemContent}</TouchableItem>
+    ) : (
+      <>{ItemContent}</>
     );
   },
 );
