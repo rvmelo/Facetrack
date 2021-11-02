@@ -6,10 +6,14 @@ import { FlatList, ListRenderItem } from 'react-native';
 //  components
 import { EvaluationItem } from './evaluationItem';
 import { ListFooterComponent } from '../listFooterComponent';
+import { EmptyList } from './emptyList';
 
 //  hooks
 import { useEvaluations, EvaluationData } from './hooks/useEvaluations';
 import { ModalEvaluation, ModalUser } from './hooks/useEvaluationModal';
+
+//  i18n
+import { translate } from '../../i18n/src/locales';
 
 interface EvaluationListProps {
   userProviderId: string;
@@ -64,7 +68,12 @@ export const EvaluationList: React.FC<EvaluationListProps> = ({
   return (
     <FlatList
       data={evaluations}
-      // ListEmptyComponent={EmptyComponent}
+      ListEmptyComponent={() => (
+        <EmptyList
+          title={translate('noEvaluations')}
+          message={translate('userHasNoEvaluations')}
+        />
+      )}
       contentContainerStyle={{ flex: evaluations.length === 0 ? 1 : 0 }}
       refreshing={isRefreshing}
       onRefresh={onRefresh}

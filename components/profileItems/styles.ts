@@ -99,7 +99,6 @@ export const RateModalInput = styled.TextInput.attrs({
   multiline: true,
   numberOfLines: 10,
   textAlignVertical: 'top',
-  placeholder: 'Leave a message (optional)',
   selectionColor: Colors.primary,
 })``;
 
@@ -303,4 +302,27 @@ export const ItemWrapper = styled.View`
 
 export const MessageContainer = styled.View`
   margin-top: 20px;
+`;
+
+//  Empty component
+
+export const EmptyContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  width: ${SCREEN_WIDTH}px;
+`;
+
+export const SmallScreenText = styled.Text`
+  font-size: ${fonts.sizes.sm}px;
+  font-family: ${fonts.family};
+  color: ${Colors.disabled};
+  text-align: center;
+`;
+
+export const ScreenText = styled.Text`
+  font-size: ${fonts.sizes.lg}px;
+  font-family: ${fonts.family};
+  color: ${Colors.accent};
+  text-align: center;
 `;

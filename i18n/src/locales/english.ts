@@ -112,4 +112,12 @@ export default {
     'You should grant permissions for this app to access your device location',
   backgroundTrackingError: 'Background position update failed to start',
   foregroundTrackingError: 'Foreground position update failed to start',
+
+  //  evaluations
+  noEvaluations: 'No Evaluations found',
+  userHasNoEvaluations: 'This user has no evaluations',
+  receivedEvaluation: 'Received {{value}} stars from {{name}}',
+
+  //  rate modal
+  leaveOptionalMessage: 'Leave a message (optional)',
 };

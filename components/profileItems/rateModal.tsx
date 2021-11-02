@@ -19,6 +19,9 @@ import { ButtonPanel } from './buttonPanel';
 import Colors from '../../constants/colors';
 import { useRateModal } from './hooks/useRateModal';
 
+//  i18n
+import { translate } from '../../i18n/src/locales';
+
 interface EvaluationInput {
   value: number;
   message?: string;
@@ -57,7 +60,10 @@ export const RateModal: React.FC<ModalComponentProps> = memo(
             {display && <ButtonPanel rate={rate} setRate={setRate} />}
 
             <InputContainer>
-              <RateModalInput onChangeText={text => setMessage(text)} />
+              <RateModalInput
+                placeholder={translate('leaveOptionalMessage')}
+                onChangeText={text => setMessage(text)}
+              />
             </InputContainer>
             {display && (
               <ModalButton

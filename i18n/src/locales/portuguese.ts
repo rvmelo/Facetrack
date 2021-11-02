@@ -116,4 +116,12 @@ export default {
     'Você deve permitir que esse aplicativo acesse a localização de seu dispositivo',
   backgroundTrackingError: 'O rastreamento em segundo plano falhou em iniciar',
   foregroundTrackingError: 'O rastreamento em primeiro plano falhou em iniciar',
+
+  //  evaluations
+  noEvaluations: 'Nenhuma avaliação encontrada',
+  userHasNoEvaluations: 'Esse usuário não possui nenhuma avaliação',
+  receivedEvaluation: 'Recebeu {{value}} estrelas de {{name}}',
+
+  //  rate modal
+  leaveOptionalMessage: 'Deixe uma mensagem (opcional)',
 };

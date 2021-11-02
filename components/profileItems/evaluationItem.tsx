@@ -57,7 +57,7 @@ export const EvaluationItem: React.FC<EvaluationItemProps> = memo(
                 <InstagramText>@{instaName}</InstagramText>
               </ItemText>
               <ItemText numberOfLines={3}>
-                {I18n.t('userEvaluation', {
+                {I18n.t('receivedEvaluation', {
                   name: name?.split(' ')[0],
                   value,
                 })}

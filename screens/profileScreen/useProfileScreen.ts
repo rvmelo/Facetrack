@@ -48,7 +48,7 @@ export function useProfileScreen(): ReturnType {
 
     isMounted.current && setIsRefreshing(false);
 
-    if (!rate) return;
+    if (rate === undefined) return;
 
     dispatch(updateUserRate(rate));
   }, [dispatch, user.userProviderId, setIsRefreshing]);
