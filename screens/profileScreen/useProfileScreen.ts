@@ -40,8 +40,8 @@ export function useProfileScreen(): ReturnType {
   const onUserLoading = useCallback(async () => {
     setIsRefreshing(true);
 
-    const response: AxiosResponse<IUser> = await api.get(
-      `users/${user.userProviderId}`,
+    const response: AxiosResponse<{ rate: number }> = await api.get(
+      `users/update-rate/${user.userProviderId}`,
     );
 
     const { rate } = response?.data || {};

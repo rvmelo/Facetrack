@@ -62,8 +62,6 @@ export function useListItem(): ReturnValue {
           toUserId: cardUserId,
           message: message?.trim(),
         });
-
-        await api.get(`users/update-rate/${cardUserId}`);
       } catch (err) {
         showToast({
           message: translate('sendEvaluationError'),
