@@ -27,7 +27,7 @@ export interface EvaluationData {
   updated_at: string;
   fromUserId: UserData;
   value: number;
-  isRead?: boolean;
+  message: string;
 }
 
 interface EvaluationResponse {
@@ -47,7 +47,7 @@ interface ReturnType {
 export function useEvaluations({ userProviderId }: IRequest): ReturnType {
   const [onMomentumScrollBegin, setOnMomentumScrollBegin] = useState(false);
 
-  const [evaluations, setNotifications] = useState<EvaluationData[]>([]);
+  const [evaluations, setEvaluations] = useState<EvaluationData[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [page, setPage] = useState(1);
 
@@ -73,7 +73,7 @@ export function useEvaluations({ userProviderId }: IRequest): ReturnType {
 
       isMounted.current && setPage(1);
 
-      isMounted.current && setNotifications(response?.data?.foundEvaluations);
+      isMounted.current && setEvaluations(response?.data?.foundEvaluations);
 
       setIsRefreshing(false);
     } catch (err) {
@@ -97,10 +97,7 @@ export function useEvaluations({ userProviderId }: IRequest): ReturnType {
       isMounted.current && setPage(prev => prev + 1);
 
       isMounted.current &&
-        setNotifications(prev => [
-          ...prev,
-          ...response?.data?.foundEvaluations,
-        ]);
+        setEvaluations(prev => [...prev, ...response?.data?.foundEvaluations]);
 
       isMounted.current && setOnMomentumScrollBegin(false);
     } catch (err) {

@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
 
 import {
-  CenteredView,
+  RateModalBackground,
   InputContainer,
   RateModalText,
   ModalUserInfoContainer,
@@ -48,7 +48,7 @@ export const RateModal: React.FC<ModalComponentProps> = memo(
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
-        <CenteredView>
+        <RateModalBackground>
           <View style={styles.modalView}>
             <ModalUserInfoContainer>
               <Avatar avatar={avatarUri} />
@@ -71,7 +71,7 @@ export const RateModal: React.FC<ModalComponentProps> = memo(
               onPress={() => setModalVisible(false)}
             />
           )}
-        </CenteredView>
+        </RateModalBackground>
       </Modal>
     );
   },

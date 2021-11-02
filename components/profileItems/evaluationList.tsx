@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 import React, { useCallback } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
@@ -8,13 +9,20 @@ import { ListFooterComponent } from '../listFooterComponent';
 
 //  hooks
 import { useEvaluations, EvaluationData } from './hooks/useEvaluations';
+import { ModalEvaluation, ModalUser } from './hooks/useEvaluationModal';
 
 interface EvaluationListProps {
   userProviderId: string;
+  setModalUser: (modalUser: ModalUser) => void;
+  setEvaluation: (evaluation: ModalEvaluation) => void;
+  setModalVisible: (value: boolean) => void;
 }
 
 export const EvaluationList: React.FC<EvaluationListProps> = ({
   userProviderId,
+  setModalUser,
+  setEvaluation,
+  setModalVisible,
 }) => {
   const {
     evaluations,
@@ -27,25 +35,32 @@ export const EvaluationList: React.FC<EvaluationListProps> = ({
 
   const ITEM_HEIGHT = 130;
 
-  const renderItem: ListRenderItem<EvaluationData> = useCallback(({ item }) => {
-    const { avatar, name, instagram } = item?.fromUserId || {};
-    const { value, _id } = item || {};
+  const renderItem: ListRenderItem<EvaluationData> = useCallback(
+    ({ item }) => {
+      const { avatar, name, instagram } = item?.fromUserId || {};
+      const { value, message, _id } = item || {};
 
-    return (
-      <EvaluationItem
-        fromUser={{
-          avatar,
-          instaName: instagram?.userName,
-          name,
-        }}
-        updated_at={item?.updated_at}
-        value={value}
-        evaluationId={_id}
-        isNotificationRead={item.isRead}
-        itemHeight={ITEM_HEIGHT}
-      />
-    );
-  }, []);
+      return (
+        <EvaluationItem
+          fromUser={{
+            avatar,
+            instaName: instagram?.userName,
+            name,
+          }}
+          updated_at={item?.updated_at}
+          value={value}
+          evaluationId={_id}
+          itemHeight={ITEM_HEIGHT}
+          onPress={() => {
+            setModalUser({ avatarUri: avatar, instaName: instagram?.userName });
+            setEvaluation({ rate: value, message });
+            setModalVisible(true);
+          }}
+        />
+      );
+    },
+    [setModalUser, setEvaluation, setModalVisible],
+  );
   return (
     <FlatList
       data={evaluations}

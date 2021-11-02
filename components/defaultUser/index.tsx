@@ -11,13 +11,15 @@ import { MediaModal } from '../profileItems/mediaModal';
 import { Header } from '../profileItems/header';
 import { SelectionBar } from '../profileItems/selectionBar';
 import { EvaluationList } from '../profileItems/evaluationList';
-
-//   hooks
-import { useMediaModal } from '../profileItems/hooks/useMediaModal';
+import { EvaluationModal } from '../profileItems/evaluationModal';
 
 import { Container, ProfileDataContainer, StyledText } from './styles';
 import { RateModal } from '../profileItems/rateModal';
+
+//  hooks
+import { useMediaModal } from '../profileItems/hooks/useMediaModal';
 import { useDefaultUser } from './useDefaultUser';
+import { useEvaluationModal } from '../profileItems/hooks/useEvaluationModal';
 
 export const DefaultUser: React.FC = memo(() => {
   const {
@@ -31,6 +33,15 @@ export const DefaultUser: React.FC = memo(() => {
 
   const { isVisible, setIsVisible, media, setMedia, imgHeight } =
     useMediaModal();
+
+  const {
+    modalUser,
+    setModalUser,
+    evaluation,
+    setEvaluation,
+    isVisible: evaluationModalVisible,
+    setIsVisible: setEvaluationModalVisible,
+  } = useEvaluationModal();
 
   const renderItem: ListRenderItem<UserMedia> = useCallback(
     ({ item }) => {
@@ -73,7 +84,12 @@ export const DefaultUser: React.FC = memo(() => {
         </ProfileDataContainer>
         <ScrollView ref={scroll} scrollEnabled={false} horizontal>
           <PhotoScroll userMedia={userMedia} renderItem={renderItem} />
-          <EvaluationList userProviderId={user.userProviderId} />
+          <EvaluationList
+            setModalUser={setModalUser}
+            setEvaluation={setEvaluation}
+            userProviderId={user.userProviderId}
+            setModalVisible={setEvaluationModalVisible}
+          />
         </ScrollView>
       </Container>
       <RateModal
@@ -84,6 +100,12 @@ export const DefaultUser: React.FC = memo(() => {
           instaName: user?.instagram?.userName,
         }}
         handleEvaluation={handleEvaluation}
+      />
+      <EvaluationModal
+        userData={modalUser}
+        evaluation={evaluation}
+        modalVisible={evaluationModalVisible}
+        setModalVisible={setEvaluationModalVisible}
       />
       <MediaModal
         isVisible={isVisible}

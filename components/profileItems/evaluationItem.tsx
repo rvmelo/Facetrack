@@ -34,17 +34,17 @@ interface EvaluationItemProps {
   };
   updated_at: string;
   value: number;
-  isNotificationRead: boolean | undefined;
   evaluationId: string;
   itemHeight: number;
+  onPress: () => void;
 }
 
 export const EvaluationItem: React.FC<EvaluationItemProps> = memo(
-  ({ fromUser, updated_at, value, itemHeight }) => {
+  ({ fromUser, updated_at, value, itemHeight, onPress }) => {
     const { avatar, name, instaName } = fromUser;
 
     return (
-      <TouchableItem onPress={() => undefined}>
+      <TouchableItem onPress={onPress}>
         <ItemContainer height={itemHeight}>
           <ItemWrapper>
             <Avatar avatar={avatar} />

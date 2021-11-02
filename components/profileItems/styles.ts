@@ -72,7 +72,7 @@ export const ButtonPanelContainer = styled.View`
 export const TouchableIcon = styled.TouchableWithoutFeedback``;
 
 // rate modal
-export const CenteredView = styled.View`
+export const RateModalBackground = styled.View`
   flex: 1;
   justify-content: flex-start;
   align-items: center;
@@ -254,6 +254,13 @@ export const InstagramText = styled.Text`
   color: ${Colors.disabled};
 `;
 
+export const EvaluationModalText = styled.Text`
+  font-family: ${fonts.family};
+  font-size: ${fonts.sizes.sm}px;
+  color: ${Colors.background};
+  text-align: center;
+`;
+
 interface ItemContainerProps {
   height: number;
 }
@@ -290,4 +297,10 @@ export const StyledDate = styled.Text`
 export const ItemWrapper = styled.View`
   flex-direction: row;
   align-items: center;
+`;
+
+//  evaluation modal
+
+export const MessageContainer = styled.View`
+  margin-top: 20px;
 `;
