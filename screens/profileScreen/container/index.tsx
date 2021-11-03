@@ -12,11 +12,13 @@ import { MEDIA_TYPES, UserMedia } from '../../../store/modules/user/types';
 // components
 import { VideoItem, PhotoItem } from '../../../components/profileItems/items';
 import { MediaModal } from '../../../components/profileItems/mediaModal';
+import { EvaluationModal } from '../../../components/profileItems/evaluationModal';
 
 // hooks
 import useInstagram from '../../../hooks/useInstagram';
 import { useMediaModal } from '../../../components/profileItems/hooks/useMediaModal';
 import { useProfileScreen } from '../useProfileScreen';
+import { useEvaluationModal } from '../../../components/profileItems/hooks/useEvaluationModal';
 
 // constants
 import Colors from '../../../constants/colors';
@@ -48,6 +50,15 @@ const ProfileScreen: React.FC = () => {
 
   const { isVisible, setIsVisible, media, setMedia, imgHeight } =
     useMediaModal();
+
+  const {
+    modalUser,
+    setModalUser,
+    evaluation,
+    setEvaluation,
+    isVisible: evaluationModalVisible,
+    setIsVisible: setEvaluationModalVisible,
+  } = useEvaluationModal();
 
   const navigation = useNavigation<NavigationProps>();
 
@@ -108,8 +119,17 @@ const ProfileScreen: React.FC = () => {
           renderItem={renderItem}
           onUserLoading={onUserLoading}
           isRefreshing={isRefreshing}
+          setEvaluation={setEvaluation}
+          setModalUser={setModalUser}
+          setEvaluationModalVisible={setEvaluationModalVisible}
         />
       </Container>
+      <EvaluationModal
+        userData={modalUser}
+        evaluation={evaluation}
+        modalVisible={evaluationModalVisible}
+        setModalVisible={setEvaluationModalVisible}
+      />
       <MediaModal
         isVisible={isVisible}
         setIsVisible={setIsVisible}

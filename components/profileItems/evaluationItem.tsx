@@ -38,10 +38,19 @@ interface EvaluationItemProps {
   itemHeight: number;
   onPress: () => void;
   hasMessage: boolean;
+  translationKey: string;
 }
 
 export const EvaluationItem: React.FC<EvaluationItemProps> = memo(
-  ({ fromUser, updated_at, value, itemHeight, hasMessage, onPress }) => {
+  ({
+    fromUser,
+    updated_at,
+    value,
+    itemHeight,
+    hasMessage,
+    translationKey,
+    onPress,
+  }) => {
     const { avatar, name, instaName } = fromUser;
 
     const ItemContent = (
@@ -57,7 +66,7 @@ export const EvaluationItem: React.FC<EvaluationItemProps> = memo(
               <InstagramText>@{instaName}</InstagramText>
             </ItemText>
             <ItemText numberOfLines={3}>
-              {I18n.t('receivedEvaluation', {
+              {I18n.t(translationKey, {
                 name: name?.split(' ')[0],
                 value,
               })}

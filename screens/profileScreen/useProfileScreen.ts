@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { ScrollView } from 'react-native';
 import { AxiosResponse } from 'axios';
 
 //  redux
@@ -17,12 +18,15 @@ interface ReturnType {
   isUserUpdateFailure: boolean;
   isUserLoading: boolean;
   user: IUser;
+  scroll: React.RefObject<ScrollView>;
 }
 
 export function useProfileScreen(): ReturnType {
   const dispatch = useDispatch();
 
   const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const scroll = useRef<ScrollView>(null);
 
   const isMounted = useRef<boolean | null>(null);
 
@@ -64,5 +68,6 @@ export function useProfileScreen(): ReturnType {
     isUserUpdateFailure,
     isUserLoading,
     user,
+    scroll,
   };
 }

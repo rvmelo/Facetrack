@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import { ScrollView, RefreshControl } from 'react-native';
 
 // navigation
 import { useNavigation } from '@react-navigation/native';
@@ -20,6 +21,8 @@ import { translate } from '../../../i18n/src/locales';
 interface ListHeaderProps {
   user: IUser;
   isAvatarLoading: boolean;
+  refreshing: boolean;
+  onRefresh: () => Promise<void>;
 }
 
 type NavigationProps = StackNavigationProp<
@@ -28,27 +31,33 @@ type NavigationProps = StackNavigationProp<
 >;
 
 export const ListHeaderComponent: React.FC<ListHeaderProps> = memo(
-  ({ user, isAvatarLoading }) => {
+  ({ user, isAvatarLoading, refreshing, onRefresh }) => {
     const navigation = useNavigation<NavigationProps>();
 
     return (
       <ProfileDataContainer>
-        <Header
-          isAvatarLoading={isAvatarLoading}
-          avatar={user?.avatar}
-          name={user?.name}
-          rate={user?.rate?.toFixed(2)}
-        />
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          <Header
+            isAvatarLoading={isAvatarLoading}
+            avatar={user?.avatar}
+            name={user?.name}
+            rate={user?.rate?.toFixed(2)}
+          />
 
-        <StyledText>@{user?.instagram?.userName}</StyledText>
-        <StyledText>{user?.sexualOrientation}</StyledText>
-        <StyledText>{user?.relationshipStatus}</StyledText>
-        {/* <StyledText>{user?.birthDate}</StyledText> */}
+          <StyledText>@{user?.instagram?.userName}</StyledText>
+          <StyledText>{user?.sexualOrientation}</StyledText>
+          <StyledText>{user?.relationshipStatus}</StyledText>
+          {/* <StyledText>{user?.birthDate}</StyledText> */}
 
-        <ProfileButton
-          onPress={() => navigation.navigate('EditProfile')}
-          text={translate('editProfile')}
-        />
+          <ProfileButton
+            onPress={() => navigation.navigate('EditProfile')}
+            text={translate('editProfile')}
+          />
+        </ScrollView>
       </ProfileDataContainer>
     );
   },

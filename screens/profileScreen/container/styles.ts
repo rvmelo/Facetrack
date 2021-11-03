@@ -10,7 +10,7 @@ export const Container = styled.View`
 `;
 
 export const ProfileDataContainer = styled.View`
-  padding: 20px;
+  padding: 20px 20px 0;
 `;
 
 export const StyledText = styled.Text`

@@ -89,6 +89,10 @@ export const DefaultUser: React.FC = memo(() => {
             setEvaluation={setEvaluation}
             userProviderId={user.userProviderId}
             setModalVisible={setEvaluationModalVisible}
+            listTranslations={{
+              emptyListTranslationKey: 'userHasNoEvaluations',
+              evaluationItemTranslationKey: 'receivedEvaluation',
+            }}
           />
         </ScrollView>
       </Container>

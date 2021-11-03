@@ -15,11 +15,17 @@ import { ModalEvaluation, ModalUser } from './hooks/useEvaluationModal';
 //  i18n
 import { translate } from '../../i18n/src/locales';
 
+interface ListTranslations {
+  emptyListTranslationKey: string;
+  evaluationItemTranslationKey: string;
+}
+
 interface EvaluationListProps {
   userProviderId: string;
   setModalUser: (modalUser: ModalUser) => void;
   setEvaluation: (evaluation: ModalEvaluation) => void;
   setModalVisible: (value: boolean) => void;
+  listTranslations: ListTranslations;
 }
 
 export const EvaluationList: React.FC<EvaluationListProps> = ({
@@ -27,6 +33,7 @@ export const EvaluationList: React.FC<EvaluationListProps> = ({
   setModalUser,
   setEvaluation,
   setModalVisible,
+  listTranslations,
 }) => {
   const {
     evaluations,
@@ -38,6 +45,9 @@ export const EvaluationList: React.FC<EvaluationListProps> = ({
   } = useEvaluations({ userProviderId });
 
   const ITEM_HEIGHT = 130;
+
+  const { emptyListTranslationKey, evaluationItemTranslationKey } =
+    listTranslations;
 
   const renderItem: ListRenderItem<EvaluationData> = useCallback(
     ({ item }) => {
@@ -61,10 +71,16 @@ export const EvaluationList: React.FC<EvaluationListProps> = ({
             setModalVisible(true);
           }}
           hasMessage={!!message}
+          translationKey={evaluationItemTranslationKey}
         />
       );
     },
-    [setModalUser, setEvaluation, setModalVisible],
+    [
+      setModalUser,
+      setEvaluation,
+      setModalVisible,
+      evaluationItemTranslationKey,
+    ],
   );
   return (
     <FlatList
@@ -72,7 +88,7 @@ export const EvaluationList: React.FC<EvaluationListProps> = ({
       ListEmptyComponent={() => (
         <EmptyList
           title={translate('noEvaluations')}
-          message={translate('userHasNoEvaluations')}
+          message={translate(emptyListTranslationKey)}
         />
       )}
       contentContainerStyle={{ flex: evaluations.length === 0 ? 1 : 0 }}
