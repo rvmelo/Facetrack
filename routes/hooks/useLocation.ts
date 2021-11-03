@@ -6,12 +6,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // import * as TaskManager from 'expo-task-manager';
 import * as Location from 'expo-location';
 
+//  services
+import { AxiosError } from 'axios';
+import api from '../../services/api';
+
 //  hooks
 import useAuth from '../../hooks/useAuth';
 import { userLocationKey } from '../../constants/storage';
-
-//  services
-import api from '../../services/api';
 
 //  i18n
 import { translate } from '../../i18n/src/locales';
@@ -78,6 +79,12 @@ export function useLocation(): void {
             coords: { longitude, latitude },
           });
         } catch (err) {
+          const error = err as AxiosError;
+
+          if (error?.response?.status === 401) {
+            return;
+          }
+
           Alert.alert(
             'Error',
             `${translate('foregroundTrackingError')}: ${err}`,

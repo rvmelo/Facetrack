@@ -2,7 +2,7 @@ import { useRef, useEffect, useState, useCallback } from 'react';
 import { Alert } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -117,6 +117,12 @@ export function useNotifications(): ReturnValue {
 
       setUnreadNotificationsAmount(unreadNotifications);
     } catch (err) {
+      const error = err as AxiosError;
+
+      if (error?.response?.status === 401) {
+        return;
+      }
+
       showToast({ message: translate('loadNotificationError') });
     }
   }, [user.userProviderId]);
@@ -171,8 +177,12 @@ export function useNotifications(): ReturnValue {
           userProviderId: user.userProviderId,
         });
       } catch (err) {
-        // eslint-disable-next-line no-console
-        console.log('error: ', err);
+        const error = err as AxiosError;
+
+        if (error?.response?.status === 401) {
+          return;
+        }
+
         Alert.alert('Error', translate('enableNotificationError'));
       }
     })();

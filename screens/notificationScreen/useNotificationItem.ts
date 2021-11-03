@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 // navigation
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -53,6 +53,12 @@ export function useNotificationItem({
 
       await api.patch(`/evaluation/update/${evaluationId}`);
     } catch (err) {
+      const error = err as AxiosError;
+
+      if (error?.response?.status === 401) {
+        return;
+      }
+
       setIsRead(false);
     }
   }, [navigation, userProviderId, evaluationId, isRead]);

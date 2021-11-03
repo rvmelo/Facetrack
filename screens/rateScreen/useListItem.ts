@@ -10,6 +10,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 //  services
+import { AxiosError } from 'axios';
 import api from '../../services/api';
 import { showToast } from '../../services/toast';
 
@@ -63,6 +64,12 @@ export function useListItem(): ReturnValue {
           message: message?.trim(),
         });
       } catch (err) {
+        const error = err as AxiosError;
+
+        if (error?.response?.status === 401) {
+          return;
+        }
+
         showToast({
           message: translate('sendEvaluationError'),
         });

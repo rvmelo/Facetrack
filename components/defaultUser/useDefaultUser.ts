@@ -5,6 +5,7 @@ import { ScrollView } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
 //  services
+import { AxiosError } from 'axios';
 import api from '../../services/api';
 import { showToast } from '../../services/toast';
 
@@ -68,6 +69,12 @@ export function useDefaultUser(): ReturnType {
 
         isMounted.current && setModalVisible(false);
       } catch (err) {
+        const error = err as AxiosError;
+
+        if (error?.response?.status === 401) {
+          return;
+        }
+
         showToast({
           message: translate('sendEvaluationError'),
         });

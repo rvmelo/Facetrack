@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 //  redux
 import { useSelector } from 'react-redux';
@@ -80,6 +80,12 @@ export function useNotifications(): ReturnType {
 
       setIsRefreshing(false);
     } catch (err) {
+      const error = err as AxiosError;
+
+      if (error?.response?.status === 401) {
+        return;
+      }
+
       isMounted.current && setIsRefreshing(false);
       showToast({ message: translate('loadNotificationError') });
     }
@@ -107,6 +113,12 @@ export function useNotifications(): ReturnType {
 
       isMounted.current && setOnMomentumScrollBegin(false);
     } catch (err) {
+      const error = err as AxiosError;
+
+      if (error?.response?.status === 401) {
+        return;
+      }
+
       isMounted.current && setIsLoading(false);
       isMounted.current && setOnMomentumScrollBegin(false);
       showToast({ message: translate('loadNotificationError') });
