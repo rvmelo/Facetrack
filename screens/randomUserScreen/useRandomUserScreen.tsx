@@ -1,7 +1,9 @@
+import React, { useCallback, useRef, useState } from 'react';
+import { ScrollView } from 'react-native';
+
 // navigation
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useCallback, useState } from 'react';
 import { EvaluationStackParamList } from '../../routes/types';
 
 //  redux
@@ -29,6 +31,7 @@ interface ReturnValue {
   // eslint-disable-next-line no-unused-vars
   handleEvaluation: (input: EvaluationInput) => void;
   user: IUser;
+  scroll: React.RefObject<ScrollView>;
 }
 
 export function useRandomUserScreen(): ReturnValue {
@@ -40,6 +43,8 @@ export function useRandomUserScreen(): ReturnValue {
   const userMedia = user?.instagram?.userMedia;
 
   const [modalVisible, setModalVisible] = useState(false);
+
+  const scroll = useRef<ScrollView>(null);
 
   const handleEvaluation = useCallback(
     ({ value, message = '' }: EvaluationInput) => {
@@ -61,5 +66,6 @@ export function useRandomUserScreen(): ReturnValue {
     userMedia,
     handleEvaluation,
     user,
+    scroll,
   };
 }

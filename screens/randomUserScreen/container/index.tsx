@@ -1,5 +1,5 @@
 import React, { memo, useCallback } from 'react';
-import { ListRenderItem } from 'react-native';
+import { ListRenderItem, ScrollView } from 'react-native';
 
 import { MEDIA_TYPES, UserMedia } from '../../../store/modules/user/types';
 
@@ -10,19 +10,38 @@ import { ProfileButton } from '../../../components/profileItems/profileButton';
 import { RateModal } from '../../../components/profileItems/rateModal';
 import { MediaModal } from '../../../components/profileItems/mediaModal';
 import { Header } from '../../../components/profileItems/header';
+import { EvaluationList } from '../../../components/profileItems/evaluationList';
+import { EvaluationModal } from '../../../components/profileItems/evaluationModal';
 
 // hooks
 import { useMediaModal } from '../../../components/profileItems/hooks/useMediaModal';
 import { useRandomUserScreen } from '../useRandomUserScreen';
+import { useEvaluationModal } from '../../../components/profileItems/hooks/useEvaluationModal';
 
 import { Container, ProfileDataContainer, StyledText } from './styles';
+import { SelectionBar } from '../../../components/profileItems/selectionBar';
 
 export const RandomUserScreen: React.FC = memo(() => {
-  const { modalVisible, setModalVisible, handleEvaluation, userMedia, user } =
-    useRandomUserScreen();
+  const {
+    modalVisible,
+    setModalVisible,
+    handleEvaluation,
+    userMedia,
+    user,
+    scroll,
+  } = useRandomUserScreen();
 
   const { isVisible, setIsVisible, media, setMedia, imgHeight } =
     useMediaModal();
+
+  const {
+    modalUser,
+    setModalUser,
+    evaluation,
+    setEvaluation,
+    isVisible: evaluationModalVisible,
+    setIsVisible: setEvaluationModalVisible,
+  } = useEvaluationModal();
 
   const renderItem: ListRenderItem<UserMedia> = useCallback(
     ({ item }) => {
@@ -61,9 +80,22 @@ export const RandomUserScreen: React.FC = memo(() => {
           <StyledText>{user?.relationshipStatus}</StyledText>
           {/* <StyledText>{user?.birthDate}</StyledText> */}
           <ProfileButton onPress={() => setModalVisible(true)} text="Rate" />
+          <SelectionBar scroll={scroll} />
         </ProfileDataContainer>
 
-        <PhotoScroll userMedia={userMedia} renderItem={renderItem} />
+        <ScrollView ref={scroll} scrollEnabled={false} horizontal>
+          <PhotoScroll userMedia={userMedia} renderItem={renderItem} />
+          <EvaluationList
+            setModalUser={setModalUser}
+            setEvaluation={setEvaluation}
+            userProviderId={user.userProviderId}
+            setModalVisible={setEvaluationModalVisible}
+            listTranslations={{
+              emptyListTranslationKey: 'userHasNoEvaluations',
+              evaluationItemTranslationKey: 'receivedEvaluation',
+            }}
+          />
+        </ScrollView>
       </Container>
       <RateModal
         modalVisible={modalVisible}
@@ -73,6 +105,12 @@ export const RandomUserScreen: React.FC = memo(() => {
           instaName: user?.instagram?.userName,
         }}
         handleEvaluation={handleEvaluation}
+      />
+      <EvaluationModal
+        userData={modalUser}
+        evaluation={evaluation}
+        modalVisible={evaluationModalVisible}
+        setModalVisible={setEvaluationModalVisible}
       />
       <MediaModal
         isVisible={isVisible}

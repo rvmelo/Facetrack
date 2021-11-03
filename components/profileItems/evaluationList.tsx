@@ -87,7 +87,7 @@ export const EvaluationList: React.FC<EvaluationListProps> = ({
       data={evaluations}
       ListEmptyComponent={() => (
         <EmptyList
-          title={translate('noEvaluations')}
+          title={translate('noEvaluationsFound')}
           message={translate(emptyListTranslationKey)}
         />
       )}

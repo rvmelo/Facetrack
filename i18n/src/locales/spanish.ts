@@ -117,7 +117,8 @@ export default {
   foregroundTrackingError: 'No se pudo iniciar el rastreo en primero plano',
 
   //  evaluations
-  noEvaluations: 'No se encontraron evaluaciones',
+  noEvaluationsFound: 'No se encontraron evaluaciones',
+  noEvaluations: 'No evaluaciones',
   userHasNoEvaluations: 'Este usuario no tiene evaluaciones',
   receivedEvaluation: 'Recibió {{value}} estrellas de {{name}}',
 

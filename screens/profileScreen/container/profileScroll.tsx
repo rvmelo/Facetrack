@@ -69,7 +69,7 @@ export const ProfileScroll: React.FC<PhotoScrollProps> = memo(
             userProviderId={user.userProviderId}
             setModalVisible={setEvaluationModalVisible}
             listTranslations={{
-              emptyListTranslationKey: 'userHasNoEvaluations',
+              emptyListTranslationKey: 'noEvaluations',
               evaluationItemTranslationKey: 'userEvaluation',
             }}
           />

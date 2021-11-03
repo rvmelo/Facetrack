@@ -114,7 +114,8 @@ export default {
   foregroundTrackingError: 'Foreground position update failed to start',
 
   //  evaluations
-  noEvaluations: 'No Evaluations found',
+  noEvaluationsFound: 'No Evaluations found',
+  noEvaluations: 'No evaluations',
   userHasNoEvaluations: 'This user has no evaluations',
   receivedEvaluation: 'Received {{value}} stars from {{name}}',
 
