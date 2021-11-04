@@ -122,6 +122,7 @@ export default {
   noEvaluations: 'Nenhuma avaliação',
   userHasNoEvaluations: 'Esse usuário não possui nenhuma avaliação',
   receivedEvaluation: 'Recebeu {{value}} estrelas de {{name}}',
+  sentEvaluation: 'avaliação enviada',
 
   //  rate modal
   leaveOptionalMessage: 'Deixe uma mensagem (opcional)',

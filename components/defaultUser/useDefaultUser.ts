@@ -68,6 +68,10 @@ export function useDefaultUser(): ReturnType {
         });
 
         isMounted.current && setModalVisible(false);
+
+        showToast({
+          message: translate('sentEvaluation'),
+        });
       } catch (err) {
         const error = err as AxiosError;
 
