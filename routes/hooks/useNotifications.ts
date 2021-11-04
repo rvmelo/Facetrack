@@ -79,6 +79,16 @@ export function useNotifications(): ReturnValue {
 
   const { user } = useSelector<IState, IUserState>(state => state.user);
 
+  const isMounted = useRef<boolean | null>(null);
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   Notifications.setNotificationHandler({
     handleNotification: async notification => {
       const isAlert =
@@ -115,7 +125,7 @@ export function useNotifications(): ReturnValue {
         0,
       );
 
-      setUnreadNotificationsAmount(unreadNotifications);
+      isMounted.current && setUnreadNotificationsAmount(unreadNotifications);
     } catch (err) {
       const error = err as AxiosError;
 

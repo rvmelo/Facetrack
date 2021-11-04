@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 
 import { AxiosError, AxiosResponse } from 'axios';
 
@@ -37,6 +37,16 @@ export function useNotificationItem({
 
   const [isRead, setIsRead] = useState<boolean | undefined>(isNotificationRead);
 
+  const isMounted = useRef<boolean | null>(null);
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   const handleItemPress = useCallback(async () => {
     try {
       const userData: AxiosResponse<IUser> = await api.get(
@@ -49,7 +59,7 @@ export function useNotificationItem({
 
       if (isRead) return;
 
-      setIsRead(true);
+      isMounted.current && setIsRead(true);
 
       await api.patch(`/evaluation/update/${evaluationId}`);
     } catch (err) {
@@ -59,7 +69,7 @@ export function useNotificationItem({
         return;
       }
 
-      setIsRead(false);
+      isMounted.current && setIsRead(false);
     }
   }, [navigation, userProviderId, evaluationId, isRead]);
 
