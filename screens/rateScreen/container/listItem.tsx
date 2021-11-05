@@ -104,7 +104,7 @@ export const ListItem: React.FC<ListItemProps> = ({
 
       <ItemTextContainer bottomTabHeight={bottomTabHeight} style={[textStyle]}>
         <ItemText>Rated</ItemText>
-        <ItemText>User ${rate} stars</ItemText>
+        <ItemText>User {rate} stars</ItemText>
       </ItemTextContainer>
 
       {cardOpacity && (
