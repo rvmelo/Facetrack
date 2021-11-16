@@ -1,7 +1,9 @@
+import React, { useCallback, useRef, useState } from 'react';
+import { ScrollView } from 'react-native';
+
 // navigation
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useCallback, useState } from 'react';
 import { EvaluationStackParamList } from '../../routes/types';
 
 //  redux
@@ -16,17 +18,20 @@ interface RouteParams {
   user: IUser;
 }
 
+interface EvaluationInput {
+  value: number;
+  message?: string;
+}
+
 interface ReturnValue {
   modalVisible: boolean;
   // eslint-disable-next-line no-unused-vars
   setModalVisible: (value: boolean) => void;
-  rate: number;
-  // eslint-disable-next-line no-unused-vars
-  setRate: (value: number) => void;
   userMedia: UserMedia[] | undefined;
   // eslint-disable-next-line no-unused-vars
-  handleEvaluation: (value: number) => void;
+  handleEvaluation: (input: EvaluationInput) => void;
   user: IUser;
+  scroll: React.RefObject<ScrollView>;
 }
 
 export function useRandomUserScreen(): ReturnValue {
@@ -38,16 +43,17 @@ export function useRandomUserScreen(): ReturnValue {
   const userMedia = user?.instagram?.userMedia;
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [rate, setRate] = useState(0);
+
+  const scroll = useRef<ScrollView>(null);
 
   const handleEvaluation = useCallback(
-    (value: number) => {
+    ({ value, message = '' }: EvaluationInput) => {
       if (value <= 0) return;
 
-      setRate(value);
       setModalVisible(false);
       navigation.navigate('RateScreen', {
         value,
+        message: message?.trim(),
         userProviderId: user.userProviderId,
       });
     },
@@ -57,10 +63,9 @@ export function useRandomUserScreen(): ReturnValue {
   return {
     modalVisible,
     setModalVisible,
-    rate,
-    setRate,
     userMedia,
     handleEvaluation,
     user,
+    scroll,
   };
 }

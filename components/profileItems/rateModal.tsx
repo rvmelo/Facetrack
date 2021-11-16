@@ -1,7 +1,13 @@
 import React, { memo } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
 
-import { CenteredView, ModalText, ModalUserInfoContainer } from './styles';
+import {
+  RateModalBackground,
+  InputContainer,
+  RateModalText,
+  ModalUserInfoContainer,
+  RateModalInput,
+} from './styles';
 
 // components
 import { ModalButton } from './modalButton';
@@ -11,32 +17,32 @@ import { ButtonPanel } from './buttonPanel';
 
 //  constants
 import Colors from '../../constants/colors';
+import { useRateModal } from './hooks/useRateModal';
+
+//  i18n
+import { translate } from '../../i18n/src/locales';
+
+interface EvaluationInput {
+  value: number;
+  message?: string;
+}
 
 interface ModalComponentProps {
   modalVisible: boolean;
   // eslint-disable-next-line no-unused-vars
   setModalVisible: (value: boolean) => void;
-  rate: number;
-  // eslint-disable-next-line no-unused-vars
-  setRate: (value: number) => void;
   userData: {
     avatarUri: string;
     instaName: string | undefined;
   };
   // eslint-disable-next-line no-unused-vars
-  handleEvaluation: (value: number) => void;
+  handleEvaluation: (input: EvaluationInput) => void;
 }
 
-export const ModalComponent: React.FC<ModalComponentProps> = memo(
-  ({
-    modalVisible,
-    setModalVisible,
-    rate,
-    setRate,
-    userData,
-    handleEvaluation,
-  }) => {
+export const RateModal: React.FC<ModalComponentProps> = memo(
+  ({ userData, handleEvaluation, modalVisible, setModalVisible }) => {
     const { avatarUri, instaName } = userData;
+    const { display, rate, setRate, message, setMessage } = useRateModal();
 
     return (
       <Modal
@@ -45,17 +51,33 @@ export const ModalComponent: React.FC<ModalComponentProps> = memo(
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
-        <CenteredView>
+        <RateModalBackground>
           <View style={styles.modalView}>
             <ModalUserInfoContainer>
               <Avatar avatar={avatarUri} />
-              <ModalText>@{instaName}</ModalText>
+              <RateModalText>@{instaName}</RateModalText>
             </ModalUserInfoContainer>
-            <ButtonPanel rate={rate} setRate={setRate} />
-            <ModalButton onPress={() => handleEvaluation(rate)} />
+            {display && <ButtonPanel rate={rate} setRate={setRate} />}
+
+            <InputContainer>
+              <RateModalInput
+                placeholder={translate('leaveOptionalMessage')}
+                onChangeText={text => setMessage(text)}
+              />
+            </InputContainer>
+            {display && (
+              <ModalButton
+                onPress={() => handleEvaluation({ value: rate, message })}
+              />
+            )}
           </View>
-          <CloseButton onPress={() => setModalVisible(false)} />
-        </CenteredView>
+          {display && (
+            <CloseButton
+              styles={{ marginTop: 20 }}
+              onPress={() => setModalVisible(false)}
+            />
+          )}
+        </RateModalBackground>
       </Modal>
     );
   },
@@ -63,7 +85,6 @@ export const ModalComponent: React.FC<ModalComponentProps> = memo(
 
 const styles = StyleSheet.create({
   modalView: {
-    margin: 20,
     backgroundColor: Colors.accent,
     borderRadius: 20,
     padding: 35,

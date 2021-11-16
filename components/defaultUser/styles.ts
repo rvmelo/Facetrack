@@ -9,14 +9,7 @@ export const Container = styled.View`
 `;
 
 export const ProfileDataContainer = styled.View`
-  padding: 20px;
-`;
-
-export const StyledName = styled.Text`
-  font-size: ${fonts.sizes.md}px;
-  font-weight: bold;
-  color: ${Colors.accent};
-  margin-top: 10px;
+  padding: 20px 20px 0;
 `;
 
 export const StyledText = styled.Text`

@@ -60,12 +60,12 @@ function useInstagramScreen(): ReturnValue {
       throw new Error(translate('locationPermissionError'));
     }
 
-    const backgroundRequest =
-      await Location.requestBackgroundPermissionsAsync();
+    // const backgroundRequest =
+    //   await Location.requestBackgroundPermissionsAsync();
 
-    if (backgroundRequest.status !== 'granted') {
-      throw new Error(translate('locationPermissionError'));
-    }
+    // if (backgroundRequest.status !== 'granted') {
+    //   throw new Error(translate('locationPermissionError'));
+    // }
 
     // const provider = await Location.getProviderStatusAsync();
     // console.log(`provider: ${JSON.stringify(provider)}`);

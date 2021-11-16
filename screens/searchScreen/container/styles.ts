@@ -29,7 +29,9 @@ export const InputContainer = styled.View`
   overflow: hidden;
 `;
 
-export const StyledInput = styled.TextInput`
+export const StyledInput = styled.TextInput.attrs({
+  selectionColor: Colors.primary,
+})`
   height: 40px;
   flex: 1;
   color: ${Colors.accent};
@@ -50,6 +52,7 @@ export const ItemContainer = styled.View<ItemContainerProps>`
   height: ${props => props.height}px;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: center;
   width: ${SCREEN_WIDTH}px;
   padding-left: 20px;
   overflow: hidden;

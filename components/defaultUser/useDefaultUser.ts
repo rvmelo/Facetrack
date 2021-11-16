@@ -1,8 +1,11 @@
+import React, { useCallback, useState, useEffect, useRef } from 'react';
+import { ScrollView } from 'react-native';
+
 // navigation
 import { useRoute } from '@react-navigation/native';
-import { useCallback, useState } from 'react';
 
 //  services
+import { AxiosError } from 'axios';
 import api from '../../services/api';
 import { showToast } from '../../services/toast';
 
@@ -16,17 +19,20 @@ interface RouteParams {
   user: IUser;
 }
 
+interface EvaluationInput {
+  value: number;
+  message?: string;
+}
+
 interface ReturnType {
   modalVisible: boolean;
   // eslint-disable-next-line no-unused-vars
   setModalVisible: (value: boolean) => void;
-  rate: number;
-  // eslint-disable-next-line no-unused-vars
-  setRate: (value: number) => void;
   userMedia: UserMedia[] | undefined;
   // eslint-disable-next-line no-unused-vars
-  handleEvaluation: (value: number) => void;
+  handleEvaluation: (input: EvaluationInput) => void;
   user: IUser;
+  scroll: React.RefObject<ScrollView>;
 }
 
 export function useDefaultUser(): ReturnType {
@@ -37,21 +43,42 @@ export function useDefaultUser(): ReturnType {
   const userMedia = user?.instagram?.userMedia;
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [rate, setRate] = useState(0);
+
+  const scroll = useRef<ScrollView>(null);
+
+  const isMounted = useRef<boolean | null>(null);
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   const handleEvaluation = useCallback(
-    async (value: number) => {
+    async ({ value, message = '' }: EvaluationInput) => {
       try {
         if (value <= 0) return;
 
-        await api.patch(
-          `/evaluation?value=${value}&toUserId=${user.userProviderId}`,
-        );
+        await api.post('/evaluation', {
+          value,
+          toUserId: user.userProviderId,
+          message: message?.trim(),
+        });
 
-        setRate(value);
+        isMounted.current && setModalVisible(false);
 
-        setModalVisible(false);
+        showToast({
+          message: translate('sentEvaluation'),
+        });
       } catch (err) {
+        const error = err as AxiosError;
+
+        if (error?.response?.status === 401) {
+          return;
+        }
+
         showToast({
           message: translate('sendEvaluationError'),
         });
@@ -63,10 +90,9 @@ export function useDefaultUser(): ReturnType {
   return {
     modalVisible,
     setModalVisible,
-    rate,
-    setRate,
     userMedia,
     handleEvaluation,
     user,
+    scroll,
   };
 }

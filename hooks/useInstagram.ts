@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { differenceInDays } from 'date-fns';
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import * as WebBrowser from 'expo-web-browser';
 
 import * as Linking from 'expo-linking';
@@ -103,7 +103,14 @@ function useInstagram(): ReturnType {
         );
 
         isRequestSent.current = false;
-      } catch (err) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (err: any) {
+        const error = err as AxiosError;
+
+        if (error?.response?.status === 401) {
+          return;
+        }
+
         isRequestSent.current = false;
         dispatch(updateUserLoadState(false));
         Alert.alert(
@@ -159,6 +166,12 @@ function useInstagram(): ReturnType {
         new Date().toISOString(),
       );
     } catch (err) {
+      const error = err as AxiosError;
+
+      if (error?.response?.status === 401) {
+        return;
+      }
+
       dispatch(updateUserLoadState(false));
       Alert.alert('Error', `${translate('instagramRefreshFailed')}`, [
         {

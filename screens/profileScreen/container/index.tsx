@@ -6,38 +6,30 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 //  redux
-import { useSelector } from 'react-redux';
-import { IState } from '../../../store';
-import {
-  IUserState,
-  MEDIA_TYPES,
-  UserMedia,
-} from '../../../store/modules/user/types';
+
+import { MEDIA_TYPES, UserMedia } from '../../../store/modules/user/types';
 
 // components
 import { VideoItem, PhotoItem } from '../../../components/profileItems/items';
-import { ProfileButton } from '../../../components/profileItems/profileButton';
-import PhotoScroll from '../../../components/profileItems/photoScroll';
-import Avatar from '../../../components/avatar/index';
+import { MediaModal } from '../../../components/profileItems/mediaModal';
+import { EvaluationModal } from '../../../components/profileItems/evaluationModal';
 
 // hooks
 import useInstagram from '../../../hooks/useInstagram';
+import { useMediaModal } from '../../../components/profileItems/hooks/useMediaModal';
+import { useProfileScreen } from '../useProfileScreen';
+import { useEvaluationModal } from '../../../components/profileItems/hooks/useEvaluationModal';
 
 // constants
 import Colors from '../../../constants/colors';
 
-import {
-  Container,
-  ProfileDataContainer,
-  StyledName,
-  StyledText,
-  EmptyPhotoContainer,
-} from './styles';
+import { Container, EmptyContainer } from './styles';
 
 // i18n
 import { translate } from '../../../i18n/src/locales';
 
 import { ProfileStackParamList } from '../../../routes/types';
+import { ProfileScroll } from './profileScroll';
 
 type NavigationProps = StackNavigationProp<
   ProfileStackParamList,
@@ -45,12 +37,28 @@ type NavigationProps = StackNavigationProp<
 >;
 
 const ProfileScreen: React.FC = () => {
-  const { user, isAvatarLoading, isUserUpdateFailure, isUserLoading } =
-    useSelector<IState, IUserState>(state => state.user);
+  const {
+    user,
+    isUserLoading,
+    isUserUpdateFailure,
+    isAvatarLoading,
+    onUserLoading,
+    isRefreshing,
+  } = useProfileScreen();
 
   const { handleInstagramRefresh, shouldRefreshInstagram } = useInstagram();
 
-  const userMedia = user?.instagram?.userMedia;
+  const { isVisible, setIsVisible, media, setMedia, imgHeight } =
+    useMediaModal();
+
+  const {
+    modalUser,
+    setModalUser,
+    evaluation,
+    setEvaluation,
+    isVisible: evaluationModalVisible,
+    setIsVisible: setEvaluationModalVisible,
+  } = useEvaluationModal();
 
   const navigation = useNavigation<NavigationProps>();
 
@@ -67,24 +75,31 @@ const ProfileScreen: React.FC = () => {
     return unsubscribe;
   }, [handleInstagramRefresh, shouldRefreshInstagram, navigation]);
 
-  const renderItem: ListRenderItem<UserMedia> = useCallback(({ item }) => {
-    return item.media_type === MEDIA_TYPES.video ? (
-      <VideoItem
-        media_url={item.media_url}
-        caption={item.caption}
-        date={item.timestamp}
-      />
-    ) : (
-      <PhotoItem
-        media_url={item.media_url}
-        caption={item.caption}
-        date={item.timestamp}
-      />
-    );
-  }, []);
+  const renderItem: ListRenderItem<UserMedia> = useCallback(
+    ({ item }) => {
+      return item.media_type === MEDIA_TYPES.video ? (
+        <VideoItem
+          media_url={item.media_url}
+          onPress={() => {
+            setIsVisible(true);
+            setMedia(item);
+          }}
+        />
+      ) : (
+        <PhotoItem
+          media_url={item.media_url}
+          onPress={() => {
+            setIsVisible(true);
+            setMedia(item);
+          }}
+        />
+      );
+    },
+    [setIsVisible, setMedia],
+  );
 
   return isUserLoading ? (
-    <EmptyPhotoContainer>
+    <EmptyContainer>
       <ActivityIndicator
         color={Colors.primary}
         size="large"
@@ -94,37 +109,35 @@ const ProfileScreen: React.FC = () => {
           borderRadius: 30,
         }}
       />
-    </EmptyPhotoContainer>
+    </EmptyContainer>
   ) : (
-    <Container>
-      <ProfileDataContainer>
-        {isAvatarLoading ? (
-          <ActivityIndicator
-            color={Colors.primary}
-            size="large"
-            style={{
-              width: 60,
-              height: 60,
-              borderRadius: 30,
-            }}
-          />
-        ) : (
-          <Avatar avatar={user?.avatar} />
-        )}
-        <StyledName>{user?.name}</StyledName>
-        <StyledText>@{user?.instagram?.userName}</StyledText>
-        <StyledText>{user?.sexualOrientation}</StyledText>
-        <StyledText>{user?.relationshipStatus}</StyledText>
-        {/* <StyledText>{user?.birthDate}</StyledText> */}
-
-        <ProfileButton
-          onPress={() => navigation.navigate('EditProfile')}
-          text={translate('editProfile')}
+    <>
+      <Container>
+        <ProfileScroll
+          user={user}
+          isAvatarLoading={isAvatarLoading}
+          renderItem={renderItem}
+          onUserLoading={onUserLoading}
+          isRefreshing={isRefreshing}
+          setEvaluation={setEvaluation}
+          setModalUser={setModalUser}
+          setEvaluationModalVisible={setEvaluationModalVisible}
         />
-      </ProfileDataContainer>
-
-      <PhotoScroll userMedia={userMedia} renderItem={renderItem} />
-    </Container>
+      </Container>
+      <EvaluationModal
+        userData={modalUser}
+        evaluation={evaluation}
+        modalVisible={evaluationModalVisible}
+        setModalVisible={setEvaluationModalVisible}
+      />
+      <MediaModal
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        media={media}
+        imgHeight={imgHeight}
+        instagram={user?.instagram?.userName}
+      />
+    </>
   );
 };
 

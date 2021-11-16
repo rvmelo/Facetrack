@@ -1,23 +1,26 @@
+/* eslint-disable react/require-default-props */
 import React, { memo } from 'react';
+import { ViewStyle } from 'react-native';
 
 import { UserAvatarContainer, UserAvatar } from './styles';
 
 //  constants
-import { base_url } from '../../constants/backend';
+import { storageUrl } from '../../constants/backend';
 
 interface AvatarProps {
   avatar: string;
+  styles?: ViewStyle;
 }
 
-const Avatar: React.FC<AvatarProps> = ({ avatar }) => {
+const Avatar: React.FC<AvatarProps> = ({ avatar, styles = {} }) => {
   return (
-    <UserAvatarContainer avatar={avatar}>
+    <UserAvatarContainer avatar={avatar} style={styles}>
       <UserAvatar
         resizeMode={avatar ? 'cover' : 'center'}
         source={
           avatar
             ? {
-                uri: `${base_url}/files/${avatar}`,
+                uri: `${storageUrl}/avatar/${avatar}`,
               }
             : require('../../assets/avatar.png')
         }

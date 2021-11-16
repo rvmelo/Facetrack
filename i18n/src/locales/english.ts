@@ -109,6 +109,17 @@ export default {
 
   //  useLocation hook
   locationPermissionError:
-    'You should grant permissions for this app to track your position all the time',
+    'You should grant permissions for this app to access your device location',
   backgroundTrackingError: 'Background position update failed to start',
+  foregroundTrackingError: 'Foreground position update failed to start',
+
+  //  evaluations
+  noEvaluationsFound: 'No Evaluations found',
+  noEvaluations: 'No evaluations',
+  userHasNoEvaluations: 'This user has no evaluations',
+  receivedEvaluation: 'Received {{value}} stars from {{name}}',
+  sentEvaluation: 'evaluation sent',
+
+  //  rate modal
+  leaveOptionalMessage: 'Leave a message (optional)',
 };

@@ -2,7 +2,7 @@ import { useRef, useEffect, useState, useCallback } from 'react';
 import { Alert } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -79,6 +79,16 @@ export function useNotifications(): ReturnValue {
 
   const { user } = useSelector<IState, IUserState>(state => state.user);
 
+  const isMounted = useRef<boolean | null>(null);
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   Notifications.setNotificationHandler({
     handleNotification: async notification => {
       const isAlert =
@@ -100,11 +110,10 @@ export function useNotifications(): ReturnValue {
 
   const onRefresh = useCallback(async () => {
     try {
-      const response: AxiosResponse<NotificationResponse> = await api.get(
-        `/evaluation?page=1`,
-      );
+      const notificationResponse: AxiosResponse<NotificationResponse> =
+        await api.get(`/evaluation/received/${user.userProviderId}?page=1`);
 
-      const auxNotifications = response?.data?.foundEvaluations;
+      const auxNotifications = notificationResponse?.data?.foundEvaluations;
 
       const unreadNotifications = auxNotifications.reduce(
         (total, notificationItem) => {
@@ -116,11 +125,17 @@ export function useNotifications(): ReturnValue {
         0,
       );
 
-      setUnreadNotificationsAmount(unreadNotifications);
+      isMounted.current && setUnreadNotificationsAmount(unreadNotifications);
     } catch (err) {
+      const error = err as AxiosError;
+
+      if (error?.response?.status === 401) {
+        return;
+      }
+
       showToast({ message: translate('loadNotificationError') });
     }
-  }, []);
+  }, [user.userProviderId]);
 
   useEffect(() => {
     onRefresh();
@@ -172,8 +187,12 @@ export function useNotifications(): ReturnValue {
           userProviderId: user.userProviderId,
         });
       } catch (err) {
-        // eslint-disable-next-line no-console
-        console.log('error: ', err);
+        const error = err as AxiosError;
+
+        if (error?.response?.status === 401) {
+          return;
+        }
+
         Alert.alert('Error', translate('enableNotificationError'));
       }
     })();

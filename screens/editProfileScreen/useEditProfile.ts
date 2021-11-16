@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 
 //  redux
 import { useDispatch, useSelector } from 'react-redux';
+import { AxiosError } from 'axios';
 import {
   updateAvatarRequest,
   updateUserRequest,
@@ -99,7 +100,14 @@ function useEditProfile(): ReturnValue {
       const imageUri = result.uri;
 
       dispatch(updateAvatarRequest(imageUri));
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      const error = err as AxiosError;
+
+      if (error?.response?.status === 401) {
+        return;
+      }
+
       Alert.alert('Error', `${translate('avatarUpdateError')}: ${err.message}`);
     }
   }, [dispatch]);

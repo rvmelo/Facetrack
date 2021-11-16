@@ -1,69 +1,26 @@
 import React from 'react';
-
 import { Video } from 'expo-av';
 
-//  navigation
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-
 import { TouchableInterface, UserPhoto, VideoContainer } from './styles';
-import { media_types, MEDIA_TYPES } from '../../store/modules/user/types';
-import { ProfileStackParamList } from '../../routes/types';
 
 type ItemProps = {
   media_url: string;
-  caption: string;
-  date: string;
+  onPress: () => void;
 };
 
-type NavigationProps = StackNavigationProp<
-  ProfileStackParamList,
-  'ProfileScreen'
->;
-
-export const PhotoItem: React.FC<ItemProps> = ({
-  media_url,
-  caption,
-  date,
-}) => {
-  const navigation = useNavigation<NavigationProps>();
-
+export const PhotoItem: React.FC<ItemProps> = ({ media_url, onPress }) => {
   return (
-    <TouchableInterface
-      onPress={() =>
-        navigation.navigate('Publication', {
-          media_url,
-          media_type: MEDIA_TYPES.image as media_types,
-          caption,
-          date,
-        })
-      }
-    >
+    <TouchableInterface onPress={onPress}>
       <UserPhoto source={{ uri: media_url }} />
     </TouchableInterface>
   );
 };
 
-export const VideoItem: React.FC<ItemProps> = ({
-  media_url,
-  caption,
-  date,
-}) => {
-  const navigation = useNavigation<NavigationProps>();
-
+export const VideoItem: React.FC<ItemProps> = ({ media_url, onPress }) => {
   const videoRef = React.createRef<Video>();
 
   return (
-    <TouchableInterface
-      onPress={() =>
-        navigation.navigate('Publication', {
-          media_url,
-          media_type: MEDIA_TYPES.video as media_types,
-          caption,
-          date,
-        })
-      }
-    >
+    <TouchableInterface onPress={onPress}>
       <VideoContainer>
         <Video
           ref={videoRef}

@@ -24,7 +24,7 @@ import {
 import { translate } from '../../../i18n/src/locales';
 
 // constants
-import { base_url } from '../../../constants/backend';
+import { storageUrl } from '../../../constants/backend';
 import Colors from '../../../constants/colors';
 
 //  hooks
@@ -55,7 +55,7 @@ const EditProfileScreen: React.FC = () => {
           ) : (
             <AvatarContent
               avatarUri={
-                user?.avatar ? `${base_url}/files/${user?.avatar}` : ''
+                user?.avatar ? `${storageUrl}/avatar/${user?.avatar}` : ''
               }
             />
           )}

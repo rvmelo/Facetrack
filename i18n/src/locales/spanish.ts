@@ -112,6 +112,17 @@ export default {
 
   //  useLocation hook
   locationPermissionError:
-    'Debes permitir que esta aplicación rastree tu posición en todo momento',
+    'Debes permitir que esta aplicación acceda a la localización de tu dispositivo',
   backgroundTrackingError: 'No se pudo iniciar el rastreo en segundo plano',
+  foregroundTrackingError: 'No se pudo iniciar el rastreo en primero plano',
+
+  //  evaluations
+  noEvaluationsFound: 'No se encontraron evaluaciones',
+  noEvaluations: 'No evaluaciones',
+  userHasNoEvaluations: 'Este usuario no tiene evaluaciones',
+  receivedEvaluation: 'Recibió {{value}} estrellas de {{name}}',
+  sentEvaluation: 'evaluación enviada',
+
+  //  rate modal
+  leaveOptionalMessage: 'Deja un mensaje (opcional)',
 };

@@ -67,7 +67,10 @@ export const NotificationItem: React.FC<NotificationItemProps> = memo(
               <InstagramText>@{instaName}</InstagramText>
             </ItemText>
             <ItemText numberOfLines={3}>
-              {I18n.t('userEvaluation', { name: name.split(' ')[0], value })}
+              {I18n.t('userEvaluation', {
+                name: name?.split(' ')[0],
+                value,
+              })}
             </ItemText>
           </TextContainer>
         </ItemContainer>
