@@ -5,7 +5,7 @@ import { ViewStyle } from 'react-native';
 import { UserAvatarContainer, UserAvatar } from './styles';
 
 //  constants
-import { base_url } from '../../constants/backend';
+import { storageUrl } from '../../constants/backend';
 
 interface AvatarProps {
   avatar: string;
@@ -20,7 +20,7 @@ const Avatar: React.FC<AvatarProps> = ({ avatar, styles = {} }) => {
         source={
           avatar
             ? {
-                uri: `${base_url}/files/${avatar}`,
+                uri: `${storageUrl}/avatar/${avatar}`,
               }
             : require('../../assets/avatar.png')
         }
