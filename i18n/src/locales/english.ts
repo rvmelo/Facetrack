@@ -122,4 +122,15 @@ export default {
 
   //  rate modal
   leaveOptionalMessage: 'Leave a message (optional)',
+
+  // date translations
+  lessThanOneMinute: 'less than 1 minute ago',
+  oneMinuteAgo: '1 minute ago',
+  minutesAgo: '{{minutes}} minutes ago',
+
+  oneHourAgo: '1 hour ago',
+  hoursAgo: '{{hours}} hours ago',
+
+  oneDayAgo: '1 day ago',
+  daysAgo: '{{days}} days ago',
 };

@@ -126,4 +126,15 @@ export default {
 
   //  rate modal
   leaveOptionalMessage: 'Deixe uma mensagem (opcional)',
+
+  // date translations
+  lessThanOneMinute: 'há menos de 1 minuto',
+  oneMinuteAgo: 'há 1 minuto',
+  minutesAgo: 'há {{minutes}} minutos',
+
+  oneHourAgo: 'há 1 hora',
+  hoursAgo: 'há {{hours}} horas',
+
+  oneDayAgo: 'há 1 dia',
+  daysAgo: 'há {{days}} dias',
 };
