@@ -9,7 +9,7 @@ import I18n from 'i18n-js';
 import Avatar from '../avatar/index';
 
 // services
-import { formatDate, getHoursFromDate } from '../../services/date';
+import { getDate } from '../../services/date';
 
 //  constants
 import Colors from '../../constants/colors';
@@ -58,9 +58,6 @@ export const EvaluationItem: React.FC<EvaluationItemProps> = memo(
         <ItemWrapper>
           <Avatar avatar={avatar} />
           <TextContainer>
-            <StyledDate>
-              {formatDate(updated_at)}, {getHoursFromDate(updated_at)}
-            </StyledDate>
             <ItemText numberOfLines={1}>
               <HeaderText>{name} </HeaderText>
               <InstagramText>@{instaName}</InstagramText>
@@ -71,6 +68,7 @@ export const EvaluationItem: React.FC<EvaluationItemProps> = memo(
                 value,
               })}
             </ItemText>
+            <StyledDate>{getDate(updated_at)}</StyledDate>
           </TextContainer>
           {hasMessage && (
             <Ionicons

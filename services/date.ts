@@ -1,29 +1,53 @@
-/* eslint-disable radix */
 // i18n
+import {
+  differenceInHours,
+  differenceInDays,
+  differenceInMinutes,
+  format,
+} from 'date-fns';
+import * as dateFNSLocales from 'date-fns/locale';
 import { location } from '../i18n/src/locales';
 
-export const formatDate = (date: string): string => {
-  const auxDate = date.slice(0, 10);
+export const getDate = (date: string): string => {
+  const minutes = differenceInMinutes(new Date(), new Date(date));
+  const hours = differenceInHours(new Date(), new Date(date));
+  const days = differenceInDays(new Date(), new Date(date));
 
-  let formattedDate = auxDate.split('-').reverse().join('/');
-
-  if (location === 'en-US') {
-    const dateArray = auxDate.split('-');
-
-    const year = dateArray[0];
-    const month = dateArray[1];
-    const day = dateArray[2];
-
-    formattedDate = [month, day, year].join('/');
+  if (minutes < 1) {
+    return 'less than one minute ago';
   }
 
-  return formattedDate;
-};
+  if (minutes === 1) {
+    return `${minutes} minute ago`;
+  }
 
-export const getHoursFromDate = (date: string): string => {
-  const hour = date.slice(11, 13);
+  if (minutes < 60) {
+    return `${minutes} minutes ago`;
+  }
 
-  const dateInfo = parseInt(hour) > 12 ? ' PM' : ' AM';
+  if (hours < 1) {
+    return 'less than one hour ago';
+  }
 
-  return [date.slice(11, 16), dateInfo].join(' ');
+  if (hours === 1) {
+    return `${hours} hour ago`;
+  }
+
+  if (hours < 24) {
+    return `${hours} hours ago`;
+  }
+
+  if (days === 1) {
+    return `${days} days ago`;
+  }
+
+  if (days <= 7) {
+    return `${days} days ago`;
+  }
+
+  return format(new Date(date), 'dd MMMM YYY', {
+    locale:
+      dateFNSLocales[location.substring(0, 2) as 'pt' | 'es'] ??
+      dateFNSLocales.enUS,
+  });
 };
