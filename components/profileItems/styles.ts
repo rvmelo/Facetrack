@@ -138,19 +138,21 @@ export const Instagram = styled.Text`
   font-weight: bold;
 `;
 
+export const ModalDateContainer = styled.View`
+  align-self: center;
+`;
+
 export const ModalDate = styled.Text`
-  color: ${Colors.accent};
+  color: ${Colors.disabled};
   font-family: ${fonts.family};
-  font-size: ${fonts.sizes.sm}px;
-  text-align: center;
+  font-size: ${fonts.sizes.xs}px;
+  text-align: left;
   margin-top: 5px;
 `;
 
 export const ModalTextContainer = styled.View`
   margin: 20px 5px 0;
   padding: 5px;
-  border-radius: 5px;
-  background: #404040;
 `;
 
 interface ModalBackgroundProps {
@@ -170,7 +172,7 @@ export const ModalContent = styled.View`
 `;
 
 export const MediaContainer = styled.View`
-  align-items: center;
+  align-items: flex-start;
 `;
 
 interface ModalPhotoProps {

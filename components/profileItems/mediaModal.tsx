@@ -2,13 +2,16 @@ import React, { memo } from 'react';
 import { Modal, ScrollView } from 'react-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
+import { format } from 'date-fns';
+import * as dateFNSLocales from 'date-fns/locale';
+import { location } from '../../i18n/src/locales/index';
+
 //  redux
 import { MEDIA_TYPES, UserMedia } from '../../store/modules/user/types';
 
 //  components
 import { CloseButton } from './closeButton';
 import { PhotoMedia, VideoMedia } from './modalMedias';
-import { formatDate } from '../../services/date';
 
 //  styles
 import { ModalBackground, ModalContent } from './styles';
@@ -50,7 +53,20 @@ export const MediaModal: React.FC<MediaModalProps> = memo(
                   media_url={media_url}
                   instagram={instagram}
                   caption={caption}
-                  date={timestamp ? formatDate(timestamp) : ''}
+                  date={
+                    timestamp
+                      ? format(
+                          new Date(timestamp.slice(0, 10)),
+                          'dd MMMM YYY',
+                          {
+                            locale:
+                              dateFNSLocales[
+                                location.substring(0, 2) as 'pt' | 'es'
+                              ] ?? dateFNSLocales.enUS,
+                          },
+                        )
+                      : ''
+                  }
                 />
               ) : (
                 <PhotoMedia
@@ -58,7 +74,20 @@ export const MediaModal: React.FC<MediaModalProps> = memo(
                   instagram={instagram}
                   caption={caption}
                   imgHeight={imgHeight}
-                  date={timestamp ? formatDate(timestamp) : ''}
+                  date={
+                    timestamp
+                      ? format(
+                          new Date(timestamp.slice(0, 10)),
+                          'dd MMMM YYY',
+                          {
+                            locale:
+                              dateFNSLocales[
+                                location.substring(0, 2) as 'pt' | 'es'
+                              ] ?? dateFNSLocales.enUS,
+                          },
+                        )
+                      : ''
+                  }
                 />
               )}
               <CloseButton

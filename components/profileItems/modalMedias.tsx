@@ -9,6 +9,7 @@ import {
   ModalPhoto,
   ModalText,
   ModalDate,
+  ModalDateContainer,
   Instagram,
   MediaContainer,
 } from './styles';
@@ -38,13 +39,20 @@ export const PhotoMedia: React.FC<PhotoData> = ({
   return (
     <MediaContainer>
       <ModalPhoto source={{ uri: media_url }} imgHeight={imgHeight} />
-      <ModalDate>{date}</ModalDate>
-      <ModalTextContainer>
-        <ModalText>
-          <Instagram>{instagram} </Instagram>
-          {caption}
-        </ModalText>
-      </ModalTextContainer>
+      {!caption && (
+        <ModalDateContainer>
+          <ModalDate>{date}</ModalDate>
+        </ModalDateContainer>
+      )}
+      {caption && (
+        <ModalTextContainer>
+          <ModalText>
+            <Instagram>{instagram} </Instagram>
+            {caption}
+          </ModalText>
+          <ModalDate>{date}</ModalDate>
+        </ModalTextContainer>
+      )}
     </MediaContainer>
   );
 };
@@ -66,13 +74,20 @@ export const VideoMedia: React.FC<VideoData> = ({
         resizeMode="cover"
         isLooping
       />
-      <ModalDate>{date}</ModalDate>
-      <ModalTextContainer>
-        <ModalText>
-          <Instagram>{instagram} </Instagram>
-          {caption}
-        </ModalText>
-      </ModalTextContainer>
+      {!caption && (
+        <ModalDateContainer>
+          <ModalDate>{date}</ModalDate>
+        </ModalDateContainer>
+      )}
+      {caption && (
+        <ModalTextContainer>
+          <ModalText>
+            <Instagram>{instagram} </Instagram>
+            {caption}
+          </ModalText>
+          <ModalDate>{date}</ModalDate>
+        </ModalTextContainer>
+      )}
     </MediaContainer>
   );
 };
