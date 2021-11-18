@@ -45,6 +45,11 @@ export default {
   // Profile Screen
   editProfile: 'Edit Profile',
   photoDisplayMessage: 'No Photos to Display',
+  maleSingle: 'single',
+  femaleSingle: 'single',
+  maleMarried: 'married',
+  femaleMarried: 'married',
+  years: 'years',
 
   // User Publication Screen
   userPublications: 'Publications',
@@ -115,7 +120,7 @@ export default {
 
   //  evaluations
   noEvaluationsFound: 'No Evaluations found',
-  noEvaluations: 'No evaluations',
+  noEvaluations: 'Your profile has not yet been rated',
   userHasNoEvaluations: 'This user has no evaluations',
   receivedEvaluation: 'Received {{value}} stars from {{name}}',
   sentEvaluation: 'evaluation sent',

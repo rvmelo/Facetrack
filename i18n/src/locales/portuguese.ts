@@ -48,6 +48,11 @@ export default {
   // Profile Screen
   editProfile: 'Editar Perfil',
   photoDisplayMessage: 'Nenhuma Foto Para Mostrar',
+  maleSingle: 'solteiro',
+  femaleSingle: 'solteira',
+  maleMarried: 'casado',
+  femaleMarried: 'casada',
+  years: 'anos',
 
   // User Publication Screen
   userPublications: 'Publicações',
@@ -119,7 +124,7 @@ export default {
 
   //  evaluations
   noEvaluationsFound: 'Nenhuma avaliação encontrada',
-  noEvaluations: 'Nenhuma avaliação',
+  noEvaluations: 'Seu perfil ainda não foi avaliado',
   userHasNoEvaluations: 'Esse usuário não possui nenhuma avaliação',
   receivedEvaluation: 'Recebeu {{value}} estrelas de {{name}}',
   sentEvaluation: 'avaliação enviada',

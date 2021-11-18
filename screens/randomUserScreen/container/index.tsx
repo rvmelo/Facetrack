@@ -1,6 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import { ListRenderItem, ScrollView } from 'react-native';
 
+import { differenceInYears } from 'date-fns';
 import { MEDIA_TYPES, UserMedia } from '../../../store/modules/user/types';
 
 // components
@@ -20,6 +21,10 @@ import { useEvaluationModal } from '../../../components/profileItems/hooks/useEv
 
 import { Container, ProfileDataContainer, StyledText } from './styles';
 import { SelectionBar } from '../../../components/profileItems/selectionBar';
+
+//  i18n
+import { translate } from '../../../i18n/src/locales';
+import { translateRelationshipStatus } from '../../../services/translation';
 
 export const RandomUserScreen: React.FC = memo(() => {
   const {
@@ -42,6 +47,10 @@ export const RandomUserScreen: React.FC = memo(() => {
     isVisible: evaluationModalVisible,
     setIsVisible: setEvaluationModalVisible,
   } = useEvaluationModal();
+
+  const years = user?.birthDate
+    ? differenceInYears(new Date(), new Date(user?.birthDate))
+    : -1;
 
   const renderItem: ListRenderItem<UserMedia> = useCallback(
     ({ item }) => {
@@ -76,9 +85,22 @@ export const RandomUserScreen: React.FC = memo(() => {
             rate={user?.rate?.toFixed(2)}
           />
           <StyledText>@{user?.instagram?.userName}</StyledText>
-          <StyledText>{user?.sexualOrientation}</StyledText>
-          <StyledText>{user?.relationshipStatus}</StyledText>
-          {/* <StyledText>{user?.birthDate}</StyledText> */}
+          {years >= 0 && (
+            <StyledText>
+              {years} {translate('years')}
+            </StyledText>
+          )}
+          <StyledText>
+            {translate(
+              user?.sexualOrientation || 'undefined',
+            ).toLocaleLowerCase()}
+          </StyledText>
+          <StyledText>
+            {translateRelationshipStatus({
+              status: user?.relationshipStatus,
+              sex: user?.sex,
+            })}
+          </StyledText>
           <ProfileButton onPress={() => setModalVisible(true)} text="Rate" />
           <SelectionBar scroll={scroll} />
         </ProfileDataContainer>

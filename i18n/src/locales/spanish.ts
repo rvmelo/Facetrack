@@ -20,7 +20,7 @@ export default {
   //  Relationship Status Screen
   relationshipStatus: 'Estado Civil',
 
-  single: 'Solteiro(a)',
+  single: 'Soltero(a)',
   seriousRelationship: 'Relacionamento Serio',
 
   married: 'Casado(a)',
@@ -47,6 +47,11 @@ export default {
   // Profile Screen
   editProfile: 'Editar Perfil',
   photoDisplayMessage: 'No Hay Fotos Para Mostrar',
+  maleSingle: 'soltero',
+  femaleSingle: 'soltera',
+  maleMarried: 'casado',
+  femaleMarried: 'casada',
+  years: 'años',
 
   // User Publication Screen
   userPublications: 'Publicaciones',
@@ -118,7 +123,7 @@ export default {
 
   //  evaluations
   noEvaluationsFound: 'No se encontraron evaluaciones',
-  noEvaluations: 'No evaluaciones',
+  noEvaluations: 'Tu perfil aún no ha sido calificado',
   userHasNoEvaluations: 'Este usuario no tiene evaluaciones',
   receivedEvaluation: 'Recibió {{value}} estrellas de {{name}}',
   sentEvaluation: 'evaluación enviada',

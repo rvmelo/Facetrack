@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 //  redux
-
 import { MEDIA_TYPES, UserMedia } from '../../../store/modules/user/types';
 
 // components
