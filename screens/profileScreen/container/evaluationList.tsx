@@ -4,16 +4,22 @@ import React, { useCallback } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 
 //  components
-import { EvaluationItem } from './evaluationItem';
-import { ListFooterComponent } from '../listFooterComponent';
-import { EmptyList } from './emptyList';
+import { EvaluationItem } from '../../../components/profileItems/evaluationItem';
+import { ListFooterComponent } from '../../../components/listFooterComponent';
+import { EmptyList } from '../../../components/profileItems/emptyList';
 
 //  hooks
-import { useEvaluations, EvaluationData } from './hooks/useEvaluations';
-import { ModalEvaluation, ModalUser } from './hooks/useEvaluationModal';
+import {
+  useEvaluations,
+  EvaluationData,
+} from '../../../components/profileItems/hooks/useEvaluations';
+import {
+  ModalEvaluation,
+  ModalUser,
+} from '../../../components/profileItems/hooks/useEvaluationModal';
 
 //  i18n
-import { translate } from '../../i18n/src/locales';
+import { translate } from '../../../i18n/src/locales';
 
 interface ListTranslations {
   emptyListTranslationKey: string;
@@ -35,8 +41,14 @@ export const EvaluationList: React.FC<EvaluationListProps> = ({
   setModalVisible,
   listTranslations,
 }) => {
-  const { evaluations, onListEnd, isLoading, setOnMomentumScrollBegin } =
-    useEvaluations({ userProviderId });
+  const {
+    evaluations,
+    isRefreshing,
+    onRefresh,
+    onListEnd,
+    isLoading,
+    setOnMomentumScrollBegin,
+  } = useEvaluations({ userProviderId });
 
   const ITEM_HEIGHT = 130;
 
@@ -86,6 +98,8 @@ export const EvaluationList: React.FC<EvaluationListProps> = ({
         />
       )}
       contentContainerStyle={{ flex: evaluations.length === 0 ? 1 : 0 }}
+      refreshing={isRefreshing}
+      onRefresh={onRefresh}
       renderItem={renderItem}
       onEndReached={() => onListEnd()}
       onEndReachedThreshold={0.1}

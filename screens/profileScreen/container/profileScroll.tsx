@@ -9,7 +9,7 @@ import { IUser, UserMedia } from '../../../store/modules/user/types';
 import { ListHeaderComponent } from './listHeaderComponent';
 import { ListEmptyComponent } from './listEmptyComponent';
 import { SelectionBar } from '../../../components/profileItems/selectionBar';
-import { EvaluationList } from '../../../components/profileItems/evaluationList';
+import { EvaluationList } from './evaluationList';
 
 //  hooks
 import { useProfileScreen } from '../useProfileScreen';
