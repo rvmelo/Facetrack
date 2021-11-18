@@ -1,16 +1,13 @@
 import React, { memo, useCallback } from 'react';
 import { ListRenderItem, ScrollView } from 'react-native';
 
-import { differenceInYears } from 'date-fns';
 import { MEDIA_TYPES, UserMedia } from '../../../store/modules/user/types';
 
 // components
 import { VideoItem, PhotoItem } from '../../../components/profileItems/items';
 import PhotoScroll from '../../../components/profileItems/photoScroll';
-import { ProfileButton } from '../../../components/profileItems/profileButton';
 import { RateModal } from '../../../components/profileItems/rateModal';
 import { MediaModal } from '../../../components/profileItems/mediaModal';
-import { Header } from '../../../components/profileItems/header';
 import { EvaluationList } from '../../../components/profileItems/evaluationList';
 import { EvaluationModal } from '../../../components/profileItems/evaluationModal';
 
@@ -19,12 +16,11 @@ import { useMediaModal } from '../../../components/profileItems/hooks/useMediaMo
 import { useRandomUserScreen } from '../useRandomUserScreen';
 import { useEvaluationModal } from '../../../components/profileItems/hooks/useEvaluationModal';
 
-import { Container, ProfileDataContainer, StyledText } from './styles';
+import { Container, ProfileDataContainer } from './styles';
 import { SelectionBar } from '../../../components/profileItems/selectionBar';
 
 //  i18n
-import { translate } from '../../../i18n/src/locales';
-import { translateRelationshipStatus } from '../../../services/translation';
+import { ProfileHeader } from '../../../components/profileItems/profileHeader';
 
 export const RandomUserScreen: React.FC = memo(() => {
   const {
@@ -47,10 +43,6 @@ export const RandomUserScreen: React.FC = memo(() => {
     isVisible: evaluationModalVisible,
     setIsVisible: setEvaluationModalVisible,
   } = useEvaluationModal();
-
-  const years = user?.birthDate
-    ? differenceInYears(new Date(), new Date(user?.birthDate))
-    : -1;
 
   const renderItem: ListRenderItem<UserMedia> = useCallback(
     ({ item }) => {
@@ -79,29 +71,7 @@ export const RandomUserScreen: React.FC = memo(() => {
     <>
       <Container>
         <ProfileDataContainer>
-          <Header
-            avatar={user?.avatar}
-            name={user?.name}
-            rate={user?.rate?.toFixed(2)}
-          />
-          <StyledText>@{user?.instagram?.userName}</StyledText>
-          {years >= 0 && (
-            <StyledText>
-              {years} {translate('years')}
-            </StyledText>
-          )}
-          <StyledText>
-            {translate(
-              user?.sexualOrientation || 'undefined',
-            ).toLocaleLowerCase()}
-          </StyledText>
-          <StyledText>
-            {translateRelationshipStatus({
-              status: user?.relationshipStatus,
-              sex: user?.sex,
-            })}
-          </StyledText>
-          <ProfileButton onPress={() => setModalVisible(true)} text="Rate" />
+          <ProfileHeader user={user} setModalVisible={setModalVisible} />
           <SelectionBar scroll={scroll} />
         </ProfileDataContainer>
 
