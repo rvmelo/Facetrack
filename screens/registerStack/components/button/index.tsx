@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 import React, { memo } from 'react';

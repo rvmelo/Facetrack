@@ -84,7 +84,7 @@ export const ItemTextContainer = styled(Animated.View)<ContainerProps>`
 `;
 
 export const ItemText = styled.Text`
-  font-size: ${fonts.sizes.xl}px;
+  font-size: ${fonts.sizes.xl2}px;
   font-family: ${fonts.family};
   color: ${Colors.accent};
   text-align: center;
