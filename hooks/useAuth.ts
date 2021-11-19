@@ -33,6 +33,7 @@ interface ReturnValue {
   signUp(data: SignUpData): Promise<void>;
   signOut(): Promise<void>;
   handleUserUpdate(user: IUser): Promise<void>;
+  handleAutoSignIn(): Promise<void>;
 }
 
 function useAuth(): ReturnValue {
@@ -43,6 +44,8 @@ function useAuth(): ReturnValue {
   const isMounted = useRef<boolean | null>(null);
 
   const handleAutoSignIn = useCallback(async () => {
+    if (!isMounted?.current) return;
+
     setIsLoading(true);
 
     // await AsyncStorage.multiRemove(['@Facetrack:token', '@Facetrack:user']);
@@ -69,12 +72,11 @@ function useAuth(): ReturnValue {
 
   useEffect(() => {
     isMounted.current = true;
-    handleAutoSignIn();
 
     return () => {
       isMounted.current = false;
     };
-  }, [handleAutoSignIn]);
+  }, []);
 
   const signIn = useCallback(
     async ({ token, user }) => {
@@ -148,6 +150,7 @@ function useAuth(): ReturnValue {
     signUp,
     signOut,
     handleUserUpdate,
+    handleAutoSignIn,
   };
 }
 

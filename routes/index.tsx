@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 // styles
@@ -16,7 +16,11 @@ import AuthRoutes from './auth.routes';
 import AppRoutes from './app.routes';
 
 const Routes: React.FC = () => {
-  const { isLoading } = useAuth();
+  const { isLoading, handleAutoSignIn } = useAuth();
+
+  useEffect(() => {
+    handleAutoSignIn();
+  }, [handleAutoSignIn]);
 
   const { user } = useSelector<IState, IUserState>(state => state.user);
 
