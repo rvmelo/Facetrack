@@ -43,7 +43,10 @@ export const TrackOptionScreen: React.FC = () => {
           />
         </ButtonsContainer>
       </Container>
-      <IntroModal text="On this screen you can choose between two tracking options. By choosing the first option you can track random users on this app. The second option has an watch dogs vibe and enables to track users nearby you." />
+      <IntroModal
+        iconName="md-locate"
+        text="On this screen, you can choose between two tracking options. If you choose the first option, you can track random users in this app. The second option has a Watch Dogs feel to it and allows you to track users near you."
+      />
     </>
   );
 };

@@ -29,6 +29,7 @@ import { translate } from '../../../i18n/src/locales';
 
 import { ProfileStackParamList } from '../../../routes/types';
 import { ProfileScroll } from './profileScroll';
+import { IntroModal } from '../../../components/introModal';
 
 type NavigationProps = StackNavigationProp<
   ProfileStackParamList,
@@ -135,6 +136,10 @@ const ProfileScreen: React.FC = () => {
         media={media}
         imgHeight={imgHeight}
         instagram={user?.instagram?.userName}
+      />
+      <IntroModal
+        iconName="md-open"
+        text="On this screen you can press the star icon to check evaluations received from other users. Some  have an icon like the one shown above. Evaluations with an icon contain messages intended for you. Once you press on it, the message will be displayed."
       />
     </>
   );

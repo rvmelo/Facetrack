@@ -11,9 +11,10 @@ import { ModalButton } from './modaButton';
 
 interface IntroProps {
   text: string;
+  iconName: 'md-locate' | 'md-person' | 'md-location' | 'md-open';
 }
 
-export const IntroModal: React.FC<IntroProps> = memo(({ text }) => {
+export const IntroModal: React.FC<IntroProps> = memo(({ text, iconName }) => {
   const { introModalVisible, setIntroModalVisible } = useIntroModal();
 
   return (
@@ -26,7 +27,7 @@ export const IntroModal: React.FC<IntroProps> = memo(({ text }) => {
       <IntroModalBackground>
         <View style={styles.modalView}>
           <Ionicons
-            name="md-locate"
+            name={iconName}
             style={{ marginBottom: 15 }}
             size={100}
             color={Colors.primary}

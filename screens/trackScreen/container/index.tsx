@@ -7,6 +7,7 @@ import Slider from '@react-native-community/slider';
 //  components
 import { useTrackScreen } from '../useTrackScreen';
 import { ModalComponent } from './modalComponent';
+import { IntroModal } from '../../../components/introModal';
 
 //  styles
 import {
@@ -70,6 +71,10 @@ export const TrackScreen: React.FC = () => {
         onListEnd={onListEnd}
         setOnMomentumScrollBegin={setOnMomentumScrollBegin}
         distance={distance}
+      />
+      <IntroModal
+        iconName="md-location"
+        text="This screen allows you to track nearby users. Simply select a distance between 100 and 1000 meters. Once you track users from a certain distance, you can view their profiles and rate them."
       />
     </>
   );
