@@ -8,11 +8,11 @@ import { getDate } from '../../services/date';
 import { MEDIA_TYPES, UserMedia } from '../../store/modules/user/types';
 
 //  components
-import { CloseButton } from './closeButton';
+import { CloseButton } from '../closeButton';
 import { PhotoMedia, VideoMedia } from './modalMedias';
 
 //  styles
-import { ModalBackground, ModalContent } from './styles';
+import { MediaModalBackground, ModalContent } from './styles';
 
 //  constants
 import { SCREEN_HEIGHT } from '../../constants/dimensions';
@@ -39,7 +39,7 @@ export const MediaModal: React.FC<MediaModalProps> = memo(
         visible={isVisible}
         onRequestClose={() => setIsVisible(false)}
       >
-        <ModalBackground bottomTabHeight={bottomTabHeight}>
+        <MediaModalBackground bottomTabHeight={bottomTabHeight}>
           <ScrollView
             contentContainerStyle={{
               minHeight: SCREEN_HEIGHT - bottomTabHeight,
@@ -70,7 +70,7 @@ export const MediaModal: React.FC<MediaModalProps> = memo(
               />
             </ModalContent>
           </ScrollView>
-        </ModalBackground>
+        </MediaModalBackground>
       </Modal>
     );
   },

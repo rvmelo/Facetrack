@@ -72,7 +72,7 @@ export const ButtonPanelContainer = styled.View`
 export const TouchableIcon = styled.TouchableWithoutFeedback``;
 
 // rate modal
-export const RateModalBackground = styled.View`
+export const ModalBackground = styled.View`
   flex: 1;
   justify-content: flex-start;
   align-items: center;
@@ -155,11 +155,11 @@ export const ModalTextContainer = styled.View`
   padding: 5px;
 `;
 
-interface ModalBackgroundProps {
+interface MediaModalBackgroundProps {
   bottomTabHeight: number;
 }
 
-export const ModalBackground = styled.View<ModalBackgroundProps>`
+export const MediaModalBackground = styled.View<MediaModalBackgroundProps>`
   flex: 1;
   background: rgba(0, 0, 0, 0.9);
   padding-bottom: ${props => props.bottomTabHeight}px;
@@ -182,20 +182,6 @@ interface ModalPhotoProps {
 export const ModalPhoto = styled.Image<ModalPhotoProps>`
   width: ${SCREEN_WIDTH}px;
   height: ${props => props.imgHeight}px;
-`;
-
-//  close button
-export const CloseButtonLayout = styled.View`
-  /* margin: 5px 0; */
-  border-radius: 25px;
-  height: 50px;
-  width: 50px;
-  background: ${Colors.accent};
-  border-color: ${Colors.disabled};
-  border-width: 2px;
-  overflow: hidden;
-  justify-content: center;
-  align-items: center;
 `;
 
 //  header
