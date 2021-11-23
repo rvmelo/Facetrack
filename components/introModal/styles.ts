@@ -7,7 +7,6 @@ export const ModalBackground = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  margin-top: 22px;
   background: rgba(0, 0, 0, 0.9);
 `;
 

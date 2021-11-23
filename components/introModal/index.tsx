@@ -11,7 +11,12 @@ import { ModalButton } from './modaButton';
 
 interface IntroProps {
   text: string;
-  iconName: 'md-locate' | 'md-person' | 'md-location' | 'md-open';
+  iconName:
+    | 'md-locate'
+    | 'md-person'
+    | 'md-location'
+    | 'md-open'
+    | 'md-star-outline';
 }
 
 export const IntroModal: React.FC<IntroProps> = memo(({ text, iconName }) => {

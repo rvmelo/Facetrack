@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { ScrollView } from 'react-native';
+import {
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  ScrollView,
+} from 'react-native';
 import { AxiosResponse } from 'axios';
 
 //  redux
@@ -19,12 +23,19 @@ interface ReturnType {
   isUserLoading: boolean;
   user: IUser;
   scroll: React.RefObject<ScrollView>;
+  isCloseToEnd: (
+    // eslint-disable-next-line no-unused-vars
+    nativeEvent: NativeSyntheticEvent<NativeScrollEvent>,
+  ) => void;
+  displayModal: boolean;
 }
 
 export function useProfileScreen(): ReturnType {
   const dispatch = useDispatch();
 
   const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const [displayModal, setDisplayModal] = useState(false);
 
   const scroll = useRef<ScrollView>(null);
 
@@ -40,6 +51,20 @@ export function useProfileScreen(): ReturnType {
       isMounted.current = false;
     };
   }, []);
+
+  const isCloseToEnd = useCallback(
+    ({ nativeEvent }: NativeSyntheticEvent<NativeScrollEvent>) => {
+      const { layoutMeasurement, contentOffset, contentSize } = nativeEvent;
+
+      const paddingToRight = 20;
+
+      setDisplayModal(
+        layoutMeasurement.width + contentOffset.x >=
+          contentSize.width - paddingToRight,
+      );
+    },
+    [],
+  );
 
   const onUserLoading = useCallback(async () => {
     setIsRefreshing(true);
@@ -69,5 +94,7 @@ export function useProfileScreen(): ReturnType {
     isUserLoading,
     user,
     scroll,
+    isCloseToEnd,
+    displayModal,
   };
 }

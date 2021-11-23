@@ -138,8 +138,8 @@ const ProfileScreen: React.FC = () => {
         instagram={user?.instagram?.userName}
       />
       <IntroModal
-        iconName="md-open"
-        text="On this screen you can press the star icon to check evaluations received from other users. Some  have an icon like the one shown above. Evaluations with an icon contain messages intended for you. Once you press on it, the message will be displayed."
+        iconName="md-star-outline"
+        text="On this screen you can press the star icon to check evaluations received from other users."
       />
     </>
   );

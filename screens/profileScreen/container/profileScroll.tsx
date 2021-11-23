@@ -10,6 +10,7 @@ import { ListHeaderComponent } from './listHeaderComponent';
 import { ListEmptyComponent } from './listEmptyComponent';
 import { SelectionBar } from '../../../components/profileItems/selectionBar';
 import { EvaluationList } from './evaluationList';
+import { IntroModal } from '../../../components/introModal';
 
 //  hooks
 import { useProfileScreen } from '../useProfileScreen';
@@ -42,7 +43,7 @@ export const ProfileScroll: React.FC<PhotoScrollProps> = memo(
   }) => {
     const userMedia = user?.instagram?.userMedia;
 
-    const { scroll } = useProfileScreen();
+    const { scroll, isCloseToEnd, displayModal } = useProfileScreen();
 
     return (
       <>
@@ -54,7 +55,12 @@ export const ProfileScroll: React.FC<PhotoScrollProps> = memo(
         />
 
         <SelectionBar scroll={scroll} />
-        <ScrollView ref={scroll} scrollEnabled={false} horizontal>
+        <ScrollView
+          ref={scroll}
+          onScroll={nativeEvent => isCloseToEnd(nativeEvent)}
+          scrollEnabled={false}
+          horizontal
+        >
           <FlatList
             data={Array.isArray(userMedia) ? userMedia : []}
             ListEmptyComponent={ListEmptyComponent}
@@ -74,6 +80,12 @@ export const ProfileScroll: React.FC<PhotoScrollProps> = memo(
             }}
           />
         </ScrollView>
+        {displayModal && (
+          <IntroModal
+            iconName="md-open"
+            text="Evaluations with an icon contain messages intended for you. Once you press on it, the message will be displayed."
+          />
+        )}
       </>
     );
   },
