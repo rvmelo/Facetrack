@@ -2,9 +2,6 @@ import React from 'react';
 
 import { ActivityIndicator } from 'react-native';
 
-// i18n
-import { translate } from '../../../i18n/src/locales';
-
 //  hooks
 import { useList } from '../useList';
 
@@ -12,9 +9,6 @@ import { useList } from '../useList';
 import Colors from '../../../constants/colors';
 import { ActivityIndicatorContainer } from './styles';
 import UsersList from './usersList';
-
-//  components
-import { IntroModal } from '../../../components/introModal';
 
 const RateScreen: React.FC = () => {
   const { listItems, isLoading, handleUsersRequest } = useList();
@@ -32,13 +26,7 @@ const RateScreen: React.FC = () => {
       />
     </ActivityIndicatorContainer>
   ) : (
-    <>
-      <IntroModal iconName="md-person" text={translate('rateUserIntro')} />
-      <UsersList
-        listItems={listItems}
-        handleUsersRequest={handleUsersRequest}
-      />
-    </>
+    <UsersList listItems={listItems} handleUsersRequest={handleUsersRequest} />
   );
 };
 

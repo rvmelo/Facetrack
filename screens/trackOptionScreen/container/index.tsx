@@ -46,6 +46,7 @@ export const TrackOptionScreen: React.FC = () => {
       <IntroModal
         iconName="md-locate"
         text={translate('trackingOptionsIntro')}
+        introKey="isTrackingOptionsFirstLaunch"
       />
     </>
   );

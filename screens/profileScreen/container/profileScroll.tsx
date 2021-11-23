@@ -87,6 +87,7 @@ export const ProfileScroll: React.FC<PhotoScrollProps> = memo(
           <IntroModal
             iconName="md-open"
             text={translate('profileEvaluationsIntro')}
+            introKey="isProfileEvaluationsFirstLaunch"
           />
         )}
       </>

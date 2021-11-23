@@ -140,6 +140,7 @@ const ProfileScreen: React.FC = () => {
       <IntroModal
         iconName="md-star-outline"
         text={translate('profileStarIntro')}
+        introKey="isProfileStarFirstLaunch"
       />
     </>
   );

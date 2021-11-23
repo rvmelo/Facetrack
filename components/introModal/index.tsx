@@ -17,33 +17,43 @@ interface IntroProps {
     | 'md-location'
     | 'md-open'
     | 'md-star-outline';
+  introKey:
+    | 'isTrackingOptionsFirstLaunch'
+    | 'isTrackingScreenFirstLaunch'
+    | 'isRateUserFirstLaunch'
+    | 'isProfileStarFirstLaunch'
+    | 'isProfileEvaluationsFirstLaunch';
 }
 
-export const IntroModal: React.FC<IntroProps> = memo(({ text, iconName }) => {
-  const { introModalVisible, setIntroModalVisible } = useIntroModal();
+export const IntroModal: React.FC<IntroProps> = memo(
+  ({ text, iconName, introKey }) => {
+    const { introModalVisible, setIntroModalVisible } = useIntroModal({
+      introKey,
+    });
 
-  return (
-    <Modal
-      animationType="slide"
-      transparent
-      visible={introModalVisible}
-      onRequestClose={() => setIntroModalVisible(false)}
-    >
-      <IntroModalBackground>
-        <View style={styles.modalView}>
-          <Ionicons
-            name={iconName}
-            style={{ marginBottom: 15 }}
-            size={100}
-            color={Colors.primary}
-          />
-          <IntroText>{text}</IntroText>
-          <ModalButton onPress={() => setIntroModalVisible(false)} />
-        </View>
-      </IntroModalBackground>
-    </Modal>
-  );
-});
+    return (
+      <Modal
+        animationType="slide"
+        transparent
+        visible={introModalVisible}
+        onRequestClose={() => setIntroModalVisible(false)}
+      >
+        <IntroModalBackground>
+          <View style={styles.modalView}>
+            <Ionicons
+              name={iconName}
+              style={{ marginBottom: 15 }}
+              size={100}
+              color={Colors.primary}
+            />
+            <IntroText>{text}</IntroText>
+            <ModalButton onPress={() => setIntroModalVisible(false)} />
+          </View>
+        </IntroModalBackground>
+      </Modal>
+    );
+  },
+);
 
 const styles = StyleSheet.create({
   modalView: {

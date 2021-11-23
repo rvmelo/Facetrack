@@ -4,6 +4,9 @@ import React, { useRef, useCallback } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
+//  i18n
+import { translate } from '../../../i18n/src/locales';
+
 //  hooks
 import { ItemData } from '../useList';
 import { useListActions } from '../useListActions';
@@ -17,6 +20,7 @@ import {
   TouchableButton,
   UsersListContainer,
 } from './styles';
+import { IntroModal } from '../../../components/introModal';
 
 interface UserListProps {
   listItems: ItemData[];
@@ -70,13 +74,20 @@ const UsersList: React.FC<UserListProps> = ({
       </TouchableButton>
     </UsersListContainer>
   ) : (
-    <FlatList
-      ref={ref}
-      data={listItems}
-      renderItem={renderItem}
-      scrollEnabled={false}
-      keyExtractor={item => item.data.userProviderId}
-    />
+    <>
+      <FlatList
+        ref={ref}
+        data={listItems}
+        renderItem={renderItem}
+        scrollEnabled={false}
+        keyExtractor={item => item.data.userProviderId}
+      />
+      <IntroModal
+        iconName="md-person"
+        text={translate('rateUserIntro')}
+        introKey="isRateUserFirstLaunch"
+      />
+    </>
   );
 };
 

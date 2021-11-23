@@ -75,6 +75,7 @@ export const TrackScreen: React.FC = () => {
       <IntroModal
         iconName="md-location"
         text={translate('trackingScreenIntro')}
+        introKey="isTrackingScreenFirstLaunch"
       />
     </>
   );
