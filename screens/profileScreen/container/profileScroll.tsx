@@ -5,6 +5,9 @@ import { FlatList, ListRenderItem, ScrollView } from 'react-native';
 //  redux
 import { IUser, UserMedia } from '../../../store/modules/user/types';
 
+// i18n
+import { translate } from '../../../i18n/src/locales';
+
 //  components
 import { ListHeaderComponent } from './listHeaderComponent';
 import { ListEmptyComponent } from './listEmptyComponent';
@@ -83,7 +86,7 @@ export const ProfileScroll: React.FC<PhotoScrollProps> = memo(
         {displayModal && (
           <IntroModal
             iconName="md-open"
-            text="Evaluations with an icon contain messages intended for you. Once you press on it, the message will be displayed."
+            text={translate('profileEvaluationsIntro')}
           />
         )}
       </>

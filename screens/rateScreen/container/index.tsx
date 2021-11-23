@@ -2,6 +2,9 @@ import React from 'react';
 
 import { ActivityIndicator } from 'react-native';
 
+// i18n
+import { translate } from '../../../i18n/src/locales';
+
 //  hooks
 import { useList } from '../useList';
 
@@ -30,10 +33,7 @@ const RateScreen: React.FC = () => {
     </ActivityIndicatorContainer>
   ) : (
     <>
-      <IntroModal
-        iconName="md-person"
-        text="On this screen, you can rate random users from 1 to 5 stars. It is also possible to view the user's Instagram profile. On the user's profile, you can leave a rating with an optional message."
-      />
+      <IntroModal iconName="md-person" text={translate('rateUserIntro')} />
       <UsersList
         listItems={listItems}
         handleUsersRequest={handleUsersRequest}

@@ -139,7 +139,7 @@ const ProfileScreen: React.FC = () => {
       />
       <IntroModal
         iconName="md-star-outline"
-        text="On this screen you can press the star icon to check evaluations received from other users."
+        text={translate('profileStarIntro')}
       />
     </>
   );
