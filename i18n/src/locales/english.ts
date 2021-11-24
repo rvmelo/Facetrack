@@ -50,6 +50,7 @@ export default {
   maleMarried: 'married',
   femaleMarried: 'married',
   years: 'years',
+  rate: 'Rate',
 
   // User Publication Screen
   userPublications: 'Publications',
@@ -79,6 +80,8 @@ export default {
   sendEvaluationError:
     'Failed to send evaluation. Please, check your internet connection.',
   loadUsersError: 'Error on loading users',
+  retry: 'Retry',
+  ratedUser: 'Rated user with {{rate}} stars',
 
   //  expo-notifications
   enableNotificationError: 'Error in enabling notifications',
@@ -111,6 +114,8 @@ export default {
   noUsersFound: 'No users found',
   search: 'Search',
   searchInfo: 'Search users by name or by instagram',
+  searchToastError:
+    'Error on searching users. Please, check your internet connection',
 
   //  useLocation hook
   locationPermissionError:

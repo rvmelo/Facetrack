@@ -52,6 +52,7 @@ export default {
   maleMarried: 'casado',
   femaleMarried: 'casada',
   years: 'años',
+  rate: 'Calificar',
 
   // User Publication Screen
   userPublications: 'Publicaciones',
@@ -75,6 +76,8 @@ export default {
   sendEvaluationError:
     'No se pudo enviar la evaluación. Por favor revise su conexion a internet.',
   loadUsersError: 'Error al cargar usuarios',
+  retry: 'Intentar nuevamente',
+  ratedUser: 'Usuario calificado con {{rate}} estrellas',
 
   //  Notification Screen
   userEvaluation: '{{name}} te calificó con {{value}} estrellas',
@@ -114,6 +117,8 @@ export default {
   noUsersFound: 'No se encontraron usuarios',
   search: 'Buscar',
   searchInfo: 'Buscar usuarios por nombre o por instagram',
+  searchToastError:
+    'Error al buscar usuarios. Por favor revise su conexion a internet',
 
   //  useLocation hook
   locationPermissionError:

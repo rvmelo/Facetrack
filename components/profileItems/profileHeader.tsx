@@ -51,7 +51,10 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = memo(
             sex: user?.sex,
           })}
         </StyledText>
-        <ProfileButton onPress={() => setModalVisible(true)} text="Rate" />
+        <ProfileButton
+          onPress={() => setModalVisible(true)}
+          text={translate('rate')}
+        />
       </>
     );
   },

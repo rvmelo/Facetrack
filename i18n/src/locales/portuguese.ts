@@ -53,6 +53,7 @@ export default {
   maleMarried: 'casado',
   femaleMarried: 'casada',
   years: 'anos',
+  rate: 'Avaliar',
 
   // User Publication Screen
   userPublications: 'Publicações',
@@ -76,6 +77,8 @@ export default {
   sendEvaluationError:
     'Falha ao enviar avaliação. Por favor, cheque sua conexão com a internet.',
   loadUsersError: 'Erro ao carregar usuários',
+  retry: 'Tentar novamente',
+  ratedUser: 'Avaliou usuário com {{rate}} estrelas',
 
   //  Notification Screen
   userEvaluation: '{{name}} avaliou você com {{value}} estrelas',
@@ -115,6 +118,8 @@ export default {
   noUsersFound: 'Nenhum usuário encontrado',
   search: 'Pesquisar',
   searchInfo: 'Pesquisar usuários por nome ou por instagram',
+  searchToastError:
+    'Erro ao pesquisar usuários. Por favor, cheque sua conexão com a internet',
 
   //  useLocation hook
   locationPermissionError:

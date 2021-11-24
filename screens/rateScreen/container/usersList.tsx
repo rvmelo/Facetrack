@@ -65,11 +65,11 @@ const UsersList: React.FC<UserListProps> = ({
 
   return listItems.length === 0 ? (
     <UsersListContainer>
-      <RateScreenText>No users found</RateScreenText>
+      <RateScreenText>{translate('noUsersFound')}</RateScreenText>
       <TouchableButton onPress={handleUsersRequest}>
         <ButtonLayout>
           <Ionicons name="md-wifi" size={25} color="white" />
-          <ButtonText>Retry</ButtonText>
+          <ButtonText>{translate('retry')}</ButtonText>
         </ButtonLayout>
       </TouchableButton>
     </UsersListContainer>

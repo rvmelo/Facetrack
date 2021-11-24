@@ -1,6 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 
+//  i18n
+import I18n from 'i18n-js';
+
 // navigation
 import {
   useRoute,
@@ -103,8 +106,11 @@ export const ListItem: React.FC<ListItemProps> = ({
       />
 
       <ItemTextContainer bottomTabHeight={bottomTabHeight} style={[textStyle]}>
-        <ItemText>Rated</ItemText>
-        <ItemText>User {rate} stars</ItemText>
+        <ItemText>
+          {I18n.t('ratedUser', {
+            rate,
+          })}
+        </ItemText>
       </ItemTextContainer>
 
       {cardOpacity && (
