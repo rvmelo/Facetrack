@@ -3,6 +3,8 @@ import { Alert } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { getPreciseDistance } from 'geolib';
+
 // import * as TaskManager from 'expo-task-manager';
 import * as Location from 'expo-location';
 
@@ -70,14 +72,24 @@ export function useLocation(): void {
           const { latitude, longitude } = coords;
 
           if (
-            storedCoords.longitude === longitude &&
-            storedCoords.latitude === latitude
-          )
+            getPreciseDistance(
+              {
+                latitude: storedCoords.latitude,
+                longitude: storedCoords.longitude,
+              },
+              { latitude, longitude },
+            ) < 100
+          ) {
             return;
+          }
 
           await api.patch('users/update-location', {
             coords: { longitude, latitude },
           });
+          await AsyncStorage.setItem(
+            userLocationKey,
+            JSON.stringify({ longitude, latitude }),
+          );
         } catch (err) {
           const error = err as AxiosError;
 
