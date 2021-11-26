@@ -20,6 +20,8 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.facetrack",
+      "versionCode": 1,
       "permissions": [ 
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION"
@@ -27,7 +29,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"

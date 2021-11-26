@@ -74,8 +74,8 @@ export function useLocation(): void {
           if (
             getPreciseDistance(
               {
-                latitude: storedCoords.latitude,
-                longitude: storedCoords.longitude,
+                latitude: storedCoords?.latitude,
+                longitude: storedCoords?.longitude,
               },
               { latitude, longitude },
             ) < 100
@@ -88,7 +88,7 @@ export function useLocation(): void {
           });
           await AsyncStorage.setItem(
             userLocationKey,
-            JSON.stringify({ longitude, latitude }),
+            JSON.stringify({ coords: { longitude, latitude } }),
           );
         } catch (err) {
           const error = err as AxiosError;
