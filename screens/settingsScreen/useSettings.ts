@@ -22,7 +22,7 @@ import {
   notificationSettings as notificationStorage,
 } from '../../constants/storage';
 
-interface NotificationSettings {
+export interface NotificationData {
   shouldShowAlert: boolean;
   shouldPlaySound: boolean;
 }
@@ -30,7 +30,7 @@ interface NotificationSettings {
 interface ReturnType {
   handleUserDeletion(): Promise<void>;
   isLoading: boolean;
-  notificationSettings: NotificationSettings;
+  notificationSettings: NotificationData;
   toggleNotification: () => void;
   toggleNotificationSound: () => void;
 }
@@ -43,7 +43,7 @@ function useSettings(): ReturnType {
   const [isLoading, setIsLoading] = useState(false);
 
   const [notificationSettings, setNotificationSettings] =
-    useState<NotificationSettings>(() => ({
+    useState<NotificationData>(() => ({
       shouldShowAlert: true,
       shouldPlaySound: true,
     }));
@@ -54,7 +54,7 @@ function useSettings(): ReturnType {
     (async () => {
       const data = await AsyncStorage.getItem(notificationStorage);
 
-      const parsedData = JSON.parse(data || '') as NotificationSettings;
+      const parsedData = JSON.parse(data || '') as NotificationData;
       setNotificationSettings(parsedData);
     })();
   }, []);

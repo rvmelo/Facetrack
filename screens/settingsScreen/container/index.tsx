@@ -3,7 +3,6 @@ import {
   ActivityIndicator,
   Alert,
   TouchableWithoutFeedback,
-  Switch,
 } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
@@ -19,7 +18,6 @@ import {
   DeleteButtonLayout,
   TouchableButton,
   ButtonText,
-  ItemContainer,
   ItemText,
   SettingsWrapper,
   ItemsContainer,
@@ -29,6 +27,7 @@ import {
 //  hooks
 import useSettings from '../useSettings';
 import useAuth from '../../../hooks/useAuth';
+import { NotificationSettings } from './notificationSettings';
 
 const SettingsScreen: React.FC = () => {
   const {
@@ -44,43 +43,11 @@ const SettingsScreen: React.FC = () => {
     <Container>
       <SettingsWrapper>
         <ItemsContainer>
-          <ItemContainer>
-            <ItemText>Toggle Notification: </ItemText>
-            <Switch
-              trackColor={{
-                false: Colors.disabled,
-                true: 'rgb(3, 160, 98, 0.9)',
-              }}
-              thumbColor={
-                notificationSettings?.shouldShowAlert
-                  ? Colors.primary
-                  : Colors.accent
-              }
-              onValueChange={toggleNotification}
-              value={notificationSettings?.shouldShowAlert}
-            />
-          </ItemContainer>
-          <ItemContainer>
-            <ItemText>Toggle Notification Sound: </ItemText>
-            <Switch
-              trackColor={{
-                false: Colors.disabled,
-                true: 'rgb(3, 160, 98, 0.9)',
-              }}
-              disabled={!notificationSettings?.shouldShowAlert}
-              thumbColor={
-                notificationSettings?.shouldPlaySound &&
-                notificationSettings?.shouldShowAlert
-                  ? Colors.primary
-                  : Colors.accent
-              }
-              onValueChange={toggleNotificationSound}
-              value={
-                notificationSettings?.shouldPlaySound &&
-                notificationSettings?.shouldShowAlert
-              }
-            />
-          </ItemContainer>
+          <NotificationSettings
+            notificationSettings={notificationSettings}
+            toggleNotification={toggleNotification}
+            toggleNotificationSound={toggleNotificationSound}
+          />
         </ItemsContainer>
         <TouchableWithoutFeedback onPress={signOut}>
           <LogoutContainer>
