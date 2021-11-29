@@ -54,6 +54,19 @@ export const ButtonText = styled.Text`
 export const ItemContainer = styled.View`
   flex-direction: row;
   width: 350px;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const LogoutContainer = styled.View`
+  flex-direction: row;
+  width: 350px;
+`;
+
+export const SettingsWrapper = styled.View`
+  flex: 1;
+  justify-content: space-between;
+  margin-bottom: 50px;
 `;
 
 export const ItemsContainer = styled.View``;

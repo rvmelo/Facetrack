@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Alert,
   TouchableWithoutFeedback,
+  Switch,
 } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
@@ -20,7 +21,9 @@ import {
   ButtonText,
   ItemContainer,
   ItemText,
+  SettingsWrapper,
   ItemsContainer,
+  LogoutContainer,
 } from './styles';
 
 //  hooks
@@ -28,23 +31,68 @@ import useSettings from '../useSettings';
 import useAuth from '../../../hooks/useAuth';
 
 const SettingsScreen: React.FC = () => {
-  const { handleUserDeletion, isLoading } = useSettings();
+  const {
+    handleUserDeletion,
+    isLoading,
+    notificationSettings,
+    toggleNotification,
+    toggleNotificationSound,
+  } = useSettings();
   const { signOut } = useAuth();
 
   return (
     <Container>
-      <ItemsContainer>
-        <TouchableWithoutFeedback onPress={signOut}>
+      <SettingsWrapper>
+        <ItemsContainer>
           <ItemContainer>
+            <ItemText>Toggle Notification: </ItemText>
+            <Switch
+              trackColor={{
+                false: Colors.disabled,
+                true: 'rgb(3, 160, 98, 0.9)',
+              }}
+              thumbColor={
+                notificationSettings?.shouldShowAlert
+                  ? Colors.primary
+                  : Colors.accent
+              }
+              onValueChange={toggleNotification}
+              value={notificationSettings?.shouldShowAlert}
+            />
+          </ItemContainer>
+          <ItemContainer>
+            <ItemText>Toggle Notification Sound: </ItemText>
+            <Switch
+              trackColor={{
+                false: Colors.disabled,
+                true: 'rgb(3, 160, 98, 0.9)',
+              }}
+              disabled={!notificationSettings?.shouldShowAlert}
+              thumbColor={
+                notificationSettings?.shouldPlaySound &&
+                notificationSettings?.shouldShowAlert
+                  ? Colors.primary
+                  : Colors.accent
+              }
+              onValueChange={toggleNotificationSound}
+              value={
+                notificationSettings?.shouldPlaySound &&
+                notificationSettings?.shouldShowAlert
+              }
+            />
+          </ItemContainer>
+        </ItemsContainer>
+        <TouchableWithoutFeedback onPress={signOut}>
+          <LogoutContainer>
             <Ionicons
               name="md-log-out-outline"
               size={20}
               color={Colors.accent}
             />
             <ItemText>{translate('Logout')}</ItemText>
-          </ItemContainer>
+          </LogoutContainer>
         </TouchableWithoutFeedback>
-      </ItemsContainer>
+      </SettingsWrapper>
 
       <TouchableButton
         onPress={() =>
