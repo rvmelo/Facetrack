@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Switch } from 'react-native';
 
 //  i18n
-// import { translate } from '../../../i18n/src/locales';
+import { translate } from '../../../i18n/src/locales';
 
 import { NotificationData } from '../useSettings';
 
@@ -22,7 +22,7 @@ export const NotificationSettings: React.FC<NotificationSettingsProps> = memo(
     return (
       <>
         <ItemContainer>
-          <ItemText>Toggle Notification: </ItemText>
+          <ItemText>{translate('enableNotification')}: </ItemText>
           <Switch
             trackColor={{
               false: Colors.disabled,
@@ -38,7 +38,7 @@ export const NotificationSettings: React.FC<NotificationSettingsProps> = memo(
           />
         </ItemContainer>
         <ItemContainer>
-          <ItemText>Toggle Notification Sound: </ItemText>
+          <ItemText>{translate('enableNotificationSound')}: </ItemText>
           <Switch
             trackColor={{
               false: Colors.disabled,

@@ -68,6 +68,8 @@ export default {
   deleteAccount: 'Delete Account',
   userDeletionError: 'Error on user deletion',
   deleteAccountQuestion: 'Are you sure do you want to delete your account?',
+  enableNotification: 'Notifications',
+  enableNotificationSound: 'Notification sound',
 
   //  Notification Screen
   userEvaluation: '{{name}} has rated you with {{value}} stars',

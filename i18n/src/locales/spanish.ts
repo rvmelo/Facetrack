@@ -70,6 +70,8 @@ export default {
   deleteAccount: 'Excluir Cuenta',
   userDeletionError: 'Error al excluir usuario',
   deleteAccountQuestion: 'Estás seguro de que deseas excluir tu cuenta',
+  enableNotification: 'Notificaciones',
+  enableNotificationSound: 'Sonido de notificación',
 
   //  Rate Screen
   viewInstagram: 'Ver Instagram',

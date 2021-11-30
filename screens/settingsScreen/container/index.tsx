@@ -18,7 +18,7 @@ import {
   DeleteButtonLayout,
   TouchableButton,
   ButtonText,
-  ItemText,
+  LogoutText,
   SettingsWrapper,
   ItemsContainer,
   LogoutContainer,
@@ -56,7 +56,7 @@ const SettingsScreen: React.FC = () => {
               size={20}
               color={Colors.accent}
             />
-            <ItemText>{translate('Logout')}</ItemText>
+            <LogoutText>{translate('Logout')}</LogoutText>
           </LogoutContainer>
         </TouchableWithoutFeedback>
       </SettingsWrapper>

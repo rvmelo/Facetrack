@@ -75,5 +75,10 @@ export const ItemText = styled.Text`
   font-size: ${fonts.sizes.md}px;
   font-family: ${fonts.family};
   color: ${Colors.accent};
+`;
+export const LogoutText = styled.Text`
+  font-size: ${fonts.sizes.md}px;
+  font-family: ${fonts.family};
+  color: ${Colors.accent};
   margin-left: 5px;
 `;
