@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { TouchableNativeFeedback } from 'react-native';
 import Colors from '../../../constants/colors';
+import { SCREEN_WIDTH } from '../../../constants/dimensions';
 
 interface ButtonContainerProps {
   backgroundColor: string;
@@ -19,19 +20,23 @@ export const Container = styled.View`
   align-items: center;
 `;
 
+export const StyledImage = styled.ImageBackground`
+  width: ${SCREEN_WIDTH / 2}px;
+  height: ${SCREEN_WIDTH / 2}px;
+  margin: 30px 0;
+`;
+
 export const StyledSpinner = styled.ActivityIndicator.attrs({
   size: 'large',
   color: Colors.primary,
 })``;
 
 export const TitleContainer = styled.View`
-  flex: 1;
   justify-content: center;
   align-items: center;
 `;
 
 export const ButtonsContainer = styled.View`
-  flex: 1;
   align-items: center;
   justify-content: flex-start;
 `;
@@ -46,6 +51,8 @@ export const StyledSubTitle = styled.Text`
   font-size: 18px;
   font-family: matrix;
   color: ${Colors.primary};
+  text-align: center;
+  margin-top: 5px;
 `;
 
 // LoginButton
@@ -62,7 +69,7 @@ export const ButtonContainer = styled.View<ButtonContainerProps>`
   padding: 15px 0;
   border-radius: 5px;
   overflow: hidden;
-  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 
 export const LogoContainer = styled.View`
