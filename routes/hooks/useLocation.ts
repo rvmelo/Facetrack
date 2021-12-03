@@ -45,7 +45,7 @@ export function useLocation(): void {
   const onForegroundUpdate = useCallback(async () => {
     Location.watchPositionAsync(
       {
-        accuracy: Location.Accuracy.Balanced,
+        accuracy: Location.Accuracy.High,
         timeInterval: 60 * 1000,
         distanceInterval: 100,
       },

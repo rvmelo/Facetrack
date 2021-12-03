@@ -98,6 +98,7 @@ export const InputContainer = styled.View`
 export const RateModalInput = styled.TextInput.attrs({
   multiline: true,
   numberOfLines: 10,
+  maxLength: 280,
   textAlignVertical: 'top',
   selectionColor: Colors.primary,
 })``;
