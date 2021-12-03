@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { TouchableNativeFeedback } from 'react-native';
 import Colors from '../../../constants/colors';
 import { SCREEN_WIDTH } from '../../../constants/dimensions';
+import { fonts } from '../../../constants/fonts';
 
 interface ButtonContainerProps {
   backgroundColor: string;
@@ -42,13 +43,13 @@ export const ButtonsContainer = styled.View`
 `;
 
 export const StyledTitle = styled.Text`
-  font-size: 48px;
+  font-size: ${fonts.sizes.xl2}px;
   font-family: matrix;
   color: ${Colors.primary};
 `;
 
 export const StyledSubTitle = styled.Text`
-  font-size: 18px;
+  font-size: ${fonts.sizes.sm}px;
   font-family: matrix;
   color: ${Colors.primary};
   text-align: center;
@@ -83,5 +84,5 @@ export const ButtonTextContainer = styled.View`
 
 export const ButtonText = styled.Text<ButtonTextProps>`
   color: ${props => props.buttonTextColor};
-  font-size: 18px;
+  font-size: ${fonts.sizes.md}px;
 `;
