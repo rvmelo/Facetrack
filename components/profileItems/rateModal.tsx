@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
 
 import {
-  RateModalBackground,
+  ModalBackground as RateModalBackground,
   InputContainer,
   RateModalText,
   ModalUserInfoContainer,
@@ -11,7 +11,7 @@ import {
 
 // components
 import { ModalButton } from './modalButton';
-import { CloseButton } from './closeButton';
+import { CloseButton } from '../closeButton';
 import Avatar from '../avatar/index';
 import { ButtonPanel } from './buttonPanel';
 

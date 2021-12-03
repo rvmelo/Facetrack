@@ -7,7 +7,7 @@ import I18n from 'i18n-js';
 import Avatar from '../../../components/avatar/index';
 
 // services
-import { formatDate, getHoursFromDate } from '../../../services/date';
+import { getDate } from '../../../services/date';
 
 //  styles
 import {
@@ -59,9 +59,6 @@ export const NotificationItem: React.FC<NotificationItemProps> = memo(
         <ItemContainer isRead={isRead} height={itemHeight}>
           <Avatar avatar={avatar} />
           <TextContainer>
-            <StyledDate>
-              {formatDate(updated_at)}, {getHoursFromDate(updated_at)}
-            </StyledDate>
             <ItemText numberOfLines={1}>
               <HeaderText>{name} </HeaderText>
               <InstagramText>@{instaName}</InstagramText>
@@ -72,6 +69,7 @@ export const NotificationItem: React.FC<NotificationItemProps> = memo(
                 value,
               })}
             </ItemText>
+            <StyledDate>{getDate(updated_at)}</StyledDate>
           </TextContainer>
         </ItemContainer>
       </TouchableItem>

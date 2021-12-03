@@ -5,6 +5,9 @@ import { AxiosError, AxiosResponse } from 'axios';
 //  services
 import api from '../../services/api';
 
+//  i18n
+import { translate } from '../../i18n/src/locales';
+
 //  redux
 import { IUser } from '../../store/modules/user/types';
 import { showToast } from '../../services/toast';
@@ -58,8 +61,7 @@ export function useSearchScreen(): ReturnType {
       }
 
       showToast({
-        message:
-          'Error on searching users. Please, check your internet connection',
+        message: translate('searchToastError'),
       });
 
       isMounted.current && setIsLoading(false);

@@ -6,10 +6,8 @@ import { MEDIA_TYPES, UserMedia } from '../../../store/modules/user/types';
 // components
 import { VideoItem, PhotoItem } from '../../../components/profileItems/items';
 import PhotoScroll from '../../../components/profileItems/photoScroll';
-import { ProfileButton } from '../../../components/profileItems/profileButton';
 import { RateModal } from '../../../components/profileItems/rateModal';
 import { MediaModal } from '../../../components/profileItems/mediaModal';
-import { Header } from '../../../components/profileItems/header';
 import { EvaluationList } from '../../../components/profileItems/evaluationList';
 import { EvaluationModal } from '../../../components/profileItems/evaluationModal';
 
@@ -18,8 +16,11 @@ import { useMediaModal } from '../../../components/profileItems/hooks/useMediaMo
 import { useRandomUserScreen } from '../useRandomUserScreen';
 import { useEvaluationModal } from '../../../components/profileItems/hooks/useEvaluationModal';
 
-import { Container, ProfileDataContainer, StyledText } from './styles';
+import { Container, ProfileDataContainer } from './styles';
 import { SelectionBar } from '../../../components/profileItems/selectionBar';
+
+//  i18n
+import { ProfileHeader } from '../../../components/profileItems/profileHeader';
 
 export const RandomUserScreen: React.FC = memo(() => {
   const {
@@ -70,16 +71,7 @@ export const RandomUserScreen: React.FC = memo(() => {
     <>
       <Container>
         <ProfileDataContainer>
-          <Header
-            avatar={user?.avatar}
-            name={user?.name}
-            rate={user?.rate?.toFixed(2)}
-          />
-          <StyledText>@{user?.instagram?.userName}</StyledText>
-          <StyledText>{user?.sexualOrientation}</StyledText>
-          <StyledText>{user?.relationshipStatus}</StyledText>
-          {/* <StyledText>{user?.birthDate}</StyledText> */}
-          <ProfileButton onPress={() => setModalVisible(true)} text="Rate" />
+          <ProfileHeader user={user} setModalVisible={setModalVisible} />
           <SelectionBar scroll={scroll} />
         </ProfileDataContainer>
 

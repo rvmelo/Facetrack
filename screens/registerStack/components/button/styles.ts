@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { TouchableNativeFeedback } from 'react-native';
 import Colors from '../../../../constants/colors';
-import { SCREEN_WIDTH } from '../../../../constants/dimensions';
+import { fonts } from '../../../../constants/fonts';
 
 interface ButtonLayoutProps {
   disabled: boolean;
@@ -14,8 +14,8 @@ export const StyledButton = styled.TouchableNativeFeedback.attrs({
 
 export const ButtonLayout = styled.View<ButtonLayoutProps>`
   background: ${props => (props.disabled ? Colors.disabled : Colors.primary)};
-  width: ${0.8 * SCREEN_WIDTH}px;
-  height: ${0.15 * SCREEN_WIDTH}px;
+  width: 250px;
+  height: 50px;
   margin: 10px 0;
   border-radius: 5px;
   overflow: hidden;
@@ -26,5 +26,5 @@ export const ButtonLayout = styled.View<ButtonLayoutProps>`
 export const ButtonText = styled.Text`
   color: white;
   font-family: tegomin;
-  font-size: 24px;
+  font-size: ${fonts.sizes.md}px;
 `;

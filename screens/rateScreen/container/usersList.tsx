@@ -4,6 +4,9 @@ import React, { useRef, useCallback } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
+//  i18n
+import { translate } from '../../../i18n/src/locales';
+
 //  hooks
 import { ItemData } from '../useList';
 import { useListActions } from '../useListActions';
@@ -17,6 +20,7 @@ import {
   TouchableButton,
   UsersListContainer,
 } from './styles';
+import { IntroModal } from '../../../components/introModal';
 
 interface UserListProps {
   listItems: ItemData[];
@@ -61,22 +65,29 @@ const UsersList: React.FC<UserListProps> = ({
 
   return listItems.length === 0 ? (
     <UsersListContainer>
-      <RateScreenText>No users found</RateScreenText>
+      <RateScreenText>{translate('noUsersFound')}</RateScreenText>
       <TouchableButton onPress={handleUsersRequest}>
         <ButtonLayout>
           <Ionicons name="md-wifi" size={25} color="white" />
-          <ButtonText>Retry</ButtonText>
+          <ButtonText>{translate('retry')}</ButtonText>
         </ButtonLayout>
       </TouchableButton>
     </UsersListContainer>
   ) : (
-    <FlatList
-      ref={ref}
-      data={listItems}
-      renderItem={renderItem}
-      scrollEnabled={false}
-      keyExtractor={item => item.data.userProviderId}
-    />
+    <>
+      <FlatList
+        ref={ref}
+        data={listItems}
+        renderItem={renderItem}
+        scrollEnabled={false}
+        keyExtractor={item => item.data.userProviderId}
+      />
+      <IntroModal
+        iconName="md-person"
+        text={translate('rateUserIntro')}
+        introKey="isRateUserFirstLaunch"
+      />
+    </>
   );
 };
 

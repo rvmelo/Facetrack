@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 //  redux
-
 import { MEDIA_TYPES, UserMedia } from '../../../store/modules/user/types';
 
 // components
@@ -30,6 +29,7 @@ import { translate } from '../../../i18n/src/locales';
 
 import { ProfileStackParamList } from '../../../routes/types';
 import { ProfileScroll } from './profileScroll';
+import { IntroModal } from '../../../components/introModal';
 
 type NavigationProps = StackNavigationProp<
   ProfileStackParamList,
@@ -136,6 +136,11 @@ const ProfileScreen: React.FC = () => {
         media={media}
         imgHeight={imgHeight}
         instagram={user?.instagram?.userName}
+      />
+      <IntroModal
+        iconName="md-star-outline"
+        text={translate('profileStarIntro')}
+        introKey="isProfileStarFirstLaunch"
       />
     </>
   );

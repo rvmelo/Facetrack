@@ -12,6 +12,7 @@ import {
   TitleContainer,
   StyledSubTitle,
   StyledSpinner,
+  StyledImage,
 } from './styles';
 
 const LoginScreen: React.FC = () => {
@@ -27,9 +28,12 @@ const LoginScreen: React.FC = () => {
           <TitleContainer>
             <StyledTitle>Facetrack</StyledTitle>
             <StyledSubTitle>
-              An app for tracking and rating people
+              An app for tracking and rating social profiles
             </StyledSubTitle>
           </TitleContainer>
+          <StyledImage
+            source={require('../../../assets/images/adaptive-icon.png')}
+          />
           <ButtonsContainer>
             <LoginButton
               logoText="logo-facebook"

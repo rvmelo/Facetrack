@@ -19,11 +19,20 @@ import {
   instagramRequestDateKey,
   instagramTokenKey,
   notificationTokenKey,
+  notificationSettings as notificationStorage,
 } from '../../constants/storage';
+
+export interface NotificationData {
+  shouldShowAlert: boolean;
+  shouldPlaySound: boolean;
+}
 
 interface ReturnType {
   handleUserDeletion(): Promise<void>;
   isLoading: boolean;
+  notificationSettings: NotificationData;
+  toggleNotification: () => void;
+  toggleNotificationSound: () => void;
 }
 
 function useSettings(): ReturnType {
@@ -33,13 +42,49 @@ function useSettings(): ReturnType {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const [notificationSettings, setNotificationSettings] =
+    useState<NotificationData>(() => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+    }));
+
   const { user } = useSelector<IState, IUserState>(state => state.user);
+
+  useEffect(() => {
+    (async () => {
+      const data = await AsyncStorage.getItem(notificationStorage);
+
+      const parsedData = JSON.parse(data || '') as NotificationData;
+      setNotificationSettings(parsedData);
+    })();
+  }, []);
 
   useEffect(() => {
     isMounted.current = true;
     return () => {
       isMounted.current = false;
     };
+  }, []);
+
+  useEffect(() => {
+    AsyncStorage.setItem(
+      notificationStorage,
+      JSON.stringify(notificationSettings),
+    );
+  }, [notificationSettings]);
+
+  const toggleNotification = useCallback(() => {
+    setNotificationSettings(prev => ({
+      ...prev,
+      shouldShowAlert: !prev?.shouldShowAlert,
+    }));
+  }, []);
+
+  const toggleNotificationSound = useCallback(() => {
+    setNotificationSettings(prev => ({
+      ...prev,
+      shouldPlaySound: !prev?.shouldPlaySound,
+    }));
   }, []);
 
   const handleUserDeletion = useCallback(async () => {
@@ -69,6 +114,9 @@ function useSettings(): ReturnType {
   return {
     handleUserDeletion,
     isLoading,
+    notificationSettings,
+    toggleNotification,
+    toggleNotificationSound,
   };
 }
 

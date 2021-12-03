@@ -5,11 +5,15 @@ import { FlatList, ListRenderItem, ScrollView } from 'react-native';
 //  redux
 import { IUser, UserMedia } from '../../../store/modules/user/types';
 
+// i18n
+import { translate } from '../../../i18n/src/locales';
+
 //  components
 import { ListHeaderComponent } from './listHeaderComponent';
 import { ListEmptyComponent } from './listEmptyComponent';
 import { SelectionBar } from '../../../components/profileItems/selectionBar';
-import { EvaluationList } from '../../../components/profileItems/evaluationList';
+import { EvaluationList } from './evaluationList';
+import { IntroModal } from '../../../components/introModal';
 
 //  hooks
 import { useProfileScreen } from '../useProfileScreen';
@@ -42,7 +46,7 @@ export const ProfileScroll: React.FC<PhotoScrollProps> = memo(
   }) => {
     const userMedia = user?.instagram?.userMedia;
 
-    const { scroll } = useProfileScreen();
+    const { scroll, isCloseToEnd, displayModal } = useProfileScreen();
 
     return (
       <>
@@ -54,7 +58,12 @@ export const ProfileScroll: React.FC<PhotoScrollProps> = memo(
         />
 
         <SelectionBar scroll={scroll} />
-        <ScrollView ref={scroll} scrollEnabled={false} horizontal>
+        <ScrollView
+          ref={scroll}
+          onScroll={nativeEvent => isCloseToEnd(nativeEvent)}
+          scrollEnabled={false}
+          horizontal
+        >
           <FlatList
             data={Array.isArray(userMedia) ? userMedia : []}
             ListEmptyComponent={ListEmptyComponent}
@@ -74,6 +83,13 @@ export const ProfileScroll: React.FC<PhotoScrollProps> = memo(
             }}
           />
         </ScrollView>
+        {displayModal && (
+          <IntroModal
+            iconName="md-open"
+            text={translate('profileEvaluationsIntro')}
+            introKey="isProfileEvaluationsFirstLaunch"
+          />
+        )}
       </>
     );
   },

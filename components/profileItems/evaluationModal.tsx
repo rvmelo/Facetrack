@@ -6,14 +6,14 @@ import {
   ModalUserInfoContainer,
   MessageContainer,
   EvaluationModalText,
-  RateModalBackground,
+  ModalBackground as EvaluationModalBackground,
 } from './styles';
 
 //  constants
 import Colors from '../../constants/colors';
 
 // components
-import { CloseButton } from './closeButton';
+import { CloseButton } from '../closeButton';
 import Avatar from '../avatar/index';
 import { ButtonPanel } from './buttonPanel';
 import { ModalEvaluation, ModalUser } from './hooks/useEvaluationModal';
@@ -26,6 +26,7 @@ interface ModalComponentProps {
   evaluation: ModalEvaluation;
 }
 
+//  evaluations an user receives
 export const EvaluationModal: React.FC<ModalComponentProps> = memo(
   ({ userData, evaluation, modalVisible, setModalVisible }) => {
     const { avatarUri, instaName } = userData || {};
@@ -38,7 +39,7 @@ export const EvaluationModal: React.FC<ModalComponentProps> = memo(
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
-        <RateModalBackground>
+        <EvaluationModalBackground>
           <View style={styles.modalView}>
             <ScrollView
               contentContainerStyle={{
@@ -59,7 +60,7 @@ export const EvaluationModal: React.FC<ModalComponentProps> = memo(
             styles={{ marginTop: 20 }}
             onPress={() => setModalVisible(false)}
           />
-        </RateModalBackground>
+        </EvaluationModalBackground>
       </Modal>
     );
   },

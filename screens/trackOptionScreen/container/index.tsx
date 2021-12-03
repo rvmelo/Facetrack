@@ -12,6 +12,8 @@ import { OptionButton } from './optionButton';
 
 import Colors from '../../../constants/colors';
 
+//  components
+import { IntroModal } from '../../../components/introModal';
 import { ButtonsContainer, Container, IconContainer, IconText } from './styles';
 import { EvaluationStackParamList } from '../../../routes/types';
 
@@ -24,21 +26,28 @@ export const TrackOptionScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProps>();
 
   return (
-    <Container>
-      <IconContainer>
-        <Ionicons name="md-location" size={150} color={Colors.primary} />
-        <IconText>{translate('trackInfoLabel')}</IconText>
-      </IconContainer>
-      <ButtonsContainer>
-        <OptionButton
-          text={translate('randomTrack')}
-          onPress={() => navigation.navigate('RateScreen')}
-        />
-        <OptionButton
-          text={translate('trackByDistance')}
-          onPress={() => navigation.navigate('TrackScreen')}
-        />
-      </ButtonsContainer>
-    </Container>
+    <>
+      <Container>
+        <IconContainer>
+          <Ionicons name="md-location" size={150} color={Colors.primary} />
+          <IconText>{translate('trackInfoLabel')}</IconText>
+        </IconContainer>
+        <ButtonsContainer>
+          <OptionButton
+            text={translate('randomTrack')}
+            onPress={() => navigation.navigate('RateScreen')}
+          />
+          <OptionButton
+            text={translate('trackByDistance')}
+            onPress={() => navigation.navigate('TrackScreen')}
+          />
+        </ButtonsContainer>
+      </Container>
+      <IntroModal
+        iconName="md-locate"
+        text={translate('trackingOptionsIntro')}
+        introKey="isTrackingOptionsFirstLaunch"
+      />
+    </>
   );
 };

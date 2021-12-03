@@ -24,11 +24,8 @@ import useSexualOrientationScreen from '../useSexualOrientationScreen';
 import { translate } from '../../../../i18n/src/locales';
 
 const SexualOrientationScreen: React.FC = () => {
-  const {
-    handleContinue,
-    handleUserSexualOrientation,
-    userSexualOrientation,
-  } = useSexualOrientationScreen();
+  const { handleContinue, handleUserSexualOrientation, userSexualOrientation } =
+    useSexualOrientationScreen();
 
   const navigation = useNavigation();
 

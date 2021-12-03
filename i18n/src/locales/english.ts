@@ -45,6 +45,12 @@ export default {
   // Profile Screen
   editProfile: 'Edit Profile',
   photoDisplayMessage: 'No Photos to Display',
+  maleSingle: 'single',
+  femaleSingle: 'single',
+  maleMarried: 'married',
+  femaleMarried: 'married',
+  years: 'years',
+  rate: 'Rate',
 
   // User Publication Screen
   userPublications: 'Publications',
@@ -62,6 +68,8 @@ export default {
   deleteAccount: 'Delete Account',
   userDeletionError: 'Error on user deletion',
   deleteAccountQuestion: 'Are you sure do you want to delete your account?',
+  enableNotification: 'Notifications',
+  enableNotificationSound: 'Notification sound',
 
   //  Notification Screen
   userEvaluation: '{{name}} has rated you with {{value}} stars',
@@ -74,6 +82,8 @@ export default {
   sendEvaluationError:
     'Failed to send evaluation. Please, check your internet connection.',
   loadUsersError: 'Error on loading users',
+  retry: 'Retry',
+  ratedUser: 'Rated user with {{rate}} stars',
 
   //  expo-notifications
   enableNotificationError: 'Error in enabling notifications',
@@ -106,6 +116,8 @@ export default {
   noUsersFound: 'No users found',
   search: 'Search',
   searchInfo: 'Search users by name or by instagram',
+  searchToastError:
+    'Error on searching users. Please, check your internet connection',
 
   //  useLocation hook
   locationPermissionError:
@@ -115,11 +127,34 @@ export default {
 
   //  evaluations
   noEvaluationsFound: 'No Evaluations found',
-  noEvaluations: 'No evaluations',
+  noEvaluations: 'Your profile has not yet been rated',
   userHasNoEvaluations: 'This user has no evaluations',
   receivedEvaluation: 'Received {{value}} stars from {{name}}',
   sentEvaluation: 'evaluation sent',
 
   //  rate modal
   leaveOptionalMessage: 'Leave a message (optional)',
+
+  // date translations
+  lessThanOneMinute: 'less than 1 minute ago',
+  oneMinuteAgo: '1 minute ago',
+  minutesAgo: '{{minutes}} minutes ago',
+
+  oneHourAgo: '1 hour ago',
+  hoursAgo: '{{hours}} hours ago',
+
+  oneDayAgo: '1 day ago',
+  daysAgo: '{{days}} days ago',
+
+  // intro translations
+  rateUserIntro:
+    "On this screen, you can rate random users from 1 to 5 stars. It is also possible to view the user's Instagram. On the user's profile, you can leave a rating with an optional message. In case you want to skip or go back to a profile just use the arrows.",
+  trackingOptionsIntro:
+    'On this screen, you can choose between two tracking options. If you choose the first option, you can track random users in this app. The second option has a Watch Dogs feel to it and allows you to track users near you.',
+  trackingScreenIntro:
+    'This screen allows you to track nearby users. Simply select a distance between 100 and 1000 meters. Once you track users from a certain distance, you can view their profiles and rate them.',
+  profileStarIntro:
+    'On this screen you can press the star icon to check evaluations received from other users.',
+  profileEvaluationsIntro:
+    'Evaluations with an icon contain messages intended for you. Once you press on it, the message will be displayed.',
 };

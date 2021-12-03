@@ -2,16 +2,17 @@ import React, { memo } from 'react';
 import { Modal, ScrollView } from 'react-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
+import { getDate } from '../../services/date';
+
 //  redux
 import { MEDIA_TYPES, UserMedia } from '../../store/modules/user/types';
 
 //  components
-import { CloseButton } from './closeButton';
+import { CloseButton } from '../closeButton';
 import { PhotoMedia, VideoMedia } from './modalMedias';
-import { formatDate } from '../../services/date';
 
 //  styles
-import { ModalBackground, ModalContent } from './styles';
+import { MediaModalBackground, ModalContent } from './styles';
 
 //  constants
 import { SCREEN_HEIGHT } from '../../constants/dimensions';
@@ -38,7 +39,7 @@ export const MediaModal: React.FC<MediaModalProps> = memo(
         visible={isVisible}
         onRequestClose={() => setIsVisible(false)}
       >
-        <ModalBackground bottomTabHeight={bottomTabHeight}>
+        <MediaModalBackground bottomTabHeight={bottomTabHeight}>
           <ScrollView
             contentContainerStyle={{
               minHeight: SCREEN_HEIGHT - bottomTabHeight,
@@ -50,7 +51,7 @@ export const MediaModal: React.FC<MediaModalProps> = memo(
                   media_url={media_url}
                   instagram={instagram}
                   caption={caption}
-                  date={timestamp ? formatDate(timestamp) : ''}
+                  date={timestamp ? getDate(timestamp.slice(0, 16)) : ''}
                 />
               ) : (
                 <PhotoMedia
@@ -58,7 +59,7 @@ export const MediaModal: React.FC<MediaModalProps> = memo(
                   instagram={instagram}
                   caption={caption}
                   imgHeight={imgHeight}
-                  date={timestamp ? formatDate(timestamp) : ''}
+                  date={timestamp ? getDate(timestamp.slice(0, 16)) : ''}
                 />
               )}
               <CloseButton
@@ -69,7 +70,7 @@ export const MediaModal: React.FC<MediaModalProps> = memo(
               />
             </ModalContent>
           </ScrollView>
-        </ModalBackground>
+        </MediaModalBackground>
       </Modal>
     );
   },

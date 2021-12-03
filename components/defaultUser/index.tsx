@@ -6,20 +6,19 @@ import { MEDIA_TYPES, UserMedia } from '../../store/modules/user/types';
 // components
 import { VideoItem, PhotoItem } from '../profileItems/items';
 import PhotoScroll from '../profileItems/photoScroll';
-import { ProfileButton } from '../profileItems/profileButton';
 import { MediaModal } from '../profileItems/mediaModal';
-import { Header } from '../profileItems/header';
 import { SelectionBar } from '../profileItems/selectionBar';
 import { EvaluationList } from '../profileItems/evaluationList';
 import { EvaluationModal } from '../profileItems/evaluationModal';
 
-import { Container, ProfileDataContainer, StyledText } from './styles';
+import { Container, ProfileDataContainer } from './styles';
 import { RateModal } from '../profileItems/rateModal';
 
 //  hooks
 import { useMediaModal } from '../profileItems/hooks/useMediaModal';
 import { useDefaultUser } from './useDefaultUser';
 import { useEvaluationModal } from '../profileItems/hooks/useEvaluationModal';
+import { ProfileHeader } from '../profileItems/profileHeader';
 
 export const DefaultUser: React.FC = memo(() => {
   const {
@@ -70,16 +69,7 @@ export const DefaultUser: React.FC = memo(() => {
     <>
       <Container>
         <ProfileDataContainer>
-          <Header
-            avatar={user?.avatar}
-            name={user?.name}
-            rate={user?.rate?.toFixed(2)}
-          />
-          <StyledText>@{user?.instagram?.userName}</StyledText>
-          <StyledText>{user?.sexualOrientation}</StyledText>
-          <StyledText>{user?.relationshipStatus}</StyledText>
-          {/* <StyledText>{user?.birthDate}</StyledText> */}
-          <ProfileButton onPress={() => setModalVisible(true)} text="Rate" />
+          <ProfileHeader user={user} setModalVisible={setModalVisible} />
           <SelectionBar scroll={scroll} />
         </ProfileDataContainer>
         <ScrollView ref={scroll} scrollEnabled={false} horizontal>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "185451432048",
+    "project_id": "facetrack-2295e",
+    "storage_bucket": "facetrack-2295e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185451432048:android:e3f7b34c2ea67eb8580cb5",
+        "android_client_info": {
+          "package_name": "com.facetrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185451432048-9b147lgn0q025glstmbm5qteip7rdsau.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1_ioEMyGgPmxIGKRZj7LFbkyTqJQfSlA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185451432048-9b147lgn0q025glstmbm5qteip7rdsau.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

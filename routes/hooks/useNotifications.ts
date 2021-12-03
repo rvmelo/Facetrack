@@ -21,7 +21,10 @@ import { IState } from '../../store';
 import { IUser, IUserState } from '../../store/modules/user/types';
 
 // constants
-import { notificationTokenKey } from '../../constants/storage';
+import {
+  notificationSettings,
+  notificationTokenKey,
+} from '../../constants/storage';
 
 //  services
 import { registerForPushNotificationsAsync } from '../../services/notification';
@@ -95,9 +98,15 @@ export function useNotifications(): ReturnValue {
         user.userProviderId ===
         notification?.request?.content?.data?.toUserProviderId;
 
+      const notificationData = await AsyncStorage.getItem(notificationSettings);
+
+      const parsedNotification = JSON.parse(notificationData || '');
+
+      const { shouldShowAlert, shouldPlaySound } = parsedNotification || {};
+
       return {
-        shouldShowAlert: isAlert,
-        shouldPlaySound: isAlert,
+        shouldShowAlert: isAlert && shouldShowAlert,
+        shouldPlaySound: isAlert && shouldPlaySound,
         shouldSetBadge: isAlert,
       };
     },

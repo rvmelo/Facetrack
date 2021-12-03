@@ -18,33 +18,48 @@ import {
   DeleteButtonLayout,
   TouchableButton,
   ButtonText,
-  ItemContainer,
-  ItemText,
+  LogoutText,
+  SettingsWrapper,
   ItemsContainer,
+  LogoutContainer,
 } from './styles';
 
 //  hooks
 import useSettings from '../useSettings';
 import useAuth from '../../../hooks/useAuth';
+import { NotificationSettings } from './notificationSettings';
 
 const SettingsScreen: React.FC = () => {
-  const { handleUserDeletion, isLoading } = useSettings();
+  const {
+    handleUserDeletion,
+    isLoading,
+    notificationSettings,
+    toggleNotification,
+    toggleNotificationSound,
+  } = useSettings();
   const { signOut } = useAuth();
 
   return (
     <Container>
-      <ItemsContainer>
+      <SettingsWrapper>
+        <ItemsContainer>
+          <NotificationSettings
+            notificationSettings={notificationSettings}
+            toggleNotification={toggleNotification}
+            toggleNotificationSound={toggleNotificationSound}
+          />
+        </ItemsContainer>
         <TouchableWithoutFeedback onPress={signOut}>
-          <ItemContainer>
+          <LogoutContainer>
             <Ionicons
               name="md-log-out-outline"
               size={20}
               color={Colors.accent}
             />
-            <ItemText>{translate('Logout')}</ItemText>
-          </ItemContainer>
+            <LogoutText>{translate('Logout')}</LogoutText>
+          </LogoutContainer>
         </TouchableWithoutFeedback>
-      </ItemsContainer>
+      </SettingsWrapper>
 
       <TouchableButton
         onPress={() =>

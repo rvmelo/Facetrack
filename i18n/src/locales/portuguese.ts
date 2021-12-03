@@ -48,6 +48,12 @@ export default {
   // Profile Screen
   editProfile: 'Editar Perfil',
   photoDisplayMessage: 'Nenhuma Foto Para Mostrar',
+  maleSingle: 'solteiro',
+  femaleSingle: 'solteira',
+  maleMarried: 'casado',
+  femaleMarried: 'casada',
+  years: 'anos',
+  rate: 'Avaliar',
 
   // User Publication Screen
   userPublications: 'Publicações',
@@ -65,12 +71,16 @@ export default {
   deleteAccount: 'Excluir Conta',
   userDeletionError: 'Erro na exclusão do usuário',
   deleteAccountQuestion: 'Tem certeza que deseja excluir sua conta?',
+  enableNotification: 'Notificações',
+  enableNotificationSound: 'Som de notificação',
 
   //  Rate Screen
   viewInstagram: 'Visualizar Instagram',
   sendEvaluationError:
     'Falha ao enviar avaliação. Por favor, cheque sua conexão com a internet.',
   loadUsersError: 'Erro ao carregar usuários',
+  retry: 'Tentar novamente',
+  ratedUser: 'Avaliou usuário com {{rate}} estrelas',
 
   //  Notification Screen
   userEvaluation: '{{name}} avaliou você com {{value}} estrelas',
@@ -110,6 +120,8 @@ export default {
   noUsersFound: 'Nenhum usuário encontrado',
   search: 'Pesquisar',
   searchInfo: 'Pesquisar usuários por nome ou por instagram',
+  searchToastError:
+    'Erro ao pesquisar usuários. Por favor, cheque sua conexão com a internet',
 
   //  useLocation hook
   locationPermissionError:
@@ -119,11 +131,34 @@ export default {
 
   //  evaluations
   noEvaluationsFound: 'Nenhuma avaliação encontrada',
-  noEvaluations: 'Nenhuma avaliação',
+  noEvaluations: 'Seu perfil ainda não foi avaliado',
   userHasNoEvaluations: 'Esse usuário não possui nenhuma avaliação',
   receivedEvaluation: 'Recebeu {{value}} estrelas de {{name}}',
   sentEvaluation: 'avaliação enviada',
 
   //  rate modal
   leaveOptionalMessage: 'Deixe uma mensagem (opcional)',
+
+  // date translations
+  lessThanOneMinute: 'há menos de 1 minuto',
+  oneMinuteAgo: 'há 1 minuto',
+  minutesAgo: 'há {{minutes}} minutos',
+
+  oneHourAgo: 'há 1 hora',
+  hoursAgo: 'há {{hours}} horas',
+
+  oneDayAgo: 'há 1 dia',
+  daysAgo: 'há {{days}} dias',
+
+  // intro translations
+  rateUserIntro:
+    'Nesta tela, você pode classificar usuários aleatórios de 1 a 5 estrelas. Também é possível visualizar o Instagram do usuário. No perfil do usuário, você pode deixar uma avaliação com uma mensagem opcional. Caso queira pular ou voltar para um perfil basta usar as setas.',
+  trackingOptionsIntro:
+    'Nesta tela, você pode escolher entre duas opções de rastreamento. Se você escolher a primeira opção, poderá rastrear usuários aleatórios neste aplicativo. A segunda opção passa uma vibe de Watch Dogs e permite que você rastreie usuários próximos a você.',
+  trackingScreenIntro:
+    'Esta tela permite que você rastreie usuários próximos. Basta selecionar uma distância entre 100 e 1000 metros. Depois de rastrear usuários de uma certa distância, você pode ver seus perfis e avaliá-los.',
+  profileStarIntro:
+    'Nesta tela você pode pressionar o ícone da estrela para verificar as avaliações recebidas de outros usuários.',
+  profileEvaluationsIntro:
+    'Avaliações com um ícone contêm mensagens destinadas a você. Depois de pressioná-lo, a mensagem será exibida.',
 };

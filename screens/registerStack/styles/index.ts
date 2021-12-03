@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import Colors from '../../../constants/colors';
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../../constants/dimensions';
+import { SCREEN_HEIGHT } from '../../../constants/dimensions';
+import { fonts } from '../../../constants/fonts';
 
 export const Container = styled.View`
   flex: 1;
@@ -13,7 +14,7 @@ export const Container = styled.View`
 export const StyledText = styled.Text`
   font-family: tegomin;
   color: white;
-  font-size: ${SCREEN_WIDTH * 0.09}px;
+  font-size: ${fonts.sizes.xl}px;
   margin-top: ${SCREEN_HEIGHT * 0.1}px;
   text-align: left;
   margin-right: 10px;

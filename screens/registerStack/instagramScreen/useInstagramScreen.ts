@@ -27,6 +27,7 @@ import { translate } from '../../../i18n/src/locales';
 import {
   instagramRequestDateKey,
   instagramTokenKey,
+  userLocationKey,
 } from '../../../constants/storage';
 
 interface InstagramResponse {
@@ -105,6 +106,8 @@ function useInstagramScreen(): ReturnValue {
           instagramRequestDateKey(user.userProviderId),
           new Date().toISOString(),
         );
+
+        await AsyncStorage.removeItem(userLocationKey);
 
         isMounted.current &&
           signUp({

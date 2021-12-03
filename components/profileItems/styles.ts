@@ -72,7 +72,7 @@ export const ButtonPanelContainer = styled.View`
 export const TouchableIcon = styled.TouchableWithoutFeedback``;
 
 // rate modal
-export const RateModalBackground = styled.View`
+export const ModalBackground = styled.View`
   flex: 1;
   justify-content: flex-start;
   align-items: center;
@@ -98,6 +98,7 @@ export const InputContainer = styled.View`
 export const RateModalInput = styled.TextInput.attrs({
   multiline: true,
   numberOfLines: 10,
+  maxLength: 280,
   textAlignVertical: 'top',
   selectionColor: Colors.primary,
 })``;
@@ -138,26 +139,28 @@ export const Instagram = styled.Text`
   font-weight: bold;
 `;
 
+export const ModalDateContainer = styled.View`
+  align-self: center;
+`;
+
 export const ModalDate = styled.Text`
-  color: ${Colors.accent};
+  color: ${Colors.disabled};
   font-family: ${fonts.family};
-  font-size: ${fonts.sizes.sm}px;
-  text-align: center;
+  font-size: ${fonts.sizes.xs}px;
+  text-align: left;
   margin-top: 5px;
 `;
 
 export const ModalTextContainer = styled.View`
   margin: 20px 5px 0;
   padding: 5px;
-  border-radius: 5px;
-  background: #404040;
 `;
 
-interface ModalBackgroundProps {
+interface MediaModalBackgroundProps {
   bottomTabHeight: number;
 }
 
-export const ModalBackground = styled.View<ModalBackgroundProps>`
+export const MediaModalBackground = styled.View<MediaModalBackgroundProps>`
   flex: 1;
   background: rgba(0, 0, 0, 0.9);
   padding-bottom: ${props => props.bottomTabHeight}px;
@@ -170,7 +173,7 @@ export const ModalContent = styled.View`
 `;
 
 export const MediaContainer = styled.View`
-  align-items: center;
+  align-items: flex-start;
 `;
 
 interface ModalPhotoProps {
@@ -180,20 +183,6 @@ interface ModalPhotoProps {
 export const ModalPhoto = styled.Image<ModalPhotoProps>`
   width: ${SCREEN_WIDTH}px;
   height: ${props => props.imgHeight}px;
-`;
-
-//  close button
-export const CloseButtonLayout = styled.View`
-  /* margin: 5px 0; */
-  border-radius: 25px;
-  height: 50px;
-  width: 50px;
-  background: ${Colors.accent};
-  border-color: ${Colors.disabled};
-  border-width: 2px;
-  overflow: hidden;
-  justify-content: center;
-  align-items: center;
 `;
 
 //  header
