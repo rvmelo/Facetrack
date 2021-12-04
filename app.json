@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Facetrack",
-    "slug": "Facetrack",
+    "name": "Finder",
+    "slug": "finder",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -24,9 +24,9 @@
       "color": "#000000"
     },
     "android": {
-      "package": "com.facetrack",
+      "package": "com.finder",
       "versionCode": 1,
-      "permissions": [ 
+      "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION"
       ],
@@ -38,6 +38,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": ""
   }
 }

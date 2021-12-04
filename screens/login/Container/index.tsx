@@ -26,7 +26,7 @@ const LoginScreen: React.FC = () => {
       ) : (
         <>
           <TitleContainer>
-            <StyledTitle>Facetrack</StyledTitle>
+            <StyledTitle>Finder</StyledTitle>
             <StyledSubTitle>
               An app for tracking and rating social profiles
             </StyledSubTitle>
