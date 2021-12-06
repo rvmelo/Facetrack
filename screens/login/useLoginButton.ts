@@ -11,7 +11,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 
 //  redux
-import { useDispatch } from 'react-redux';
 import { IUser } from '../../store/modules/user/types';
 
 //  constants
@@ -43,8 +42,6 @@ interface ReturnValue {
 }
 
 function useLoginButton(): ReturnValue {
-  const dispatch = useDispatch();
-
   const navigation = useNavigation<NavigationProps>();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -52,14 +49,6 @@ function useLoginButton(): ReturnValue {
   const { signIn } = useAuth();
 
   const isMounted = useRef<boolean | null>(null);
-
-  const handleFacebookLogin = useCallback(() => {
-    WebBrowser.openBrowserAsync(`${base_url}/sessions/auth/facebook`);
-  }, []);
-
-  const handleGoogleLogin = useCallback(() => {
-    WebBrowser.openBrowserAsync(`${base_url}/sessions/auth/google`);
-  }, []);
 
   useEffect(() => {
     isMounted.current = true;
@@ -69,38 +58,52 @@ function useLoginButton(): ReturnValue {
     };
   }, []);
 
-  useEffect(() => {
-    Linking.addEventListener('url', async () => {
-      try {
-        if (!navigation.isFocused() || !isMounted.current) return;
+  const handleFacebookLogin = useCallback(() => {
+    WebBrowser.openBrowserAsync(`${base_url}/sessions/auth/facebook`);
+  }, []);
 
-        setIsLoading(true);
+  const handleGoogleLogin = useCallback(() => {
+    WebBrowser.openBrowserAsync(`${base_url}/sessions/auth/google`);
+  }, []);
 
-        //  response from google or facebook signIn
-        const response: AxiosResponse<AuthResponse> = await api.get(
-          'sessions/auth/success',
-        );
+  const handleUserLogin = useCallback(async () => {
+    try {
+      if (!navigation.isFocused() || !isMounted.current) return;
 
-        if (!response.data) return;
+      isMounted.current && setIsLoading(true);
 
-        const { notRegisteredUser, registeredUser, token } = response.data;
+      //  response from google or facebook signIn
+      const response: AxiosResponse<AuthResponse> = await api.get(
+        'sessions/auth/success',
+      );
 
-        if (notRegisteredUser && token) {
-          api.defaults.headers.authorization = `Bearer ${token}`;
-          navigation.navigate('BirthDateScreen', { ...notRegisteredUser });
-          setIsLoading(false);
+      if (!response.data) return;
 
-          return;
-        }
+      const { notRegisteredUser, registeredUser, token } = response.data;
 
-        //  signIn from my app
-        isMounted.current && signIn({ token, user: registeredUser });
-      } catch (err) {
-        setIsLoading(false);
-        Alert.alert('Error', translate('loginRegisterError'));
+      if (notRegisteredUser && token) {
+        api.defaults.headers.authorization = `Bearer ${token}`;
+        navigation.navigate('BirthDateScreen', { ...notRegisteredUser });
+        isMounted.current && setIsLoading(false);
+
+        return;
       }
-    });
-  }, [dispatch, navigation, signIn]);
+
+      //  signIn from my app
+      isMounted.current && signIn({ token, user: registeredUser });
+    } catch (err) {
+      isMounted.current && setIsLoading(false);
+      Alert.alert('Error', translate('loginRegisterError'));
+    }
+  }, [navigation, signIn]);
+
+  useEffect(() => {
+    Linking.addEventListener('url', handleUserLogin);
+
+    return () => {
+      Linking.removeEventListener('url', handleUserLogin);
+    };
+  }, [handleUserLogin]);
 
   return {
     handleFacebookLogin,
