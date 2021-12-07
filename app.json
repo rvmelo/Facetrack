@@ -20,10 +20,15 @@
     "ios": {
       "supportsTablet": true
     },
-    "notification": {
-      "icon": "./assets/facetrack_notification.png",
-      "color": "#000000"
-    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/facetrack_notification.png",
+          "color": "#000000"
+        }
+      ]
+    ],
     "android": {
       "package": "com.facetrack",
       "versionCode": 1,
