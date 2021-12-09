@@ -24,7 +24,7 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/facetrack_notification.png",
+          "icon": "./assets/images/facetrack_notification.png",
           "color": "#ffffff"
         }
       ]
@@ -35,6 +35,8 @@
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
         "CAMERA"
       ],
       "adaptiveIcon": {

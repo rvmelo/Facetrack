@@ -72,20 +72,12 @@ function useInstagramScreen(): ReturnValue {
     // console.log(`provider: ${JSON.stringify(provider)}`);
   }, []);
 
-  useEffect(() => {
-    isMounted.current = true;
-
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    Linking.addEventListener('url', async ({ url }) => {
+  const handleInstagram = useCallback(
+    async ({ url }) => {
       try {
         if (!navigation.isFocused() || !isMounted.current) return;
 
-        setIsLoading(true);
+        isMounted.current && setIsLoading(true);
 
         await handleLocation();
 
@@ -124,8 +116,25 @@ function useInstagramScreen(): ReturnValue {
         isMounted.current && setIsLoading(false);
         Alert.alert('Error', `${translate('userCreationError')}:${err}`);
       }
-    });
-  }, [user, navigation, signUp, handleLocation]);
+    },
+    [handleLocation, navigation, signUp, user],
+  );
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    Linking.addEventListener('url', handleInstagram);
+
+    return () => {
+      Linking.removeEventListener('url', handleInstagram);
+    };
+  }, [handleInstagram]);
 
   return {
     isLoading,

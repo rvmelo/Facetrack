@@ -21,7 +21,7 @@
     "axios": "^0.21.1",
     "date-fns": "^2.23.0",
     "expo": "^42.0.0",
-    "expo-app-loading": "^1.1.2",
+    "expo-app-loading": "1.1.2",
     "expo-av": "~9.2.3",
     "expo-constants": "~11.0.1",
     "expo-font": "~9.2.1",
