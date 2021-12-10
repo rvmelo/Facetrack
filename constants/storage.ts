@@ -7,6 +7,8 @@ export const introMessagesKey = '@Facetrack:introMessages';
 export const notificationTokenKey = '@Facetrack:notificationToken';
 export const notificationSettings = '@Facetrack:notificationSettings';
 
+// to solve issue where url listener is called multiple times
+export const instagramCodeKey = '@Facetrack:instagramCode';
 export const instagramTokenKey = (userProviderId: string): string =>
   `@Facetrack:${userProviderId}-instagramToken`;
 export const instagramRequestDateKey = (userProviderId: string): string =>

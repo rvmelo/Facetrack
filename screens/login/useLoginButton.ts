@@ -1,4 +1,5 @@
 import { Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCallback, useEffect, useState, useRef } from 'react';
 
 import { AxiosResponse } from 'axios';
@@ -15,6 +16,7 @@ import { IUser } from '../../store/modules/user/types';
 
 //  constants
 import { base_url } from '../../constants/backend';
+import { instagramCodeKey } from '../../constants/storage';
 
 //  services
 import api from '../../services/api';
@@ -69,6 +71,8 @@ function useLoginButton(): ReturnValue {
   const handleUserLogin = useCallback(async () => {
     try {
       if (!navigation.isFocused() || !isMounted.current) return;
+
+      await AsyncStorage.removeItem(instagramCodeKey);
 
       isMounted.current && setIsLoading(true);
 

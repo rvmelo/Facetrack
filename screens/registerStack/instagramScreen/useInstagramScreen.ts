@@ -25,6 +25,7 @@ import api from '../../../services/api';
 import { translate } from '../../../i18n/src/locales';
 
 import {
+  instagramCodeKey,
   instagramRequestDateKey,
   instagramTokenKey,
   userLocationKey,
@@ -75,13 +76,16 @@ function useInstagramScreen(): ReturnValue {
   const handleInstagram = useCallback(
     async ({ url }) => {
       try {
-        if (!navigation.isFocused() || !isMounted.current) return;
+        const instagramCode = await AsyncStorage.getItem(instagramCodeKey);
 
-        isMounted.current && setIsLoading(true);
-
-        await handleLocation();
+        if (!navigation.isFocused() || !isMounted.current || instagramCode)
+          return;
 
         const { code } = Linking.parse(url).queryParams || {};
+
+        await AsyncStorage.setItem(instagramCodeKey, code);
+
+        await handleLocation();
 
         const response: AxiosResponse<InstagramResponse> = await api.get(
           `/sessions/auth/instagram/profile?code=${code}`,
@@ -90,7 +94,7 @@ function useInstagramScreen(): ReturnValue {
         const { userName, userMedia, token } = response.data;
 
         await AsyncStorage.setItem(
-          instagramTokenKey(user.userProviderId),
+          instagramTokenKey(user?.userProviderId),
           token,
         );
 
@@ -120,6 +124,23 @@ function useInstagramScreen(): ReturnValue {
     [handleLocation, navigation, signUp, user],
   );
 
+  const debounce = useCallback(
+    (timeout = 1000) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let timer: any;
+      return ({ url }: { url: string }) => {
+        clearTimeout(timer);
+
+        isMounted.current && setIsLoading(true);
+
+        timer = setTimeout(() => handleInstagram({ url }), timeout);
+      };
+    },
+    [handleInstagram],
+  );
+
+  const debounceHandleInstagram = debounce();
+
   useEffect(() => {
     isMounted.current = true;
 
@@ -129,12 +150,13 @@ function useInstagramScreen(): ReturnValue {
   }, []);
 
   useEffect(() => {
-    Linking.addEventListener('url', handleInstagram);
+    Linking.addEventListener('url', debounceHandleInstagram);
 
     return () => {
-      Linking.removeEventListener('url', handleInstagram);
+      Linking.removeEventListener('url', debounceHandleInstagram);
     };
-  }, [handleInstagram]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return {
     isLoading,
