@@ -18,7 +18,6 @@ import api from '../../services/api';
 import {
   instagramRequestDateKey,
   instagramTokenKey,
-  notificationTokenKey,
   notificationSettings as notificationStorage,
 } from '../../constants/storage';
 
@@ -100,7 +99,6 @@ function useSettings(): ReturnType {
       await AsyncStorage.multiRemove([
         instagramTokenKey(user.userProviderId),
         instagramRequestDateKey(user.userProviderId),
-        notificationTokenKey,
       ]);
 
       signOut();

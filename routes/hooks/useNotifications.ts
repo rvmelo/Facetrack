@@ -21,10 +21,7 @@ import { IState } from '../../store';
 import { IUser, IUserState } from '../../store/modules/user/types';
 
 // constants
-import {
-  notificationSettings,
-  notificationTokenKey,
-} from '../../constants/storage';
+import { notificationSettings } from '../../constants/storage';
 
 //  services
 import { registerForPushNotificationsAsync } from '../../services/notification';
@@ -181,19 +178,11 @@ export function useNotifications(): ReturnValue {
   useEffect(() => {
     (async () => {
       try {
-        const storedNotificationToken = await AsyncStorage.getItem(
-          notificationTokenKey,
-        );
-        if (storedNotificationToken) return;
         const notificationToken = await registerForPushNotificationsAsync();
-
-        if (notificationToken) {
-          AsyncStorage.setItem(notificationTokenKey, notificationToken);
-        }
 
         await api.post('/permissions', {
           notificationToken,
-          userProviderId: user.userProviderId,
+          userProviderId: user?.userProviderId,
         });
       } catch (err) {
         const error = err as AxiosError;

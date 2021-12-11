@@ -4,7 +4,6 @@ export const userLocationKey = '@Facetrack:userLocation';
 export const introMessagesKey = '@Facetrack:introMessages';
 
 //  notifications
-export const notificationTokenKey = '@Facetrack:notificationToken';
 export const notificationSettings = '@Facetrack:notificationSettings';
 
 // to solve issue where url listener is called multiple times
