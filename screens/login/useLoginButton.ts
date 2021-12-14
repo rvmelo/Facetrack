@@ -29,12 +29,6 @@ import { translate } from '../../i18n/src/locales';
 
 import { RegisterStackParamList } from '../../routes/types';
 
-interface AuthResponse {
-  notRegisteredUser: IUser | undefined;
-  registeredUser: IUser;
-  token: string;
-}
-
 type NavigationProps = StackNavigationProp<RegisterStackParamList, 'Login'>;
 
 interface ReturnValue {
@@ -68,38 +62,43 @@ function useLoginButton(): ReturnValue {
     WebBrowser.openBrowserAsync(`${base_url}/sessions/auth/google`);
   }, []);
 
-  const handleUserLogin = useCallback(async () => {
-    try {
-      if (!navigation.isFocused() || !isMounted.current) return;
+  const handleUserLogin = useCallback(
+    async ({ url }) => {
+      try {
+        if (!navigation.isFocused() || !isMounted.current) return;
 
-      await AsyncStorage.removeItem(instagramCodeKey);
+        const { notRegisteredUser, token } = Linking.parse(url).queryParams;
 
-      isMounted.current && setIsLoading(true);
+        await AsyncStorage.removeItem(instagramCodeKey);
 
-      //  response from google or facebook signIn
-      const response: AxiosResponse<AuthResponse> = await api.get(
-        'sessions/auth/success',
-      );
+        isMounted.current && setIsLoading(true);
 
-      if (!response.data) return;
-
-      const { notRegisteredUser, registeredUser, token } = response.data;
-
-      if (notRegisteredUser && token) {
         api.defaults.headers.authorization = `Bearer ${token}`;
-        navigation.navigate('BirthDateScreen', { ...notRegisteredUser });
+
+        if (notRegisteredUser !== 'undefined' && token) {
+          const parsedUser = JSON.parse(notRegisteredUser);
+          navigation.navigate('BirthDateScreen', { ...parsedUser });
+          isMounted.current && setIsLoading(false);
+
+          return;
+        }
+
+        // find registered user
+        const response: AxiosResponse<IUser> = await api.get('users/me');
+
+        if (!response?.data) return;
+
+        const registeredUser = response?.data;
+
+        // signIn from my app
+        isMounted.current && signIn({ token, user: registeredUser });
+      } catch (err) {
         isMounted.current && setIsLoading(false);
-
-        return;
+        Alert.alert('Error', translate('loginRegisterError'));
       }
-
-      //  signIn from my app
-      isMounted.current && signIn({ token, user: registeredUser });
-    } catch (err) {
-      isMounted.current && setIsLoading(false);
-      Alert.alert('Error', translate('loginRegisterError'));
-    }
-  }, [navigation, signIn]);
+    },
+    [navigation, signIn],
+  );
 
   useEffect(() => {
     Linking.addEventListener('url', handleUserLogin);
