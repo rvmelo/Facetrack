@@ -1,5 +1,4 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
-import { Alert } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { AxiosError, AxiosResponse } from 'axios';
@@ -26,10 +25,10 @@ import { notificationSettings } from '../../constants/storage';
 //  services
 import { registerForPushNotificationsAsync } from '../../services/notification';
 import api from '../../services/api';
+import { showToast } from '../../services/toast';
 
 //  i18n
 import { translate } from '../../i18n/src/locales';
-import { showToast } from '../../services/toast';
 
 type ProfileNavigatorProps = StackNavigationProp<
   ProfileStackParamList,
@@ -190,8 +189,7 @@ export function useNotifications(): ReturnValue {
         if (error?.response?.status === 401) {
           return;
         }
-
-        Alert.alert('Error', translate('enableNotificationError'));
+        showToast({ message: translate('enableNotificationError') });
       }
     })();
   }, [user.userProviderId]);
