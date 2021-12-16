@@ -63,9 +63,9 @@ function useLoginButton(): ReturnValue {
   }, []);
 
   const handleUserLogin = useCallback(
-    async ({ url }) => {
+    async ({ url }: { url: string }) => {
       try {
-        if (!navigation.isFocused() || !isMounted.current) return;
+        if (!navigation.isFocused() || !isMounted.current || isLoading) return;
 
         const { notRegisteredUser, token } = Linking.parse(url).queryParams;
 
@@ -97,16 +97,34 @@ function useLoginButton(): ReturnValue {
         Alert.alert('Error', translate('loginRegisterError'));
       }
     },
-    [navigation, signIn],
+    [navigation, signIn, isLoading],
   );
 
+  const debounce = useCallback(
+    (timeout = 1000) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let timer: any;
+      return ({ url }: { url: string }) => {
+        clearTimeout(timer);
+
+        isMounted.current && setIsLoading(true);
+
+        timer = setTimeout(() => handleUserLogin({ url }), timeout);
+      };
+    },
+    [handleUserLogin],
+  );
+
+  const debounceHandleUserLogin = debounce();
+
   useEffect(() => {
-    Linking.addEventListener('url', handleUserLogin);
+    Linking.addEventListener('url', debounceHandleUserLogin);
 
     return () => {
-      Linking.removeEventListener('url', handleUserLogin);
+      Linking.removeEventListener('url', debounceHandleUserLogin);
     };
-  }, [handleUserLogin]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return {
     handleFacebookLogin,

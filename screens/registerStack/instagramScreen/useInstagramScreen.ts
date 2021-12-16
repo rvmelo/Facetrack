@@ -74,7 +74,7 @@ function useInstagramScreen(): ReturnValue {
   }, []);
 
   const handleInstagram = useCallback(
-    async ({ url }) => {
+    async ({ url }: { url: string }) => {
       try {
         const instagramCode = await AsyncStorage.getItem(instagramCodeKey);
 
