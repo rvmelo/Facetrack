@@ -4,7 +4,7 @@ export const userLocationKey = '@Facetrack:userLocation';
 export const introMessagesKey = '@Facetrack:introMessages';
 
 //  notifications
-export const notificationSettings = '@Facetrack:notificationSettings';
+export const notificationSettingsKey = '@Facetrack:notificationSettings';
 
 // to solve issue where url listener is called multiple times
 export const instagramCodeKey = '@Facetrack:instagramCode';

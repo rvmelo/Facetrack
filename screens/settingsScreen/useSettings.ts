@@ -18,7 +18,7 @@ import api from '../../services/api';
 import {
   instagramRequestDateKey,
   instagramTokenKey,
-  notificationSettings as notificationStorage,
+  notificationSettingsKey,
 } from '../../constants/storage';
 
 export interface NotificationData {
@@ -51,9 +51,12 @@ function useSettings(): ReturnType {
 
   useEffect(() => {
     (async () => {
-      const data = await AsyncStorage.getItem(notificationStorage);
+      const data = await AsyncStorage.getItem(notificationSettingsKey);
 
-      const parsedData = JSON.parse(data || '') as NotificationData;
+      const parsedData = data
+        ? (JSON.parse(data) as NotificationData)
+        : // if no value is set than it should set default value
+          { shouldShowAlert: true, shouldPlaySound: true };
       setNotificationSettings(parsedData);
     })();
   }, []);
@@ -67,14 +70,14 @@ function useSettings(): ReturnType {
 
   useEffect(() => {
     AsyncStorage.setItem(
-      notificationStorage,
+      notificationSettingsKey,
       JSON.stringify(notificationSettings),
     );
   }, [notificationSettings]);
 
   const toggleNotification = useCallback(() => {
     setNotificationSettings(prev => ({
-      ...prev,
+      shouldPlaySound: !prev?.shouldShowAlert ? prev?.shouldPlaySound : false,
       shouldShowAlert: !prev?.shouldShowAlert,
     }));
   }, []);
