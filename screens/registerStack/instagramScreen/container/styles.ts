@@ -27,10 +27,9 @@ export const ButtonContainer = styled.View`
   justify-content: space-evenly;
   align-items: center;
   width: 250px;
-  height: 60px;
+  height: 50px;
   border-radius: 5px;
   overflow: hidden;
-  margin-top: 10px;
 `;
 
 export const ButtonText = styled.Text`

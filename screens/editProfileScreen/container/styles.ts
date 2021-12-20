@@ -67,7 +67,7 @@ export const InstagramButtonLayout = styled.View<InstagramButtonLayoutProps>`
   border-radius: 5px;
   justify-content: center;
   align-items: center;
-  height: 50px;
+  height: 40px;
   overflow: hidden;
 `;
 
