@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "185451432048",
-    "project_id": "facetrack-2295e",
-    "storage_bucket": "facetrack-2295e.appspot.com"
+    "project_number": "190480408619",
+    "project_id": "finder-335919",
+    "storage_bucket": "finder-335919.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:185451432048:android:e3f7b34c2ea67eb8580cb5",
+        "mobilesdk_app_id": "1:190480408619:android:d0c10cd555474bc9498a6e",
         "android_client_info": {
           "package_name": "com.facetrack"
         }
       },
       "oauth_client": [
         {
-          "client_id": "185451432048-9b147lgn0q025glstmbm5qteip7rdsau.apps.googleusercontent.com",
+          "client_id": "190480408619-hfjoelr36m49uagu927g36ue8cpemkuc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB1_ioEMyGgPmxIGKRZj7LFbkyTqJQfSlA"
+          "current_key": "AIzaSyCKrJZy-I7Q_tbZfpqzUoDUeMM0p_uc79E"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "185451432048-9b147lgn0q025glstmbm5qteip7rdsau.apps.googleusercontent.com",
+              "client_id": "190480408619-hfjoelr36m49uagu927g36ue8cpemkuc.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
