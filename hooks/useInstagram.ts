@@ -130,8 +130,19 @@ function useInstagram(): ReturnType {
 
     const previousDate = new Date(typeof date === 'string' ? date : '');
 
+    if (!date) {
+      await AsyncStorage.setItem(
+        instagramRequestDateKey(user.userProviderId),
+        new Date().toISOString(),
+      );
+
+      return true;
+    }
+
     return (
-      !!date && differenceInDays(new Date(), previousDate) > 1 && !isUserLoading
+      !!date &&
+      differenceInDays(new Date(), previousDate) >= 1 &&
+      !isUserLoading
     );
   }, [user.userProviderId, isUserLoading]);
 
@@ -175,18 +186,10 @@ function useInstagram(): ReturnType {
       dispatch(updateUserLoadState(false));
       Alert.alert('Error', `${translate('instagramRefreshFailed')}`, [
         {
-          text: translate('yes'),
+          text: 'Ok',
           onPress: () =>
             WebBrowser.openBrowserAsync(
               `https://api.instagram.com/oauth/authorize?client_id=${instagram_client_id}&redirect_uri=${`${base_url}/sessions/auth/instagram/callback`}&scope=user_profile,user_media&response_type=code`,
-            ),
-        },
-        {
-          text: translate('no'),
-          onPress: () =>
-            AsyncStorage.setItem(
-              instagramRequestDateKey(user.userProviderId),
-              new Date().toISOString(),
             ),
         },
       ]);

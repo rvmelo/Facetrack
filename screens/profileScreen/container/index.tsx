@@ -1,10 +1,6 @@
 import React, { memo, useCallback, useEffect } from 'react';
 import { ListRenderItem, ActivityIndicator, Alert } from 'react-native';
 
-// navigation
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-
 //  redux
 import { MEDIA_TYPES, UserMedia } from '../../../store/modules/user/types';
 
@@ -14,7 +10,6 @@ import { MediaModal } from '../../../components/profileItems/mediaModal';
 import { EvaluationModal } from '../../../components/profileItems/evaluationModal';
 
 // hooks
-import useInstagram from '../../../hooks/useInstagram';
 import { useMediaModal } from '../../../components/profileItems/hooks/useMediaModal';
 import { useProfileScreen } from '../useProfileScreen';
 import { useEvaluationModal } from '../../../components/profileItems/hooks/useEvaluationModal';
@@ -27,14 +22,8 @@ import { Container, EmptyContainer } from './styles';
 // i18n
 import { translate } from '../../../i18n/src/locales';
 
-import { ProfileStackParamList } from '../../../routes/types';
 import { ProfileScroll } from './profileScroll';
 import { IntroModal } from '../../../components/introModal';
-
-type NavigationProps = StackNavigationProp<
-  ProfileStackParamList,
-  'ProfileScreen'
->;
 
 const ProfileScreen: React.FC = () => {
   const {
@@ -45,8 +34,6 @@ const ProfileScreen: React.FC = () => {
     onUserLoading,
     isRefreshing,
   } = useProfileScreen();
-
-  const { handleInstagramRefresh, shouldRefreshInstagram } = useInstagram();
 
   const { isVisible, setIsVisible, media, setMedia, imgHeight } =
     useMediaModal();
@@ -60,20 +47,9 @@ const ProfileScreen: React.FC = () => {
     setIsVisible: setEvaluationModalVisible,
   } = useEvaluationModal();
 
-  const navigation = useNavigation<NavigationProps>();
-
   useEffect(() => {
     isUserUpdateFailure && Alert.alert('Error', translate('userUpdateError'));
   }, [isUserUpdateFailure]);
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', async () => {
-      const shouldRefresh = await shouldRefreshInstagram();
-      if (shouldRefresh) handleInstagramRefresh();
-    });
-
-    return unsubscribe;
-  }, [handleInstagramRefresh, shouldRefreshInstagram, navigation]);
 
   const renderItem: ListRenderItem<UserMedia> = useCallback(
     ({ item }) => {
