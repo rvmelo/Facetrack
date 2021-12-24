@@ -102,9 +102,12 @@ export function useNotifications(): ReturnValue {
 
       const { shouldShowAlert, shouldPlaySound } = parsedNotification || {};
 
+      const showAlert = shouldShowAlert === undefined ? true : shouldShowAlert;
+      const playSound = shouldPlaySound === undefined ? true : shouldPlaySound;
+
       return {
-        shouldShowAlert: isAlert && shouldShowAlert,
-        shouldPlaySound: isAlert && shouldPlaySound,
+        shouldShowAlert: isAlert && showAlert,
+        shouldPlaySound: isAlert && playSound,
         shouldSetBadge: isAlert,
       };
     },
