@@ -8,7 +8,7 @@ import { getDate } from '../../services/date';
 import { MEDIA_TYPES, UserMedia } from '../../store/modules/user/types';
 
 //  components
-import { CloseButton } from '../closeButton';
+// import { CloseButton } from '../closeButton';
 import { PhotoMedia, VideoMedia } from './modalMedias';
 
 //  styles
@@ -62,12 +62,12 @@ export const MediaModal: React.FC<MediaModalProps> = memo(
                   date={timestamp ? getDate(timestamp.slice(0, 16)) : ''}
                 />
               )}
-              <CloseButton
+              {/* <CloseButton
                 onPress={() => setIsVisible(false)}
                 styles={{
                   marginVertical: 20,
                 }}
-              />
+              /> */}
             </ModalContent>
           </ScrollView>
         </MediaModalBackground>
