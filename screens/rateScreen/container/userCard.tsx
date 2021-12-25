@@ -69,7 +69,7 @@ export const UserCard: React.FC<UserCardProps> = memo(
       >
         <CardContainer bottomTabHeight={bottomTabHeight} style={[cardStyle]}>
           <StyledImage
-            source={{ uri } || require('../../../assets/avatar.png')}
+            source={uri ? { uri } : require('../../../assets/instagram.png')}
           >
             <InfoContainer>
               <RowDataContainer>

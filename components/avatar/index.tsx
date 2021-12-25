@@ -14,8 +14,9 @@ interface AvatarProps {
 
 const Avatar: React.FC<AvatarProps> = ({ avatar, styles = {} }) => {
   return (
-    <UserAvatarContainer avatar={avatar} style={styles}>
+    <UserAvatarContainer style={styles}>
       <UserAvatar
+        avatar={avatar}
         resizeMode={avatar ? 'cover' : 'center'}
         source={
           avatar
