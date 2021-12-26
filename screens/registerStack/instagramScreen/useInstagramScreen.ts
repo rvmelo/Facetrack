@@ -118,7 +118,7 @@ function useInstagramScreen(): ReturnValue {
           });
       } catch (err) {
         isMounted.current && setIsLoading(false);
-        Alert.alert('Error', `${translate('userCreationError')}:${err}`);
+        Alert.alert('Error', translate('userCreationError'));
       }
     },
     [handleLocation, navigation, signUp, user],

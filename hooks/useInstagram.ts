@@ -183,6 +183,15 @@ function useInstagram(): ReturnType {
         return;
       }
 
+      if (error?.response?.status === 429) {
+        Alert.alert(
+          'Error',
+          'You have exceeded the limit on the number of calls to instagram',
+        );
+        dispatch(updateUserLoadState(false));
+        return;
+      }
+
       dispatch(updateUserLoadState(false));
       Alert.alert('Error', `${translate('instagramRefreshFailed')}`, [
         {

@@ -36,7 +36,7 @@ export function useList(): ReturnType {
   const handleUsersRequest = useCallback(async () => {
     try {
       setIsLoading(true);
-      const response: AxiosResponse<IUser[]> = await api.get(`/users`);
+      const response: AxiosResponse<IUser[]> = await api.get('/users');
 
       const auxList = response.data.map((data: IUser) => {
         return {

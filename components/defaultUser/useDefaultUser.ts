@@ -75,7 +75,10 @@ export function useDefaultUser(): ReturnType {
       } catch (err) {
         const error = err as AxiosError;
 
-        if (error?.response?.status === 401) {
+        if (
+          error?.response?.status === 401 ||
+          error?.response?.status === 500
+        ) {
           return;
         }
 
