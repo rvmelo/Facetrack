@@ -92,6 +92,8 @@ export default {
   //  Instagram Hook
   instagramRequestFailed: 'This app failed to request instagram permissions',
   instagramRefreshFailed: 'You need to renew your instagram permissions.',
+  instagramLimitExceeded:
+    'You have exceeded the limit on the number of calls to instagram.',
   yes: 'Yes',
   no: 'No',
 

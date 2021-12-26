@@ -96,6 +96,8 @@ export default {
   instagramRequestFailed:
     'Esse aplicativo falhou ao requisitar permissões do instagram',
   instagramRefreshFailed: 'Você precisa renovar suas permissões do instagram.',
+  instagramLimitExceeded:
+    'Você excedeu o limite do número de chamadas ao instagram.',
   yes: 'Sim',
   no: 'Não',
 
