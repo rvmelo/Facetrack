@@ -41,7 +41,8 @@ export const ButtonContainer = styled.View`
   justify-content: center;
   margin: 10px 20px;
   overflow: hidden;
-  padding: 10px;
+  padding: 0 10px;
+  height: 40px;
 `;
 
 export const ButtonText = styled.Text`

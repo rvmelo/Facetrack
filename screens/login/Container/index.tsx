@@ -2,6 +2,9 @@ import React, { memo } from 'react';
 import LoginButton from './loginButton';
 import useLoginButton from '../useLoginButton';
 
+// constants
+import { SCREEN_WIDTH } from '../../../constants/dimensions';
+
 // i18n
 import { translate } from '../../../i18n/src/locales';
 
@@ -12,8 +15,11 @@ import {
   TitleContainer,
   StyledSubTitle,
   StyledSpinner,
-  StyledImage,
+  SVGContainer,
 } from './styles';
+
+//  SVG
+import { FinderLogo } from '../../../components/svg/finder-logo';
 
 const LoginScreen: React.FC = () => {
   const { handleFacebookLogin, handleGoogleLogin, isLoading } =
@@ -31,9 +37,9 @@ const LoginScreen: React.FC = () => {
               An app for tracking and rating social profiles
             </StyledSubTitle>
           </TitleContainer>
-          <StyledImage
-            source={require('../../../assets/images/adaptive-icon.png')}
-          />
+          <SVGContainer>
+            <FinderLogo width={SCREEN_WIDTH / 3} height={SCREEN_WIDTH / 3} />
+          </SVGContainer>
           <ButtonsContainer>
             <LoginButton
               logoText="logo-facebook"

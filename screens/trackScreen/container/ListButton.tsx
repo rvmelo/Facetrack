@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ListButtonContainer, ButtonText, TouchableInterface } from './styles';
+import { ListButtonContainer, ScreenText, TouchableInterface } from './styles';
 
 //  i18n
 import { translate } from '../../../i18n/src/locales';
@@ -13,7 +13,7 @@ export const ListButton: React.FC<ListButtonProps> = ({ onPress }) => {
   return (
     <TouchableInterface onPress={onPress}>
       <ListButtonContainer>
-        <ButtonText>{translate('close')}</ButtonText>
+        <ScreenText>{translate('close')}</ScreenText>
       </ListButtonContainer>
     </TouchableInterface>
   );

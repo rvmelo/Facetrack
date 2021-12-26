@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 import { TouchableNativeFeedback } from 'react-native';
 import Colors from '../../../constants/colors';
-import { SCREEN_WIDTH } from '../../../constants/dimensions';
 import { fonts } from '../../../constants/fonts';
 
 interface ButtonContainerProps {
@@ -21,9 +20,7 @@ export const Container = styled.View`
   align-items: center;
 `;
 
-export const StyledImage = styled.ImageBackground`
-  width: ${SCREEN_WIDTH / 2}px;
-  height: ${SCREEN_WIDTH / 2}px;
+export const SVGContainer = styled.View`
   margin: 30px 0;
 `;
 

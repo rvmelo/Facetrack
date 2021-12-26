@@ -14,6 +14,7 @@ import {
   TouchableInterface,
   Container,
   TrackButtonContainer,
+  TrackButtonText,
   ScreenText,
 } from './styles';
 
@@ -56,10 +57,14 @@ export const TrackScreen: React.FC = () => {
         />
         <TouchableInterface onPress={() => setIsVisible(true)}>
           <TrackButtonContainer>
-            <Ionicons name="md-location" size={40} color={Colors.accent} />
+            <Ionicons
+              name="md-location-outline"
+              size={25}
+              color={Colors.accent}
+            />
+            <TrackButtonText>{translate('track')}</TrackButtonText>
           </TrackButtonContainer>
         </TouchableInterface>
-        <ScreenText>{translate('track')}</ScreenText>
       </Container>
       <ModalComponent
         users={users}

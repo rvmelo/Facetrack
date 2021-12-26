@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Container, EmptyScreenText } from './styles';
+import { Container, ScreenText } from './styles';
 
 export const EmptyComponent: React.FC = () => {
   return (
     <Container>
-      <EmptyScreenText>No users found</EmptyScreenText>
+      <ScreenText>No users found</ScreenText>
     </Container>
   );
 };

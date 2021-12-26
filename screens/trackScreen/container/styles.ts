@@ -49,18 +49,6 @@ export const ListButtonContainer = styled.View`
   padding: 10px;
 `;
 
-export const ButtonText = styled.Text`
-  font-size: ${fonts.sizes.md}px;
-  font-family: ${fonts.family};
-  color: ${Colors.accent};
-`;
-
-export const EmptyScreenText = styled.Text`
-  font-size: ${fonts.sizes.md}px;
-  font-family: ${fonts.family};
-  color: ${Colors.accent};
-`;
-
 export const ScreenText = styled.Text`
   font-size: ${fonts.sizes.md}px;
   font-family: ${fonts.family};
@@ -76,15 +64,22 @@ export const Container = styled.View`
 `;
 
 export const TrackButtonContainer = styled.View`
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
-  border-color: ${Colors.accent};
-  border-width: 1px;
-  align-items: center;
+  background: ${Colors.primary};
+  flex-direction: row;
+  padding: 0 10px;
+  margin: 20px 0;
+  border-radius: 5px;
   justify-content: center;
+  align-items: center;
+  height: 40px;
   overflow: hidden;
-  margin-bottom: 20px;
+`;
+
+export const TrackButtonText = styled.Text`
+  color: ${Colors.accent};
+  font-family: ${fonts.family};
+  font-size: ${fonts.sizes.md}px;
+  margin-left: 5px;
 `;
 
 //  modal
