@@ -47,6 +47,7 @@ export const EmptyContainer = styled.View`
 //  profile scroll
 export const EmptyPhotoContainer = styled.View`
   flex: 1;
+  width: ${SCREEN_WIDTH}px;
   align-items: center;
   justify-content: center;
   background-color: ${Colors.background};

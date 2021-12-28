@@ -75,7 +75,7 @@ export const TouchableIcon = styled.TouchableWithoutFeedback``;
 // rate modal
 export const ModalBackground = styled.View`
   flex: 1;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.9);
 `;
