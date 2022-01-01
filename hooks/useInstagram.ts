@@ -130,14 +130,7 @@ function useInstagram(): ReturnType {
 
     const previousDate = new Date(typeof date === 'string' ? date : '');
 
-    if (!date) {
-      await AsyncStorage.setItem(
-        instagramRequestDateKey(user.userProviderId),
-        new Date().toISOString(),
-      );
-
-      return true;
-    }
+    if (!date) return true;
 
     return (
       !!date &&

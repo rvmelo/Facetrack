@@ -28,6 +28,17 @@ export function useLocation(): void {
 
   // const backgroundTask = 'TRACK-USER';
 
+  const handleLocationRequest = useCallback(async () => {
+    const foregroundRequest =
+      await Location.requestForegroundPermissionsAsync();
+
+    if (foregroundRequest.status !== 'granted') {
+      Alert.alert('Error', translate('foregroundTrackingError'), [
+        { text: 'Ok', onPress: () => signOut() },
+      ]);
+    }
+  }, [signOut]);
+
   const onPermissionsCheck = useCallback(async () => {
     const { status: foregroundStatus } =
       await Location.getForegroundPermissionsAsync();
@@ -37,10 +48,10 @@ export function useLocation(): void {
 
     if (foregroundStatus !== 'granted') {
       Alert.alert('Error', translate('locationPermissionError'), [
-        { text: 'Ok', onPress: () => signOut() },
+        { text: 'Ok', onPress: () => handleLocationRequest() },
       ]);
     }
-  }, [signOut]);
+  }, [handleLocationRequest]);
 
   const onForegroundUpdate = useCallback(async () => {
     Location.watchPositionAsync(
@@ -97,10 +108,7 @@ export function useLocation(): void {
             return;
           }
 
-          Alert.alert(
-            'Error',
-            `${translate('foregroundTrackingError')}: ${err}`,
-          );
+          Alert.alert('Error', translate('foregroundTrackingError'));
         }
       },
     );

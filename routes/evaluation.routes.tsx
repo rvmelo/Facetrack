@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import * as Location from 'expo-location';
+
 //  navigation
 import { useNavigation } from '@react-navigation/native';
 
@@ -32,6 +34,11 @@ const EvaluationRoutes: React.FC = () => {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', async () => {
+      const { status: foregroundStatus } =
+        await Location.getForegroundPermissionsAsync();
+
+      if (foregroundStatus !== 'granted') return;
+
       const shouldRefresh = await shouldRefreshInstagram();
       if (shouldRefresh) handleInstagramRefresh();
     });
