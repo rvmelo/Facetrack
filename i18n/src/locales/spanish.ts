@@ -152,11 +152,13 @@ export default {
 
   // intro translations
   rateUserIntro:
-    'En esta pantalla, puede calificar usuarios aleatorios de 1 a 5 estrellas. También es posible ver el Instagram del usuario. En el perfil del usuario, puede dejar una calificación con un mensaje opcional. En caso de que desee saltar o volver a un perfil, utilice las flechas.',
+    'En esta pantalla, puede calificar usuarios aleatorios de 1 a 5 estrellas. En caso de que desee saltar o volver a un perfil, utilice las flechas.',
   trackingScreenIntro:
     'Esta pantalla le permite rastrear a los usuarios cercanos. Simplemente seleccione una distancia entre 100 y 1000 metros. Una vez que rastrea a los usuarios desde cierta distancia, puede ver sus perfiles y calificarlos.',
   profileStarIntro:
     'En esta pantalla puede presionar el ícono de estrella para verificar las evaluaciones recibidas de otros usuarios.',
   profileEvaluationsIntro:
     'Las evaluaciones con un icono contienen mensajes destinados a usted. Una vez que lo presione, se mostrará el mensaje.',
+  randomUserIntro:
+    'En esta pantalla puede calificar el perfil de usuario con un mensaje opcional.',
 };

@@ -154,11 +154,13 @@ export default {
 
   // intro translations
   rateUserIntro:
-    'Nesta tela, você pode classificar usuários aleatórios de 1 a 5 estrelas. Também é possível visualizar o Instagram do usuário. No perfil do usuário, você pode deixar uma avaliação com uma mensagem opcional. Caso queira pular ou voltar para um perfil basta usar as setas.',
+    'Nesta tela, você pode classificar usuários aleatórios de 1 a 5 estrelas. Caso queira pular ou voltar para um perfil basta usar as setas.',
   trackingScreenIntro:
     'Esta tela permite que você rastreie usuários próximos. Basta selecionar uma distância entre 100 e 1000 metros. Depois de rastrear usuários de uma certa distância, você pode ver seus perfis e avaliá-los.',
   profileStarIntro:
     'Nesta tela você pode pressionar o ícone da estrela para verificar as avaliações recebidas de outros usuários.',
   profileEvaluationsIntro:
     'Avaliações com um ícone contêm mensagens destinadas a você. Depois de pressioná-lo, a mensagem será exibida.',
+  randomUserIntro:
+    'Nessa tela você pode avaliar o perfil do usuário com uma mensagem opcional.',
 };

@@ -12,17 +12,17 @@ import { ModalButton } from './modaButton';
 interface IntroProps {
   text: string;
   iconName:
-    | 'md-locate'
+    | 'md-mail'
     | 'md-person'
     | 'md-location'
     | 'md-open'
     | 'md-star-outline';
   introKey:
-    | 'isTrackingOptionsFirstLaunch'
     | 'isTrackingScreenFirstLaunch'
     | 'isRateUserFirstLaunch'
     | 'isProfileStarFirstLaunch'
-    | 'isProfileEvaluationsFirstLaunch';
+    | 'isProfileEvaluationsFirstLaunch'
+    | 'isRandomUserFirstLaunch';
 }
 
 export const IntroModal: React.FC<IntroProps> = memo(

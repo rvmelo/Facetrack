@@ -3,6 +3,9 @@ import { ListRenderItem, ScrollView } from 'react-native';
 
 import { MEDIA_TYPES, UserMedia } from '../../../store/modules/user/types';
 
+//  i18n
+import { translate } from '../../../i18n/src/locales';
+
 // components
 import { VideoItem, PhotoItem } from '../../../components/profileItems/items';
 import PhotoScroll from '../../../components/profileItems/photoScroll';
@@ -10,6 +13,7 @@ import { RateModal } from '../../../components/profileItems/rateModal';
 import { MediaModal } from '../../../components/profileItems/mediaModal';
 import { EvaluationList } from '../../../components/profileItems/evaluationList';
 import { EvaluationModal } from '../../../components/profileItems/evaluationModal';
+import { IntroModal } from '../../../components/introModal';
 
 // hooks
 import { useMediaModal } from '../../../components/profileItems/hooks/useMediaModal';
@@ -110,6 +114,11 @@ export const RandomUserScreen: React.FC = memo(() => {
         media={media}
         imgHeight={imgHeight}
         instagram={user?.instagram?.userName}
+      />
+      <IntroModal
+        iconName="md-mail"
+        text={translate('randomUserIntro')}
+        introKey="isRandomUserFirstLaunch"
       />
     </>
   );

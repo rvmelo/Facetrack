@@ -150,11 +150,13 @@ export default {
 
   // intro translations
   rateUserIntro:
-    "On this screen, you can rate random users from 1 to 5 stars. It is also possible to view the user's Instagram. On the user's profile, you can leave a rating with an optional message. In case you want to skip or go back to a profile just use the arrows.",
+    'On this screen, you can rate random users from 1 to 5 stars. In case you want to skip or go back to a profile just use the arrows.',
   trackingScreenIntro:
     'This screen allows you to track nearby users. Simply select a distance between 100 and 1000 meters. Once you track users from a certain distance, you can view their profiles and rate them.',
   profileStarIntro:
     'On this screen you can press the star icon to check evaluations received from other users.',
   profileEvaluationsIntro:
     'Evaluations with an icon contain messages intended for you. Once you press on it, the message will be displayed.',
+  randomUserIntro:
+    'On this screen you can rate the user profile with an optional message.',
 };
