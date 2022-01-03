@@ -108,9 +108,10 @@ export default {
   trackingUsersError: 'Failed on tracking users',
 
   //  tracking option screen
-  trackInfoLabel: 'Choose your tracking option',
-  randomTrack: 'Track random users',
-  trackByDistance: 'Track users by distance',
+  trackInfoLabel:
+    'Find and rate Instagram profiles around the world or nearby you',
+  randomTrack: 'Find random users',
+  trackByDistance: 'Find users by distance',
 
   //  search screen
   searchUsers: 'Search users',
@@ -150,8 +151,6 @@ export default {
   // intro translations
   rateUserIntro:
     "On this screen, you can rate random users from 1 to 5 stars. It is also possible to view the user's Instagram. On the user's profile, you can leave a rating with an optional message. In case you want to skip or go back to a profile just use the arrows.",
-  trackingOptionsIntro:
-    'On this screen, you can choose between two tracking options. If you choose the first option, you can track random users in this app. The second option has a Watch Dogs feel to it and allows you to track users near you.',
   trackingScreenIntro:
     'This screen allows you to track nearby users. Simply select a distance between 100 and 1000 meters. Once you track users from a certain distance, you can view their profiles and rate them.',
   profileStarIntro:

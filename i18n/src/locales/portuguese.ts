@@ -112,9 +112,10 @@ export default {
   trackingUsersError: 'Falha ao rastrear usuários',
 
   //  tracking option screen
-  trackInfoLabel: 'Escolha seu modo de rastreio',
-  randomTrack: 'Rastrear usuários aleatórios',
-  trackByDistance: 'Rastrear usuários por distância',
+  trackInfoLabel:
+    'Encontre e avalie perfis de Instagram ao redor do mundo ou próximos a você',
+  randomTrack: 'Buscar usuários aleatórios',
+  trackByDistance: 'Buscar usuários por distância',
 
   //  search screen
   searchUsers: 'Pesquisar usuários',
@@ -154,8 +155,6 @@ export default {
   // intro translations
   rateUserIntro:
     'Nesta tela, você pode classificar usuários aleatórios de 1 a 5 estrelas. Também é possível visualizar o Instagram do usuário. No perfil do usuário, você pode deixar uma avaliação com uma mensagem opcional. Caso queira pular ou voltar para um perfil basta usar as setas.',
-  trackingOptionsIntro:
-    'Nesta tela, você pode escolher entre duas opções de rastreamento. Se você escolher a primeira opção, poderá rastrear usuários aleatórios neste aplicativo. A segunda opção passa uma vibe de Watch Dogs e permite que você rastreie usuários próximos a você.',
   trackingScreenIntro:
     'Esta tela permite que você rastreie usuários próximos. Basta selecionar uma distância entre 100 e 1000 metros. Depois de rastrear usuários de uma certa distância, você pode ver seus perfis e avaliá-los.',
   profileStarIntro:

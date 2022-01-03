@@ -20,6 +20,7 @@ export const IconContainer = styled.View`
 export const IconText = styled.Text`
   font-size: ${fonts.sizes.md}px;
   font-family: ${fonts.family};
+  text-align: center;
   color: ${Colors.accent};
 `;
 
