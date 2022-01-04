@@ -30,7 +30,9 @@ export const ListItem: React.FC<ListItemProps> = ({
 }) => {
   const navigation = useNavigation<NavigationProps>();
 
-  const instagram = user?.instagram?.userName;
+  const instagram = user?.instagram?.userName ? user?.instagram?.userName : '';
+
+  const sizeLimit = 10;
 
   return (
     <TouchableInterface
@@ -43,7 +45,14 @@ export const ListItem: React.FC<ListItemProps> = ({
     >
       <ItemContainer height={height}>
         <Avatar avatar={user?.avatar} />
-        {instagram && <ItemText>@{instagram}</ItemText>}
+        {instagram && (
+          <ItemText>
+            @
+            {instagram.length <= sizeLimit
+              ? instagram
+              : `${instagram.substring(0, sizeLimit)}...`}
+          </ItemText>
+        )}
       </ItemContainer>
     </TouchableInterface>
   );

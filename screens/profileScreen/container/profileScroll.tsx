@@ -2,6 +2,9 @@
 import React, { memo } from 'react';
 import { FlatList, ListRenderItem, ScrollView } from 'react-native';
 
+//  styles
+import { FlatListContainer } from './styles';
+
 //  redux
 import { IUser, UserMedia } from '../../../store/modules/user/types';
 
@@ -64,14 +67,16 @@ export const ProfileScroll: React.FC<PhotoScrollProps> = memo(
           scrollEnabled={false}
           horizontal
         >
-          <FlatList
-            data={Array.isArray(userMedia) ? userMedia : []}
-            ListEmptyComponent={ListEmptyComponent}
-            renderItem={renderItem}
-            keyExtractor={photo => photo.id}
-            numColumns={3}
-            showsVerticalScrollIndicator={false}
-          />
+          <FlatListContainer>
+            <FlatList
+              data={Array.isArray(userMedia) ? userMedia : []}
+              ListEmptyComponent={ListEmptyComponent}
+              renderItem={renderItem}
+              keyExtractor={photo => photo.id}
+              numColumns={3}
+              showsVerticalScrollIndicator={false}
+            />
+          </FlatListContainer>
           <EvaluationList
             setModalUser={setModalUser}
             setEvaluation={setEvaluation}

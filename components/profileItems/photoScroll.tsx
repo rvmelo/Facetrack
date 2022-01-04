@@ -13,7 +13,11 @@ import { UserMedia } from '../../store/modules/user/types';
 import Colors from '../../constants/colors';
 
 //  styles
-import { EmptyPhotoContainer, PhotoContainerText } from './styles';
+import {
+  EmptyPhotoContainer,
+  FlatListContainer,
+  PhotoContainerText,
+} from './styles';
 
 interface PhotoScrollProps {
   userMedia: UserMedia[] | undefined;
@@ -24,13 +28,15 @@ const PhotoScroll: React.FC<PhotoScrollProps> = ({ userMedia, renderItem }) => {
   return (
     <>
       {Array.isArray(userMedia) && userMedia.length !== 0 ? (
-        <FlatList
-          data={Array.isArray(userMedia) ? userMedia : []}
-          renderItem={renderItem}
-          keyExtractor={photo => photo.id}
-          numColumns={3}
-          showsVerticalScrollIndicator={false}
-        />
+        <FlatListContainer>
+          <FlatList
+            data={Array.isArray(userMedia) ? userMedia : []}
+            renderItem={renderItem}
+            keyExtractor={photo => photo.id}
+            numColumns={3}
+            showsVerticalScrollIndicator={false}
+          />
+        </FlatListContainer>
       ) : (
         <EmptyPhotoContainer>
           <Ionicons name="md-camera" size={40} color={Colors.accent} />

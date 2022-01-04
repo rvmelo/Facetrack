@@ -59,3 +59,7 @@ export const PhotoContainerText = styled.Text`
   text-align: center;
   color: ${Colors.accent};
 `;
+
+export const FlatListContainer = styled.View`
+  width: ${SCREEN_WIDTH}px;
+`;

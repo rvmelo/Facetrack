@@ -33,6 +33,10 @@ export const EmptyPhotoContainer = styled.View`
   background-color: ${Colors.background};
 `;
 
+export const FlatListContainer = styled.View`
+  width: ${SCREEN_WIDTH}px;
+`;
+
 export const PhotoContainerText = styled.Text`
   font-size: ${fonts.sizes.lg}px;
   font-family: ${fonts.family};
