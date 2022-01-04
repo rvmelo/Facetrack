@@ -98,6 +98,9 @@ export default {
   no: 'No',
 
   //  track screen
+  trackScreenTitle: 'Choose a distance',
+  trackScreenInfo:
+    'Choose a distance between 100 and 1000 meters and track nearby users',
   trackDistance: 'Distance in meters',
   track: 'Track',
   nearbyUsers: 'Nearby users',
@@ -108,6 +111,7 @@ export default {
   trackingUsersError: 'Failed on tracking users',
 
   //  tracking option screen
+  trackInfoTitle: 'Choose your search method',
   trackInfoLabel:
     'Find and rate Instagram profiles around the world or nearby you',
   randomTrack: 'Find random users',
@@ -151,8 +155,6 @@ export default {
   // intro translations
   rateUserIntro:
     'On this screen, you can rate random users from 1 to 5 stars. In case you want to skip or go back to a profile just use the arrows.',
-  trackingScreenIntro:
-    'This screen allows you to track nearby users. Simply select a distance between 100 and 1000 meters. Once you track users from a certain distance, you can view their profiles and rate them.',
   profileStarIntro:
     'On this screen you can press the star icon to check evaluations received from other users.',
   profileEvaluationsIntro:

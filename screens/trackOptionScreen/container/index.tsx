@@ -13,7 +13,13 @@ import { OptionButton } from './optionButton';
 import Colors from '../../../constants/colors';
 
 //  components
-import { ButtonsContainer, Container, IconContainer, IconText } from './styles';
+import {
+  ButtonsContainer,
+  Container,
+  IconContainer,
+  IconText,
+  SmallIconText,
+} from './styles';
 import { EvaluationStackParamList } from '../../../routes/types';
 
 type NavigationProps = StackNavigationProp<
@@ -28,7 +34,8 @@ export const TrackOptionScreen: React.FC = () => {
     <Container>
       <IconContainer>
         <Ionicons name="md-location" size={150} color={Colors.primary} />
-        <IconText>{translate('trackInfoLabel')}</IconText>
+        <IconText>{translate('trackInfoTitle')}</IconText>
+        <SmallIconText>{translate('trackInfoLabel')}</SmallIconText>
       </IconContainer>
       <ButtonsContainer>
         <OptionButton

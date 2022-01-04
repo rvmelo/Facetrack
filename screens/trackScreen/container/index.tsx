@@ -7,7 +7,6 @@ import Slider from '@react-native-community/slider';
 //  components
 import { useTrackScreen } from '../useTrackScreen';
 import { ModalComponent } from './modalComponent';
-import { IntroModal } from '../../../components/introModal';
 
 //  styles
 import {
@@ -16,6 +15,10 @@ import {
   TrackButtonContainer,
   TrackButtonText,
   ScreenText,
+  InfoText,
+  SmallInfoText,
+  InfoContainer,
+  InterfaceContainer,
 } from './styles';
 
 //  constants
@@ -41,30 +44,37 @@ export const TrackScreen: React.FC = () => {
   return (
     <>
       <Container>
-        <ScreenText>
-          {translate('trackDistance')}: {distance.toFixed(0)}
-        </ScreenText>
-        <Slider
-          style={{ width: 200, height: 40, marginVertical: 20 }}
-          minimumValue={100}
-          maximumValue={1000}
-          step={100}
-          thumbTintColor={Colors.primary}
-          minimumTrackTintColor={Colors.primary}
-          maximumTrackTintColor={Colors.accent}
-          onValueChange={value => setDistance(value)}
-          value={distance}
-        />
-        <TouchableInterface onPress={() => setIsVisible(true)}>
-          <TrackButtonContainer>
-            <Ionicons
-              name="md-location-outline"
-              size={25}
-              color={Colors.accent}
-            />
-            <TrackButtonText>{translate('track')}</TrackButtonText>
-          </TrackButtonContainer>
-        </TouchableInterface>
+        <InfoContainer>
+          <Ionicons name="md-locate" size={150} color={Colors.primary} />
+          <InfoText>{translate('trackScreenTitle')}</InfoText>
+          <SmallInfoText>{translate('trackScreenInfo')}</SmallInfoText>
+        </InfoContainer>
+        <InterfaceContainer>
+          <ScreenText>
+            {translate('trackDistance')}: {distance.toFixed(0)}
+          </ScreenText>
+          <Slider
+            style={{ width: 200, height: 40, marginVertical: 20 }}
+            minimumValue={100}
+            maximumValue={1000}
+            step={100}
+            thumbTintColor={Colors.primary}
+            minimumTrackTintColor={Colors.primary}
+            maximumTrackTintColor={Colors.accent}
+            onValueChange={value => setDistance(value)}
+            value={distance}
+          />
+          <TouchableInterface onPress={() => setIsVisible(true)}>
+            <TrackButtonContainer>
+              <Ionicons
+                name="md-location-outline"
+                size={25}
+                color={Colors.accent}
+              />
+              <TrackButtonText>{translate('track')}</TrackButtonText>
+            </TrackButtonContainer>
+          </TouchableInterface>
+        </InterfaceContainer>
       </Container>
       <ModalComponent
         users={users}
@@ -76,11 +86,6 @@ export const TrackScreen: React.FC = () => {
         onListEnd={onListEnd}
         setOnMomentumScrollBegin={setOnMomentumScrollBegin}
         distance={distance}
-      />
-      <IntroModal
-        iconName="md-location"
-        text={translate('trackingScreenIntro')}
-        introKey="isTrackingScreenFirstLaunch"
       />
     </>
   );

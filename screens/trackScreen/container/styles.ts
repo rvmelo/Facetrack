@@ -49,6 +49,34 @@ export const ListButtonContainer = styled.View`
   padding: 10px;
 `;
 
+export const InfoContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+`;
+
+export const InfoText = styled.Text`
+  font-size: ${fonts.sizes.md}px;
+  font-family: ${fonts.family};
+  text-align: center;
+  color: ${Colors.accent};
+`;
+
+export const SmallInfoText = styled.Text`
+  font-size: ${fonts.sizes.sm}px;
+  font-family: ${fonts.family};
+  color: ${Colors.disabled};
+  text-align: center;
+  margin: 5px;
+`;
+
+export const InterfaceContainer = styled.View`
+  flex: 1;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
 export const ScreenText = styled.Text`
   font-size: ${fonts.sizes.md}px;
   font-family: ${fonts.family};
@@ -58,8 +86,6 @@ export const ScreenText = styled.Text`
 //   index screen
 
 export const Container = styled.View`
-  align-items: center;
-  justify-content: center;
   height: 100%;
 `;
 
@@ -67,7 +93,6 @@ export const TrackButtonContainer = styled.View`
   background: ${Colors.primary};
   flex-direction: row;
   padding: 0 10px;
-  margin: 20px 0;
   border-radius: 5px;
   justify-content: center;
   align-items: center;

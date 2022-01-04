@@ -2,23 +2,22 @@ import React, { memo } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
+//  styles
 import { ModalBackground as IntroModalBackground, IntroText } from './styles';
+
+//  components
+import { ModalButton } from './modaButton';
+
+//  hooks
+import { useIntroModal } from './useIntroModal';
 
 //  constants
 import Colors from '../../constants/colors';
-import { useIntroModal } from './useIntroModal';
-import { ModalButton } from './modaButton';
 
 interface IntroProps {
   text: string;
-  iconName:
-    | 'md-mail'
-    | 'md-person'
-    | 'md-location'
-    | 'md-open'
-    | 'md-star-outline';
+  iconName: 'md-mail' | 'md-person' | 'md-open' | 'md-star-outline';
   introKey:
-    | 'isTrackingScreenFirstLaunch'
     | 'isRateUserFirstLaunch'
     | 'isProfileStarFirstLaunch'
     | 'isProfileEvaluationsFirstLaunch'

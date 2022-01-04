@@ -15,6 +15,7 @@ export const IconContainer = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
+  padding: 5px;
 `;
 
 export const IconText = styled.Text`
@@ -22,6 +23,14 @@ export const IconText = styled.Text`
   font-family: ${fonts.family};
   text-align: center;
   color: ${Colors.accent};
+`;
+
+export const SmallIconText = styled.Text`
+  font-size: ${fonts.sizes.sm}px;
+  font-family: ${fonts.family};
+  color: ${Colors.disabled};
+  text-align: center;
+  margin-top: 5px;
 `;
 
 export const ButtonsContainer = styled.View`

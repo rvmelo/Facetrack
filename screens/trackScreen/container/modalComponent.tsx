@@ -81,7 +81,7 @@ export const ModalComponent: React.FC<ModalComponentProps> = memo(
               <ListFooterComponent isLoading={isLoading} />
             )}
             keyExtractor={item => item.userProviderId}
-            numColumns={4}
+            numColumns={3}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{
               flex: users.length === 0 ? 1 : 0,

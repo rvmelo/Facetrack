@@ -102,6 +102,9 @@ export default {
   no: 'Não',
 
   //  track screen
+  trackScreenTitle: 'Selecione uma distância',
+  trackScreenInfo:
+    'Selecione uma distância entre 100 e 1000 metros e rastreie usuários próximos',
   trackDistance: 'Distância em metros',
   track: 'Rastrear',
   nearbyUsers: 'Usuários próximos',
@@ -112,6 +115,7 @@ export default {
   trackingUsersError: 'Falha ao rastrear usuários',
 
   //  tracking option screen
+  trackInfoTitle: 'Escolha seu modo de busca',
   trackInfoLabel:
     'Encontre e avalie perfis de Instagram ao redor do mundo ou próximos a você',
   randomTrack: 'Buscar usuários aleatórios',
@@ -155,8 +159,6 @@ export default {
   // intro translations
   rateUserIntro:
     'Nesta tela, você pode classificar usuários aleatórios de 1 a 5 estrelas. Caso queira pular ou voltar para um perfil basta usar as setas.',
-  trackingScreenIntro:
-    'Esta tela permite que você rastreie usuários próximos. Basta selecionar uma distância entre 100 e 1000 metros. Depois de rastrear usuários de uma certa distância, você pode ver seus perfis e avaliá-los.',
   profileStarIntro:
     'Nesta tela você pode pressionar o ícone da estrela para verificar as avaliações recebidas de outros usuários.',
   profileEvaluationsIntro:

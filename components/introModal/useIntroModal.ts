@@ -6,7 +6,6 @@ import { introMessagesKey } from '../../constants/storage';
 
 interface IntroProps {
   introKey:
-    | 'isTrackingScreenFirstLaunch'
     | 'isRateUserFirstLaunch'
     | 'isProfileStarFirstLaunch'
     | 'isProfileEvaluationsFirstLaunch'
