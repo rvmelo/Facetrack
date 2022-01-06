@@ -57,8 +57,8 @@ export const ListItem: React.FC<ListItemProps> = ({ height, user }) => {
       <ItemContainer height={height}>
         <Avatar avatar={avatar} />
         <TextContainer>
-          <Instagram>{instaName}</Instagram>
-          <UserName>{name}</UserName>
+          <Instagram numberOfLines={1}>{instaName}</Instagram>
+          <UserName numberOfLines={1}>{name}</UserName>
         </TextContainer>
       </ItemContainer>
     </TouchableInterface>

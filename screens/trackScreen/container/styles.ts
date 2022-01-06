@@ -15,6 +15,7 @@ export const ItemContainer = styled.View<ItemContainerProps>`
   align-items: center;
   margin: 0 10px;
   height: ${props => props.height}px;
+  width: ${SCREEN_WIDTH * 0.28}px;
   overflow: hidden;
 `;
 

@@ -59,6 +59,7 @@ export const ItemContainer = styled.View<ItemContainerProps>`
 `;
 
 export const TextContainer = styled.View`
+  width: 70%;
   margin-left: 20px;
 `;
 

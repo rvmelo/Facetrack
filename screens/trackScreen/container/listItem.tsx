@@ -32,8 +32,6 @@ export const ListItem: React.FC<ListItemProps> = ({
 
   const instagram = user?.instagram?.userName ? user?.instagram?.userName : '';
 
-  const sizeLimit = 10;
-
   return (
     <TouchableInterface
       onPress={() => {
@@ -45,14 +43,7 @@ export const ListItem: React.FC<ListItemProps> = ({
     >
       <ItemContainer height={height}>
         <Avatar avatar={user?.avatar} />
-        {instagram && (
-          <ItemText>
-            @
-            {instagram.length <= sizeLimit
-              ? instagram
-              : `${instagram.substring(0, sizeLimit)}...`}
-          </ItemText>
-        )}
+        {instagram && <ItemText numberOfLines={1}>@{instagram}</ItemText>}
       </ItemContainer>
     </TouchableInterface>
   );
