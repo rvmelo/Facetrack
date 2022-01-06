@@ -129,7 +129,9 @@ export const InfoContainer = styled.View`
   align-items: center;
 `;
 
-export const RowDataContainer = styled.View``;
+export const RowDataContainer = styled.View`
+  width: ${SCREEN_WIDTH * 0.5}px;
+`;
 
 export const InfoRow = styled.View`
   flex-direction: row;

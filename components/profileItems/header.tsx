@@ -38,7 +38,7 @@ export const Header: React.FC<HeaderProps> = memo(
         <Avatar avatar={avatar} />
       )}
       <HeaderInfoContainer>
-        <HeaderText>{name}</HeaderText>
+        <HeaderText numberOfLines={1}>{name}</HeaderText>
         {rate ? <StyledText>{rate}</StyledText> : <StyledText>0.00</StyledText>}
       </HeaderInfoContainer>
     </HeaderContainer>

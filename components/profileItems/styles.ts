@@ -197,6 +197,7 @@ export const HeaderContainer = styled.View`
 `;
 
 export const HeaderInfoContainer = styled.View`
+  width: ${SCREEN_WIDTH * 0.6}px;
   margin-left: 10px;
 `;
 

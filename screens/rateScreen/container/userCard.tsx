@@ -68,8 +68,6 @@ export const UserCard: React.FC<UserCardProps> = memo(
       ? user?.instagram?.userName
       : '';
 
-    const sizeLimit = 15;
-
     return (
       <TouchableCard
         onPress={() => navigation.navigate('RandomUserScreen', { user })}
@@ -82,19 +80,11 @@ export const UserCard: React.FC<UserCardProps> = memo(
               <RowDataContainer>
                 <InfoRow>
                   <Ionicons name="md-person" color={Colors.accent} />
-                  <ImageText>
-                    {userName.length <= sizeLimit
-                      ? userName
-                      : `${userName.substring(0, sizeLimit)}...`}
-                  </ImageText>
+                  <ImageText numberOfLines={1}>{userName}</ImageText>
                 </InfoRow>
                 <InfoRow>
                   <Ionicons name="md-logo-instagram" color={Colors.accent} />
-                  <ImageText>
-                    {instagram?.length <= sizeLimit
-                      ? instagram
-                      : `${instagram.substring(0, sizeLimit)}...`}
-                  </ImageText>
+                  <ImageText numberOfLines={1}>{instagram}</ImageText>
                 </InfoRow>
               </RowDataContainer>
               <IconButtonContainer>
