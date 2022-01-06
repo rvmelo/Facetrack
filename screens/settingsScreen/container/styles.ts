@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 
 //  constants
 import Colors from '../../../constants/colors';
+import { SCREEN_WIDTH } from '../../../constants/dimensions';
 import { fonts } from '../../../constants/fonts';
 
 interface DeleteButtonLayoutProps {
@@ -40,7 +41,7 @@ export const DeleteButtonLayout = styled.View<DeleteButtonLayoutProps>`
   justify-content: center;
   align-items: center;
   height: 40px;
-  width: 350px;
+  width: ${SCREEN_WIDTH * 0.8}px;
   overflow: hidden;
 `;
 
@@ -51,31 +52,35 @@ export const ButtonText = styled.Text`
   margin-left: 5px;
 `;
 
-export const ItemContainer = styled.View`
-  flex-direction: row;
-  width: 350px;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-export const LogoutContainer = styled.View`
-  flex-direction: row;
-  width: 350px;
-`;
-
 export const SettingsWrapper = styled.View`
   flex: 1;
+  width: ${SCREEN_WIDTH}px;
   justify-content: space-between;
   margin-bottom: 50px;
 `;
 
 export const ItemsContainer = styled.View``;
 
+export const ItemContainer = styled.View`
+  flex-direction: row;
+  padding: 0 ${SCREEN_WIDTH * 0.1}px;
+  width: ${SCREEN_WIDTH}px;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export const ItemText = styled.Text`
   font-size: ${fonts.sizes.md}px;
   font-family: ${fonts.family};
   color: ${Colors.accent};
 `;
+
+export const LogoutContainer = styled.View`
+  flex-direction: row;
+  width: ${SCREEN_WIDTH}px;
+  padding: 0 ${SCREEN_WIDTH * 0.1}px;
+`;
+
 export const LogoutText = styled.Text`
   font-size: ${fonts.sizes.md}px;
   font-family: ${fonts.family};
