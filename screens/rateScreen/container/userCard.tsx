@@ -9,7 +9,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { EvaluationStackParamList } from '../../../routes/types';
 
 //  redux
-import { IUser } from '../../../store/modules/user/types';
+import { IUser, MEDIA_TYPES } from '../../../store/modules/user/types';
 
 //  i18n
 import { translate } from '../../../i18n/src/locales';
@@ -59,9 +59,11 @@ export const UserCard: React.FC<UserCardProps> = memo(
 
     const navigation = useNavigation<NavigationProps>();
 
-    const uri = user?.instagram?.userMedia
-      ? user?.instagram?.userMedia[0]?.media_url
-      : undefined;
+    const selectedUri = user?.instagram?.userMedia?.find(
+      media => media.media_type !== MEDIA_TYPES.video,
+    );
+
+    const uri = selectedUri ? selectedUri?.media_url : undefined;
 
     const userName = user?.name ? user?.name : '';
     const instagram = user?.instagram?.userName
