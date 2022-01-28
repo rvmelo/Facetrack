@@ -3,13 +3,13 @@ import React from 'react';
 //  navigation
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { EvaluationStackParamList } from '../../../routes/types';
+import { EvaluationStackParamList } from '../../../../routes/types';
 
 //  components
-import Avatar from '../../../components/avatar/index';
-import { IUser } from '../../../store/modules/user/types';
+import Avatar from '../../../../components/avatar/index';
+import { IUser } from '../../../../store/modules/user/types';
 
-import { ItemContainer, ItemText, TouchableInterface } from './styles';
+import { ItemContainer, ItemText, TouchableInterface } from '../styles';
 
 type NavigationProps = StackNavigationProp<
   EvaluationStackParamList,

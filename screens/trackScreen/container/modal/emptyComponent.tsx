@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container, ScreenText } from './styles';
+import { Container, ScreenText } from '../styles';
 
 export const EmptyComponent: React.FC = () => {
   return (

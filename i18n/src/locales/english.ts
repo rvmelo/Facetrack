@@ -99,8 +99,7 @@ export default {
 
   //  track screen
   trackScreenTitle: 'Choose a distance',
-  trackScreenInfo:
-    'Choose a distance between 100 and 1000 meters and track nearby users',
+  trackScreenInfo: 'Choose a distance and find users around you',
   trackDistance: 'Distance in meters',
   track: 'Track',
   nearbyUsers: 'Nearby users',
@@ -109,6 +108,9 @@ export default {
   userLoadingProfileError:
     'Failed to load user profile. Please, check your internet connection.',
   trackingUsersError: 'Failed on tracking users',
+  selectMetricUnit: 'Select a metric unit',
+  meters: 'Meters',
+  kilometers: 'Kilometers',
 
   //  tracking option screen
   trackInfoTitle: 'Choose your search method',

@@ -2,15 +2,16 @@ import React, { useCallback, useEffect, memo } from 'react';
 import { FlatList, ListRenderItem, Modal } from 'react-native';
 
 //  components
-import { ListFooterComponent } from '../../../components/listFooterComponent';
-import { IUser } from '../../../store/modules/user/types';
+import { ListFooterComponent } from '../../../../components/listFooterComponent';
+import { IUser } from '../../../../store/modules/user/types';
 import { EmptyComponent } from './emptyComponent';
 import { ListButton } from './ListButton';
 import { ListHeaderComponent } from './listHeaderComponent';
 import { ListItem } from './listItem';
 
 //  styles
-import { ItemSeparator, ModalView } from './styles';
+import { ItemSeparator, ModalView } from '../styles';
+import { metric_types } from '../../useTrackScreen';
 
 interface ModalComponentProps {
   users: IUser[];
@@ -24,6 +25,7 @@ interface ModalComponentProps {
   onRefresh: () => Promise<void>;
   onListEnd: () => Promise<void>;
   distance: number;
+  metric: metric_types;
 }
 
 export const ModalComponent: React.FC<ModalComponentProps> = memo(
@@ -37,6 +39,7 @@ export const ModalComponent: React.FC<ModalComponentProps> = memo(
     onListEnd,
     setOnMomentumScrollBegin,
     distance,
+    metric,
   }) => {
     const ITEM_HEIGHT = 100;
     const ITEM_SEPARATOR_HEIGHT = 20;
@@ -68,7 +71,7 @@ export const ModalComponent: React.FC<ModalComponentProps> = memo(
         onRequestClose={() => setIsVisible(false)}
       >
         <ModalView>
-          <ListHeaderComponent distance={distance} />
+          <ListHeaderComponent distance={distance} metric={metric} />
           <FlatList
             data={users}
             refreshing={isRefreshing}
