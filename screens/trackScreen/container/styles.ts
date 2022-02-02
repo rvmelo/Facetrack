@@ -51,10 +51,9 @@ export const ListButtonContainer = styled.View`
 `;
 
 export const InfoContainer = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
   padding: 5px;
+  align-items: center;
+  margin-bottom: 15px;
 `;
 
 export const InfoText = styled.Text`
@@ -72,10 +71,15 @@ export const SmallInfoText = styled.Text`
   margin: 5px;
 `;
 
-export const InterfaceContainer = styled.View`
+interface UIWrapperProps {
+  bottomTabHeight: number;
+}
+
+export const UIWrapper = styled.View<UIWrapperProps>`
   flex: 1;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
+  margin-bottom: ${props => props.bottomTabHeight}px;
 `;
 
 export const ScreenText = styled.Text`
@@ -135,4 +139,31 @@ export const ListHeaderText = styled.Text<ListHeaderTextProps>`
   font-family: ${fonts.family};
   color: ${Colors.accent};
   margin-top: 3px;
+`;
+
+export const MetricButtonInterface = styled.TouchableWithoutFeedback``;
+
+interface MetricButtonProps {
+  isActive?: boolean;
+}
+
+export const MetricButtonContainer = styled.View`
+  margin: 20px 0;
+  flex-direction: row;
+`;
+
+export const MetricButtonWrapper = styled.View<MetricButtonProps>`
+  width: 100px;
+  border-width: 1px;
+  border-color: ${props => (props.isActive ? Colors.primary : Colors.disabled)};
+  border-radius: 5px;
+  padding: 5px;
+  margin: 0 5px;
+`;
+
+export const MetricButtonText = styled.Text<MetricButtonProps>`
+  font-size: ${fonts.sizes.sm}px;
+  font-family: ${fonts.family};
+  color: ${props => (props.isActive ? Colors.accent : Colors.disabled)};
+  text-align: center;
 `;

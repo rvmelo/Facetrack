@@ -9,6 +9,8 @@ import { showToast } from '../../services/toast';
 //  i18n
 import { translate } from '../../i18n/src/locales';
 
+export type metric_types = 'km' | 'm';
+
 interface ReturnType {
   users: IUser[];
   // eslint-disable-next-line no-unused-vars
@@ -25,12 +27,17 @@ interface ReturnType {
   setOnMomentumScrollBegin: (onMomentumScrollBegin: boolean) => void;
   onRefresh: () => Promise<void>;
   onListEnd: () => Promise<void>;
+  metric: metric_types;
+  // eslint-disable-next-line no-unused-vars
+  setMetric: (value: metric_types) => void;
 }
 
 export function useTrackScreen(): ReturnType {
   const [users, setUsers] = useState<IUser[]>([]);
 
   const [distance, setDistance] = useState(100);
+
+  const [metric, setMetric] = useState<metric_types>('m');
 
   const [isVisible, setIsVisible] = useState(false);
 
@@ -57,8 +64,10 @@ export function useTrackScreen(): ReturnType {
 
       if (!isVisible) return;
 
+      const parsedDistance = metric === 'm' ? distance : distance * 1000;
+
       const response: AxiosResponse<IUser[]> = await api.get(
-        `users/track-user?distance=${distance}&page=1`,
+        `users/track-user?distance=${parsedDistance}&page=1`,
       );
 
       isMounted.current && setPage(1);
@@ -76,7 +85,7 @@ export function useTrackScreen(): ReturnType {
       isMounted.current && setIsRefreshing(false);
       showToast({ message: translate('trackingUsersError') });
     }
-  }, [distance, isVisible]);
+  }, [distance, isVisible, metric]);
 
   const onListEnd = useCallback(async () => {
     try {
@@ -84,8 +93,10 @@ export function useTrackScreen(): ReturnType {
 
       setIsLoading(true);
 
+      const parsedDistance = metric === 'm' ? distance : distance * 1000;
+
       const response: AxiosResponse<IUser[]> = await api.get(
-        `users/track-user?distance=${distance}&page=${page + 1}`,
+        `users/track-user?distance=${parsedDistance}&page=${page + 1}`,
       );
 
       isMounted.current && setIsLoading(false);
@@ -106,7 +117,7 @@ export function useTrackScreen(): ReturnType {
       isMounted.current && setOnMomentumScrollBegin(false);
       showToast({ message: translate('trackingUsersError') });
     }
-  }, [page, isLoading, onMomentumScrollBegin, distance]);
+  }, [page, isLoading, onMomentumScrollBegin, distance, metric]);
 
   return {
     users,
@@ -120,5 +131,7 @@ export function useTrackScreen(): ReturnType {
     setOnMomentumScrollBegin,
     onRefresh,
     onListEnd,
+    metric,
+    setMetric,
   };
 }

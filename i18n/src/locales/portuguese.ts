@@ -103,8 +103,7 @@ export default {
 
   //  track screen
   trackScreenTitle: 'Selecione uma distância',
-  trackScreenInfo:
-    'Selecione uma distância entre 100 e 1000 metros e rastreie usuários próximos',
+  trackScreenInfo: 'Selecione uma distância e encontre usuários ao seu redor',
   trackDistance: 'Distância em metros',
   track: 'Rastrear',
   nearbyUsers: 'Usuários próximos',
@@ -113,6 +112,9 @@ export default {
   userLoadingProfileError:
     'Falha ao carregar perfil de usuário. Por favor, cheque sua conexão com a internet.',
   trackingUsersError: 'Falha ao rastrear usuários',
+  selectMetricUnit: 'Selecione uma escala',
+  meters: 'Metros',
+  kilometers: 'Kilometros',
 
   //  tracking option screen
   trackInfoTitle: 'Escolha seu modo de busca',

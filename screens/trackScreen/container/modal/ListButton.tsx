@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { ListButtonContainer, ScreenText, TouchableInterface } from './styles';
+import { ListButtonContainer, ScreenText, TouchableInterface } from '../styles';
 
 //  i18n
-import { translate } from '../../../i18n/src/locales';
+import { translate } from '../../../../i18n/src/locales';
 
 interface ListButtonProps {
   onPress: () => void;
