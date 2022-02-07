@@ -20,7 +20,10 @@ import { IState } from '../../store';
 import { IUser, IUserState } from '../../store/modules/user/types';
 
 // constants
-import { notificationSettingsKey } from '../../constants/storage';
+import {
+  instagramTokenKey,
+  notificationSettingsKey,
+} from '../../constants/storage';
 
 //  services
 import { registerForPushNotificationsAsync } from '../../services/notification';
@@ -184,9 +187,14 @@ export function useNotifications(): ReturnValue {
       try {
         const notificationToken = await registerForPushNotificationsAsync();
 
+        const instagramToken = await AsyncStorage.getItem(
+          instagramTokenKey(user.userProviderId),
+        );
+
         await api.post('/permissions', {
           notificationToken,
           userProviderId: user?.userProviderId,
+          instagramToken,
         });
       } catch (err) {
         const error = err as AxiosError;

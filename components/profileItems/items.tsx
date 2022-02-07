@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Image } from 'react-native';
 import { Video } from 'expo-av';
 
 import { TouchableInterface, UserPhoto, VideoContainer } from './styles';
@@ -9,9 +10,23 @@ type ItemProps = {
 };
 
 export const PhotoItem: React.FC<ItemProps> = ({ media_url, onPress }) => {
+  const [isUrlExpired, setIsUrlExpired] = useState(false);
+
+  Image.getSize(
+    media_url,
+    () => setIsUrlExpired(false),
+    () => setIsUrlExpired(true),
+  );
+
   return (
-    <TouchableInterface onPress={onPress}>
-      <UserPhoto source={{ uri: media_url }} />
+    <TouchableInterface onPress={!isUrlExpired ? onPress : () => undefined}>
+      <UserPhoto
+        source={
+          !isUrlExpired
+            ? { uri: media_url }
+            : require('../../assets/instagram.png')
+        }
+      />
     </TouchableInterface>
   );
 };
@@ -19,7 +34,9 @@ export const PhotoItem: React.FC<ItemProps> = ({ media_url, onPress }) => {
 export const VideoItem: React.FC<ItemProps> = ({ media_url, onPress }) => {
   const videoRef = React.createRef<Video>();
 
-  return (
+  const [isUrlExpired, setIsUrlExpired] = useState(false);
+
+  return !isUrlExpired ? (
     <TouchableInterface onPress={onPress}>
       <VideoContainer>
         <Video
@@ -31,9 +48,14 @@ export const VideoItem: React.FC<ItemProps> = ({ media_url, onPress }) => {
           isMuted
           onLoad={() => videoRef?.current?.playAsync()}
           resizeMode="contain"
+          onError={() => setIsUrlExpired(true)}
           isLooping
         />
       </VideoContainer>
+    </TouchableInterface>
+  ) : (
+    <TouchableInterface onPress={() => undefined}>
+      <UserPhoto source={require('../../assets/instagram.png')} />
     </TouchableInterface>
   );
 };
