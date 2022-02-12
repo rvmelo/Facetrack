@@ -34,6 +34,7 @@ import { IconButton } from './iconButton';
 //  constants
 import Colors from '../../../constants/colors';
 import { ScrollProps } from '../useListActions';
+import { useCard } from '../useCard';
 
 type NavigationProps = StackNavigationProp<
   EvaluationStackParamList,
@@ -59,11 +60,16 @@ export const UserCard: React.FC<UserCardProps> = memo(
 
     const navigation = useNavigation<NavigationProps>();
 
-    const selectedUri = user?.instagram?.userMedia?.find(
+    const instagramPhoto = user?.instagram?.userMedia?.find(
       media => media.media_type !== MEDIA_TYPES.video,
     );
 
-    const uri = selectedUri ? selectedUri?.media_url : undefined;
+    const { selectedUri } = useCard({
+      instagramPhoto: instagramPhoto?.media_url
+        ? instagramPhoto?.media_url
+        : '',
+      avatar: user?.avatar,
+    });
 
     const userName = user?.name ? user?.name : '';
     const instagram = user?.instagram?.userName
@@ -76,7 +82,11 @@ export const UserCard: React.FC<UserCardProps> = memo(
       >
         <CardContainer bottomTabHeight={bottomTabHeight} style={[cardStyle]}>
           <StyledImage
-            source={uri ? { uri } : require('../../../assets/instagram.png')}
+            source={
+              selectedUri
+                ? { uri: selectedUri }
+                : require('../../../assets/instagram.png')
+            }
           >
             <InfoContainer>
               <RowDataContainer>
