@@ -54,7 +54,6 @@ export const ButtonLayout = styled.View`
   border-radius: 5px;
   justify-content: center;
   align-items: center;
-  height: 40px;
   overflow: hidden;
 `;
 
@@ -63,11 +62,11 @@ export const InstagramButtonLayout = styled.View<InstagramButtonLayoutProps>`
     props.primaryColor ? props.primaryColor : 'transparent'};
   flex-direction: row;
   padding: 10px;
-  margin-top: ${SCREEN_WIDTH / 3.5}px;
+  margin-top: ${SCREEN_WIDTH / 3.7}px;
+  margin-bottom: 10px;
   border-radius: 5px;
   justify-content: center;
   align-items: center;
-  height: 40px;
   overflow: hidden;
 `;
 
