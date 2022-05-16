@@ -73,7 +73,7 @@ function useLoginButton(): ReturnValue {
 
         isMounted.current && setIsLoading(true);
 
-        api.defaults.headers.authorization = `Bearer ${token}`;
+        api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
         if (notRegisteredUser !== 'undefined' && token) {
           const parsedUser = JSON.parse(notRegisteredUser);
@@ -118,11 +118,13 @@ function useLoginButton(): ReturnValue {
   const debounceHandleUserLogin = debounce();
 
   useEffect(() => {
-    Linking.addEventListener('url', debounceHandleUserLogin);
+    const unsubscribe = Linking.addEventListener(
+      'url',
+      debounceHandleUserLogin,
+    );
 
-    return () => {
-      Linking.removeEventListener('url', debounceHandleUserLogin);
-    };
+    return () => unsubscribe.remove();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

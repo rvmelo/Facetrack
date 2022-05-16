@@ -55,7 +55,7 @@ function useAuth(): ReturnValue {
 
     if (!token[1] || !user[1]) return;
 
-    api.defaults.headers.authorization = `Bearer ${token[1]}`;
+    api.defaults.headers.common.Authorization = `Bearer ${token[1]}`;
 
     const parsedUser = JSON.parse(user[1]);
 
@@ -76,7 +76,7 @@ function useAuth(): ReturnValue {
 
   const signIn = useCallback(
     async ({ token, user }) => {
-      api.defaults.headers.authorization = `Bearer ${token}`;
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
       await AsyncStorage.multiSet([
         [faceTrackTokenKey, token],
@@ -98,7 +98,7 @@ function useAuth(): ReturnValue {
 
       const { token } = response.data;
 
-      api.defaults.headers.authorization = `Bearer ${token}`;
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
       await AsyncStorage.multiSet([
         [faceTrackTokenKey, token],

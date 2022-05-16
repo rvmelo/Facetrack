@@ -120,7 +120,7 @@ function useInstagram(): ReturnType {
       }
     });
 
-    return unsubscribe;
+    return () => unsubscribe.remove();
   }, [dispatch, navigation, user]);
 
   const shouldRefreshInstagram = useCallback(async () => {
