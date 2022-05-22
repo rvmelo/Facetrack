@@ -1,11 +1,11 @@
 /* eslint-disable global-require */
-import React from 'react';
-import { StatusBar } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { StatusBar, View } from 'react-native';
 
 import { Provider } from 'react-redux';
 
-import AppLoading from 'expo-app-loading';
-import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import { loadAsync } from 'expo-font';
 
 import { NavigationContainer } from '@react-navigation/native';
 import store from './store';
@@ -16,13 +16,37 @@ import Routes from './routes';
 import Colors from './constants/colors';
 
 const App: React.FC = () => {
-  const [fontsLoaded] = useFonts({
-    matrix: require('./assets/fonts/Matrix.ttf'),
-    tegomin: require('./assets/fonts/NewTegomin-Regular.ttf'),
-  });
-  if (!fontsLoaded) {
-    return <AppLoading />;
+  const [appIsReady, setAppIsReady] = useState(false);
+
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await SplashScreen.preventAutoHideAsync();
+        await loadAsync({
+          matrix: require('./assets/fonts/Matrix.ttf'),
+          tegomin: require('./assets/fonts/NewTegomin-Regular.ttf'),
+        });
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+      }
+    }
+
+    prepare();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null;
   }
+
   return (
     <NavigationContainer
       theme={{
@@ -41,7 +65,9 @@ const App: React.FC = () => {
           backgroundColor={Colors.background}
           barStyle="light-content"
         />
-        <Routes />
+        <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+          <Routes />
+        </View>
       </Provider>
     </NavigationContainer>
   );

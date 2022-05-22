@@ -1,4 +1,4 @@
-import { Alert } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCallback, useEffect, useState, useRef } from 'react';
 
@@ -54,12 +54,31 @@ function useLoginButton(): ReturnValue {
     };
   }, []);
 
-  const handleFacebookLogin = useCallback(() => {
-    WebBrowser.openBrowserAsync(`${base_url}/sessions/auth/facebook`);
+  const handleFacebookLogin = useCallback(async () => {
+    let browserPackage: string | undefined;
+
+    if (Platform.OS === 'android') {
+      const tabsSupportingBrowsers =
+        await WebBrowser.getCustomTabsSupportingBrowsersAsync();
+      browserPackage = tabsSupportingBrowsers?.defaultBrowserPackage;
+    }
+
+    WebBrowser.openBrowserAsync(`${base_url}/sessions/auth/facebook`, {
+      browserPackage,
+    });
   }, []);
 
-  const handleGoogleLogin = useCallback(() => {
-    WebBrowser.openBrowserAsync(`${base_url}/sessions/auth/google`);
+  const handleGoogleLogin = useCallback(async () => {
+    let browserPackage: string | undefined;
+
+    if (Platform.OS === 'android') {
+      const tabsSupportingBrowsers =
+        await WebBrowser.getCustomTabsSupportingBrowsersAsync();
+      browserPackage = tabsSupportingBrowsers?.defaultBrowserPackage;
+    }
+    WebBrowser.openBrowserAsync(`${base_url}/sessions/auth/google`, {
+      browserPackage,
+    });
   }, []);
 
   const handleUserLogin = useCallback(
@@ -73,7 +92,7 @@ function useLoginButton(): ReturnValue {
 
         isMounted.current && setIsLoading(true);
 
-        api.defaults.headers.authorization = `Bearer ${token}`;
+        api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
         if (notRegisteredUser !== 'undefined' && token) {
           const parsedUser = JSON.parse(notRegisteredUser);
@@ -118,11 +137,13 @@ function useLoginButton(): ReturnValue {
   const debounceHandleUserLogin = debounce();
 
   useEffect(() => {
-    Linking.addEventListener('url', debounceHandleUserLogin);
+    const unsubscribe = Linking.addEventListener(
+      'url',
+      debounceHandleUserLogin,
+    );
 
-    return () => {
-      Linking.removeEventListener('url', debounceHandleUserLogin);
-    };
+    return () => unsubscribe.remove();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
