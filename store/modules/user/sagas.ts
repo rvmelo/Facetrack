@@ -45,41 +45,58 @@ function* handleUserUpdate({ payload }: UpdateUserRequest) {
   }
 }
 
+async function uploadAvatar(localAvatarUri: string) {
+  const fileType = localAvatarUri.substring(
+    localAvatarUri.lastIndexOf('.') + 1,
+  );
+
+  const formData = new FormData();
+
+  formData.append(
+    'avatar',
+    JSON.parse(
+      JSON.stringify({
+        uri: localAvatarUri,
+        type: `image/${fileType}`,
+        name: `photo.${fileType}`,
+      }),
+    ),
+  );
+
+  // This is because FormData is broken: https://stackoverflow.com/questions/71321756/react-native-expo-axios-file-upload-not-working-because-axios-is-not-sending
+  const response: AxiosResponse<IUser> = await api.patch(
+    '/users/avatar',
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      transformRequest: () => {
+        return formData; // this is doing the trick
+      },
+    },
+  );
+
+  return response;
+}
+
 function* handleAvatarUpdate({ payload }: UpdateAvatarRequest) {
   const localAvatarUri = payload;
 
   try {
     if (!localAvatarUri) return;
 
-    const fileType = localAvatarUri.substring(
-      localAvatarUri.lastIndexOf('.') + 1,
-    );
-
-    const data = new FormData();
-
-    data.append(
-      'avatar',
-      JSON.parse(
-        JSON.stringify({
-          uri: localAvatarUri,
-          type: `image/${fileType}`,
-          name: `photo.${fileType}`,
-        }),
-      ),
-    );
-
     yield put(updateAvatarLoading(true));
 
     const response: AxiosResponse<IUser> = yield call(
-      api.patch,
-      '/users/avatar',
-      data,
+      uploadAvatar,
+      localAvatarUri,
     );
 
-    yield call(StoreUser, response.data);
+    yield call(StoreUser, response?.data);
 
     yield put(updateAvatarLoading(false));
-    yield put(updateAvatarSuccess(response.data.avatar));
+    yield put(updateAvatarSuccess(response?.data?.avatar));
   } catch (err) {
     yield put(updateAvatarLoading(false));
     yield put(updateAvatarFailure());
