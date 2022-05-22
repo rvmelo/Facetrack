@@ -1,4 +1,4 @@
-import { Alert } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCallback, useEffect, useState, useRef } from 'react';
 
@@ -54,12 +54,31 @@ function useLoginButton(): ReturnValue {
     };
   }, []);
 
-  const handleFacebookLogin = useCallback(() => {
-    WebBrowser.openBrowserAsync(`${base_url}/sessions/auth/facebook`);
+  const handleFacebookLogin = useCallback(async () => {
+    let browserPackage: string | undefined;
+
+    if (Platform.OS === 'android') {
+      const tabsSupportingBrowsers =
+        await WebBrowser.getCustomTabsSupportingBrowsersAsync();
+      browserPackage = tabsSupportingBrowsers?.defaultBrowserPackage;
+    }
+
+    WebBrowser.openBrowserAsync(`${base_url}/sessions/auth/facebook`, {
+      browserPackage,
+    });
   }, []);
 
-  const handleGoogleLogin = useCallback(() => {
-    WebBrowser.openBrowserAsync(`${base_url}/sessions/auth/google`);
+  const handleGoogleLogin = useCallback(async () => {
+    let browserPackage: string | undefined;
+
+    if (Platform.OS === 'android') {
+      const tabsSupportingBrowsers =
+        await WebBrowser.getCustomTabsSupportingBrowsersAsync();
+      browserPackage = tabsSupportingBrowsers?.defaultBrowserPackage;
+    }
+    WebBrowser.openBrowserAsync(`${base_url}/sessions/auth/google`, {
+      browserPackage,
+    });
   }, []);
 
   const handleUserLogin = useCallback(

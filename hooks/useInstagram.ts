@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 
 //  redux
 import { useDispatch, useSelector } from 'react-redux';
-import { Alert } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import { IUserState, UserMedia } from '../store/modules/user/types';
 import {
   updateUserRequest,
@@ -183,12 +183,22 @@ function useInstagram(): ReturnType {
       }
 
       dispatch(updateUserLoadState(false));
+
+      let browserPackage: string | undefined;
+
+      if (Platform.OS === 'android') {
+        const tabsSupportingBrowsers =
+          await WebBrowser.getCustomTabsSupportingBrowsersAsync();
+        browserPackage = tabsSupportingBrowsers?.defaultBrowserPackage;
+      }
+
       Alert.alert('Error', `${translate('instagramRefreshFailed')}`, [
         {
           text: 'Ok',
           onPress: () =>
             WebBrowser.openBrowserAsync(
               `https://api.instagram.com/oauth/authorize?client_id=${instagram_client_id}&redirect_uri=${`${base_url}/sessions/auth/instagram/callback`}&scope=user_profile,user_media&response_type=code`,
+              { browserPackage },
             ),
         },
       ]);
